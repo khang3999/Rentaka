@@ -1,10 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Carrental" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Rentaka" parent="Theme.Material3.DayNight.NoActionBar">
 
     </style>
 
-    <style name="Theme.Carrental" parent="Base.Theme.Carrental" />
+    <style name="Theme.Carrental" parent="Base.Theme.Rentaka" />
 
     <style name="CustomOutlinedCallButton" parent="Widget.Material3.Button.OutlinedButton.Icon">
         <item name="android:textSize">@dimen/call_button</item>
