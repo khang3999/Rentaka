@@ -41,14 +41,6 @@
         android:layout_toEndOf="@id/titleTextView"
         android:src="@drawable/ic_edit_arrow" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/titleTextView"
-        android:layout_centerHorizontal="true"
-        android:elevation="8dp"
-        style="?android:attr/indeterminateProgressStyle"/>
 
   </RelativeLayout>
 
@@ -116,7 +108,7 @@
       <ImageView
           android:id="@+id/icon1"
           android:layout_width="40dp"
-          android:layout_height="wrap_content"
+          android:layout_height="60dp"
           android:src="@drawable/ic_luggage"
           android:layout_marginLeft="20dp"
           android:padding="10dp"
