@@ -20,4 +20,11 @@
     <string name="h_v_t_n">Họ và tên</string>
     <string name="x_c_nh_n">XÁC NHÂN</string>
     <string name="xac_nhan">Xác Nhận</string>
+    <string name="thi_t_l_p_m_t_kh_u">Thiết lập mật khẩu</string>
+    <string name="thi_t_l_p_m_t_kh_u_m_i">Thiết lập mật khẩu mới</string>
+    <string name="t_ng_t_nh_b_o_m_t_m_t_kh_u_n_n_c_ch_a_c_c_k_t_c_bi_t_c_ch_in_hoa_th_ng_v_k_m_ch_s">Để tăng tính bảo mật, mật khẩu nên có chứa các kí tự đặc biệt, có chữ in hoa, thường và kèm chữ số</string>
+    <string name="nh_p_m_t_kh_u_m_i">Nhập mật khẩu mới</string>
+    <string name="m_t_kh_u">Mật khẩu</string>
+    <string name="x_c_nh_n_m_t_kh_u">Xác nhận mật khẩu</string>
+    <string name="nh_p_l_i_m_t_kh_u_m_i">Nhập lại mật khẩu mới</string>
 </resources>

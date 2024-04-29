@@ -3,6 +3,7 @@ package vn.edu.tdc.rentaka.activities;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,5 +29,11 @@ public class DrivingLicenseActivity extends AppCompatActivity {
         binding.textNote.setText(Html.fromHtml(textNote, Html.FROM_HTML_MODE_COMPACT));
         binding.textGPLX.setText(Html.fromHtml(textGPLX, Html.FROM_HTML_MODE_COMPACT));
         binding.textNote2.setText(Html.fromHtml(textNote2, Html.FROM_HTML_MODE_COMPACT));
+        binding.leftImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

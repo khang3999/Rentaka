@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import vn.edu.tdc.rentaka.activities.ChangeThePasswordActivity;
 import vn.edu.tdc.rentaka.activities.DrivingLicenseActivity;
 import vn.edu.tdc.rentaka.activities.MainActivity;
 import vn.edu.tdc.rentaka.activities.MyAccountActivity;
@@ -113,7 +114,7 @@ public class PersonalProfileFragment extends Fragment {
             public void onClickListener(int position) {
                 switch (position) {
                     case 0:
-                        Intent intent = new Intent(requireActivity(), MyAccountActivity.class);
+                        Intent intent = new Intent(requireActivity(), ChangeThePasswordActivity.class);
                         startActivity(intent);
                         break;
                     default:
