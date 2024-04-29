@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">Rentaka</string>
+    <string name="app_name">car-rental</string>
+    <string name="support_contact">Cần hỗ trợ nhanh vui lòng gọi 1900 9217 (7:00AM - 10:00PM) hoặc gửi tin nhắn vào Mioto Fanpage</string>
+    <string name="support_center">Trung tâm hỗ trợ nhanh</string>
+    <string name="message">message</string>
+    <string name="call">call</string>
+    <string name="call_button_font">sans-serif</string>
+    <string name="insurance">Hotline insurance</string>
+    <string name="SupportScreenTitleTextStyle">bold</string>
+    <string name="information">Information</string>
 </resources>
