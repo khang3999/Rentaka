@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/my_account_main"
+    >
+
+    <RelativeLayout
+        android:id="@+id/topLayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:elevation="8dp">
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/gi_y_ph_p_l_i_xe"
+            android:textColor="@android:color/black"
+            android:textSize="25sp"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/leftImageView"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="59dp"
+            android:layout_toStartOf="@id/titleTextView"
+            android:src="@drawable/ic_left_arrow" />
+
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomLayout"
+        android:layout_below="@id/topLayout"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingRight="10dp"
+            android:paddingTop="15dp"
+            android:paddingLeft="10dp"
+            >
+            <!-- NOTE-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/white">
+                <TextView
+                    android:id="@+id/textNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.1"
+                    android:background="@drawable/custom_text_note"
+                    android:textColor="@color/maudo"
+                    android:text="///"
+                    android:gravity="center_vertical"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    android:layout_weight="0.9">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/nh_m_t_tr_c_gplx"
+                        android:textSize="@dimen/_18sp"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:id="@+id/textGPLX"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Hình chụp ần th đuợc Ảnh"/>
+                </LinearLayout>
+                <!-- Ảnh GPLX-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp">
+                    <ImageView
+                        android:id="@+id/imageGPLX"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/gplx"
+                        android:scaleType="centerCrop"
+                        />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/add_button"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="147dp"
+                        android:layout_marginBottom="73dp"
+                        android:src="@drawable/button_gplx" />
+
+                </RelativeLayout>
+                <!--INPUT-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="4"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/s_gplx"
+                            android:textSize="@dimen/_18sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Dãy 12 chữ số ở mặt trước  GPLX"
+                            android:textSize="@dimen/_12sp"
+                            />
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:padding="10dp"
+                            android:background="@drawable/custom_button_account"
+                            android:hint="@string/_0000_0000_0000" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/h_v_t_n"
+                            android:textSize="@dimen/_18sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:padding="10dp"
+                            android:inputType="date"
+                            android:background="@drawable/custom_button_account"
+                            android:hint="@string/h_v_t_n" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/ng_sinh"
+                            android:textSize="@dimen/_18sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:padding="10dp"
+                            android:inputType="date"
+                            android:background="@drawable/custom_button_account"
+                            android:hint="dd/mm/yyyy" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:background="@color/white"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/bottomLayout"
+        android:elevation="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:padding="10dp"
+        android:background="@color/white">
+        <LinearLayout
+            android:id="@+id/noteLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="40dp"
+                android:scaleType="fitCenter"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_exclamation_mark"
+                android:padding="10dp"/>
+            <TextView
+                android:id="@+id/textNote2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="///"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/noteLayout2"
+            >
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/xanh_dam"
+                android:text="@string/xac_nhan"
+                android:layout_gravity="center"
+                android:textSize="@dimen/_22sp" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>

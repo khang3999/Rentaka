@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import vn.edu.tdc.rentaka.activities.DrivingLicenseActivity;
 import vn.edu.tdc.rentaka.activities.MainActivity;
 import vn.edu.tdc.rentaka.activities.MyAccountActivity;
 import vn.edu.tdc.rentaka.adapters.PersonalProfileAdapter;
@@ -84,7 +85,9 @@ public class PersonalProfileFragment extends Fragment {
                         Toast.makeText(requireActivity(), "Địa chỉ của tôi", Toast.LENGTH_SHORT).show();
                         break;
                     case 4:
-                        Toast.makeText(requireActivity(), "Giấy phép lái xe", Toast.LENGTH_SHORT).show();
+                        Intent intent4 = new Intent(requireActivity(), DrivingLicenseActivity.class);
+                        intent4.putExtra("name",data1.get(position).getContent());
+                        startActivity(intent4);
                         break;
                     default:
                         Toast.makeText(requireActivity(), "Thẻ của tôi", Toast.LENGTH_SHORT).show();

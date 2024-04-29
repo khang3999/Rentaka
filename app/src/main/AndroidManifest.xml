@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Rentaka"
         tools:targetApi="31">
         <activity
+            android:name=".activities.DrivingLicenseActivity"
+            android:exported="false" />
+        <activity
             android:name=".DrivingLicense"
             android:exported="false" />
         <activity

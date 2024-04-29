@@ -13,4 +13,11 @@
     <string name="gioi_tinh">Giới tính</string>
     <string name="nh_p_t_n_hi_n_th">Nhập tên hiển thị</string>
     <string name="ch_n_gi_i_t_nh">Chọn giới tính</string>
+    <string name="gi_y_ph_p_l_i_xe">Giấy phép lái xe</string>
+    <string name="nh_m_t_tr_c_gplx">Ảnh mặt trước GPLX</string>
+    <string name="s_gplx">Số GPLX</string>
+    <string name="_0000_0000_0000">0000-0000-0000</string>
+    <string name="h_v_t_n">Họ và tên</string>
+    <string name="x_c_nh_n">XÁC NHÂN</string>
+    <string name="xac_nhan">Xác Nhận</string>
 </resources>
