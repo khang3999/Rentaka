@@ -1,40 +1,42 @@
 package vn.edu.tdc.rentaka.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import vn.edu.tdc.rentaka.R;
-import vn.edu.tdc.rentaka.databinding.ItemsFunctionProfileBrickBinding;
-import vn.edu.tdc.rentaka.databinding.ItemsFunctionProfileNoBrickBinding;
+import vn.edu.tdc.rentaka.databinding.ItemsFunctionProfileBrickLayoutBinding;
+import vn.edu.tdc.rentaka.databinding.ItemsFunctionProfileNoBrickLayoutBinding;
 import vn.edu.tdc.rentaka.models.PersonalProfileModel;
 
 import java.util.List;
 
-public class PersonalAdapter extends RecyclerView.Adapter<PersonalAdapter.MyViewHolder> {
+public class PersonalProfileAdapter extends RecyclerView.Adapter<PersonalProfileAdapter.MyViewHolder> {
 
     private static final int VIEW_TYPE_BRICK = 0;
     private static final int VIEW_TYPE_NO_BRICK = 1;
-    private View.OnClickListener listener; // Listener sự kiện click
-    private List<PersonalProfileModel> dataList;
-    private Context mContext; // Context để sử dụng cho Toast
-    private Activity mActivity; // Activity để sử dụng cho Toast
+    private OnItemClickListener itemClickListener; // Listener sự kiện click
+    private final List<PersonalProfileModel> dataList;
+    private final int idList;
+    private final Context mContext; // Context để sử dụng cho Toast
 
-    public PersonalAdapter(Context context, List<PersonalProfileModel> dataList, Activity activity) {
-        this.mContext = context;
-        this.dataList = dataList;
-        this.mActivity = activity;
+    public interface OnItemClickListener {
+        void onClickListener(int position);
     }
 
-    public void setListener(View.OnClickListener listener) {
-        this.listener = listener;
+    public PersonalProfileAdapter(Context context, List<PersonalProfileModel> dataList, int idList) {
+        this.mContext = context;
+        this.dataList = dataList;
+        this.idList = idList;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.itemClickListener = listener;
     }
 
     @NonNull
@@ -44,15 +46,11 @@ public class PersonalAdapter extends RecyclerView.Adapter<PersonalAdapter.MyView
 
         switch (viewType) {
             case VIEW_TYPE_BRICK:
-                ItemsFunctionProfileBrickBinding brickBinding = ItemsFunctionProfileBrickBinding.inflate(layoutInflater, parent, false);
-                MyViewHolder brickViewHolder = new MyViewHolder(brickBinding);
-                brickViewHolder.itemView.setOnClickListener(listener); // Gán listener cho itemView
-                return brickViewHolder;
+                ItemsFunctionProfileBrickLayoutBinding brickBinding = ItemsFunctionProfileBrickLayoutBinding.inflate(layoutInflater, parent, false);
+                return new MyViewHolder(brickBinding);
             case VIEW_TYPE_NO_BRICK:
-                ItemsFunctionProfileNoBrickBinding noBrickBinding = ItemsFunctionProfileNoBrickBinding.inflate(layoutInflater, parent, false);
-                MyViewHolder noBrickViewHolder = new MyViewHolder(noBrickBinding);
-                noBrickViewHolder.itemView.setOnClickListener(listener); // Gán listener cho itemView
-                return noBrickViewHolder;
+                ItemsFunctionProfileNoBrickLayoutBinding noBrickBinding = ItemsFunctionProfileNoBrickLayoutBinding.inflate(layoutInflater, parent, false);
+                return new MyViewHolder(noBrickBinding);
             default:
                 throw new IllegalArgumentException("Invalid view type");
         }
@@ -62,20 +60,14 @@ public class PersonalAdapter extends RecyclerView.Adapter<PersonalAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         PersonalProfileModel data = dataList.get(position);
         holder.bind(data);
-        // Gán sự kiện click cho itemView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (listener != null) {
-                    listener.onClick(view);
+                if (itemClickListener != null) {
+                    itemClickListener.onClickListener(position);
                 }
-                showToast(position);
             }
         });
-    }
-
-    private void showToast(int pos) {
-        Toast.makeText(mContext, "Item được nhấn"+pos, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -89,16 +81,19 @@ public class PersonalAdapter extends RecyclerView.Adapter<PersonalAdapter.MyView
         return position == dataList.size() - 1 ? VIEW_TYPE_NO_BRICK : VIEW_TYPE_BRICK;
     }
 
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        private final ItemsFunctionProfileBrickBinding brickBinding;
-        private final ItemsFunctionProfileNoBrickBinding noBrickBinding;
-        public MyViewHolder(@NonNull ItemsFunctionProfileBrickBinding brickBinding) {
+        private final ItemsFunctionProfileBrickLayoutBinding brickBinding;
+        private final ItemsFunctionProfileNoBrickLayoutBinding noBrickBinding;
+        View.OnClickListener onClickListener ;
+
+        public MyViewHolder(@NonNull ItemsFunctionProfileBrickLayoutBinding brickBinding) {
             super(brickBinding.getRoot());
             this.brickBinding = brickBinding;
             this.noBrickBinding = null;
         }
 
-        public MyViewHolder(@NonNull ItemsFunctionProfileNoBrickBinding noBrickBinding) {
+        public MyViewHolder(@NonNull ItemsFunctionProfileNoBrickLayoutBinding noBrickBinding) {
             super(noBrickBinding.getRoot());
             this.noBrickBinding = noBrickBinding;
             this.brickBinding = null;
@@ -113,7 +108,6 @@ public class PersonalAdapter extends RecyclerView.Adapter<PersonalAdapter.MyView
                 setItemImage(data.getImage(), noBrickBinding.imageItem);
             }
         }
-
         private void setItemImage(String image, ImageView imageView) {
             switch (image) {
                 case "ic_user":

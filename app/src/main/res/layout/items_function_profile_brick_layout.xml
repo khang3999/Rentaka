@@ -16,6 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="22dp"
             android:layout_weight="1"
+            android:scaleType="center"
             android:src="@mipmap/ic_launcher"
             android:layout_gravity="center_horizontal"
             />
@@ -25,7 +26,7 @@
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:textStyle="bold"
-            android:textSize="15dp"
+            android:textSize="@dimen/_15sp"
             android:gravity="center_vertical"
             android:layout_marginStart="10dp"
             android:text="Tài khoản của tôi"
