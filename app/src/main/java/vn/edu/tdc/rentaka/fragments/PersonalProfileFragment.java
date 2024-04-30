@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import vn.edu.tdc.rentaka.activities.ChangeThePasswordActivity;
 import vn.edu.tdc.rentaka.activities.DrivingLicenseActivity;
+import vn.edu.tdc.rentaka.activities.FavoriteCar;
 import vn.edu.tdc.rentaka.activities.MainActivity;
 import vn.edu.tdc.rentaka.activities.MyAccountActivity;
 import vn.edu.tdc.rentaka.adapters.PersonalProfileAdapter;
@@ -72,16 +73,17 @@ public class PersonalProfileFragment extends Fragment {
             public void onClickListener(int position) {
                 switch (position) {
                     case 0:
-                        Intent intent = new Intent(requireActivity(), MyAccountActivity.class);
-                        intent.putExtra("name",data1.get(position).getContent());
-                        startActivity(intent);
+                        Intent intent1 = new Intent(requireActivity(), MyAccountActivity.class);
+                        intent1.putExtra("name",data1.get(position).getContent());
+                        startActivity(intent1);
                         break;
                     case 1:
                         Toast.makeText(requireActivity(), "Đăng kí xe cho thuê", Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
-                        Toast.makeText(requireActivity(), "Xe yêu thích", Toast.LENGTH_SHORT).show();
-                        break;
+                        Intent intent3 = new Intent(requireActivity(), FavoriteCar.class);
+                        intent3.putExtra("name",data1.get(position).getContent());
+                        startActivity(intent3);
                     case 3:
                         Toast.makeText(requireActivity(), "Địa chỉ của tôi", Toast.LENGTH_SHORT).show();
                         break;
