@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/padding_screen">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_outline">
+
+            <ImageView
+                android:id="@+id/car_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:background="@drawable/round_outline"
+                android:src="@drawable/ic_launcher_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/car_model_textview"
+                style="@style/TitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_car_model"
+                android:text="@string/car_model"
+                app:layout_constraintBottom_toTopOf="@+id/car_id_textview"
+                app:layout_constraintStart_toEndOf="@+id/car_img"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <TextView
+                android:id="@+id/car_id_textview"
+                style="@style/SmallTextGreyStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/car_id"
+                app:layout_constraintBottom_toTopOf="@+id/rate_number_textview"
+                app:layout_constraintStart_toStartOf="@+id/car_model_textview"
+                app:layout_constraintTop_toBottomOf="@+id/car_model_textview"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <ImageView
+                android:id="@+id/rate_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_star"
+                android:backgroundTint="@color/green"
+                android:src="@mipmap/ic_star"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/car_img"
+                app:layout_constraintTop_toBottomOf="@+id/car_id_textview"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <ImageView
+                android:id="@+id/trip_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:backgroundTint="@color/green"
+                android:src="@mipmap/ic_luggage"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/rate_number_textview"
+                app:layout_constraintTop_toBottomOf="@+id/car_id_textview"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <TextView
+                android:id="@+id/rate_number_textview"
+                style="@style/SmallTextGreyStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rating_number"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/rate_img"
+                app:layout_constraintTop_toBottomOf="@+id/car_id_textview"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <TextView
+                android:id="@+id/trip_number_textview"
+                style="@style/SmallTextGreyStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/trip_total"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/trip_img"
+                app:layout_constraintTop_toBottomOf="@+id/car_id_textview"
+                app:layout_constraintVertical_bias="0.5" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_outline">
+
+            <TextView
+                android:id="@+id/rental_information_title_textview"
+                style="@style/TitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:text="Rental information"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/calendar_left_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_calendar_img"
+                android:src="@mipmap/ic_calendar"
+                app:layout_constraintEnd_toStartOf="@+id/date_received_title_textview"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rental_information_title_textview" />
+
+            <ImageView
+                android:id="@+id/calendar_right_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_calendar_img_2"
+                android:src="@mipmap/ic_calendar"
+                app:layout_constraintEnd_toStartOf="@+id/date_returned_title_textview"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/guideline5"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/location_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:layout_marginTop="@dimen/margin_location_img"
+                android:src="@mipmap/ic_location"
+                app:layout_constraintEnd_toStartOf="@+id/location_title_textview"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/date_received_textview" />
+
+            <TextView
+                android:id="@+id/date_received_title_textview"
+                style="@style/SmallTextGreyStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_data_title"
+                android:text="@string/date_received_title"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rental_information_title_textview" />
+
+            <TextView
+                android:id="@+id/location_title_textview"
+                style="@style/SmallTextGreyStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_location_title"
+                android:text="@string/location_title"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/location_img"
+                app:layout_constraintTop_toBottomOf="@+id/date_received_textview" />
+
+            <TextView
+                android:id="@+id/date_returned_title_textview"
+                style="@style/SmallTextGreyStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_date_returned_title"
+                android:text="@string/date_returned_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/guideline5"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/date_returned_textview"
+                style="@style/location_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date_returned"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline5"
+                app:layout_constraintTop_toBottomOf="@+id/calendar_right_img" />
+
+            <TextView
+                android:id="@+id/date_received_textview"
+                style="@style/location_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date_received"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/date_received_title_textview" />
+
+            <TextView
+                style="@style/location_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/location"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/location_title_textview" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            style="@style/TitleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/owner_title" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_outline"
+            tools:layout_editor_absoluteX="59dp"
+            tools:layout_editor_absoluteY="0dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:src="@drawable/ic_launcher_background"
+                app:civ_border_color="#000000"
+                app:civ_border_width="2dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/owner_name_textview"
+                style="@style/TitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_car_model"
+                android:text="@string/owner_title"
+                app:layout_constraintStart_toEndOf="@+id/profile_img"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/trip_rate_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_car_model"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@+id/profile_img"
+                app:layout_constraintTop_toBottomOf="@+id/owner_name_textview">
+
+
+                <ImageView
+                    android:id="@+id/rate_profile_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_star_end"
+                    android:backgroundTint="@color/green"
+                    android:src="@mipmap/ic_star"
+                    tools:layout_editor_absoluteX="183dp"
+                    tools:layout_editor_absoluteY="36dp" />
+
+                <TextView
+                    android:id="@+id/rate_number_profile_textview"
+                    style="@style/SmallTextGreyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_car_model"
+                    android:text="@string/rating_number"
+                    tools:layout_editor_absoluteX="145dp"
+                    tools:layout_editor_absoluteY="30dp" />
+
+                <ImageView
+                    android:id="@+id/trip_profile_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_star_end"
+                    android:src="@mipmap/ic_luggage"
+                    tools:layout_editor_absoluteX="228dp"
+                    tools:layout_editor_absoluteY="36dp" />
+
+                <TextView
+                    android:id="@+id/trip_number_profile_textview"
+                    style="@style/SmallTextGreyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="7 trip"
+                    tools:layout_editor_absoluteX="108dp"
+                    tools:layout_editor_absoluteY="30dp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/stroke_1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/stroke_height"
+                android:layout_marginTop="@dimen/margin_car_model"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintTop_toBottomOf="@+id/guideline6"
+                tools:layout_editor_absoluteX="24dp" />
+
+            <TextView
+
+                style="@style/SmallTextGreyStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/ensure_customer_info"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stroke_1"
+                app:layout_constraintVertical_bias="0.416" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.4" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_outline">
+
+            <TextView
+                android:id="@+id/message_for_owner_title_textview"
+                style="@style/TitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:text="Message for owner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/message_for_owner_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:hint="Message for owner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/message_for_owner_title_textview">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/message_for_owner_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:layout_marginBottom="@dimen/margin_element_start"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/message_for_owner_layout">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_element_start"
+                    android:layout_marginEnd="@dimen/margin_element_start"
+                    android:src="@mipmap/ic_verify"
+                    app:layout_constraintEnd_toStartOf="@+id/ensure_transact_through"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="145dp" />
+
+                <TextView
+                    android:id="@+id/ensure_transact_through"
+                    style="@style/SmallTextGreyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ensure_transact_through_miotto"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    tools:layout_editor_absoluteY="144dp" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            style="@style/TitleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_element_start"
+            android:text="Price" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="178dp"
+            android:background="@drawable/round_outline">
+
+            <TextView
+                android:id="@+id/promotion_title_textview"
+                style="@style/TitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:text="@string/promotion_title"
+                android:textSize="@dimen/small_text_size"
+                android:textStyle="normal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline9" />
+
+            <Button
+                android:id="@+id/promotion_code_title_textview"
+                style="@style/CustomPromotionCodeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Promotion code"
+                android:textSize="@dimen/small_text_size"
+                android:textStyle="normal"
+                tools:layout_editor_absoluteX="28dp"
+                tools:layout_editor_absoluteY="120dp" />
+
+            <TextView
+                android:id="@+id/rental_total_price_textview"
+                style="@style/SmallTextGreyStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:layout_marginEnd="@dimen/margin_element_start"
+                android:text="113 301 VND x 1"
+                android:textSize="@dimen/small_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline8" />
+
+            <TextView
+                android:id="@+id/rental_price_title_textview"
+                style="@style/SmallTextGreyStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:text="@string/rental_price_title"
+                android:textSize="@dimen/small_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/rental_total_price_title_textview"
+                style="@style/SmallTextGreyStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:text="@string/total_title"
+                android:textSize="@dimen/small_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline8" />
+
+            <TextView
+                android:id="@+id/rental_price_textview"
+                style="@style/SmallTextGreyStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:layout_marginEnd="@dimen/margin_element_start"
+                android:text="@string/rental_price"
+                android:textSize="@dimen/small_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/rental_insurance_textview"
+                style="@style/SmallTextGreyStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:layout_marginEnd="@dimen/margin_element_start"
+                android:text="113 301 VND/Day"
+                android:textSize="@dimen/small_text_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rental_price_textview" />
+
+            <TextView
+                android:id="@+id/rental_insurance_title_textview"
+                style="@style/SmallTextGreyStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:text="@string/rental_insurance_title"
+                android:textSize="@dimen/small_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rental_price_title_textview" />
+
+            <View
+                android:id="@+id/stroke_2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/stroke_height"
+                android:layout_marginStart="@dimen/margin_element_start"
+
+                android:layout_marginEnd="@dimen/margin_element_start"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintTop_toBottomOf="@+id/guideline8"
+                tools:layout_editor_absoluteX="24dp" />
+
+            <View
+                android:id="@+id/stroke_3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/stroke_height"
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:layout_marginEnd="@dimen/margin_element_start"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintTop_toBottomOf="@+id/guideline9"
+                tools:layout_editor_absoluteX="24dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.39" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.62" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

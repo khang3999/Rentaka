@@ -6,4 +6,6 @@
     <color name="background_color">#808080</color>
     <color name="green">#5fcf86</color>
     <color name="green_background">#effaf2</color>
+    <color name="blue_security">#87CEEB</color>
+    <color name="yellow_star">#FFC300</color>
 </resources>

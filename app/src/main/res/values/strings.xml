@@ -8,4 +8,22 @@
     <string name="insurance">Hotline insurance</string>
     <string name="SupportScreenTitleTextStyle">bold</string>
     <string name="information">Information</string>
+    <string name="car_model">car model</string>
+    <string name="car_id">car id</string>
+    <string name="date_received_title">Date received</string>
+    <string name="date_returned_title">Date returned</string>
+    <string name="date_received">21h00 T2, 20/12/2021</string>
+    <string name="date_returned">21h00 T2, 20/12/2021</string>
+    <string name="location_title">Location</string>
+    <string name="location">Hanoi, Vietnam</string>
+    <string name="owner_title">Owner</string>
+    <string name="ensure_customer_info">To ensure the security of personal information, Miotto will send the contact details of the car owner after the customer completes the payment on the app</string>
+    <string name="ensure_transact_through_miotto">Transact through Miotto to ensure we provide the best protection in case of unexpected trip cancellations and insurance-related incidents.</string>
+    <string name="trip_total">7 trip</string>
+    <string name="rating_number">5.0</string>
+    <string name="rental_price_title">Rental price</string>
+    <string name="rental_insurance_title">Rental insurance</string>
+    <string name="rental_price">1 26 000 VND/Day</string>
+    <string name="total_title">Total</string>
+    <string name="promotion_title">Promotion</string>
 </resources>

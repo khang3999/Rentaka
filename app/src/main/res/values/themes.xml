@@ -32,14 +32,35 @@
         <item name="iconPadding">@dimen/call_ic_padding</item>
     </style>
 
-    <style name="SupportScreenTitle">
+    <style name="CustomPromotionCodeButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="fontFamily">@string/call_button_font</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textColor">@color/green</item>
+        <item name="android:background">@drawable/ic_promotion_code_foreground</item>
+    </style>
+
+    <style name="TitleTextStyle">
         <item name="android:textSize">@dimen/SupportScreenTitleTextSize</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
-
+    <style name="SmallTextGreyStyle">
+        <item name="android:textSize">@dimen/normal_text_size</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+    <style name="location_textview">
+        <item name="android:textSize">@dimen/normal_text_size</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 
     <dimen name="SupportScreenTitleTextSize">20sp</dimen>
+    <dimen name="normal_text_size">15sp</dimen>
+    <dimen name="small_text_size">13sp</dimen>
     <dimen name="call_button">15sp</dimen>
     <dimen name="call_ic_button">25sp</dimen>
     <dimen name="call_ic_padding">2sp</dimen>
