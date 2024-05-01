@@ -31,6 +31,17 @@
         <item name="iconSize">@dimen/call_ic_button</item>
         <item name="iconPadding">@dimen/call_ic_padding</item>
     </style>
+    <style name="CustomConfirmButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/green</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="iconPadding">8dp</item>
+        <item name="iconTint">@color/green</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
 
     <style name="CustomPromotionCodeButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textSize">@dimen/small_text_size</item>

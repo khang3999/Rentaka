@@ -32,7 +32,7 @@
     <string name="message_for_owner_tittle">Message for owner</string>
     <string name="final_amount_title">Final Amount</string>
     <string name="final_amount_textview">825,660 VND</string>
-    <string name="a_deposite_through_the_app_title">A deposite through the app</string>
+    <string name="a_deposit_through_the_app_title">A deposite through the app</string>
     <string name="pay_upon_retrieving_a_car_title">Pay upon retrieving a car</string>
     <string name="deposit_through_the_app">227,660 VND</string>
     <string name="pay_upon_retrieving_car">544,000 VND</string>
@@ -41,4 +41,7 @@
     <string name="driver_license_cccd_collation"><![CDATA[Driver License & CCCD (collation)]]></string>
     <string name="passport_cccd_collation"><![CDATA[Passport & CCCD (collation)]]></string>
     <string name="mortgaged_property_title">Mortgaged property</string>
+    <string name="send_rental_request">Send rental request</string>
+    <string name="rental_information_title">Rental information</string>
+    <string name="mortgaged_property">Received customer doesn\'t have any mortgaged property</string>
 </resources>
