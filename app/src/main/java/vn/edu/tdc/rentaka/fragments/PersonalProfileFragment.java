@@ -74,7 +74,7 @@ public class PersonalProfileFragment extends Fragment {
                 switch (position) {
                     case 0:
                         Intent intent1 = new Intent(requireActivity(), MyAccountActivity.class);
-                        intent1.putExtra("name",data1.get(position).getContent());
+//                        intent1.putExtra("name",data1.get(position).getContent());
                         startActivity(intent1);
                         break;
                     case 1:
@@ -82,14 +82,15 @@ public class PersonalProfileFragment extends Fragment {
                         break;
                     case 2:
                         Intent intent3 = new Intent(requireActivity(), FavoriteCar.class);
-                        intent3.putExtra("name",data1.get(position).getContent());
+//                        intent3.putExtra("name",data1.get(position).getContent());
                         startActivity(intent3);
+                        break;
                     case 3:
                         Toast.makeText(requireActivity(), "Địa chỉ của tôi", Toast.LENGTH_SHORT).show();
                         break;
                     case 4:
                         Intent intent4 = new Intent(requireActivity(), DrivingLicenseActivity.class);
-                        intent4.putExtra("name",data1.get(position).getContent());
+//                        intent4.putExtra("name",data1.get(position).getContent());
                         startActivity(intent4);
                         break;
                     default:

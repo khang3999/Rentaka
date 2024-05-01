@@ -1,0 +1,11 @@
+Index: app/src/main/java/vn/edu/tdc/rentaka/adapters/TripHistoryAdapter.java
+===================================================================
+diff --git a/app/src/main/java/vn/edu/tdc/rentaka/adapters/TripHistoryAdapter.java b/app/src/main/java/vn/edu/tdc/rentaka/adapters/TripHistoryAdapter.java
+deleted file mode 100644
+--- a/app/src/main/java/vn/edu/tdc/rentaka/adapters/TripHistoryAdapter.java	
++++ /dev/null	
+@@ -1,4 +0,0 @@
+-package vn.edu.tdc.rentaka.adapters;
+-
+-public class TripHistoryAdapter {
+-}
