@@ -1,0 +1,84 @@
+Index: app/src/main/java/vn/edu/tdc/rentaka/fragments/PersonalProfileFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package vn.edu.tdc.rentaka.fragments;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.annotation.Nullable;\r\nimport androidx.appcompat.app.AlertDialog;\r\nimport androidx.fragment.app.Fragment;\r\nimport androidx.recyclerview.widget.LinearLayoutManager;\r\n\r\nimport vn.edu.tdc.rentaka.activities.ChangeThePasswordActivity;\r\nimport vn.edu.tdc.rentaka.activities.DrivingLicenseActivity;\r\nimport vn.edu.tdc.rentaka.activities.FavoriteCar;\r\nimport vn.edu.tdc.rentaka.activities.MainActivity;\r\nimport vn.edu.tdc.rentaka.activities.MyAccountActivity;\r\nimport vn.edu.tdc.rentaka.adapters.PersonalProfileAdapter;\r\nimport vn.edu.tdc.rentaka.databinding.PersonalProfileLayoutBinding;\r\nimport vn.edu.tdc.rentaka.models.PersonalProfileModel;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class PersonalProfileFragment extends Fragment {\r\n\r\n    private PersonalProfileLayoutBinding binding;\r\n    private PersonalProfileAdapter adapter1;\r\n    private PersonalProfileAdapter adapter2;\r\n    private PersonalProfileAdapter adapter3;\r\n\r\n\r\n    @Nullable\r\n    @Override\r\n    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {\r\n\r\n        binding = PersonalProfileLayoutBinding.inflate(inflater, container, false);\r\n        View view = binding.getRoot();\r\n\r\n        List<PersonalProfileModel> data1 = new ArrayList<>();\r\n        data1.add(new PersonalProfileModel(\"ic_user\",\"Tài khoản của tôi\"));\r\n        data1.add(new PersonalProfileModel(\"ic_car\",\"Đăng kí xe cho thuê\"));\r\n        data1.add(new PersonalProfileModel(\"ic_heart\",\"Xe yêu thích\"));\r\n        data1.add(new PersonalProfileModel(\"ic_diary\",\"Địa chỉ của tôi\"));\r\n        data1.add(new PersonalProfileModel(\"ic_book\",\"Giấy phép lái xe\"));\r\n        data1.add(new PersonalProfileModel(\"ic_wallet\",\"Thẻ của tôi\"));\r\n\r\n        List<PersonalProfileModel> data2 = new ArrayList<>();\r\n        data2.add(new PersonalProfileModel(\"ic_gift\",\"Quà tặng\"));\r\n        data2.add(new PersonalProfileModel(\"ic_share\",\"Giới thiệu bạn bè\"));\r\n\r\n        List<PersonalProfileModel> data3 = new ArrayList<>();\r\n        data3.add(new PersonalProfileModel(\"ic_padlock\",\"Đổi mật khẩu \"));\r\n        data3.add(new PersonalProfileModel(\"\",\"Yêu cầu xóa tài khoản\"));\r\n\r\n        adapter1 = new PersonalProfileAdapter(getActivity(), data1, 1);\r\n        adapter2 = new PersonalProfileAdapter(getActivity(), data2, 2 );\r\n        adapter3 = new PersonalProfileAdapter(getActivity(), data3, 3);\r\n\r\n        binding.ryc1.setLayoutManager(new LinearLayoutManager(requireActivity()));\r\n        binding.ryc2.setLayoutManager(new LinearLayoutManager(requireActivity()));\r\n        binding.ryc3.setLayoutManager(new LinearLayoutManager(requireActivity()));\r\n\r\n        binding.ryc1.setAdapter(adapter1);\r\n        binding.ryc2.setAdapter(adapter2);\r\n        binding.ryc3.setAdapter(adapter3);\r\n\r\n        adapter1.setOnItemClickListener(new PersonalProfileAdapter.OnItemClickListener() {\r\n            @Override\r\n            public void onClickListener(int position) {\r\n                switch (position) {\r\n                    case 0:\r\n                        Intent intent1 = new Intent(requireActivity(), MyAccountActivity.class);\r\n                        intent1.putExtra(\"name\",data1.get(position).getContent());\r\n                        startActivity(intent1);\r\n                        break;\r\n                    case 1:\r\n                        Toast.makeText(requireActivity(), \"Đăng kí xe cho thuê\", Toast.LENGTH_SHORT).show();\r\n                        break;\r\n                    case 2:\r\n                        Intent intent3 = new Intent(requireActivity(), FavoriteCar.class);\r\n                        intent3.putExtra(\"name\",data1.get(position).getContent());\r\n                        startActivity(intent3);\r\n                    case 3:\r\n                        Toast.makeText(requireActivity(), \"Địa chỉ của tôi\", Toast.LENGTH_SHORT).show();\r\n                        break;\r\n                    case 4:\r\n                        Intent intent4 = new Intent(requireActivity(), DrivingLicenseActivity.class);\r\n                        intent4.putExtra(\"name\",data1.get(position).getContent());\r\n                        startActivity(intent4);\r\n                        break;\r\n                    default:\r\n                        Toast.makeText(requireActivity(), \"Thẻ của tôi\", Toast.LENGTH_SHORT).show();\r\n                        break;\r\n                }\r\n            }\r\n        });\r\n        adapter2.setOnItemClickListener(new PersonalProfileAdapter.OnItemClickListener() {\r\n            @Override\r\n            public void onClickListener(int position) {\r\n                switch (position) {\r\n                    case 0:\r\n                        Toast.makeText(requireActivity(), \"Quà tặng\", Toast.LENGTH_SHORT).show();\r\n                        break;\r\n                    default:\r\n                        Toast.makeText(requireActivity(), \"Giới thiệu bạn bè\", Toast.LENGTH_SHORT).show();\r\n                        break;\r\n                }\r\n            }\r\n        });\r\n        adapter3.setOnItemClickListener(new PersonalProfileAdapter.OnItemClickListener() {\r\n            @Override\r\n            public void onClickListener(int position) {\r\n                switch (position) {\r\n                    case 0:\r\n                        Intent intent = new Intent(requireActivity(), ChangeThePasswordActivity.class);\r\n                        startActivity(intent);\r\n                        break;\r\n                    default:\r\n                        //Create AlertDialog builder Delete Account\r\n                        AlertDialog builder = new AlertDialog.Builder(requireActivity()).create();\r\n                        builder.setTitle(\"Xác nhận xóa tài khoản\");\r\n                        builder.setMessage(\"Bạn có chắc chắn muốn xóa tài khoản không?\");\r\n                        builder.setButton(AlertDialog.BUTTON_POSITIVE, \"Có\", (dialog, which) -> {\r\n                            Toast.makeText(requireActivity(), \"Xóa tài khoản thành công\", Toast.LENGTH_SHORT).show();\r\n//                            Intent intent1 = new Intent(requireActivity(), MainActivity.class);\r\n//                            startActivity(intent1);\r\n                        });\r\n                        builder.setButton(AlertDialog.BUTTON_NEGATIVE, \"Không\", (dialog, which) -> {\r\n                            builder.dismiss();\r\n                        });\r\n                        builder.show();\r\n                        break;\r\n                }\r\n            }\r\n        });\r\n        return view;\r\n    }\r\n\r\n    private void showToast(int pos) {\r\n        Toast.makeText(getActivity(), \"Item number : \" + pos, Toast.LENGTH_SHORT).show();\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/app/src/main/java/vn/edu/tdc/rentaka/fragments/PersonalProfileFragment.java b/app/src/main/java/vn/edu/tdc/rentaka/fragments/PersonalProfileFragment.java
+--- a/app/src/main/java/vn/edu/tdc/rentaka/fragments/PersonalProfileFragment.java	
++++ b/app/src/main/java/vn/edu/tdc/rentaka/fragments/PersonalProfileFragment.java	
+@@ -74,7 +74,7 @@
+                 switch (position) {
+                     case 0:
+                         Intent intent1 = new Intent(requireActivity(), MyAccountActivity.class);
+-                        intent1.putExtra("name",data1.get(position).getContent());
++                    //intent1.putExtra("name",data1.get(position).getContent());
+                         startActivity(intent1);
+                         break;
+                     case 1:
+@@ -82,14 +82,15 @@
+                         break;
+                     case 2:
+                         Intent intent3 = new Intent(requireActivity(), FavoriteCar.class);
+-                        intent3.putExtra("name",data1.get(position).getContent());
++                    // intent3.putExtra("name",data1.get(position).getContent());
+                         startActivity(intent3);
++                        break;
+                     case 3:
+                         Toast.makeText(requireActivity(), "Địa chỉ của tôi", Toast.LENGTH_SHORT).show();
+                         break;
+                     case 4:
+                         Intent intent4 = new Intent(requireActivity(), DrivingLicenseActivity.class);
+-                        intent4.putExtra("name",data1.get(position).getContent());
++                        // intent4.putExtra("name",data1.get(position).getContent());
+                         startActivity(intent4);
+                         break;
+                     default:
+Index: app/src/main/java/vn/edu/tdc/rentaka/fragments/HaveADriverFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package vn.edu.tdc.rentaka.fragments;\r\n\r\nimport android.os.Bundle;\r\n\r\nimport androidx.fragment.app.Fragment;\r\n\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\n\r\nimport vn.edu.tdc.rentaka.R;\r\n\r\n\r\npublic class HaveADriverFragment extends Fragment {\r\n\r\n    @Override\r\n    public View onCreateView(LayoutInflater inflater, ViewGroup container,\r\n                             Bundle savedInstanceState) {\r\n        // Inflate the layout for this fragment\r\n        return inflater.inflate(R.layout.have_a_driver_layout, container, false);\r\n    }\r\n}
+===================================================================
+diff --git a/app/src/main/java/vn/edu/tdc/rentaka/fragments/HaveADriverFragment.java b/app/src/main/java/vn/edu/tdc/rentaka/fragments/HaveADriverFragment.java
+--- a/app/src/main/java/vn/edu/tdc/rentaka/fragments/HaveADriverFragment.java	
++++ b/app/src/main/java/vn/edu/tdc/rentaka/fragments/HaveADriverFragment.java	
+@@ -3,20 +3,37 @@
+ import android.os.Bundle;
+ 
+ import androidx.fragment.app.Fragment;
++import androidx.recyclerview.widget.LinearLayoutManager;
+ 
+ import android.view.LayoutInflater;
+ import android.view.View;
+ import android.view.ViewGroup;
+ 
++import java.util.ArrayList;
++import java.util.List;
++
+ import vn.edu.tdc.rentaka.R;
++import vn.edu.tdc.rentaka.adapters.PersonalProfileAdapter;
++import vn.edu.tdc.rentaka.databinding.PersonalProfileLayoutBinding;
++import vn.edu.tdc.rentaka.models.PersonalProfileModel;
+ 
+ 
+ public class HaveADriverFragment extends Fragment {
+-
++    private PersonalProfileLayoutBinding binding;
++    private PersonalProfileAdapter adapter;
+     @Override
+     public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                              Bundle savedInstanceState) {
+         // Inflate the layout for this fragment
+-        return inflater.inflate(R.layout.have_a_driver_layout, container, false);
++//        return inflater.inflate(R.layout.have_a_driver_layout, container, false);
++        binding = PersonalProfileLayoutBinding.inflate(inflater, container, false);
++        View view = binding.getRoot();
++        List<PersonalProfileModel> data1 = new ArrayList<>();
++        data1.add(new PersonalProfileModel("ic_user","Tài khoản của tôi"));
++//        adapter1 = new PersonalProfileAdapter(getActivity(), data1, 1);
++//        binding.ryc1.setLayoutManager(new LinearLayoutManager(requireActivity()));
++//        binding.ryc1.setAdapter(adapter1);
++
++        return view;
+     }
+ }
+\ No newline at end of file

@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.main_layout);
     }
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         // Yeu cau thuc hien transaction
         transaction.commit();
     }
+
     private void uncheckItemMenu(){
         Menu menu = binding.bottomMenu.getMenu();
         for (int i = 0; i < menu.size(); i++) {
@@ -80,3 +84,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+

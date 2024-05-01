@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="_25sp">25sp</dimen>
+    <dimen name="_15sp">15sp</dimen>
+    <dimen name="_20dp">20dp</dimen>
+    <dimen name="_22sp">22sp</dimen>
+    <dimen name="_16sp">16sp</dimen>
+    <dimen name="_12sp">12sp</dimen>
+    <dimen name="_18sp">18sp</dimen>
     <dimen name="ic_home_img">22dp</dimen>
     <dimen name="fab_home">45dp</dimen>
     <dimen name="bottom_app_item">22dp</dimen>
@@ -16,10 +23,6 @@
     <dimen name="margin_top_16">16dp</dimen>
     <dimen name="margin_bottom_16">16dp</dimen>
     <dimen name="margin_horizontal_16">16dp</dimen>
-
-
-
-<!--    Text size-->
     <dimen name="username_20">20sp</dimen>
     <dimen name="textSizeNormal">18sp</dimen>
     <dimen name="textSizeLarge">20sp</dimen>
