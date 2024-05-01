@@ -5,5 +5,14 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.Rentaka" parent="Base.Theme.Rentaka" />
-</resources>
+    <style name="Theme.Rentaka" parent="Base.Theme.Rentaka"/>
+
+    <style name="fab_3_rounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="bottom_item_active_indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/appGreen</item>
+    </style>
+ </resources>

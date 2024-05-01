@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Rentaka</string>
+    <string name="home">Home</string>
+    <string name="news">News</string>
+    <string name="rides">Rides</string>
+    <string name="notify">Notify</string>
+    <string name="profile">Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="diaDiem">Địa điểm</string>
+    <string name="thoiGianThue">Thời gian thuê</string>
+    <string name="no_driver">Xe tự lái</string>
+    <string name="has_driver">Có tài xế</string>
+    <string name="display_location_result">Nhập địa điểm cần tìm kiếm</string>
 </resources>
