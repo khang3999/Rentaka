@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     private MainLayoutBinding binding;
     // doi tuong dung de dan fragment vao khung man hinh
     private FragmentTransaction transaction;
-    private View preView;
     // Set color when click
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +43,18 @@ public class MainActivity extends AppCompatActivity {
 
         EdgeToEdge.enable(this);
         setContentView(R.layout.main_layout);
+
+        //Khoi tao binding
+        binding = MainLayoutBinding.inflate(getLayoutInflater());
+        // Gán view cho binding
+        setContentView(binding.getRoot());
+
+
+        // Khoi tạo lan dau
+        fragment = new HomeFragment();
+        updateUI();
+
+
     }
 
     private void updateUI(){
@@ -75,13 +86,6 @@ public class MainActivity extends AppCompatActivity {
         }
         // Yeu cau thuc hien transaction
         transaction.commit();
-    }
-
-    private void uncheckItemMenu(){
-        Menu menu = binding.bottomMenu.getMenu();
-        for (int i = 0; i < menu.size(); i++) {
-            menu.getItem(i).setChecked(false);
-        }
     }
 }
 
