@@ -7,4 +7,11 @@
     <color name="xanh_dam">#5fcf85</color>
     <color name="maudo">#FF0000</color>
     <color name="mau_do_nhe">#FFCCCC</color>
+    <color name="textColor">#000000</color>
+    <color name="appGreen">#77DD77</color>
+    <color name="my_blue">#00bbff</color>
+    <color name="carrot">#ffb284</color>
+    <color name="ocean">#5E96AE</color>
+    <color name="ocean_light">#B2E9EA</color>
+    <color name="ocean_light_1">#baecff</color>
 </resources>

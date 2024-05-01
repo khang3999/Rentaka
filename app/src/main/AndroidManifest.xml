@@ -40,7 +40,7 @@
             android:name=".activities.MyAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.test2"
             android:exported="true"
             android:label="@string/title_activity_personal_profile"
             android:theme="@style/Theme.Rentaka">
