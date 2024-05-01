@@ -1,8 +1,16 @@
 package vn.edu.tdc.rentaka.activities;
 
+import android.content.ClipData;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +19,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.navigation.NavigationBarView;
 
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.MainLayoutBinding;
@@ -26,47 +36,14 @@ public class MainActivity extends AppCompatActivity {
     private MainLayoutBinding binding;
     // doi tuong dung de dan fragment vao khung man hinh
     private FragmentTransaction transaction;
+    private View preView;
+    // Set color when click
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         EdgeToEdge.enable(this);
         setContentView(R.layout.main_layout);
-
-        // Khoi tao binding
-        binding = MainLayoutBinding.inflate(getLayoutInflater());
-        // Gan view cho binding
-        setContentView(binding.getRoot());
-        // Set title BottomAppBar
-        binding.bottomAppBar.setTitle("");
-        // Khoi tao lan dau fragment
-        fragment = new HomeFragment();
-        updateUI();
-
-        //Bat su kien
-        // Chuyen fragment
-        binding.btnFabHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (currentFragment != 0){
-                    currentFragment = 0;
-                }
-                //Update UI
-                updateUI();
-            }
-        });
-        binding.bottomMenu.findViewById(R.id.newsItemMenu).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (currentFragment != 1) {
-                    currentFragment = 1;
-                }
-                //Update UI
-                updateUI();
-            }
-        });
-
-
     }
 
     private void updateUI(){
@@ -77,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
         }
         // Neu chua ton tai thi tao moi fragment
         else {
-            // Tao doi tuong fragment tuong ung voi cau hoi tai questionId
+            // Tao doi tuong fragment tuong ung
             if (currentFragment == 0) {
-                fragment = new HomeFragment(); // test multi choices
+                fragment = new HomeFragment();
             } else if (currentFragment == 1) {
                 fragment = new NewsFragment();
             }
@@ -99,4 +76,12 @@ public class MainActivity extends AppCompatActivity {
         // Yeu cau thuc hien transaction
         transaction.commit();
     }
+
+    private void uncheckItemMenu(){
+        Menu menu = binding.bottomMenu.getMenu();
+        for (int i = 0; i < menu.size(); i++) {
+            menu.getItem(i).setChecked(false);
+        }
+    }
 }
+
