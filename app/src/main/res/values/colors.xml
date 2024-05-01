@@ -14,4 +14,10 @@
     <color name="ocean">#5E96AE</color>
     <color name="ocean_light">#B2E9EA</color>
     <color name="ocean_light_1">#baecff</color>
+    <color name="gray">#333333</color>
+    <color name="gray_black">#C1CDCD</color>
+    <color name="orange">#F16A2C</color>
+
+    <color name="blue_pastel">#eef7ff</color>
+    <color name="green_pastel">#dff4e7</color>
 </resources>
