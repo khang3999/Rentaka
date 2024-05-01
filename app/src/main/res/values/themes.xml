@@ -35,8 +35,13 @@
     <style name="CustomPromotionCodeButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textSize">@dimen/small_text_size</item>
         <item name="fontFamily">@string/call_button_font</item>
-        <item name="textAllCaps">true</item>
-        <item name="android:textColor">@color/green</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:background">@drawable/ic_promotion_code_foreground</item>
+    </style>
+    <style name="CustomDriverLicenseCodeButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="fontFamily">@string/call_button_font</item>
+        <item name="android:textColor">@color/grey</item>
         <item name="android:background">@drawable/ic_promotion_code_foreground</item>
     </style>
 
@@ -51,7 +56,7 @@
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/grey</item>
     </style>
-    <style name="location_textview">
+    <style name="NormalTextStyle">
         <item name="android:textSize">@dimen/normal_text_size</item>
         <item name="android:textStyle">normal</item>
         <item name="android:fontFamily">sans-serif</item>

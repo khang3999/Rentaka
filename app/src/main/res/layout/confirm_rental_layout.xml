@@ -108,6 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
+                android:layout_marginTop="@dimen/margin_element_start"
                 android:text="Rental information"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -185,7 +186,7 @@
 
             <TextView
                 android:id="@+id/date_returned_textview"
-                style="@style/location_textview"
+                style="@style/NormalTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/date_returned"
@@ -195,7 +196,7 @@
 
             <TextView
                 android:id="@+id/date_received_textview"
-                style="@style/location_textview"
+                style="@style/NormalTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/date_received"
@@ -204,7 +205,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/date_received_title_textview" />
 
             <TextView
-                style="@style/location_textview"
+                android:id="@+id/location_textview"
+                style="@style/NormalTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/location"
@@ -349,7 +351,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
-                android:text="Message for owner"
+                android:text="@string/message_for_owner_tittle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -359,7 +361,7 @@
                 android:layout_height="wrap_content"
 
                 android:layout_marginStart="@dimen/margin_element_start"
-                android:hint="Message for owner"
+                android:hint="@string/hint_message"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/message_for_owner_title_textview">
 
@@ -410,12 +412,86 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_element_start"
+            android:layout_marginTop="@dimen/margin_element_start"
             android:text="Price" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="178dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/round_outline">
+
+            <TextView
+                android:id="@+id/deposit_through_app_title_textview"
+                style="@style/NormalTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:text="@string/a_deposite_through_the_app_title"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/final_amount_title_textview" />
+
+            <TextView
+                android:id="@+id/pay_upon_retrieving_car_title_textview"
+                style="@style/NormalTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/pay_upon_retrieving_a_car_title"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deposit_through_app_title_textview" />
+
+            <TextView
+                android:id="@+id/final_amount_title_textview"
+                style="@style/NormalTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:text="@string/final_amount_title"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline10" />
+
+            <TextView
+                android:id="@+id/deposit_through_app_textview"
+                style="@style/NormalTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_element_start"
+                android:layout_marginTop="10dp"
+                android:text="@string/deposit_through_the_app"
+                android:textColor="@color/green"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/final_amount_textview" />
+
+            <TextView
+                android:id="@+id/pay_upon_retrieving_car_textview"
+                style="@style/NormalTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_element_start"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:text="@string/pay_upon_retrieving_car"
+                android:textColor="@color/green"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/deposit_through_app_textview" />
+
+            <TextView
+                android:id="@+id/final_amount_textview"
+                style="@style/NormalTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:layout_marginEnd="@dimen/margin_element_start"
+                android:text="@string/final_amount_textview"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
             <TextView
                 android:id="@+id/promotion_title_textview"
@@ -433,13 +509,18 @@
             <Button
                 android:id="@+id/promotion_code_title_textview"
                 style="@style/CustomPromotionCodeButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Promotion code"
-                android:textSize="@dimen/small_text_size"
-                android:textStyle="normal"
-                tools:layout_editor_absoluteX="28dp"
-                tools:layout_editor_absoluteY="120dp" />
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:gravity="start"
+                android:padding="0dp"
+                android:paddingStart="10dp"
+                android:text="@string/promotion_code_title"
+                app:icon="@drawable/ic_promotion_code_foreground"
+                app:iconTint="@color/green"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/promotion_title_textview" />
 
             <TextView
                 android:id="@+id/rental_total_price_textview"
@@ -448,7 +529,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_element_start"
                 android:layout_marginEnd="@dimen/margin_element_start"
-                android:text="113 301 VND x 1"
+                android:text="@string/total_price_per_day"
                 android:textSize="@dimen/small_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline8" />
@@ -534,6 +615,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/guideline9"
                 tools:layout_editor_absoluteX="24dp" />
 
+            <View
+                android:id="@+id/stroke_4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/stroke_height"
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:layout_marginEnd="@dimen/margin_element_start"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintTop_toBottomOf="@+id/guideline10"
+                tools:layout_editor_absoluteX="24dp" />
+
+
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline4"
                 android:layout_width="wrap_content"
@@ -546,15 +638,103 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.39" />
+                app:layout_constraintGuide_percent="0.3" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.62" />
+                app:layout_constraintGuide_percent="0.45" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.7" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@drawable/round_outline">
+
+            <Button
+                android:id="@+id/driver_license_CCCD_title_textview"
+                style="@style/CustomDriverLicenseCodeButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:text="@string/driver_license_cccd_collation"
+                android:paddingStart="@dimen/margin_element_start"
+                app:icon="@drawable/ic_card_id_foreground"
+                app:iconTint="@color/grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/choose_one_method_title_textview" />
+
+            <Button
+                android:id="@+id/passport_CCCD_title_textview"
+                style="@style/CustomDriverLicenseCodeButton"
+                android:layout_width="0dp"
+                android:textAlignment="textStart"
+                android:layout_height="wrap_content"
+                android:text="@string/passport_cccd_collation"
+                android:paddingStart="@dimen/margin_element_start"
+                app:icon="@drawable/ic_passport_foreground"
+                app:iconTint="@color/grey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/driver_license_CCCD_title_textview" />
+
+            <TextView
+                android:id="@+id/choose_one_method_title_textview"
+                style="@style/SmallTextGreyStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:text="@string/please_choose_one_of_two_methods_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rental_documents_title_textview" />
+
+            <TextView
+                android:id="@+id/rental_documents_title_textview"
+                style="@style/TitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:text="@string/rental_documents_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/mortgaged_property_tittle_textview"
+                style="@style/TitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mortgaged_property_title"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:layout_marginStart="@dimen/margin_element_start"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passport_CCCD_title_textview" />
+            <TextView
+                android:id="@+id/mortgaged_property_textview"
+                style="@style/SmallTextGreyStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Received customer doesn't have any mortgaged property"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:layout_marginStart="@dimen/margin_element_start"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mortgaged_property_tittle_textview" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
