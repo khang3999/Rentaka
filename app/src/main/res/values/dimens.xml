@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="_25sp">25sp</dimen>
+    <dimen name="_15sp">15sp</dimen>
+    <dimen name="_20dp">20dp</dimen>
+    <dimen name="_22sp">22sp</dimen>
+    <dimen name="_16sp">16sp</dimen>
+    <dimen name="_12sp">12sp</dimen>
+    <dimen name="_18sp">18sp</dimen>
     <dimen name="ic_home_img">22dp</dimen>
     <dimen name="fab_home">45dp</dimen>
     <dimen name="bottom_app_item">22dp</dimen>
@@ -16,21 +23,16 @@
     <dimen name="margin_top_16">16dp</dimen>
     <dimen name="margin_bottom_16">16dp</dimen>
     <dimen name="margin_horizontal_16">16dp</dimen>
-
-
-
-<!--    Text size-->
     <dimen name="username_20">20sp</dimen>
     <dimen name="textSizeNormal">18sp</dimen>
     <dimen name="textSizeLarge">20sp</dimen>
     <dimen name="margin_top_24">24dp</dimen>
-    <dimen name="_60dp">60dp</dimen>
+    <dimen name="_10dp">10dp</dimen>
     <dimen name="_50dp">50dp</dimen>
     <dimen name="_16dp">16dp</dimen>
     <dimen name="_34dp">34dp</dimen>
     <dimen name="_24dp">24dp</dimen>
     <dimen name="shadow_5">5dp</dimen>
-    <dimen name="_20dp">20dp</dimen>
     <dimen name="textSize_24">24sp</dimen>
     <dimen name="padding_8dp">8dp</dimen>
     <dimen name="_36dp">36dp</dimen>

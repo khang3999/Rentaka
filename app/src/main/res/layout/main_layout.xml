@@ -8,11 +8,12 @@
     android:background="@color/design_default_color_primary"
     tools:context=".activities.MainActivity">
 
+    <!--    paddingBottomSystemWindowInsets="false" dan menu xuong man hinh dien thoai, khong auto day menu cua he thong-->
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-<!--    paddingBottomSystemWindowInsets="false" dan menu xuong man hinh dien thoai, khong auto day menu cua he thong-->
+        android:layout_height="match_parent" />
+
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
@@ -36,17 +37,6 @@
             app:itemActiveIndicatorStyle="@style/bottom_item_active_indicator"
             android:backgroundTintMode="multiply"
             app:labelVisibilityMode="unlabeled"
-            app:menu="@menu/bottom_menu" />
+            app:menu="@menu/bottom_menu"/>
     </com.google.android.material.bottomappbar.BottomAppBar>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnFabHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_home_24"
-        app:rippleColor="@color/appGreen"
-        app:shapeAppearanceOverlay="@style/fab_3_rounded"
-        app:layout_anchor="@id/bottomAppBar"
-        app:fabCustomSize="@dimen/fab_home"
-        app:maxImageSize="@dimen/ic_home_img"
-        android:contentDescription="@string/home"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

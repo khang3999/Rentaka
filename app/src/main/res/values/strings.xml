@@ -1,12 +1,43 @@
 <resources>
     <string name="app_name">Rentaka</string>
+    <string name="chuyen_cua_toi">Chuyến của tôi</string>
+    <string name="title_activity_personal_profile">PersonalProfileActivity</string>
+    <string name="t_i_kho_n">Tài Khoản</string>
+    <string name="gi_i_t_nh">Giới tính</string>
+    <string name="ng_y_sinh">Ngày sinh</string>
+    <string name="chinh_sua_ho_so">Chỉnh sửa hồ sơ</string>
+    <string name="t_n_hi_n_th">Tên hiển thị</string>
+    <string name="h_y_nh_p_t_n">Hãy nhập tên</string>
+    <string name="l_u">Lưu</string>
+    <string name="ng_sinh">Ngày sinh</string>
+    <string name="gioi_tinh">Giới tính</string>
+    <string name="nh_p_t_n_hi_n_th">Nhập tên hiển thị</string>
+    <string name="ch_n_gi_i_t_nh">Chọn giới tính</string>
+    <string name="gi_y_ph_p_l_i_xe">Giấy phép lái xe</string>
+    <string name="nh_m_t_tr_c_gplx">Ảnh mặt trước GPLX</string>
+    <string name="s_gplx">Số GPLX</string>
+    <string name="_0000_0000_0000">0000-0000-0000</string>
+    <string name="h_v_t_n">Họ và tên</string>
+    <string name="x_c_nh_n">XÁC NHÂN</string>
+    <string name="xac_nhan">Xác Nhận</string>
+    <string name="thi_t_l_p_m_t_kh_u">Thiết lập mật khẩu</string>
+    <string name="thi_t_l_p_m_t_kh_u_m_i">Thiết lập mật khẩu mới</string>
+    <string name="t_ng_t_nh_b_o_m_t_m_t_kh_u_n_n_c_ch_a_c_c_k_t_c_bi_t_c_ch_in_hoa_th_ng_v_k_m_ch_s">Để tăng tính bảo mật, mật khẩu nên có chứa các kí tự đặc biệt, có chữ in hoa, thường và kèm chữ số</string>
+    <string name="nh_p_m_t_kh_u_m_i">Nhập mật khẩu mới</string>
+    <string name="m_t_kh_u">Mật khẩu</string>
+    <string name="x_c_nh_n_m_t_kh_u">Xác nhận mật khẩu</string>
+    <string name="nh_p_l_i_m_t_kh_u_m_i">Nhập lại mật khẩu mới</string>
+    <string name="xe_y_u_th_ch">Xe yêu thích</string>
+    <string name="xe_t_l_i">Xe tự lái</string>
+    <string name="c_t_i_x">Có tài xế</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">Home</string>
     <string name="news">News</string>
     <string name="rides">Rides</string>
     <string name="notify">Notify</string>
     <string name="profile">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="diaDiem">Địa điểm</string>
     <string name="thoiGianThue">Thời gian thuê</string>
     <string name="no_driver">Xe tự lái</string>
