@@ -52,7 +52,6 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.MyVi
         } else {
             binding.promotionImage.setImageResource(R.drawable.promotion2);
         }
-        Log.d("pos", "onBindViewHolder: "+position);
     }
 
     @Override

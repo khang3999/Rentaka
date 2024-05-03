@@ -1,5 +1,6 @@
 package vn.edu.tdc.rentaka.fragments;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,6 +21,8 @@ public class NewsFragment extends AbstractFragment {
         View fragment = null;
         fragment  = binding.getRoot();
 
+        // Set gach ngang chu
+        //binding.test.setPaintFlags(binding.test.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
 
 
