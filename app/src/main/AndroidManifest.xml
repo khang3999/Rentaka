@@ -28,9 +28,6 @@
             android:name=".activities.DrivingLicenseActivity"
             android:exported="false" />
         <activity
-            android:name=".DrivingLicense"
-            android:exported="false" />
-        <activity
             android:name=".activities.DrivingLicense"
             android:exported="false" />
         <activity
@@ -44,9 +41,13 @@
             android:exported="true"
             android:label="@string/title_activity_personal_profile"
             android:theme="@style/Theme.Rentaka">
+
+        </activity>
+        <activity
+            android:name=".activities.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
