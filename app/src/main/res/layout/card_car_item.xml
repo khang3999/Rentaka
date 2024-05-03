@@ -5,12 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:cardCornerRadius="20dp"
-<<<<<<< HEAD
     android:layout_margin="10dp"
     >
-=======
-    android:layout_margin="10dp">
->>>>>>> main
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -248,7 +245,7 @@
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
+            android:background="@color/gray_line"
             app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
