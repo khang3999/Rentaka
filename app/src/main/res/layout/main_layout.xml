@@ -17,7 +17,7 @@
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:layout_gravity="bottom"
         app:contentInsetStart="@dimen/inset_0"
         app:fabAlignmentMode="center"
@@ -31,12 +31,12 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomMenu"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:background="@android:color/transparent"
-            app:itemIconSize="@dimen/bottom_app_item"
             app:itemActiveIndicatorStyle="@style/bottom_item_active_indicator"
-            android:backgroundTintMode="multiply"
-            app:labelVisibilityMode="unlabeled"
+            app:itemIconSize="@dimen/bottom_app_item"
+            app:labelVisibilityMode="selected"
             app:menu="@menu/bottom_menu"/>
     </com.google.android.material.bottomappbar.BottomAppBar>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

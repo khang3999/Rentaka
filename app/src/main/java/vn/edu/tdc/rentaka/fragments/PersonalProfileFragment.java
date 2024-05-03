@@ -25,7 +25,7 @@ import vn.edu.tdc.rentaka.models.PersonalProfileModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonalProfileFragment extends Fragment {
+public class PersonalProfileFragment extends AbstractFragment {
 
     private PersonalProfileLayoutBinding binding;
     private PersonalProfileAdapter adapter1;
