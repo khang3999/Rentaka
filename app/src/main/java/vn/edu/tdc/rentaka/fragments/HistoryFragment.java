@@ -9,24 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import vn.edu.tdc.rentaka.R;
-import vn.edu.tdc.rentaka.databinding.NewsFragmentBinding;
 
-public class NewsFragment extends AbstractFragment {
-    private NewsFragmentBinding binding;
+
+public class HistoryFragment extends AbstractFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = NewsFragmentBinding.inflate(getLayoutInflater());
-        View fragment = null;
-        fragment  = binding.getRoot();
-
-
-
-
-
-
-
-
-        return fragment;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.history_fragment, container, false);
     }
 }
