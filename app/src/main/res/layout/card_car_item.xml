@@ -4,11 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:cardStrokeColor="@color/black"
     app:cardCornerRadius="20dp"
-    app:cardElevation="40dp"
     android:layout_margin="10dp"
-    android:outlineSpotShadowColor="@android:color/transparent"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -221,7 +218,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="999K"
-                android:textColor="@color/gray"
+                android:textColor="@android:color/darker_gray"
                 android:textSize="13sp" />
 
             <TextView
