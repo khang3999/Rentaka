@@ -49,10 +49,11 @@ public class MainActivity extends AppCompatActivity {
         // Gán view cho binding
         setContentView(binding.getRoot());
 
-
         // Khoi tạo lan dau
         fragment = new HomeFragment();
         updateUI();
+
+        // Chuyen fragment
 
 
     }
