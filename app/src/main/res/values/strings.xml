@@ -46,7 +46,7 @@
     <string name="rental_information_title">Rental information</string>
     <string name="mortgaged_property">Received customer doesn\'t have any mortgaged property</string>
 
-    <string name="app_name">Rentaka</string>
+    <string name="ten_app">Rentaka</string>
     <string name="chuyen_cua_toi">Chuyến của tôi</string>
     <string name="title_activity_personal_profile">PersonalProfileActivity</string>
     <string name="t_i_kho_n">Tài Khoản</string>
