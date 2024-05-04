@@ -1,6 +1,7 @@
 package vn.edu.tdc.rentaka.activities;
 
 import android.content.ClipData;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -45,7 +46,6 @@ import vn.edu.tdc.rentaka.fragments.NotificationFragment;
 import vn.edu.tdc.rentaka.fragments.PersonalProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
-
 // <<<<<<< future/confirm-rental-ui
 //     private DatabaseReference mDatabase;
 
@@ -90,6 +90,17 @@ public class MainActivity extends AppCompatActivity {
     private MainLayoutBinding binding;
     // doi tuong dung de dan fragment vao khung man hinh
     private FragmentTransaction transaction;
+    private Intent intent;
+
+    @Override
+    public Intent getIntent() {
+        return intent;
+    }
+
+    @Override
+    public void setIntent(Intent intent) {
+        this.intent = intent;
+    }
 
     // Set color when click
     @Override
@@ -124,6 +135,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(getIntent()!=null){
+            intent = getIntent();
+        }
+        updateUI();
     }
 
     private void updateUI() {
