@@ -22,5 +22,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.confirm_rental_layout);
 //        TextInputEditText textInputLayout = findViewById(R.id.message_for_owner_textview);
 //        textInputLayout.setText("Hello");
+
     }
 }
