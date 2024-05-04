@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+<RelativeLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/trang_xam"
+    tools:context=".fragment.PersonalProfileFragment"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@color/xanh_nhat" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/avatar"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/custom_avatar"
+        android:src="@drawable/image_account" />
+
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/avatar"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="Đỗ Ngọc Hiếu"
+        android:textSize="@dimen/_25sp"
+        android:textStyle="bold" />
+
+    <!-- LinearLayout to wrap RecyclerViews -->
+    <LinearLayout
+        android:id="@+id/listRycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textName"
+        android:orientation="vertical">
+
+        <!-- RecyclerView 1 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ryc1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/custom_list_recycle" />
+
+        <!-- RecyclerView 2 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ryc2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_list_recycle" />
+
+        <!-- RecyclerView 3 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ryc3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/custom_list_recycle" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listRycle"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_log_out"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textColor="#ff0000"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:text="Đăng xuất"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
+</ScrollView>
+</LinearLayout>

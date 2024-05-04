@@ -8,4 +8,26 @@
     <color name="green_background">#effaf2</color>
     <color name="blue_security">#87CEEB</color>
     <color name="yellow_star">#FFC300</color>
+
+    <color name="xanh_nhat">#dff3e8</color>
+    <color name="trang_xam">#f5f5f5</color>
+    <color name="xanh_dam">#5fcf85</color>
+    <color name="maudo">#FF0000</color>
+    <color name="mau_do_nhe">#FFCCCC</color>
+    <color name="textColor">#000000</color>
+    <color name="appGreen">#77DD77</color>
+    <color name="my_blue">#00bbff</color>
+    <color name="carrot">#ffb284</color>
+    <color name="ocean">#5E96AE</color>
+    <color name="ocean_light">#B2E9EA</color>
+    <color name="ocean_light_1">#baecff</color>
+    <color name="gray_owner">#F6F6F6</color>
+    <color name="gray">#333333</color>
+    <color name="gray_line">#E0E0E0</color>
+    <color name="gray_black">#C1CDCD</color>
+    <color name="orange">#F16A2C</color>
+    <color name="blue_pastel">#eef7ff</color>
+    <color name="green_pastel">#dff4e7</color>
+    <color name="green_button">#79D799</color>
+
 </resources>

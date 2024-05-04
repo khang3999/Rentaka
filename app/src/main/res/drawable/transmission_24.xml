@@ -1,0 +1,21 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:viewportHeight="24" android:viewportWidth="24" android:width="24dp">
+      
+    <path android:fillColor="#00000000" android:pathData="M6,4C6,5.105 5.105,6 4,6C2.895,6 2,5.105 2,4C2,2.895 2.895,2 4,2C5.105,2 6,2.895 6,4Z" android:strokeColor="#5fce85" android:strokeWidth="1.5"/>
+      
+    <path android:fillColor="#00000000" android:pathData="M6,20C6,21.105 5.105,22 4,22C2.895,22 2,21.105 2,20C2,18.895 2.895,18 4,18C5.105,18 6,18.895 6,20Z" android:strokeColor="#5fce85" android:strokeWidth="1.5"/>
+      
+    <path android:fillColor="#00000000" android:pathData="M14,20C14,21.105 13.105,22 12,22C10.895,22 10,21.105 10,20C10,18.895 10.895,18 12,18C13.105,18 14,18.895 14,20Z" android:strokeColor="#5fce85" android:strokeWidth="1.5"/>
+      
+    <path android:fillColor="#00000000" android:pathData="M14,4C14,5.105 13.105,6 12,6C10.895,6 10,5.105 10,4C10,2.895 10.895,2 12,2C13.105,2 14,2.895 14,4Z" android:strokeColor="#5fce85" android:strokeWidth="1.5"/>
+      
+    <path android:fillColor="#00000000" android:pathData="M22,4C22,5.105 21.105,6 20,6C18.895,6 18,5.105 18,4C18,2.895 18.895,2 20,2C21.105,2 22,2.895 22,4Z" android:strokeColor="#5fce85" android:strokeWidth="1.5"/>
+      
+    <path android:fillColor="#00000000" android:pathData="M4,6V18" android:strokeColor="#5fce85" android:strokeLineCap="round" android:strokeWidth="1.5"/>
+      
+    <path android:fillColor="#00000000" android:pathData="M12,6V18" android:strokeColor="#5fce85" android:strokeLineCap="round" android:strokeWidth="1.5"/>
+      
+    <path android:fillColor="#00000000" android:pathData="M20,6V8C20,9.886 20,10.828 19.414,11.414C18.828,12 17.886,12 16,12H4" android:strokeColor="#5fce85" android:strokeLineCap="round" android:strokeWidth="1.5"/>
+      
+    <path android:fillColor="#5fce85" android:pathData="M18,15V14.25C17.586,14.25 17.25,14.586 17.25,15H18ZM17.25,22C17.25,22.414 17.586,22.75 18,22.75C18.414,22.75 18.75,22.414 18.75,22H17.25ZM21.36,22.392C21.577,22.745 22.038,22.856 22.392,22.64C22.745,22.423 22.856,21.962 22.64,21.608L21.36,22.392ZM18,15.75H20.286V14.25H18V15.75ZM18.75,18.5V15H17.25V18.5H18.75ZM21.25,16.75C21.25,17.317 20.804,17.75 20.286,17.75V19.25C21.661,19.25 22.75,18.116 22.75,16.75H21.25ZM20.286,15.75C20.804,15.75 21.25,16.183 21.25,16.75H22.75C22.75,15.384 21.661,14.25 20.286,14.25V15.75ZM20.286,17.75H19.857V19.25H20.286V17.75ZM19.857,17.75H18V19.25H19.857V17.75ZM19.218,18.892L21.36,22.392L22.64,21.608L20.497,18.108L19.218,18.892ZM17.25,18.5V22H18.75V18.5H17.25Z"/>
+    
+</vector>

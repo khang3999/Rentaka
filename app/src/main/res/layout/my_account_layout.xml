@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/my_account_main"
+    >
+
+  <RelativeLayout
+      android:id="@+id/topLayout"
+      android:layout_width="match_parent"
+      android:layout_height="60dp"
+      android:background="@color/white"
+      android:elevation="8dp">
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/t_i_kho_n"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        android:layout_centerVertical="true"/>
+
+    <ImageView
+        android:id="@+id/leftImageView"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="76dp"
+        android:layout_toStartOf="@id/titleTextView"
+        android:src="@drawable/ic_left_arrow" />
+
+    <ImageView
+        android:id="@+id/rightImageView"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="81dp"
+        android:layout_toEndOf="@id/titleTextView"
+        android:src="@drawable/ic_edit_arrow" />
+
+
+  </RelativeLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/topLayout"
+      android:orientation="vertical"
+      android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.8"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_20dp"
+        android:orientation="vertical">
+
+      <de.hdodenhof.circleimageview.CircleImageView
+          android:id="@+id/avatar"
+          android:layout_width="130dp"
+          android:layout_height="130dp"
+          android:src="@drawable/image_account"
+          android:layout_gravity="center"
+          android:layout_margin="16dp"
+          android:background="@drawable/custom_avatar"
+          app:civ_border_width="4dp"
+          app:civ_border_color="@color/white" />
+
+      <TextView
+          android:id="@+id/nameTextView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Đỗ Ngọc Hiếu"
+          android:gravity="center_horizontal"
+          android:textSize="@dimen/_22sp"
+          android:textStyle="bold" />
+
+      <TextView
+          android:id="@+id/joinedDateTextView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center_horizontal"
+          android:text="Ngày tham gia: 23/04/2024"
+          android:textSize="@dimen/_12sp" />
+
+    </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="0.6"
+      android:layout_marginEnd="10dp"
+      android:layout_marginStart="10dp"
+      android:orientation="horizontal"
+      >
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:background="@drawable/custom_button_account">
+
+      <ImageView
+          android:id="@+id/icon1"
+          android:layout_width="40dp"
+          android:layout_height="60dp"
+          android:src="@drawable/ic_luggage"
+          android:layout_marginLeft="20dp"
+          android:padding="10dp"
+          android:layout_alignParentStart="true"
+          android:layout_centerVertical="true"/>
+
+      <TextView
+          android:id="@+id/text1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_toEndOf="@id/icon1"
+          android:layout_centerVertical="true"
+          android:text="Chưa có chuyến"
+          android:textColor="@color/black"
+          />
+
+    </RelativeLayout>
+
+    <!-- Cặp thứ hai -->
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:background="@drawable/custom_button_account">
+
+      <ImageView
+          android:id="@+id/icon2"
+          android:layout_width="50dp"
+          android:layout_height="wrap_content"
+          android:src="@drawable/ic_success"
+          android:layout_marginLeft="20dp"
+          android:padding="10dp"
+          android:layout_alignParentStart="true"
+          android:layout_centerVertical="true"/>
+
+      <TextView
+          android:id="@+id/text2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_toEndOf="@id/icon2"
+          android:layout_centerVertical="true"
+          android:text="0 điểm"
+          android:textColor="@color/black"
+         />
+
+    </RelativeLayout>
+  </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.7"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:background="#f5f5f5"
+        android:orientation="vertical"
+        >
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:orientation="horizontal"
+          >
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="1"
+              android:text="@string/ng_y_sinh"
+              />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="00/00/0000"
+            android:gravity="end"
+            />
+      </LinearLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:orientation="horizontal"
+          >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/gi_i_t_nh"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="None"
+            android:gravity="end"
+            />
+      </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/rycAcount"
+          android:layout_margin="10dp"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"/>
+    </LinearLayout>
+
+  </LinearLayout>
+    </RelativeLayout>
