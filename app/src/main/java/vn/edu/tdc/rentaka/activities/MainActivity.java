@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +25,16 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.MainLayoutBinding;
 import vn.edu.tdc.rentaka.fragments.AbstractFragment;
@@ -35,6 +46,44 @@ import vn.edu.tdc.rentaka.fragments.PersonalProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+// <<<<<<< future/confirm-rental-ui
+//     private DatabaseReference mDatabase;
+
+//     @Override
+//     protected void onCreate(Bundle savedInstanceState) {
+//         super.onCreate(savedInstanceState);
+//         EdgeToEdge.enable(this);
+//         setContentView(R.layout.confirm_rental_layout);
+
+//         mDatabase = FirebaseDatabase.getInstance("https://rentaka-android-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
+// //        writeNewUser("1", "Alice", "Alice@email.com");
+//         ValueEventListener postListener = new ValueEventListener() {
+//             @Override
+//             public void onDataChange(DataSnapshot dataSnapshot) {
+//                 // Get Post object and use the values to update the UI
+// //                ArrayList<User> users = new ArrayList<>();
+// //                for (DataSnapshot userSnapshot : dataSnapshot.child("users").getChildren()) {
+// //                    User user = userSnapshot.getValue(User.class);
+// //                    users.add(user);
+// //                }
+// //                Log.d("Test", "onDataChange: "+users.toString());
+//                 User user = dataSnapshot.child("users").child("1").getValue(User.class);
+//                 Log.d("Test", "onDataChange: "+user.toString());
+//             }
+
+//             @Override
+//             public void onCancelled(DatabaseError databaseError) {
+//                 // Getting Post failed, log a message
+//                 Log.d("Test", "loadPost:onCancelled", databaseError.toException());
+//             }
+//         };
+//         mDatabase.addValueEventListener(postListener);
+//     }
+//     public void writeNewUser(String userId, String name, String email) {
+//         User user = new User(name, email);
+
+//         mDatabase.child("users").child(userId).child("username").setValue(name);
+// =======
     //Properties
     private AbstractFragment fragment;
     private int currentFragment = 0;
@@ -111,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
         }
         // Yeu cau thuc hien transaction
         transaction.commit();
+
     }
 }
 

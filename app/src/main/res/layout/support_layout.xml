@@ -114,7 +114,9 @@
             android:text="@string/insurance"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp"
-            style="@style/SupportScreenTitle"
+
+            style="@style/SupportScreenTitle"      
+
             />
         <LinearLayout
             android:layout_width="match_parent"
@@ -154,7 +156,9 @@
             android:text="Instruction"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp"
+
             style="@style/SupportScreenTitle"
+
             />
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
@@ -166,7 +170,9 @@
             android:text="@string/information"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp"
+
             style="@style/SupportScreenTitle"
+
             />
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
