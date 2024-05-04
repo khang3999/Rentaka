@@ -4,6 +4,7 @@
 
     </style>
 
+
     <style name="Theme.Carrental" parent="Base.Theme.Rentaka" />
 
     <style name="CustomOutlinedCallButton" parent="Widget.Material3.Button.OutlinedButton.Icon">
@@ -44,4 +45,25 @@
     <dimen name="call_ic_button">25sp</dimen>
     <dimen name="call_ic_padding">2sp</dimen>
     <dimen name="call_button_stroke_width">1dp</dimen>
-</resources>
+
+
+    <style name="Theme.Rentaka" parent="Base.Theme.Rentaka"/>
+
+    <style name="fab_3_rounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="bottom_item_active_indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/appGreen</item>
+    </style>
+ //Style tao sheet bottom
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name ="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+    //Style trong bootom sheet
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+ </resources>
+

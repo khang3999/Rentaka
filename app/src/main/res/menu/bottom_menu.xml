@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeItemMenu"
+        android:title="@string/home"
+        android:icon="@drawable/ic_home_24"/>
+    <item
+        android:id="@+id/newsItemMenu"
+        android:title="@string/news"
+        android:icon="@drawable/ic_news_24"/>
+    <item
+        android:id="@+id/historyItemMenu"
+        android:title="@string/rides"
+        android:icon="@drawable/ic_car_24"/>
+
+    <item
+        android:id="@+id/notificationItemMenu"
+        android:title="@string/notify"
+        android:icon="@drawable/ic_notification_24"/>
+    <item
+        android:id="@+id/profileItemMenu"
+        android:title="@string/profile"
+        android:icon="@drawable/ic_profile_24"/>
+</menu>

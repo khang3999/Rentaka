@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        android:id="@+id/boot_sheet"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_sheet_bottom"
+        android:orientation="vertical"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/close"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="start|top"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_close" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/chinh_sua_ho_so"
+                android:textSize="@dimen/_22sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avatar"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/custom_avatar"
+                android:src="@drawable/image_account" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="105dp"
+                android:src="@drawable/ic_camera" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/t_n_hi_n_th"
+                    android:textSize="@dimen/_18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:background="@drawable/custom_button_account"
+                    android:hint="@string/nh_p_t_n_hi_n_th" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/ng_sinh"
+                    android:textSize="@dimen/_18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:inputType="date"
+                    android:background="@drawable/custom_button_account"
+                    android:hint="dd/mm/yyyy" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/gioi_tinh"
+                    android:textSize="@dimen/_18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/gender"
+                    android:padding="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:focusable="false"
+                    android:background="@drawable/custom_button_account"
+                    android:hint="@string/ch_n_gi_i_t_nh" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:textSize="@dimen/_18sp"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="@color/xanh_dam"
+                    android:text="@string/l_u" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
