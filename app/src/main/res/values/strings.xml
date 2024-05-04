@@ -1,4 +1,51 @@
 <resources>
+
+    <string name="app_name">car-rental</string>
+    <string name="support_contact">Cần hỗ trợ nhanh vui lòng gọi 1900 9217 (7:00AM - 10:00PM) hoặc gửi tin nhắn vào Mioto Fanpage</string>
+    <string name="support_center">Trung tâm hỗ trợ nhanh</string>
+    <string name="message">message</string>
+    <string name="call">call</string>
+    <string name="call_button_font">sans-serif</string>
+    <string name="insurance">Hotline insurance</string>
+    <string name="SupportScreenTitleTextStyle">bold</string>
+    <string name="information">Information</string>
+    <string name="car_model">car model</string>
+    <string name="car_id">car id</string>
+    <string name="date_received_title">Date received</string>
+    <string name="date_returned_title">Date returned</string>
+    <string name="date_received">21h00 T2, 20/12/2021</string>
+    <string name="date_returned">21h00 T2, 20/12/2021</string>
+    <string name="location_title">Location</string>
+    <string name="location">Hanoi, Vietnam</string>
+    <string name="owner_title">Owner</string>
+    <string name="ensure_customer_info">To ensure the security of personal information, Miotto will send the contact details of the car owner after the customer completes the payment on the app</string>
+    <string name="ensure_transact_through_miotto">Transact through Miotto to ensure we provide the best protection in case of unexpected trip cancellations and insurance-related incidents.</string>
+    <string name="trip_total">7 trip</string>
+    <string name="rating_number">5.0</string>
+    <string name="rental_price_title">Rental price</string>
+    <string name="rental_insurance_title">Rental insurance</string>
+    <string name="rental_price">1 26 000 VND/Day</string>
+    <string name="total_title">Total</string>
+    <string name="promotion_title">Promotion</string>
+    <string name="promotion_code_title">Promotion code</string>
+    <string name="total_price_per_day">113 301 VND x 1</string>
+    <string name="hint_message">Message for owner</string>
+    <string name="message_for_owner_tittle">Message for owner</string>
+    <string name="final_amount_title">Final Amount</string>
+    <string name="final_amount_textview">825,660 VND</string>
+    <string name="a_deposit_through_the_app_title">A deposite through the app</string>
+    <string name="pay_upon_retrieving_a_car_title">Pay upon retrieving a car</string>
+    <string name="deposit_through_the_app">227,660 VND</string>
+    <string name="pay_upon_retrieving_car">544,000 VND</string>
+    <string name="rental_documents_title">Rental Documents</string>
+    <string name="please_choose_one_of_two_methods_title">Please choose one of two methods:</string>
+    <string name="driver_license_cccd_collation"><![CDATA[Driver License & CCCD (collation)]]></string>
+    <string name="passport_cccd_collation"><![CDATA[Passport & CCCD (collation)]]></string>
+    <string name="mortgaged_property_title">Mortgaged property</string>
+    <string name="send_rental_request">Send rental request</string>
+    <string name="rental_information_title">Rental information</string>
+    <string name="mortgaged_property">Received customer doesn\'t have any mortgaged property</string>
+
     <string name="app_name">Rentaka</string>
     <string name="chuyen_cua_toi">Chuyến của tôi</string>
     <string name="title_activity_personal_profile">PersonalProfileActivity</string>
@@ -43,4 +90,5 @@
     <string name="no_driver">Xe tự lái</string>
     <string name="has_driver">Có tài xế</string>
     <string name="display_location_result">Nhập địa điểm cần tìm kiếm</string>
+
 </resources>
