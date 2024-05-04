@@ -31,12 +31,6 @@
             android:name=".activities.DrivingLicenseActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.DrivingLicense"
-            android:exported="false" />
-        <activity
-            android:name=".activities.HistoryActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.MyAccountActivity"
             android:exported="false" />
         <activity
