@@ -113,11 +113,11 @@
 <!--        <item name="iconPadding">@dimen/call_ic_padding</item>-->
 <!--    </style>-->
 
-<!--    <style name="SupportScreenTitle">-->
-<!--        <item name="android:textSize">@dimen/SupportScreenTitleTextSize</item>-->
-<!--        <item name="android:textStyle">bold</item>-->
-<!--        <item name="android:fontFamily">sans-serif</item>-->
-<!--    </style>-->
+    <style name="SupportScreenTitle">
+        <item name="android:textSize">@dimen/SupportScreenTitleTextSize</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
 
 
 <!--    <dimen name="SupportScreenTitleTextSize">20sp</dimen>-->
