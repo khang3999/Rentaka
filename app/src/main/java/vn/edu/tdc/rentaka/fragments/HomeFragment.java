@@ -142,7 +142,11 @@ public class HomeFragment extends AbstractFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("intenttttt", "onResume: ");
-
+        if (getActivity().getParentActivityIntent() != null){
+            Intent intent = getActivity().getIntent();
+            binding.tvLocationResult.setText(intent.getStringExtra("city"));
+            Log.d("checkIntent", "onResume: "+getActivity().getIntent().hasExtra("city"));
+            Log.d("checkIntent", "onResume: "+intent.getStringExtra("city"));
+        }
     }
 }
