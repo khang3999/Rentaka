@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">car-rental</string>
+
     <string name="support_contact">Cần hỗ trợ nhanh vui lòng gọi 1900 9217 (7:00AM - 10:00PM) hoặc gửi tin nhắn vào Mioto Fanpage</string>
     <string name="support_center">Trung tâm hỗ trợ nhanh</string>
     <string name="message">message</string>
@@ -9,6 +9,7 @@
     <string name="insurance">Hotline insurance</string>
     <string name="SupportScreenTitleTextStyle">bold</string>
     <string name="information">Information</string>
+
     <string name="car_model">car model</string>
     <string name="car_id">car id</string>
     <string name="date_received_title">Date received</string>
@@ -46,7 +47,11 @@
     <string name="rental_information_title">Rental information</string>
     <string name="mortgaged_property">Received customer doesn\'t have any mortgaged property</string>
 
+
     <string name="ten_app">Rentaka</string>
+
+    <string name="app_name">Rentaka</string>
+
     <string name="chuyen_cua_toi">Chuyến của tôi</string>
     <string name="title_activity_personal_profile">PersonalProfileActivity</string>
     <string name="t_i_kho_n">Tài Khoản</string>
