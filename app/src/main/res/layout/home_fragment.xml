@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".fragments.HomeFragment">
 
     <LinearLayout
@@ -410,20 +411,22 @@
                 android:layout_marginVertical="@dimen/_20dp"
                 android:background="@drawable/shape_border_radius_all"
                 android:orientation="horizontal"
-                android:padding="@dimen/_16dp">
+                android:padding="@dimen/_16dp"
+                android:layout_marginHorizontal="@dimen/_16dp">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="7"
+                    android:layout_weight="6"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginEnd="@dimen/_10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Giới thiệu Rentaka dến bạn bè"
-                        android:textSize="@dimen/textSize_24"
+                        android:textSize="@dimen/_20sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -434,9 +437,9 @@
 
                 <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:layout_height="100dp"
+                    android:layout_weight="4"
+                    android:src="@drawable/introfriend" />
             </LinearLayout>
 
             <LinearLayout
@@ -445,6 +448,7 @@
                 android:layout_marginBottom="@dimen/fragment_marginBottom_112"
                 android:background="@color/carrot"
                 android:orientation="vertical"
+                android:layout_marginHorizontal="@dimen/_16dp"
                 android:paddingHorizontal="@dimen/_16dp"
                 android:paddingVertical="@dimen/_24dp">
 
