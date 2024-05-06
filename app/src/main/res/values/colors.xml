@@ -32,5 +32,6 @@
     <color name="blue_pastel">#eef7ff</color>
     <color name="green_pastel">#dff4e7</color>
     <color name="green_button">#79D799</color>
-
+    <color name="button_green_active">#79D799</color>
+    <color name="button_green_no_active">#dff4e7</color>
 </resources>

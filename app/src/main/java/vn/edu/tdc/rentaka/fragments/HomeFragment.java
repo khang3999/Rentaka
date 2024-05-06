@@ -1,5 +1,6 @@
 package vn.edu.tdc.rentaka.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import vn.edu.tdc.rentaka.R;
+import vn.edu.tdc.rentaka.activities.ChooseDateActivity;
+import vn.edu.tdc.rentaka.activities.ChooseLocationActivity;
 import vn.edu.tdc.rentaka.adapters.AdvantageAdapter;
 import vn.edu.tdc.rentaka.adapters.LocationAdapter;
 import vn.edu.tdc.rentaka.adapters.PromotionAdapter;
@@ -35,7 +38,6 @@ public class HomeFragment extends AbstractFragment {
     private AdvantageAdapter advantageAdapter;
     // Mac dinh search theo xe tu lai type = 0
     private int typeSearch = 0;
-    private View preView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -90,7 +92,10 @@ public class HomeFragment extends AbstractFragment {
         binding.tvLocationResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Chuyển sang activity  chon tinh
+                // Chuyển sang activity  chon city
+                Intent intent = new Intent(getActivity(), ChooseLocationActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
             }
         });
 
@@ -98,14 +103,24 @@ public class HomeFragment extends AbstractFragment {
             @Override
             public void onClick(View v) {
                 // Chuyen sang activity chon thoi gian
+                Intent intent = new Intent(getActivity(), ChooseDateActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
             }
         });
+
+        // Doi mau va bat su kien 2 button xe tu lai va xe co tai xe
+        binding.btnNoDriver.setActivated(true);
 
         binding.btnNoDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Doi mau va doi trang thai search
-
+                if (typeSearch != 0){
+                    binding.btnNoDriver.setActivated(true);
+                    binding.btnHasDriver.setActivated(false);
+                    typeSearch = 0;
+                }
             }
         });
 
@@ -113,9 +128,25 @@ public class HomeFragment extends AbstractFragment {
             @Override
             public void onClick(View v) {
                 // Doi mau va doi trang thai search
-
+                if (typeSearch != 1){
+                    binding.btnHasDriver.setActivated(true);
+                    binding.btnNoDriver.setActivated(false);
+                    typeSearch = 1;
+                }
             }
         });
+
         return fragment;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity().getParentActivityIntent() != null){
+            Intent intent = getActivity().getIntent();
+            binding.tvLocationResult.setText(intent.getStringExtra("city"));
+            Log.d("checkIntent", "onResume: "+getActivity().getIntent().hasExtra("city"));
+            Log.d("checkIntent", "onResume: "+intent.getStringExtra("city"));
+        }
     }
 }

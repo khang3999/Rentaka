@@ -103,34 +103,43 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnHasDriver"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:background="@drawable/button_has_driver"
-                        android:backgroundTint="@color/white"
-                        android:text="@string/has_driver"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/textSizeNormal"
-                        app:layout_constraintBottom_toBottomOf="@+id/btnNoDriver"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/btnNoDriver"
-                        app:layout_constraintTop_toTopOf="@+id/btnNoDriver" />
-
-                    <androidx.appcompat.widget.AppCompatButton
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnNoDriver"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:background="@drawable/button_no_driver"
                         android:text="@string/no_driver"
+                        android:textColor="@color/selector_text_no_has_driver_button"
                         android:textSize="@dimen/textSizeNormal"
+                        app:backgroundTint="@color/selector_no_has_button"
+                        app:icon="@drawable/ic_no_driver_24"
+                        app:iconTint="@color/selector_text_no_has_driver_button"
+                        app:iconGravity="textStart"
                         app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_dialog_20"
                         app:layout_constraintEnd_toStartOf="@+id/btnHasDriver"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
 
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnHasDriver"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/button_has_driver"
+                        android:text="@string/has_driver"
+                        android:textColor="@color/selector_text_no_has_driver_button"
+                        android:textSize="@dimen/_18sp"
+                        app:backgroundTint="@color/selector_no_has_button"
+                        app:icon="@drawable/ic_has_driver_24"
+                        app:iconTint="@color/selector_text_no_has_driver_button"
+                        app:iconGravity="textStart"
+                        app:layout_constraintBottom_toBottomOf="@+id/btnNoDriver"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/btnNoDriver"
+                        app:layout_constraintTop_toTopOf="@+id/btnNoDriver"
+                        app:layout_constraintVertical_bias="0.0" />
                     <ImageView
                         android:id="@+id/ic_location"
                         android:layout_width="0dp"
@@ -207,7 +216,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/tvTime"
                         app:layout_constraintVertical_bias="0.5" />
 
-                    <androidx.appcompat.widget.AppCompatButton
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -216,6 +225,9 @@
                         android:background="@drawable/button_border_radius_all"
                         android:text="Tìm xe"
                         android:textSize="@dimen/textSizeNormal"
+                        app:backgroundTint="@color/appGreen"
+                        app:iconGravity="textStart"
+                        app:icon="@drawable/ic_find_24"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

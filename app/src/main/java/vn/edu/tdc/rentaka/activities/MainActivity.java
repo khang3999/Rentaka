@@ -1,6 +1,7 @@
 package vn.edu.tdc.rentaka.activities;
 
 import android.content.ClipData;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -45,7 +46,6 @@ import vn.edu.tdc.rentaka.fragments.NotificationFragment;
 import vn.edu.tdc.rentaka.fragments.PersonalProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
-
 // <<<<<<< future/confirm-rental-ui
 //     private DatabaseReference mDatabase;
 
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 //     public void writeNewUser(String userId, String name, String email) {
 //         User user = new User(name, email);
 
-//         mDatabase.child("users").child(userId).child("username").setValue(name);
+    //         mDatabase.child("users").child(userId).child("username").setValue(name);
 // =======
     //Properties
     private AbstractFragment fragment;
@@ -108,15 +108,15 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomMenu.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                if (menuItem.getItemId() == R.id.homeItemMenu){
+                if (menuItem.getItemId() == R.id.homeItemMenu) {
                     currentFragment = 0;
-                } else if(menuItem.getItemId() == R.id.newsItemMenu){
+                } else if (menuItem.getItemId() == R.id.newsItemMenu) {
                     currentFragment = 1;
-                } else if(menuItem.getItemId() == R.id.historyItemMenu){
+                } else if (menuItem.getItemId() == R.id.historyItemMenu) {
                     currentFragment = 2;
-                } else if(menuItem.getItemId() == R.id.notificationItemMenu){
+                } else if (menuItem.getItemId() == R.id.notificationItemMenu) {
                     currentFragment = 3;
-                } else if(menuItem.getItemId() == R.id.profileItemMenu){
+                } else if (menuItem.getItemId() == R.id.profileItemMenu) {
                     currentFragment = 4;
                 }
                 updateUI();
@@ -126,41 +126,51 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void updateUI() {
-        // Set title
-        // Neu da ton tai thi tai su dung
-        if (getSupportFragmentManager().findFragmentByTag(currentFragment + "") != null) {
-            fragment = (AbstractFragment) getSupportFragmentManager().findFragmentByTag(currentFragment + "");
-        }
-        // Neu chua ton tai thi tao moi fragment
-        else {
-            // Tao doi tuong fragment tuong ung
-            if (currentFragment == 0) {
-                fragment = new HomeFragment();
-            } else if (currentFragment == 1) {
-                fragment = new NewsFragment();
-            } else if (currentFragment == 2) {
-                fragment = new HistoryFragment();
-            } else if (currentFragment == 3) {
-                fragment = new NotificationFragment();
-            } else if (currentFragment == 4) {
-                fragment = new PersonalProfileFragment();
-            }
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
 
-        // CHUAN BI CHO TRANSACTION
-        //Lay doi tuong fragment transaction
-        transaction = getSupportFragmentManager().beginTransaction();
-        // Do du lieu vao doi tuong va dan doi tuong fragment vao khung man hinh,
-        // voi tham so dau tien la id cua khung chua fragment o layout )
-        transaction.replace(R.id.fragmentContainer, fragment, currentFragment + "");
-        // Dua fragment vao trong Stack neu chua ton tai
-        if (getSupportFragmentManager().findFragmentByTag(currentFragment + "") == null) {
-            transaction.addToBackStack(null);
-        }
-        // Yeu cau thuc hien transaction
-        transaction.commit();
+        Log.d("yu", "onResume: " + intent.getStringExtra("city"));
 
+        updateUI();
     }
-}
+
+        private void updateUI () {
+            // Set title
+            // Neu da ton tai thi tai su dung
+            if (getSupportFragmentManager().findFragmentByTag(currentFragment + "") != null) {
+                fragment = (AbstractFragment) getSupportFragmentManager().findFragmentByTag(currentFragment + "");
+            }
+            // Neu chua ton tai thi tao moi fragment
+            else {
+                // Tao doi tuong fragment tuong ung
+                if (currentFragment == 0) {
+                    fragment = new HomeFragment();
+                } else if (currentFragment == 1) {
+                    fragment = new NewsFragment();
+                } else if (currentFragment == 2) {
+                    fragment = new HistoryFragment();
+                } else if (currentFragment == 3) {
+                    fragment = new NotificationFragment();
+                } else if (currentFragment == 4) {
+                    fragment = new PersonalProfileFragment();
+                }
+            }
+
+            // CHUAN BI CHO TRANSACTION
+            //Lay doi tuong fragment transaction
+            transaction = getSupportFragmentManager().beginTransaction();
+            // Do du lieu vao doi tuong va dan doi tuong fragment vao khung man hinh,
+            // voi tham so dau tien la id cua khung chua fragment o layout )
+            transaction.replace(R.id.fragmentContainer, fragment, currentFragment + "");
+            // Dua fragment vao trong Stack neu chua ton tai
+            if (getSupportFragmentManager().findFragmentByTag(currentFragment + "") == null) {
+                transaction.addToBackStack(null);
+            }
+            // Yeu cau thuc hien transaction
+            transaction.commit();
+
+        }
+    }
 
