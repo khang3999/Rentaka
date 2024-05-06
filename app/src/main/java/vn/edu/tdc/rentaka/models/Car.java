@@ -1,7 +1,6 @@
 package vn.edu.tdc.rentaka.models;
 
 public class Car {
-
     private String id;
     private String model;
     private String autoMaker;
@@ -11,7 +10,6 @@ public class Car {
     private String description;
     private int year;
     private int seat;
-
 
 
     public String getId() {
@@ -89,8 +87,7 @@ public class Car {
     public Car() {
     }
 
-    public Car(String id, String model, String autoMaker, String color, String licensePlate, String status, String description, int year, int seat) {
-        this.id = id;
+    public Car(String model, String autoMaker, String color, String licensePlate, String status, String description, int year, int seat) {
         this.model = model;
         this.autoMaker = autoMaker;
         this.color = color;
@@ -100,6 +97,7 @@ public class Car {
         this.year = year;
         this.seat = seat;
     }
+
     @Override
     public String toString() {
         return "Car{" +

@@ -34,7 +34,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import vn.edu.tdc.rentaka.APIs.FirebaseAPI;
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.MainLayoutBinding;
 import vn.edu.tdc.rentaka.fragments.AbstractFragment;
@@ -43,47 +45,33 @@ import vn.edu.tdc.rentaka.fragments.HomeFragment;
 import vn.edu.tdc.rentaka.fragments.NewsFragment;
 import vn.edu.tdc.rentaka.fragments.NotificationFragment;
 import vn.edu.tdc.rentaka.fragments.PersonalProfileFragment;
+import vn.edu.tdc.rentaka.models.Car;
+import vn.edu.tdc.rentaka.models.Status;
 
 public class MainActivity extends AppCompatActivity {
 
-// <<<<<<< future/confirm-rental-ui
-     private DatabaseReference mDatabase;
 
-     @Override
-     protected void onCreate(Bundle savedInstanceState) {
-         super.onCreate(savedInstanceState);
-         EdgeToEdge.enable(this);
-         setContentView(R.layout.confirm_rental_layout);
-
-         mDatabase = FirebaseDatabase.getInstance("https://rentaka-android-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
- //        writeNewUser("1", "Alice", "Alice@email.com");
-         ValueEventListener postListener = new ValueEventListener() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.confirm_rental_layout);
+        FirebaseAPI firebaseAPI = new FirebaseAPI();
+//        firebaseAPI.addCar(new Car("Corolla", "Toyota", "Red", "29A-12345", "Available", "This is a car", 2019, 4));
+         firebaseAPI.fetchCars(new FirebaseAPI.onCallback<Car>() {
              @Override
-             public void onDataChange(DataSnapshot dataSnapshot) {
-                 // Get Post object and use the values to update the UI
- //                ArrayList<User> users = new ArrayList<>();
- //                for (DataSnapshot userSnapshot : dataSnapshot.child("users").getChildren()) {
- //                    User user = userSnapshot.getValue(User.class);
- //                    users.add(user);
- //                }
- //                Log.d("Test", "onDataChange: "+users.toString());
-                 User user = dataSnapshot.child("users").child("1").getValue(User.class);
-                 Log.d("Test", "onDataChange: "+user.toString());
+             public void onCallback(List<Car> List) {
+                 for (Car car : List) {
+                     Log.d("Car", car.toString());
+                 }
              }
+         });
 
-             @Override
-             public void onCancelled(DatabaseError databaseError) {
-                 // Getting Post failed, log a message
-                 Log.d("Test", "loadPost:onCancelled", databaseError.toException());
-             }
-         };
-         mDatabase.addValueEventListener(postListener);
-     }
-     public void writeNewUser(String userId, String name, String email) {
-         User user = new User(name, email);
 
-         mDatabase.child("users").child(userId).child("username").setValue(name);
-     }
+
+
+    }
+
 // =======
     //Properties
 //    private AbstractFragment fragment;
