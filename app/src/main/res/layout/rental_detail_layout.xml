@@ -583,6 +583,42 @@ Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệ
 
             <!--    Cancel policy start-->
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="10dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_line" />
+
+                <TextView
+                    android:id="@+id/cancel_policy_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingVertical="5dp"
+                    android:text="Chinh sach huy chuye "
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/cancel_policy_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingVertical="5dp"
+                    android:text="An tam thue xe, khong bi lo huy chuyen voi Chinh sach huy chuyen cua Rentaka!"/>
+                <TextView
+                    android:id="@+id/btn_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Xem them &gt;"
+                    android:textStyle="bold" />
+            </LinearLayout>
             <!--    Cancel policy end-->
 
         </LinearLayout>
