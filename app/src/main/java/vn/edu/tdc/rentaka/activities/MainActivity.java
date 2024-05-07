@@ -33,7 +33,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import vn.edu.tdc.rentaka.APIs.FirebaseAPI;
@@ -46,6 +48,8 @@ import vn.edu.tdc.rentaka.fragments.NewsFragment;
 import vn.edu.tdc.rentaka.fragments.NotificationFragment;
 import vn.edu.tdc.rentaka.fragments.PersonalProfileFragment;
 import vn.edu.tdc.rentaka.models.Car;
+import vn.edu.tdc.rentaka.models.Location;
+import vn.edu.tdc.rentaka.models.Reservation;
 import vn.edu.tdc.rentaka.models.Status;
 
 public class MainActivity extends AppCompatActivity {
@@ -57,15 +61,26 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.confirm_rental_layout);
         FirebaseAPI firebaseAPI = new FirebaseAPI();
-//        firebaseAPI.addCar(new Car("Corolla", "Toyota", "Red", "29A-12345", "Available", "This is a car", 2019, 4));
-         firebaseAPI.fetchCars(new FirebaseAPI.onCallback<Car>() {
-             @Override
-             public void onCallback(List<Car> List) {
-                 for (Car car : List) {
-                     Log.d("Car", car.toString());
-                 }
-             }
-         });
+        LocalDate date = LocalDate.now();
+//        firebaseAPI.addReservation(new Reservation("1", "1", "1",date ,date, new Location( "LA","location 43",true),new Location("Dalats","location 42"), 100.0, "pending"));
+//            firebaseAPI.addLocation(new Location("LA","location 43"), new Location("Dalats","location 42"));
+//         firebaseAPI.fetchCars(new FirebaseAPI.onCallback<Car>() {
+//             @Override
+//             public void onCallback(List<Car> List) {
+//                 for (Car car : List) {
+//                     Log.d("Car", car.toString());
+//                 }
+//             }
+//         });
+        firebaseAPI.fetchReservationsByCity("LA", new FirebaseAPI.onCallback<Reservation>() {
+            @Override
+            public void onCallback(List<Reservation> List) {
+                for (Reservation reservation : List) {
+                    Log.d("Reservation", reservation.toString());
+                }
+            }
+        });
+
 
 
 
