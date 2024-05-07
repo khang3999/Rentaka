@@ -38,19 +38,41 @@ public class FirebaseAPI {
         void onCallback(List<T> List);
     }
 
+    //function to fetch reservations from the Firestore database
+    public void fetchReservations(onCallback<Reservation> callBack) {
+        List<Reservation> reservationList = new ArrayList<>();
+        db.collection("reservations").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Reservation reservation = document.toObject(Reservation.class);
+                    reservation.setReservationID(document.getId());
+                    reservationList.add(reservation);
+                }
+                callBack.onCallback(reservationList);
+                Log.d("Success", "fetchReservations: " + reservationList.toString());
+            } else {
+                Log.d("Error", "Error getting documents: ", task.getException());
+            }
+        });
+
+    }
+
+
     //Function to fetch reservations by location from the Firestore database
     public void fetchReservationsByCity(String City, onCallback<Reservation> callBack) {
         List<Reservation> reservationList = new ArrayList<>();
         db.collection("locations").whereEqualTo("city", City).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    db.collection("reservations").whereEqualTo("pickUpLocation", document.getId()).get().addOnCompleteListener(task1 -> {
+                    Log.d("TAG", "fetchReservationsByCity: "+document.get("docRef").toString());
+                    DocumentReference docRef = (DocumentReference) document.get("docRef");
+                    docRef.get().addOnCompleteListener(task1 -> {
                         if (task1.isSuccessful()) {
-                            for (QueryDocumentSnapshot document1 : task1.getResult()) {
+                            DocumentSnapshot document1 = task1.getResult();
                                 Reservation reservation = document1.toObject(Reservation.class);
                                 reservation.setReservationID(document1.getId());
                                 reservationList.add(reservation);
-                            }
+
                             callBack.onCallback(reservationList);
                             Log.d("Success", "fetchReservationsByCity: " + reservationList.toString());
                         } else {
@@ -69,7 +91,6 @@ public class FirebaseAPI {
     public void addReservation(Reservation reservation) {
 
         db.collection("reservations").add(reservation).addOnSuccessListener(documentReference -> {
-
 
             db.collection("reservations")
                     .document(documentReference.getId())
@@ -99,9 +120,9 @@ public class FirebaseAPI {
 
                 //archive location id to reservation's location id
                 if(location.isPickUp()) {
-                    mRef.update("pickUpLocation", documentReference.getId());
+                  mRef.update("pickUpLocation.id", documentReference.getId());
                 }else{
-                    mRef.update("returnLocation", documentReference.getId());
+                    mRef.update("returnLocation.id", documentReference.getId());
                 }
                 System.out.println("Added successfully location with ID: " + documentReference.getId());
             }).addOnFailureListener(e -> {

@@ -1,11 +1,21 @@
 package vn.edu.tdc.rentaka.models;
 
+import com.google.firebase.firestore.DocumentReference;
+
 public class Location {
     private String id;
     private String city;
     private String address;
-
+    private DocumentReference docRef;
     private boolean isPickUp;
+
+    public DocumentReference getDocRef() {
+        return docRef;
+    }
+
+    public void setDocRef(DocumentReference docRef) {
+        this.docRef = docRef;
+    }
 
     public boolean isPickUp() {
         return isPickUp;

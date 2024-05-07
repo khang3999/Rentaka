@@ -1,19 +1,32 @@
 package vn.edu.tdc.rentaka.models;
 
 
-import java.time.LocalDate;
-import java.util.Date;
-
 public class Reservation {
     private String reservationID;
     private String carID;
     private String customerID;
-    private LocalDate pickUpDate;
-    private LocalDate returnDate;
+    private Date pickUpDate;
+    private Date returnDate;
     private Location pickUpLocation;
     private Location returnLocation;
     private Double totalCost;
     private String status;
+
+    public Date getPickUpDate() {
+        return pickUpDate;
+    }
+
+    public void setPickUpDate(Date pickUpDate) {
+        this.pickUpDate = pickUpDate;
+    }
+
+    public Date getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(Date returnDate) {
+        this.returnDate = returnDate;
+    }
 
     public Location getPickUpLocation() {
         return pickUpLocation;
@@ -55,21 +68,6 @@ public class Reservation {
         this.customerID = customerID;
     }
 
-    public LocalDate getPickUpDate() {
-        return pickUpDate;
-    }
-
-    public void setPickUpDate(LocalDate pickUpDate) {
-        this.pickUpDate = pickUpDate;
-    }
-
-    public LocalDate getReturnDate() {
-        return returnDate;
-    }
-
-    public void setReturnDate(LocalDate returnDate) {
-        this.returnDate = returnDate;
-    }
 
 
     public Double getTotalCost() {
@@ -91,7 +89,7 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(String reservationID, String carID, String customerID, LocalDate pickUpDate, LocalDate returnDate, Location pickUpLocation, Location returnLocation, Double totalCost, String status) {
+    public Reservation(String reservationID, String carID, String customerID, Date pickUpDate, Date returnDate, Location pickUpLocation, Location returnLocation, Double totalCost, String status) {
         this.reservationID = reservationID;
         this.carID = carID;
         this.customerID = customerID;

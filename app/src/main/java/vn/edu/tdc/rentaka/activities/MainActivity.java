@@ -35,7 +35,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import vn.edu.tdc.rentaka.APIs.FirebaseAPI;
@@ -50,7 +49,7 @@ import vn.edu.tdc.rentaka.fragments.PersonalProfileFragment;
 import vn.edu.tdc.rentaka.models.Car;
 import vn.edu.tdc.rentaka.models.Location;
 import vn.edu.tdc.rentaka.models.Reservation;
-import vn.edu.tdc.rentaka.models.Status;
+import vn.edu.tdc.rentaka.models.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.confirm_rental_layout);
         FirebaseAPI firebaseAPI = new FirebaseAPI();
-        LocalDate date = LocalDate.now();
+
+        Date date = new Date(LocalDate.now());
 //        firebaseAPI.addReservation(new Reservation("1", "1", "1",date ,date, new Location( "LA","location 43",true),new Location("Dalats","location 42"), 100.0, "pending"));
 //            firebaseAPI.addLocation(new Location("LA","location 43"), new Location("Dalats","location 42"));
 //         firebaseAPI.fetchCars(new FirebaseAPI.onCallback<Car>() {
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 //                 }
 //             }
 //         });
-        firebaseAPI.fetchReservationsByCity("LA", new FirebaseAPI.onCallback<Reservation>() {
+        firebaseAPI.fetchReservations(new FirebaseAPI.onCallback<Reservation>() {
             @Override
             public void onCallback(List<Reservation> List) {
                 for (Reservation reservation : List) {
