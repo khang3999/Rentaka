@@ -31,7 +31,6 @@ public class ChooseLocationActivity extends AppCompatActivity {
                 Intent intent = new Intent(ChooseLocationActivity.this, MainActivity.class);
                 intent.putExtra("city", binding.edtChooseLocation.getText().toString());
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                Log.d("goi", "onClick: "+intent.getStringExtra("city"));
                 startActivity(intent);
             }
         });

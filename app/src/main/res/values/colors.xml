@@ -10,6 +10,9 @@
 
     <color name="blue_security">#87CEEB</color>
     <color name="yellow_star">#FFC300</color>
+    <color name="gray_light">#cccccc</color>
+    <color name="text_label_gray">#777777</color>
+
 
 
     <color name="xanh_nhat">#dff3e8</color>

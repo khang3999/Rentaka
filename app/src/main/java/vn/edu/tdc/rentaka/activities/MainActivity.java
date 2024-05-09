@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
     //Properties
     private AbstractFragment fragment;
     private int currentFragment = 0;
+    private int preFragment = 0;
     private MainLayoutBinding binding;
     // doi tuong dung de dan fragment vao khung man hinh
     private FragmentTransaction transaction;
@@ -95,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_layout);
 
         //Khoi tao binding
         binding = MainLayoutBinding.inflate(getLayoutInflater());
@@ -108,7 +108,9 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomMenu.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                preFragment = currentFragment;
                 if (menuItem.getItemId() == R.id.homeItemMenu) {
+                    preFragment = currentFragment;
                     currentFragment = 0;
                 } else if (menuItem.getItemId() == R.id.newsItemMenu) {
                     currentFragment = 1;
@@ -123,16 +125,21 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        Log.d("main", "onCreate: " + getIntent());
+    }
 
+    // Cap nhat intent
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         Intent intent = getIntent();
-
-        Log.d("yu", "onResume: " + intent.getStringExtra("city"));
-
         updateUI();
     }
 
@@ -161,6 +168,13 @@ public class MainActivity extends AppCompatActivity {
             // CHUAN BI CHO TRANSACTION
             //Lay doi tuong fragment transaction
             transaction = getSupportFragmentManager().beginTransaction();
+            // Set annimation change fragment
+            if (currentFragment > preFragment){
+                transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.fade_out);
+            } else {
+                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.fade_out);
+            }
+//            transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
             // Do du lieu vao doi tuong va dan doi tuong fragment vao khung man hinh,
             // voi tham so dau tien la id cua khung chua fragment o layout )
             transaction.replace(R.id.fragmentContainer, fragment, currentFragment + "");

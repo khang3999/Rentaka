@@ -1,5 +1,6 @@
 package vn.edu.tdc.rentaka.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +38,8 @@ public class HomeFragment extends AbstractFragment {
     private PromotionAdapter promotionAdapter;
     private LocationAdapter locationAdapter;
     private AdvantageAdapter advantageAdapter;
+    private Activity activity;
+
     // Mac dinh search theo xe tu lai type = 0
     private int typeSearch = 0;
 
@@ -48,7 +52,8 @@ public class HomeFragment extends AbstractFragment {
         // Inflate the layout for this fragment
         //fragment = inflater.inflate(R.layout.home_fragment, container, false);
         fragment = binding.getRoot();
-
+        // Get Activity of this fragment
+        activity = getActivity();
         // Set adapter for Promotion
         listPromotions = new ArrayList<Promotion>();
         listPromotions.add(new Promotion(1));
@@ -136,17 +141,16 @@ public class HomeFragment extends AbstractFragment {
             }
         });
 
+
         return fragment;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (getActivity().getParentActivityIntent() != null){
+        if (activity.getIntent() != null && activity.getIntent().hasExtra("city")){
             Intent intent = getActivity().getIntent();
             binding.tvLocationResult.setText(intent.getStringExtra("city"));
-            Log.d("checkIntent", "onResume: "+getActivity().getIntent().hasExtra("city"));
-            Log.d("checkIntent", "onResume: "+intent.getStringExtra("city"));
         }
     }
 }
