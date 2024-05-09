@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
@@ -29,6 +30,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ic_pick_now"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/location_now_24"
+        android:layout_marginStart="@dimen/_18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_location_now"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_location_now" />
+
+    <TextView
+        android:id="@+id/tv_location_now"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="@dimen/_10dp"
+        android:gravity="center_vertical"
+        android:text="Vi tri hien tai cua toi"
+        android:textSize="@dimen/_20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline17"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline15"
+        app:layout_constraintTop_toTopOf="@id/guideline12" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/boxEditTextLocation"
@@ -64,6 +90,8 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/ic_delete"
+            android:visibility="invisible"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="@dimen/_10dp"
@@ -79,6 +107,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.15" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline14"
             android:layout_width="wrap_content"
@@ -87,14 +116,24 @@
             app:layout_constraintGuide_percent="0.85" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/fragment_container_view_tag"
+    <LinearLayout
+        android:id="@+id/boxListLocation"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline12" />
+        app:layout_constraintTop_toTopOf="@+id/guideline12">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listCities"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline7"
@@ -110,13 +149,20 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.15" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.20109439" />
+        app:layout_constraintGuide_percent="0.2" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

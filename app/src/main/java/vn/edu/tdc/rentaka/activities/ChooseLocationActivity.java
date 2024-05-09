@@ -1,10 +1,13 @@
 package vn.edu.tdc.rentaka.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,15 +22,14 @@ import java.util.ArrayList;
 
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.adapters.CityAdapter;
+import vn.edu.tdc.rentaka.databinding.CardItemCityLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.ChooseLocationLayoutBinding;
 import vn.edu.tdc.rentaka.fragments.AbstractFragment;
 import vn.edu.tdc.rentaka.fragments.HistoryFragment;
 import vn.edu.tdc.rentaka.fragments.HomeFragment;
-import vn.edu.tdc.rentaka.fragments.ListLocationFragment;
 import vn.edu.tdc.rentaka.fragments.NewsFragment;
 import vn.edu.tdc.rentaka.fragments.NotificationFragment;
 import vn.edu.tdc.rentaka.fragments.PersonalProfileFragment;
-import vn.edu.tdc.rentaka.fragments.PickLocationCurrentFragment;
 import vn.edu.tdc.rentaka.models.City;
 
 public class ChooseLocationActivity extends AppCompatActivity {
@@ -35,11 +37,9 @@ public class ChooseLocationActivity extends AppCompatActivity {
     private AbstractFragment fragment;
     private boolean checkExistFragment;
     private FragmentTransaction transaction;
-    private ListLocationFragment listLocationFragment;
-    private int currentFragment = 0;
-    private ArrayList<City> copyList ;
     private ArrayList<City> listCities;
-
+    private ArrayList<City> copyList ;
+    private CityAdapter adapterCities;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,30 +48,65 @@ public class ChooseLocationActivity extends AppCompatActivity {
         // Gán view cho binding
         setContentView(binding.getRoot());
 
-        //Khong focus vao edit text
-        fragment = new PickLocationCurrentFragment();
-        updateUI();
+        //Khoi tao mang gia
+        listCities = new ArrayList<>();
+        listCities.add(new City("hcm"));
+        listCities.add(new City("hn"));
+        listCities.add(new City("dn"));
+        listCities.add(new City("qn"));
 
-        //Focus vao edit text
-        binding.editTextPickLocation.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        copyList = listCities;
+        adapterCities = new CityAdapter(this, copyList);
+        LinearLayoutManager layoutManagerCities = new LinearLayoutManager(this);
+        layoutManagerCities.setOrientation(RecyclerView.VERTICAL);
+        layoutManagerCities.setReverseLayout(false);
+        binding.listCities.setLayoutManager(layoutManagerCities);
+        binding.listCities.setAdapter(adapterCities);
+
+        //Bat su kien click vao item adapter
+        adapterCities.setOnItemClickListener(new CityAdapter.ItemClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                //Chang background
-                binding.boxEditTextLocation.setBackgroundResource(R.drawable.border_line_green);
-
-                // Do fragment list location
-                currentFragment = 1;
-                updateUI();
-
+            public void onItemClick(CityAdapter.MyViewHolder holder) {
+                CardItemCityLayoutBinding binding1 = (CardItemCityLayoutBinding)holder.getBinding();
+                Log.d("TAG", "onItemClick: "+binding1.cityName.getText().toString());
+                Intent intent = new Intent(ChooseLocationActivity.this, MainActivity.class);
+                intent.putExtra("city", binding1.cityName.getText().toString());
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                Log.d("goi", "onClick: "+intent.getStringExtra("city"));
+                startActivity(intent);
             }
         });
 
+        // bat su kien khi focus do edittext
+        binding.editTextPickLocation.setOnFocusChangeListener(
+                new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+                        binding.boxEditTextLocation.setBackgroundResource(R.drawable.border_line_green);
+                        binding.boxListLocation.setVisibility(View.VISIBLE);
+                        binding.icPickNow.setVisibility(View.INVISIBLE);
+                        binding.tvLocationNow.setVisibility(View.INVISIBLE);
+                        binding.editTextPickLocation.setText("");
+                    }
+                });
 
 
+        //Bat su kien khi nhan delete
+        binding.icDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.boxEditTextLocation.setBackgroundResource(R.drawable.border_line_gray);
+                binding.boxListLocation.setVisibility(View.INVISIBLE);
+                binding.icPickNow.setVisibility(View.VISIBLE);
+                binding.tvLocationNow.setVisibility(View.VISIBLE);
+                binding.icDelete.setVisibility(View.INVISIBLE);
+                binding.editTextPickLocation.clearFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(binding.editTextPickLocation.getWindowToken(), 0);
+            }
+        });
 
-
-
-
+        // Bat su kien khi nhap ky tu
         binding.editTextPickLocation.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -81,9 +116,10 @@ public class ChooseLocationActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+                binding.icDelete.setVisibility(View.VISIBLE);
                 if (s.toString().isEmpty()) {
                     Log.d("test", "onTextChanged: empty");
-                    copyList = listLocationFragment.getListCities();
+                    copyList = listCities;
                     for (City c : copyList
                     ) {
                         Log.d("test", "empty: " + c.getName());
@@ -99,7 +135,8 @@ public class ChooseLocationActivity extends AppCompatActivity {
                         }
                     }
                 }
-                listLocationFragment.setCopyList(copyList);
+                adapterCities.setListCites(copyList);
+                adapterCities.notifyDataSetChanged();
 
             }
 
@@ -125,37 +162,6 @@ public class ChooseLocationActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        updateUI();
-    }
-    private void updateUI () {
-        // Set title
-        // Neu da ton tai thi tai su dung
-        if (getSupportFragmentManager().findFragmentByTag(currentFragment + "") != null) {
-            fragment = (AbstractFragment) getSupportFragmentManager().findFragmentByTag(currentFragment + "");
-        }
-        // Neu chua ton tai thi tao moi fragment
-        else {
-            // Tao doi tuong fragment tuong ung
-            if (currentFragment == 0) {
-                fragment = new PickLocationCurrentFragment();
-            } else if (currentFragment == 1) {
-                fragment = new ListLocationFragment();
-            }
-        }
-
-        // CHUAN BI CHO TRANSACTION
-        //Lay doi tuong fragment transaction
-        transaction = getSupportFragmentManager().beginTransaction();
-        // Do du lieu vao doi tuong va dan doi tuong fragment vao khung man hinh,
-        // voi tham so dau tien la id cua khung chua fragment o layout )
-        transaction.replace(R.id.fragmentContainer, fragment, currentFragment + "");
-        // Dua fragment vao trong Stack neu chua ton tai
-        if (getSupportFragmentManager().findFragmentByTag(currentFragment + "") == null) {
-            transaction.addToBackStack(null);
-        }
-        // Yeu cau thuc hien transaction
-        transaction.commit();
 
     }
-
 }

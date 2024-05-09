@@ -2,7 +2,9 @@ package vn.edu.tdc.rentaka.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -53,6 +55,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.MyViewHolder> 
         CardItemCityLayoutBinding binding = (CardItemCityLayoutBinding) holder.getBinding();
         City city = listCites.get(position);
         binding.cityName.setText(city.getName());
+
     }
 
     @Override
@@ -65,6 +68,20 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.MyViewHolder> 
         public MyViewHolder(@NonNull ViewBinding itemView) {
             super(itemView.getRoot());
             binding = itemView;
+            //Bat su kien chung
+            itemView.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (itemClickListener != null){
+                        itemClickListener.onItemClick(MyViewHolder.this);
+
+                    }
+                    else {
+                        Log.d("adapter","You must create an ItemClickListener before!");
+                    }
+                }
+            });
+
         }
 
         public ViewBinding getBinding() {
@@ -78,6 +95,6 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.MyViewHolder> 
 
     //    Interface
     public interface ItemClickListener{
-        public void onItemClick(CityAdapter.MyViewHolder holder);
+        public void onItemClick(MyViewHolder holder);
     }
 }
