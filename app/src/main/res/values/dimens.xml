@@ -58,6 +58,9 @@
     <dimen name="_112dp">112dp</dimen>
     <dimen name="fragment_marginBottom_112">112dp</dimen>
     <dimen name="_20sp">20sp</dimen>
+    <dimen name="_15dp">15dp</dimen>
+    <dimen name="_40sp">40sp</dimen>
+    <dimen name="_30sp">30sp</dimen>
 
 
 </resources>
