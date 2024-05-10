@@ -1,5 +1,6 @@
 package vn.edu.tdc.rentaka.fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,19 +14,25 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.activities.ChangeThePasswordActivity;
+import vn.edu.tdc.rentaka.activities.CheckLogin;
 import vn.edu.tdc.rentaka.activities.DrivingLicenseActivity;
 import vn.edu.tdc.rentaka.activities.FavoriteCar;
+import vn.edu.tdc.rentaka.activities.LoginActivity;
 import vn.edu.tdc.rentaka.activities.MainActivity;
 import vn.edu.tdc.rentaka.activities.MyAccountActivity;
 import vn.edu.tdc.rentaka.adapters.PersonalProfileAdapter;
 import vn.edu.tdc.rentaka.databinding.PersonalProfileLayoutBinding;
 import vn.edu.tdc.rentaka.models.PersonalProfileModel;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonalProfileFragment extends Fragment {
+public class PersonalProfileFragment extends AbstractFragment {
 
     private PersonalProfileLayoutBinding binding;
     private PersonalProfileAdapter adapter1;
@@ -138,10 +145,48 @@ public class PersonalProfileFragment extends Fragment {
                 }
             }
         });
+        //Nut dang xuat
+        // Set up the logout button click listener
+        binding.logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an AlertDialog builder
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());  // Adjust context appropriately, `requireActivity()` is typically used in fragments
+                builder.setTitle("Đăng Xuất");  // Title of the dialog
+                builder.setMessage(getString(R.string.b_n_c_ch_c_l_mu_n_ng_xu_t_kh_ng));  // Message in the dialog
+
+                // Set up the buttons in the dialog
+                builder.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+//                        //logout data
+//                        FirebaseAuth.getInstance().signOut();
+//                        Intent intent = new Intent(getActivity(), CheckLogin.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                        startActivity(intent);
+//                        Toast.makeText(getActivity(), "Bạn đã đăng xuất thành công.", Toast.LENGTH_SHORT).show();
+//                        //Xoa activity nay
+//                        getActivity().finish();
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        Toast.makeText(getActivity(), "Bạn đã đăng xuất thành công.", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // User clicked "Hủy" button, dismiss the dialog
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+        });
+
         return view;
     }
 
-    private void showToast(int pos) {
-        Toast.makeText(getActivity(), "Item number : " + pos, Toast.LENGTH_SHORT).show();
-    }
 }

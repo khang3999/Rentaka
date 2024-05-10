@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     //Properties
     private AbstractFragment fragment;
     private  int currentFragment = 0;
-    private MainLayoutBinding binding;
+    MainLayoutBinding binding;
     // doi tuong dung de dan fragment vao khung man hinh
     private FragmentTransaction transaction;
     // Set color when click
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_layout);
 
         //Khoi tao binding
-        binding = MainLayoutBinding.inflate(getLayoutInflater());
+        binding = vn.edu.tdc.rentaka.databinding.MainLayoutBinding.inflate(getLayoutInflater());
         // Gán view cho binding
         setContentView(binding.getRoot());
 
@@ -70,8 +70,10 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new HomeFragment();
             } else if (currentFragment == 1) {
                 fragment = new NewsFragment();
+            } else if (currentFragment == 2) {
+
+            } else{
             }
-            // Them cac fragment
         }
 
         // CHUAN BI CHO TRANSACTION

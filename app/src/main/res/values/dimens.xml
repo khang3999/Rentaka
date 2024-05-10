@@ -41,5 +41,6 @@
     <dimen name="_100dp">100dp</dimen>
     <dimen name="_112dp">112dp</dimen>
     <dimen name="fragment_marginBottom_112">112dp</dimen>
+    <dimen name="_50sp">50sp</dimen>
 
 </resources>

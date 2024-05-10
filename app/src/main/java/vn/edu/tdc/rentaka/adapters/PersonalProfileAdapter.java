@@ -1,5 +1,6 @@
 package vn.edu.tdc.rentaka.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,9 +57,11 @@ public class PersonalProfileAdapter extends RecyclerView.Adapter<PersonalProfile
         }
     }
 
+    @SuppressLint("RecyclerView")
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         PersonalProfileModel data = dataList.get(position);
+        //Goi ham bind de hien thi du lieu
         holder.bind(data);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +101,7 @@ public class PersonalProfileAdapter extends RecyclerView.Adapter<PersonalProfile
             this.noBrickBinding = noBrickBinding;
             this.brickBinding = null;
         }
-
+//Ham hien thi set du lieu vao view
         public void bind(PersonalProfileModel data) {
             if (brickBinding != null) {
                 brickBinding.textItem.setText(data.getContent());
