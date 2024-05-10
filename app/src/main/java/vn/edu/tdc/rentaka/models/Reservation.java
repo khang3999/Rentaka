@@ -2,15 +2,49 @@ package vn.edu.tdc.rentaka.models;
 
 
 public class Reservation {
-    private String reservationID;
+    private String id;
     private String carID;
-    private String customerID;
+    private String ownerID;
+    private String renterID;
     private Date pickUpDate;
     private Date returnDate;
     private Location pickUpLocation;
     private Location returnLocation;
     private Double totalCost;
-    private String status;
+    private String statusID;
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCarID() {
+        return carID;
+    }
+
+    public void setCarID(String carID) {
+        this.carID = carID;
+    }
+
+    public String getOwnerID() {
+        return ownerID;
+    }
+
+    public void setOwnerID(String ownerID) {
+        this.ownerID = ownerID;
+    }
+
+    public String getRenterID() {
+        return renterID;
+    }
+
+    public void setRenterID(String renterID) {
+        this.renterID = renterID;
+    }
 
     public Date getPickUpDate() {
         return pickUpDate;
@@ -44,32 +78,6 @@ public class Reservation {
         this.returnLocation = returnLocation;
     }
 
-    public String getReservationID() {
-        return reservationID;
-    }
-
-    public void setReservationID(String reservationID) {
-        this.reservationID = reservationID;
-    }
-
-    public String getCarID() {
-        return carID;
-    }
-
-    public void setCarID(String carID) {
-        this.carID = carID;
-    }
-
-    public String getCustomerID() {
-        return customerID;
-    }
-
-    public void setCustomerID(String customerID) {
-        this.customerID = customerID;
-    }
-
-
-
     public Double getTotalCost() {
         return totalCost;
     }
@@ -78,41 +86,42 @@ public class Reservation {
         this.totalCost = totalCost;
     }
 
-    public String getStatus() {
-        return status;
+    public String getStatusID() {
+        return statusID;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatusID(String statusID) {
+        this.statusID = statusID;
     }
 
     public Reservation() {
     }
 
-    public Reservation(String reservationID, String carID, String customerID, Date pickUpDate, Date returnDate, Location pickUpLocation, Location returnLocation, Double totalCost, String status) {
-        this.reservationID = reservationID;
+    public Reservation(String carID, String ownerID, String renterID, Date pickUpDate, Date returnDate, Location pickUpLocation, Location returnLocation, Double totalCost) {
         this.carID = carID;
-        this.customerID = customerID;
+        this.ownerID = ownerID;
+        this.renterID = renterID;
         this.pickUpDate = pickUpDate;
         this.returnDate = returnDate;
         this.pickUpLocation = pickUpLocation;
         this.returnLocation = returnLocation;
         this.totalCost = totalCost;
-        this.status = status;
+
     }
 
     @Override
     public String toString() {
         return "Reservation{" +
-                "reservationID='" + reservationID + '\'' +
+                "id='" + id + '\'' +
                 ", carID='" + carID + '\'' +
-                ", customerID='" + customerID + '\'' +
+                ", ownerID='" + ownerID + '\'' +
+                ", renterID='" + renterID + '\'' +
                 ", pickUpDate=" + pickUpDate +
                 ", returnDate=" + returnDate +
                 ", pickUpLocation=" + pickUpLocation +
                 ", returnLocation=" + returnLocation +
                 ", totalCost=" + totalCost +
-                ", status='" + status + '\'' +
+                ", statusID='" + statusID + '\'' +
                 '}';
     }
 }

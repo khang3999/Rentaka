@@ -4,14 +4,30 @@ import com.google.firebase.firestore.DocumentReference;
 
 public class Status {
     private String id;
-    private DocumentReference docRef;
     private String name;
+
+    public enum StatusName {
+        PENDING,
+        ACCEPTED,
+        REJECTED,
+        CANCELLED,
+        COMPLETED,
+        UNAVAILABLE,
+        AVAILABLE,
+        CREATED
+    }
+
 
     public Status() {
     }
 
-    public Status(String name) {
-        this.name = name;
+    public Status(String id, StatusName statusName) {
+        this.id = id;
+        this.name = statusName.toString();
+    }
+
+    public Status(StatusName statusName) {
+        this.name = statusName.toString();
     }
 
     public String getId() {
@@ -20,14 +36,6 @@ public class Status {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public DocumentReference getDocRef() {
-        return docRef;
-    }
-
-    public void setDocRef(DocumentReference docRef) {
-        this.docRef = docRef;
     }
 
     public String getName() {
@@ -42,7 +50,6 @@ public class Status {
     public String toString() {
         return "Status{" +
                 "id='" + id + '\'' +
-                ", docRef=" + docRef +
                 ", name='" + name + '\'' +
                 '}';
     }

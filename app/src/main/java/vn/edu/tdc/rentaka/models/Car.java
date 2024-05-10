@@ -2,15 +2,23 @@ package vn.edu.tdc.rentaka.models;
 
 public class Car {
     private String id;
+    private String ownerID;
     private String model;
     private String autoMaker;
     private String color;
     private String licensePlate;
-    private String status;
+    private String statusID;
     private String description;
     private int year;
     private int seat;
 
+    public String getOwnerID() {
+        return ownerID;
+    }
+
+    public void setOwnerID(String ownerID) {
+        this.ownerID = ownerID;
+    }
 
     public String getId() {
         return id;
@@ -52,12 +60,12 @@ public class Car {
         this.licensePlate = licensePlate;
     }
 
-    public String getStatus() {
-        return status;
+    public String getStatusID() {
+        return statusID;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatusID(String statusID) {
+        this.statusID = statusID;
     }
 
     public String getDescription() {
@@ -87,29 +95,33 @@ public class Car {
     public Car() {
     }
 
-    public Car(String model, String autoMaker, String color, String licensePlate, String status, String description, int year, int seat) {
+    public Car( String ownerID, String model, String autoMaker, String color, String licensePlate, String description, int year, int seat) {
+        this.id = id;
+        this.ownerID = ownerID;
         this.model = model;
         this.autoMaker = autoMaker;
         this.color = color;
         this.licensePlate = licensePlate;
-        this.status = status;
         this.description = description;
         this.year = year;
         this.seat = seat;
     }
 
+
     @Override
     public String toString() {
         return "Car{" +
                 "id='" + id + '\'' +
+                ", ownerID=" + ownerID +
                 ", model='" + model + '\'' +
                 ", autoMaker='" + autoMaker + '\'' +
                 ", color='" + color + '\'' +
                 ", licensePlate='" + licensePlate + '\'' +
-                ", status='" + status + '\'' +
+                ", statusID='" + statusID + '\'' +
                 ", description='" + description + '\'' +
                 ", year=" + year +
                 ", seat=" + seat +
                 '}';
     }
+
 }

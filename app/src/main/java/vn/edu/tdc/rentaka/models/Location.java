@@ -3,35 +3,24 @@ package vn.edu.tdc.rentaka.models;
 import com.google.firebase.firestore.DocumentReference;
 
 public class Location {
-    private String id;
     private String city;
     private String address;
-    private DocumentReference docRef;
-    private boolean isPickUp;
+    private LocationType type;
 
-    public DocumentReference getDocRef() {
-        return docRef;
+    public enum LocationType {
+        PICKUP,
+        RETURN,
+        CUSTOMER
     }
 
-    public void setDocRef(DocumentReference docRef) {
-        this.docRef = docRef;
+    public LocationType getType() {
+        return type;
     }
 
-    public boolean isPickUp() {
-        return isPickUp;
+    public void setType(LocationType type) {
+        this.type = type;
     }
 
-    public void setPickUp(boolean pickUp) {
-        isPickUp = pickUp;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getCity() {
         return city;
@@ -49,18 +38,15 @@ public class Location {
         this.address = address;
     }
 
+
     public Location() {
     }
 
-    public Location( String city, String address,boolean isPickUp) {
+    public Location( String city, String address,LocationType type) {
         this.city = city;
         this.address = address;
-        this.isPickUp = isPickUp;
-    }
-    public Location( String city, String address) {
-        this.city = city;
-        this.address = address;
-        this.isPickUp = false;
+        this.type = type;
+
     }
 
     @Override
@@ -68,3 +54,4 @@ public class Location {
         return address + ", " + city;
     }
 }
+

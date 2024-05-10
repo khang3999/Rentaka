@@ -1,51 +1,19 @@
 package vn.edu.tdc.rentaka.activities;
 
-import android.content.ClipData;
-import android.content.res.ColorStateList;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import vn.edu.tdc.rentaka.APIs.FirebaseAPI;
 import vn.edu.tdc.rentaka.R;
-import vn.edu.tdc.rentaka.databinding.MainLayoutBinding;
-import vn.edu.tdc.rentaka.fragments.AbstractFragment;
-import vn.edu.tdc.rentaka.fragments.HistoryFragment;
-import vn.edu.tdc.rentaka.fragments.HomeFragment;
-import vn.edu.tdc.rentaka.fragments.NewsFragment;
-import vn.edu.tdc.rentaka.fragments.NotificationFragment;
-import vn.edu.tdc.rentaka.fragments.PersonalProfileFragment;
 import vn.edu.tdc.rentaka.models.Car;
 import vn.edu.tdc.rentaka.models.Location;
 import vn.edu.tdc.rentaka.models.Reservation;
@@ -62,31 +30,37 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAPI firebaseAPI = new FirebaseAPI();
 
         Date date = new Date(LocalDate.now());
-//        firebaseAPI.addReservation(new Reservation("1", "1", "1",date ,date, new Location( "LA","location 43",true),new Location("Dalats","location 42"), 100.0, "pending"));
-//            firebaseAPI.addLocation(new Location("LA","location 43"), new Location("Dalats","location 42"));
-//         firebaseAPI.fetchCars(new FirebaseAPI.onCallback<Car>() {
-//             @Override
-//             public void onCallback(List<Car> List) {
-//                 for (Car car : List) {
-//                     Log.d("Car", car.toString());
-//                 }
-//             }
-//         });
-        firebaseAPI.fetchReservations(new FirebaseAPI.onCallback<Reservation>() {
-            @Override
-            public void onCallback(List<Reservation> List) {
-                for (Reservation reservation : List) {
-                    Log.d("Reservation", reservation.toString());
-                }
-            }
-        });
 
+        Customer owner = new Customer("Tran", "Phuc", "tranhieuphuc12@gmail.com", "123456789", new Location("LA", "location 43", Location.LocationType.CUSTOMER), "123456789", Customer.CustomerType.OWNER);
+        owner.setId("O531Elqv5WDnnvSgeSqH");
+        Customer renter = new Customer("Nguyen", "Nhi", "phuongnhi12@gmail.com", "987654321", new Location("An Giang", "location 41", Location.LocationType.CUSTOMER), "987654321", Customer.CustomerType.RENTER);
+        Car car = new Car(owner.getId(), "Toyota", "Camry", "2021", "Black", "description", 2019, 4);
 
+        Reservation reservation = new Reservation("BeLYW9Tx1szs5DYoNvwF", owner.getId(), null, null,null,null,null, 100.0);
 
+        reservation.setRenterID("7F846Q126a8lR9JnA95C");
+        reservation.setPickUpDate(date);
+        reservation.setReturnDate(date);
+        reservation.setPickUpLocation(new Location("LA", "location 43", Location.LocationType.PICKUP));
+        reservation.setReturnLocation(new Location("AL", "location 34", Location.LocationType.RETURN));
+        reservation.setId("g6nCqFWCxquDFpd3U9dx");
+        reservation.setStatusID("ae8HLUo0St6NpiBtEkwa");
 
+//        firebaseAPI.addCustomer(renter);
+//        firebaseAPI.addReservation(reservation);
 
+        Log.d("TEST", "onCreate: " + reservation.toString());
+//    firebaseAPI.updateReservationWhenRenterRentsCar(reservation);
+        firebaseAPI.updateReservationWhenOwnerAcceptsRenterRequest(reservation);
+//        firebaseAPI.fetchCustomersByProperty("email","tranhieuphuc12@gmail.com", new FirebaseAPI.onCallBack<Customer>() {
+//            @Override
+//            public void onCallBack(List<Customer> List) {
+//                for (Customer customer : List) {
+//                    Log.d("Customer", customer.toString());
+//                }
+//            }
+//        });
     }
-
 // =======
     //Properties
 //    private AbstractFragment fragment;
