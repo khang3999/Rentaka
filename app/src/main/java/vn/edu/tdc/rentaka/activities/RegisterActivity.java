@@ -485,7 +485,7 @@ public class RegisterActivity extends AppCompatActivity {
                     binding.textInputLayoutPhone.setError(null);
                 }
 
-                // cap nhat
+                // cap nhati
                 updateRegisterButton();
             }
 
