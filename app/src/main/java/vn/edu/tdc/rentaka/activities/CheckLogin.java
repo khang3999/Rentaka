@@ -17,7 +17,7 @@ public class CheckLogin extends AppCompatActivity {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             // Nếu người dùng đã đăng nhập, chuyển thẳng đến MainActivity
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, test2.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         } else {

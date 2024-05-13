@@ -2,12 +2,16 @@ package vn.edu.tdc.rentaka.activities;
 
 import vn.edu.tdc.rentaka.R;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -18,7 +22,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import vn.edu.tdc.rentaka.adapters.MyAccountAdapter;
 import vn.edu.tdc.rentaka.databinding.BottomSheetEditAccountLayoutBinding;
@@ -87,13 +93,7 @@ public class MyAccountActivity extends AppCompatActivity {
                 bottomSheetDialogEdit.dismiss();
             }
         });
-        bottomSheetPhoneNumberLayoutBinding.btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MyAccountActivity.this, "Lưu thành công", Toast.LENGTH_SHORT).show();
-                bottomSheetDialogPhone.dismiss();
-            }
-        });
+
 
 
         //Button edit
@@ -120,34 +120,15 @@ public class MyAccountActivity extends AppCompatActivity {
                 bottomSheetDialogPhone.dismiss();
             }
         });
-        //Mutichoice giới tính
-        // Set OnClickListener for the gender TextView
-        bottomSheetEditAccountLayoutBinding.gender.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String[] genders = {"Male", "Female"};
-                // Create AlertDialog builder
-                AlertDialog.Builder builder = new AlertDialog.Builder(MyAccountActivity.this);
-                builder.setTitle("Select Gender");
-                builder.setSingleChoiceItems(genders, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int postion) {
-                        // Set the selected gender to the TextView
-                        bottomSheetEditAccountLayoutBinding.gender.setText(genders[postion]);
-                        dialog.dismiss();
-                    }
-                });
-                builder.show();
-            }
-        });
+
         // Chuyen cac man hinh khac
-      adapter.setOnItemClickListener(new MyAccountAdapter.OnItemClickListener() {
-          @Override
-          public void onClickListener(int position) {
+        adapter.setOnItemClickListener(new MyAccountAdapter.OnItemClickListener() {
+            @Override
+            public void onClickListener(int position) {
                 switch (position) {
                     case 0:
                         Intent intent1 = new Intent(MyAccountActivity.this, DrivingLicenseActivity.class);
-                       // intent1.putExtra("name",data1.get(position).getContent());
+                        // intent1.putExtra("name",data1.get(position).getContent());
                         startActivity(intent1);
                         break;
                     case 1:
@@ -166,7 +147,96 @@ public class MyAccountActivity extends AppCompatActivity {
                         Toast.makeText(MyAccountActivity.this, "Không có dữ liệu", Toast.LENGTH_SHORT).show();
                         break;
                 }
-          }
-      });
+            }
+        });
+        // Xu ly nhap gender
+        selectGender();
+        // Xu ly nhap ngay sinh
+        selectDate();
     }
-}
+      //Chon gioi tinh
+        public void selectGender() {
+            // Set OnClickListener for the gender TextView
+            final int[] checkedItem = {-1};
+            // xử lý nút để mở hộp thoại cảnh báo với lựa chọn mục duy nhất khi được nhấp vào
+            bottomSheetEditAccountLayoutBinding.gender.setOnClickListener(v -> {
+                // instance của trình tạo AlertDialog để xây dựng hộp thoại cảnh báo
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MyAccountActivity.this);
+                // tiêu đề của hộp thoại cảnh báo
+                alertDialog.setTitle("Select Gender");
+
+                // danh sách các mục được hiển thị cho người dùng
+                final String[] listItems = new String[]{"Male", "Female"};
+
+                // xây dựng hộp thoại cảnh báo với lựa chọn một mục duy nhất
+                alertDialog.setSingleChoiceItems(listItems, checkedItem[0], (dialog, which) -> {
+                    // cập nhật mục đã chọn được người dùng chọn sao cho nên chọn mục đó
+                    // khi người dùng mở hộp thoại vào lần tiếp theo và chuyển thể hiện sang phương thức setSingleChoiceItems
+                    checkedItem[0] = which;
+
+                    // bây giờ cũng cập nhật TextView để xem trước mục đã chọn
+                    bottomSheetEditAccountLayoutBinding.gender.setText(listItems[which]);
+                    // khi được chọn một mục, hộp thoại sẽ được đóng bằng phương thức loại bỏ
+                    dialog.dismiss();
+                });
+
+                // tạo và xây dựng phiên bản AlertDialog bằng phiên bản trình tạo AlertDialog
+                AlertDialog customAlertDialog = alertDialog.create();
+
+                // hiển thị hộp thoại cảnh báo khi nhấn nút
+                customAlertDialog.show();
+            });
+        }
+        //Chon ngay sinh
+    public void selectDate(){
+        // Set OnClickListener for the birthday TextView
+        bottomSheetEditAccountLayoutBinding.birthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Tạo một phiên bản DatePickerDialog mới
+                Calendar calendar = Calendar.getInstance();
+                //Lay ngay thang nam hien tai
+                int day = calendar.get(Calendar.DATE);
+                int month = calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(MyAccountActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+                        // Gan lai cac ngay thang nam minh chon
+                        calendar.set(selectedYear, selectedMonth, selectedDay);
+                        //Gan ngay thang nam vao edit text
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        bottomSheetEditAccountLayoutBinding.birthday.setText(simpleDateFormat.format(calendar.getTime()));
+                    }
+                }, year, month, day);
+                // Show ra dialog
+                datePickerDialog.show();
+            }
+        });
+        //Kiem tra xem ngay sinh co hop le khong
+        bottomSheetEditAccountLayoutBinding.birthday.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //Kiem tra xem ngay sinh co hop le khong
+                if (s != null && s.length() < 10 ){
+                    bottomSheetEditAccountLayoutBinding.textInputLayoutBirthday.setError("Ngày sinh không hợp lệ");
+                }
+                else {
+                    bottomSheetEditAccountLayoutBinding.birthday.setError(null);
+                }
+            }
+        });
+
+    }
+    }
+

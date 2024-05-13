@@ -56,36 +56,42 @@
                 android:src="@drawable/ic_camera" />
         </RelativeLayout>
 
-        <LinearLayout
+    <!--Name user-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical">
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="4"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:text="@string/t_n_hi_n_th"
+            android:textSize="@dimen/_18sp"
+            android:textStyle="bold" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutName"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content"
+            app:endIconTint="@color/xanh_dam"
+            app:hintEnabled="false"
+            app:errorTextColor="@color/maudo"
+            app:endIconMode="clear_text">
 
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:textSize="@dimen/_16sp"
+                android:background="@drawable/custom_button_account"
+                android:hint="@string/nh_p_t_n_hi_n_th" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+<!--BirthDay-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/t_n_hi_n_th"
-                    android:textSize="@dimen/_18sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:padding="10dp"
-                    android:background="@drawable/custom_button_account"
-                    android:hint="@string/nh_p_t_n_hi_n_th" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical">
 
@@ -96,19 +102,27 @@
                     android:text="@string/ng_sinh"
                     android:textSize="@dimen/_18sp"
                     android:textStyle="bold" />
-
-                <EditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutBirthday"
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content"
+                >
+                <TextView
+                    android:id="@+id/birthday"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:padding="10dp"
-                    android:inputType="date"
+                    android:layout_height="60dp"
+                    android:padding="20dp"
+                    android:textSize="@dimen/_16sp"
                     android:background="@drawable/custom_button_account"
                     android:hint="dd/mm/yyyy" />
-            </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
+            </LinearLayout>
+<!--Gender-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical">
 
@@ -124,7 +138,7 @@
                     android:id="@+id/gender"
                     android:padding="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     android:focusable="false"
                     android:background="@drawable/custom_button_account"
                     android:hint="@string/ch_n_gi_i_t_nh" />
@@ -145,4 +159,3 @@
                     android:text="@string/l_u" />
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>

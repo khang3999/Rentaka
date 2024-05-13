@@ -162,6 +162,7 @@
 <!--     //Button-->
         <LinearLayout
             android:layout_width="match_parent"
+            android:paddingBottom="10dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -176,32 +177,6 @@
                 android:textColor="@color/white"
                 android:text="@string/ti_p_t_c" />
         </LinearLayout>
-<!--    Resend Code-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:textStyle="bold"
-                android:layout_height="match_parent"
-                android:text="@string/khong_tim_thay_ma"
-                android:textSize="@dimen/_15sp"
-                />
-            <TextView
-                android:id="@+id/guiLaiMA"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:textColor="@color/xanh_dam"
-                android:textStyle="bold"
-                android:layout_marginStart="10dp"
-                android:layout_height="match_parent"
-                android:text="@string/g_i_l_i_m"
-                />
-        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

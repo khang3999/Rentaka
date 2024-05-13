@@ -370,7 +370,6 @@ public class RegisterActivity extends AppCompatActivity {
                         bottomSheetOtpPhoneLayoutBinding.otp5.setText(String.valueOf(code.charAt(4)));
                         bottomSheetOtpPhoneLayoutBinding.otp6.setText(String.valueOf(code.charAt(5)));
 
-//                       verifyCode(code);
                     }
                 }
 

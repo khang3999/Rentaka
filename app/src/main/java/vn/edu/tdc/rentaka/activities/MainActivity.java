@@ -27,6 +27,7 @@ import vn.edu.tdc.rentaka.databinding.MainLayoutBinding;
 import vn.edu.tdc.rentaka.fragments.AbstractFragment;
 import vn.edu.tdc.rentaka.fragments.HomeFragment;
 import vn.edu.tdc.rentaka.fragments.NewsFragment;
+import vn.edu.tdc.rentaka.fragments.PersonalProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -72,8 +73,14 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new NewsFragment();
             } else if (currentFragment == 2) {
 
-            } else{
             }
+            else if (currentFragment == 3) {
+
+            }
+            else if (currentFragment == 4) {
+                fragment = new PersonalProfileFragment();
+            }
+
         }
 
         // CHUAN BI CHO TRANSACTION
