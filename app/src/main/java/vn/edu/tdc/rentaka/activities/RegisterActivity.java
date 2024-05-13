@@ -63,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean isPasswordConfirmValid = false;
     private boolean isEmailValid = false;
     //Kiem tra so dien thoai co duy nhat khong
-    boolean isPhoneUnique = true;
+    boolean isPhoneUnique = false;
     FirebaseAuth mAuth;
     FirebaseDatabase database;
     DatabaseReference databaseReference;
@@ -100,14 +100,16 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+
                 //Kiem tra do dai cua so dien thoai
                 if (s != null && s.length() != 10) {
                     isPhoneValid = false;
                     binding.textInputLayoutPhone.setError(getString(R.string.so_dien_thoai));
                 } else {
+                    String phone = s.toString();
                     isPhoneValid = true;
                     binding.textInputLayoutPhone.setError(null);
-                    checkPhoneNumber(s.toString());
+                    checkPhoneNumber(phone);
                 }
                 //Cap nhat nut dang ky
                 updateRegisterButton();
@@ -368,7 +370,7 @@ public class RegisterActivity extends AppCompatActivity {
                         bottomSheetOtpPhoneLayoutBinding.otp5.setText(String.valueOf(code.charAt(4)));
                         bottomSheetOtpPhoneLayoutBinding.otp6.setText(String.valueOf(code.charAt(5)));
 
-//                        verifyCode(code);
+//                       verifyCode(code);
                     }
                 }
 
@@ -463,18 +465,27 @@ public class RegisterActivity extends AppCompatActivity {
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean phoneExists = false;
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     String existingPhone = userSnapshot.child("phone").getValue(String.class);
                     if (phone.equals(existingPhone)) {
-                        isPhoneUnique = false;
-                        binding.textInputLayoutPhone.setError(getString(R.string.s_i_n_tho_i_t_n_t_i));
-                    }
-                    else{
-                        isPhoneUnique = true;
-                        binding.textInputLayoutPhone.setError(null);
+                        phoneExists = true;
+                        break;
                     }
                 }
-                //Cap nhat trang thai dang ki
+                if (phoneExists) {
+                    //Trung
+                    Toast.makeText(RegisterActivity.this, "Số điện thoại đã tồn tại", Toast.LENGTH_SHORT).show();
+                    isPhoneUnique = false;
+                    binding.textInputLayoutPhone.setError(getString(R.string.s_i_n_tho_i_t_n_t_i));
+                } else {
+                    // khong trung
+                    Toast.makeText(RegisterActivity.this, "Số điện thoại hợp lệ", Toast.LENGTH_SHORT).show();
+                    isPhoneUnique = true;
+                    binding.textInputLayoutPhone.setError(null);
+                }
+
+                // cap nhat
                 updateRegisterButton();
             }
 
@@ -484,5 +495,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 }
