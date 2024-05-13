@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".fragments.HomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="500dp">
@@ -43,8 +45,8 @@
                 android:id="@+id/infoWrap"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginHorizontal="@dimen/margin_horizontal_8"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="@+id/imageButton"
                 app:layout_constraintEnd_toStartOf="@+id/imageView"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -58,10 +60,11 @@
                     android:text="Nguyen Huu Khang"
                     android:textSize="@dimen/username_20"
                     app:layout_constraintTop_toTopOf="@+id/imageButton" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1000"/>
+                    android:text="1000" />
             </LinearLayout>
 
             <ImageView
@@ -81,14 +84,16 @@
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="@dimen/margin_horizontal_16"
                 android:layout_marginBottom="@dimen/_8dp"
+                app:cardCornerRadius="@dimen/_20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline1"
-                app:cardCornerRadius="@dimen/_20dp">
+                app:layout_constraintTop_toTopOf="@+id/guideline1">
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <ImageView
                         android:id="@+id/imageView3"
                         android:layout_width="match_parent"
@@ -98,34 +103,43 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnHasDriver"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:background="@drawable/button_has_driver"
-                        android:backgroundTint="@color/white"
-                        android:text="@string/has_driver"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/textSizeNormal"
-                        app:layout_constraintBottom_toBottomOf="@+id/btnNoDriver"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/btnNoDriver"
-                        app:layout_constraintTop_toTopOf="@+id/btnNoDriver" />
-
-                    <androidx.appcompat.widget.AppCompatButton
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnNoDriver"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:background="@drawable/button_no_driver"
                         android:text="@string/no_driver"
+                        android:textColor="@color/selector_text_no_has_driver_button"
                         android:textSize="@dimen/textSizeNormal"
+                        app:backgroundTint="@color/selector_no_has_button"
+                        app:icon="@drawable/ic_no_driver_24"
+                        app:iconTint="@color/selector_text_no_has_driver_button"
+                        app:iconGravity="textStart"
                         app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_dialog_20"
                         app:layout_constraintEnd_toStartOf="@+id/btnHasDriver"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
 
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnHasDriver"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/button_has_driver"
+                        android:text="@string/has_driver"
+                        android:textColor="@color/selector_text_no_has_driver_button"
+                        android:textSize="@dimen/_18sp"
+                        app:backgroundTint="@color/selector_no_has_button"
+                        app:icon="@drawable/ic_has_driver_24"
+                        app:iconTint="@color/selector_text_no_has_driver_button"
+                        app:iconGravity="textStart"
+                        app:layout_constraintBottom_toBottomOf="@+id/btnNoDriver"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/btnNoDriver"
+                        app:layout_constraintTop_toTopOf="@+id/btnNoDriver"
+                        app:layout_constraintVertical_bias="0.0" />
                     <ImageView
                         android:id="@+id/ic_location"
                         android:layout_width="0dp"
@@ -202,15 +216,18 @@
                         app:layout_constraintTop_toBottomOf="@+id/tvTime"
                         app:layout_constraintVertical_bias="0.5" />
 
-                    <androidx.appcompat.widget.AppCompatButton
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/margin_horizontal_16"
                         android:layout_marginBottom="@dimen/_32dp"
+                        android:background="@drawable/button_border_radius_all"
                         android:text="Tìm xe"
                         android:textSize="@dimen/textSizeNormal"
-                        android:background="@drawable/button_border_radius_all"
+                        app:backgroundTint="@color/appGreen"
+                        app:iconGravity="textStart"
+                        app:icon="@drawable/ic_find_24"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -248,8 +265,6 @@
             </androidx.cardview.widget.CardView>
 
 
-
-
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline1"
                 android:layout_width="wrap_content"
@@ -268,7 +283,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_horizontal_16"
             android:layout_marginTop="@dimen/_34dp"
             android:layout_marginBottom="@dimen/_24dp"
             android:orientation="vertical">
@@ -276,17 +290,21 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_horizontal_16"
                 android:text="Chương trình khuyến mãi"
-                android:textStyle="bold"
                 android:textColor="@color/textColor"
-                android:textSize="@dimen/textSize_24" />
+                android:textSize="@dimen/textSize_24"
+                android:textStyle="bold" />
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listPromotion"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_20dp"
-                android:src="@drawable/ic_launcher_background" />
+                android:clipToPadding="false"
+                android:paddingHorizontal="@dimen/_8dp"
+                android:layout_marginVertical="@dimen/_20dp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -298,9 +316,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Xem gần đây"
-                android:textStyle="bold"
                 android:textColor="@color/textColor"
-                android:textSize="@dimen/textSize_24" />
+                android:textSize="@dimen/textSize_24"
+                android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -308,6 +326,7 @@
                 android:layout_marginVertical="@dimen/_20dp"
                 android:src="@drawable/ic_launcher_background" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -318,10 +337,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:text="Xe tự lái dành cho bạn"
                 android:textColor="@color/textColor"
-                android:textSize="@dimen/textSize_24" />
+                android:textSize="@dimen/textSize_24"
+                android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -329,6 +348,7 @@
                 android:layout_marginVertical="@dimen/_20dp"
                 android:src="@drawable/ic_launcher_background" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -339,10 +359,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:text="Xe có tài xế dành cho bạn"
                 android:textColor="@color/textColor"
-                android:textSize="@dimen/textSize_24" />
+                android:textSize="@dimen/textSize_24"
+                android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -350,98 +370,120 @@
                 android:layout_marginVertical="@dimen/_20dp"
                 android:src="@drawable/ic_launcher_background" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_horizontal_16"
             android:layout_marginBottom="@dimen/_24dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_horizontal_16"
                 android:text="Địa điểm nổi bật"
-                android:textStyle="bold"
                 android:textColor="@color/textColor"
-                android:textSize="@dimen/textSize_24" />
-            <ImageView
-                android:layout_width="wrap_content"
+                android:textSize="@dimen/textSize_24"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listLocations"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_20dp"
-                android:src="@drawable/ic_launcher_background" />
+                android:clipToPadding="false"
+                android:paddingHorizontal="@dimen/_8dp"
+                android:layout_marginVertical="@dimen/_20dp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_horizontal_16"
             android:layout_marginBottom="@dimen/_24dp"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_horizontal_16"
                 android:text="Ưu điểm của Rentaka"
-                android:textStyle="bold"
                 android:textColor="@color/textColor"
-                android:textSize="@dimen/textSize_24" />
+                android:textSize="@dimen/textSize_24"
+                android:textStyle="bold" />
+
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listAdvantages"
+                android:clipToPadding="false"
+                android:paddingHorizontal="@dimen/_8dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/_20dp"
-                android:orientation="horizontal"
                 android:background="@drawable/shape_border_radius_all"
-                android:padding="@dimen/_16dp">
+                android:orientation="horizontal"
+                android:padding="@dimen/_16dp"
+                android:layout_marginHorizontal="@dimen/_16dp">
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="7"
+                    android:layout_weight="6"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:gravity="center">
-                    <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Giới thiệu Rentaka dến bạn bè"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/textSize_24"/>
+                    android:layout_marginEnd="@dimen/_10dp">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Giới thiệu cho mọi người để cùng nhận nhiều ưu đãi hấp dẫn từ Rentaka"/>
+                        android:text="Giới thiệu Rentaka dến bạn bè"
+                        android:textSize="@dimen/_20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Giới thiệu cho mọi người để cùng nhận nhiều ưu đãi hấp dẫn từ Rentaka" />
                 </LinearLayout>
+
                 <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:src="@drawable/ic_launcher_background"/>
+                    android:layout_height="100dp"
+                    android:layout_weight="4"
+                    android:src="@drawable/introfriend" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@color/carrot"
-                android:paddingHorizontal="@dimen/_16dp"
                 android:layout_marginBottom="@dimen/fragment_marginBottom_112"
+                android:background="@color/carrot"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="@dimen/_16dp"
+                android:paddingHorizontal="@dimen/_16dp"
                 android:paddingVertical="@dimen/_24dp">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Bạn đang muốn cho thuê xe?"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/textSize_24"/>
+                    android:textSize="@dimen/textSize_24"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingVertical="@dimen/_16dp"
                     android:text="Hơn 5.000 chủ xe đang cho thuê hiệu quả trên Rentaka. Đăng ký trở thành đối tác của chúng tôi ngay hôm nay để gia tăng thu nhập hằng tháng."
-                    android:textSize="@dimen/textSizeNormal"/>
+                    android:textSize="@dimen/textSizeNormal" />
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/button_border_radius_all"
                     android:padding="@dimen/padding_8dp"
-                    android:text="Đăng ký ngay"
-                    android:background="@drawable/button_border_radius_all"/>
+                    android:text="Đăng ký ngay" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

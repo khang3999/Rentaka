@@ -2,33 +2,34 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="320dp"
+    android:layout_height="150dp"
     app:cardCornerRadius="@dimen/_20dp"
-    android:layout_margin="@dimen/_20dp">
+    app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#effaf2">
+        android:background="@color/green_pastel">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/advantageImage"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:padding="@dimen/_20dp"
-            android:scaleType="fitXY"
+            android:scaleType="fitCenter"
             android:src="@drawable/img"
-            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_1"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/advantageTitle"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="center_vertical"
-            android:textSize="20sp"
+            android:textSize="@dimen/_20sp"
             android:textStyle="bold"
             android:text="Lai xe an toan cung Mioto"
             app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_2"
@@ -37,21 +38,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/advantageDescription"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:gravity="center_vertical"
+            android:gravity="top|start"
             android:text="Chuyen di tren Mioto duoc bao ve voi goi bao hiem thue xe tu lai Khach thue chi boi thuong toi da 2.000.000"
-            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_1"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/guideline_vertical_1"
             app:layout_constraintTop_toTopOf="@+id/guideline_horizontal_2" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_horizontal_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.3" />
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_vertical_1"
@@ -65,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.1" />
+            app:layout_constraintGuide_percent="0.3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

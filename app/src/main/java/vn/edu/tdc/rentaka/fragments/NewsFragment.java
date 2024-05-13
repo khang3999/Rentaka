@@ -1,5 +1,6 @@
 package vn.edu.tdc.rentaka.fragments;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,18 +10,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import vn.edu.tdc.rentaka.R;
+import vn.edu.tdc.rentaka.databinding.NewsFragmentBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link NewsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class NewsFragment extends AbstractFragment {
-
+    private NewsFragmentBinding binding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.news_fragment, container, false);
+        binding = NewsFragmentBinding.inflate(getLayoutInflater());
+        View fragment = null;
+        fragment  = binding.getRoot();
+
+        // Set gach ngang chu
+        //binding.test.setPaintFlags(binding.test.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+
+
+
+
+
+
+        return fragment;
     }
 }
