@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".fragments.PersonalProfileFragment">
 <ScrollView
     android:layout_marginBottom="50dp"
     android:layout_width="match_parent"
@@ -16,7 +17,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/trang_xam"
-    tools:context=".fragment.PersonalProfileFragment"
     android:orientation="vertical">
 
     <View
@@ -100,6 +100,7 @@
             android:src="@drawable/logout_24"
             android:layout_weight="1"/>
         <TextView
+            android:id="@+id/logout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
