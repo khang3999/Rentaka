@@ -4,10 +4,17 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
+<<<<<<< HEAD
         <DropdownSelection timestamp="2024-05-10T07:57:10.790586Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="PhysicalDevice" identifier="serial=a30cc4d4" />
+=======
+        <DropdownSelection timestamp="2024-05-08T07:53:55.803544100Z">
+          <Target type="DEFAULT_BOOT">
+            <handle>
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\dongo\.android\avd\Pixel_6_API_34.avd" />
+>>>>>>> main
             </handle>
           </Target>
         </DropdownSelection>

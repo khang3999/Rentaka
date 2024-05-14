@@ -85,6 +85,48 @@
 
 
 
+<!--    <style name="Theme.Carrental" parent="Base.Theme.Rentaka" />-->
+
+<!--    <style name="CustomOutlinedCallButton" parent="Widget.Material3.Button.OutlinedButton.Icon">-->
+<!--        <item name="android:textSize">@dimen/call_button</item>-->
+<!--        <item name="fontFamily">@string/call_button_font</item>-->
+<!--        <item name="textAllCaps">true</item>-->
+<!--        <item name="android:textColor">@color/green</item>-->
+<!--        <item name="strokeColor">@color/green</item>-->
+<!--        <item name="strokeWidth">@dimen/call_button_stroke_width</item>-->
+<!--        <item name="icon">@drawable/ic_phone_call_foreground</item>-->
+<!--        <item name="iconTint">@color/green</item>-->
+<!--        <item name="iconSize">@dimen/call_ic_button</item>-->
+<!--        <item name="iconPadding">@dimen/call_ic_padding</item>-->
+<!--    </style>-->
+
+<!--    <style name="CustomOutlinedMessageButton" parent="Widget.Material3.Button.OutlinedButton.Icon">-->
+<!--        <item name="android:textSize">@dimen/call_button</item>-->
+<!--        <item name="fontFamily">@string/call_button_font</item>-->
+<!--        <item name="textAllCaps">true</item>-->
+<!--        <item name="android:textColor">@color/green</item>-->
+<!--        <item name="strokeColor">@color/green</item>-->
+<!--        <item name="strokeWidth">@dimen/call_button_stroke_width</item>-->
+<!--        <item name="icon">@drawable/ic_message_foreground</item>-->
+<!--        <item name="iconTint">@color/white</item>-->
+<!--        <item name="iconSize">@dimen/call_ic_button</item>-->
+<!--        <item name="iconPadding">@dimen/call_ic_padding</item>-->
+<!--    </style>-->
+
+    <style name="SupportScreenTitle">
+        <item name="android:textSize">@dimen/SupportScreenTitleTextSize</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+
+<!--    <dimen name="SupportScreenTitleTextSize">20sp</dimen>-->
+<!--    <dimen name="call_button">15sp</dimen>-->
+<!--    <dimen name="call_ic_button">25sp</dimen>-->
+<!--    <dimen name="call_ic_padding">2sp</dimen>-->
+<!--    <dimen name="call_button_stroke_width">1dp</dimen>-->
+
+
     <style name="Theme.Rentaka" parent="Base.Theme.Rentaka"/>
 
     <style name="fab_3_rounded">
