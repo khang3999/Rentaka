@@ -1,42 +1,22 @@
 package vn.edu.tdc.rentaka.activities;
-
-import android.content.ClipData;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
-
-import android.view.Menu;
+import android.provider.MediaStore;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-
+import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
+import java.io.IOException;
+import vn.edu.tdc.rentaka.APIs.FirebaseAPI;
+import vn.edu.tdc.rentaka.APIs.StorageAPI;
+import vn.edu.tdc.rentaka.R;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-
-import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.MainLayoutBinding;
 import vn.edu.tdc.rentaka.fragments.AbstractFragment;
 import vn.edu.tdc.rentaka.fragments.HistoryFragment;
@@ -45,49 +25,62 @@ import vn.edu.tdc.rentaka.fragments.NewsFragment;
 import vn.edu.tdc.rentaka.fragments.NotificationFragment;
 import vn.edu.tdc.rentaka.fragments.PersonalProfileFragment;
 
+
 public class MainActivity extends AppCompatActivity {
-// <<<<<<< future/confirm-rental-ui
-//     private DatabaseReference mDatabase;
+    FirebaseAPI firebaseAPI = new FirebaseAPI();
+    StorageAPI storageAPI = new StorageAPI();
 
-//     @Override
-//     protected void onCreate(Bundle savedInstanceState) {
-//         super.onCreate(savedInstanceState);
-//         EdgeToEdge.enable(this);
-//         setContentView(R.layout.confirm_rental_layout);
 
-//         mDatabase = FirebaseDatabase.getInstance("https://rentaka-android-app-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
-// //        writeNewUser("1", "Alice", "Alice@email.com");
-//         ValueEventListener postListener = new ValueEventListener() {
-//             @Override
-//             public void onDataChange(DataSnapshot dataSnapshot) {
-//                 // Get Post object and use the values to update the UI
-// //                ArrayList<User> users = new ArrayList<>();
-// //                for (DataSnapshot userSnapshot : dataSnapshot.child("users").getChildren()) {
-// //                    User user = userSnapshot.getValue(User.class);
-// //                    users.add(user);
-// //                }
-// //                Log.d("Test", "onDataChange: "+users.toString());
-//                 User user = dataSnapshot.child("users").child("1").getValue(User.class);
-//                 Log.d("Test", "onDataChange: "+user.toString());
-//             }
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        EdgeToEdge.enable(this);
+//        setContentView(R.layout.confirm_rental_layout);
+//
+//
+//        Date date = new Date(LocalDate.now());
+//
+//        Customer owner = new Customer("Tran", "Phuc", "tranhieuphuc12@gmail.com", "123456789", new Location("LA", "location 43", Location.LocationType.customer), "123456789", Customer.CustomerType.owner);
+//        owner.setId("837N5VnztJt7JRKKefo5");
+//        Customer renter = new Customer("Nguyen", "Nhi", "phuongnhi12@gmail.com", "987654321", new Location("An Giang", "location 41", Location.LocationType.customer), "987654321", Customer.CustomerType.renter);
+//        Car car = new Car(owner.getId(), "Toyota", "Camry", "2021", "Black", "description", 2019, 4);
+//        car.setId("TIZUxOJ00qGBAuShSlJ9");
+//        car.setStatusID("foD0J0b2jeHV9LJH3dqJ");
+//        Reservation reservation = new Reservation("TIZUxOJ00qGBAuShSlJ9", owner.getId(), null, null,null,null,null, 100.0);
 
-//             @Override
-//             public void onCancelled(DatabaseError databaseError) {
-//                 // Getting Post failed, log a message
-//                 Log.d("Test", "loadPost:onCancelled", databaseError.toException());
-//             }
-//         };
-//         mDatabase.addValueEventListener(postListener);
-//     }
-//     public void writeNewUser(String userId, String name, String email) {
-//         User user = new User(name, email);
+//        reservation.setRenterID("K3MZ3sL0Uu83Of1ycDPP");
+//        reservation.setPickUpDate(date);
+//        reservation.setReturnDate(date);
+//        reservation.setPickUpLocation(new Location("LA", "location 43", Location.LocationType.pickUpLocation));
+//        reservation.setReturnLocation(new Location("AL", "location 34", Location.LocationType.returnLocation));
+//        reservation.setId("xCWQ4Jj43A2aen35FDfm");
+//        reservation.setStatusID("Vmmfoz79pLKTWPjljMJw");
+//
+//
+//        Button selectImage = (Button) findViewById(R.id.send_rental_request_button);
+//        Button uploadImage = (Button) findViewById(R.id.promotion_code_title_textview);
 
-    //         mDatabase.child("users").child(userId).child("username").setValue(name);
-// =======
+
+//        selectImage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                storageAPI.selectImage(MainActivity.this);
+//            }
+//        });
+//        uploadImage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//            storageAPI.uploadImage(MainActivity.this);
+//            }
+//        });
+
+
+
+//    }
+
     //Properties
     private AbstractFragment fragment;
     private int currentFragment = 0;
-    private int preFragment = 0;
     private MainLayoutBinding binding;
     // doi tuong dung de dan fragment vao khung man hinh
     private FragmentTransaction transaction;
@@ -96,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.main_layout);
 
         //Khoi tao binding
         binding = MainLayoutBinding.inflate(getLayoutInflater());
@@ -108,83 +102,89 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomMenu.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                preFragment = currentFragment;
-                if (menuItem.getItemId() == R.id.homeItemMenu) {
-                    preFragment = currentFragment;
+                if (menuItem.getItemId() == R.id.homeItemMenu){
                     currentFragment = 0;
-                } else if (menuItem.getItemId() == R.id.newsItemMenu) {
+                } else if(menuItem.getItemId() == R.id.newsItemMenu){
                     currentFragment = 1;
-                } else if (menuItem.getItemId() == R.id.historyItemMenu) {
+                } else if(menuItem.getItemId() == R.id.historyItemMenu){
                     currentFragment = 2;
-                } else if (menuItem.getItemId() == R.id.notificationItemMenu) {
+                } else if(menuItem.getItemId() == R.id.notificationItemMenu){
                     currentFragment = 3;
-                } else if (menuItem.getItemId() == R.id.profileItemMenu) {
+                } else if(menuItem.getItemId() == R.id.profileItemMenu){
                     currentFragment = 4;
                 }
                 updateUI();
                 return true;
             }
         });
-        Log.d("main", "onCreate: " + getIntent());
+
     }
 
-    // Cap nhat intent
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        setIntent(intent);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Intent intent = getIntent();
-        updateUI();
-    }
-
-        private void updateUI () {
-            // Set title
-            // Neu da ton tai thi tai su dung
-            if (getSupportFragmentManager().findFragmentByTag(currentFragment + "") != null) {
-                fragment = (AbstractFragment) getSupportFragmentManager().findFragmentByTag(currentFragment + "");
-            }
-            // Neu chua ton tai thi tao moi fragment
-            else {
-                // Tao doi tuong fragment tuong ung
-                if (currentFragment == 0) {
-                    fragment = new HomeFragment();
-                } else if (currentFragment == 1) {
-                    fragment = new NewsFragment();
-                } else if (currentFragment == 2) {
-                    fragment = new HistoryFragment();
-                } else if (currentFragment == 3) {
-                    fragment = new NotificationFragment();
-                } else if (currentFragment == 4) {
-                    fragment = new PersonalProfileFragment();
-                }
-            }
-
-            // CHUAN BI CHO TRANSACTION
-            //Lay doi tuong fragment transaction
-            transaction = getSupportFragmentManager().beginTransaction();
-            // Set annimation change fragment
-            if (currentFragment > preFragment){
-                transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.fade_out);
-            } else {
-                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.fade_out);
-            }
-//            transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
-            // Do du lieu vao doi tuong va dan doi tuong fragment vao khung man hinh,
-            // voi tham so dau tien la id cua khung chua fragment o layout )
-            transaction.replace(R.id.fragmentContainer, fragment, currentFragment + "");
-            // Dua fragment vao trong Stack neu chua ton tai
-            if (getSupportFragmentManager().findFragmentByTag(currentFragment + "") == null) {
-                transaction.addToBackStack(null);
-            }
-            // Yeu cau thuc hien transaction
-            transaction.commit();
-
+    private void updateUI() {
+        // Set title
+        // Neu da ton tai thi tai su dung
+        if (getSupportFragmentManager().findFragmentByTag(currentFragment + "") != null) {
+            fragment = (AbstractFragment) getSupportFragmentManager().findFragmentByTag(currentFragment + "");
         }
+        // Neu chua ton tai thi tao moi fragment
+        else {
+            // Tao doi tuong fragment tuong ung
+            if (currentFragment == 0) {
+                fragment = new HomeFragment();
+            } else if (currentFragment == 1) {
+                fragment = new NewsFragment();
+            } else if (currentFragment == 2) {
+                fragment = new HistoryFragment();
+            } else if (currentFragment == 3) {
+                fragment = new NotificationFragment();
+            } else if (currentFragment == 4) {
+                fragment = new PersonalProfileFragment();
+            }
+        }
+
+        // CHUAN BI CHO TRANSACTION
+        //Lay doi tuong fragment transaction
+        transaction = getSupportFragmentManager().beginTransaction();
+        // Do du lieu vao doi tuong va dan doi tuong fragment vao khung man hinh,
+        // voi tham so dau tien la id cua khung chua fragment o layout )
+        transaction.replace(R.id.fragmentContainer, fragment, currentFragment + "");
+        // Dua fragment vao trong Stack neu chua ton tai
+        if (getSupportFragmentManager().findFragmentByTag(currentFragment + "") == null) {
+            transaction.addToBackStack(null);
+        }
+        // Yeu cau thuc hien transaction
+        transaction.commit();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == storageAPI.PICK_IMAGE_REQUEST
+                && resultCode == RESULT_OK
+                && data != null
+                && data.getData() != null) {
+
+            // Get the Uri of data
+            storageAPI.filePath = data.getData();
+            try {
+
+                // Setting image on image view using Bitmap
+                Bitmap bitmap = MediaStore
+                        .Images
+                        .Media
+                        .getBitmap(
+                                getContentResolver(),
+                                storageAPI.filePath);
+                ImageView imageView = (ImageView) findViewById(R.id.car_img);
+                imageView.setImageBitmap(bitmap);
+            }
+
+            catch (IOException e) {
+                // Log the exception
+                e.printStackTrace();
+            }
+        }
+
+    }
+}
 

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "276772108584",
+    "firebase_url": "https://rentaka-android-app-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "rentaka-android-app",
     "storage_bucket": "rentaka-android-app.appspot.com"
   },
@@ -12,7 +13,20 @@
           "package_name": "vn.edu.tdc.rentaka"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "276772108584-kkllabe0q935vl7mrpi2e9tthfcgrnft.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vn.edu.tdc.rentaka",
+            "certificate_hash": "e0940d15308287ab99f7a44da2795321758e9398"
+          }
+        },
+        {
+          "client_id": "276772108584-6rgc3qssnakhdseij7g1gv6egtahe56l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCz5gJBboQ15I7wEWlz8k1C8ltSf8G07qo"
@@ -20,7 +34,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "276772108584-6rgc3qssnakhdseij7g1gv6egtahe56l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
