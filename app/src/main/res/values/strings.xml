@@ -97,7 +97,8 @@
     <string name="tra_xe">Giờ trả xe</string>
     <string name="time_checkout">20:00</string>
     <string name="time_checkin">20:00</string>
-    <string name="dateCheckin">Nhập ngày nhận xe</string>
-    <string name="dateCheckout">Nhập ngày trả xe</string>
+    <string name="labelDateCheckin">Ngày nhận xe</string>
+    <string name="labelDateCheckout">Ngày trả xe</string>
+    <string name="hintDate_dd_mm_yyyy">10/05/2024</string>
 
 </resources>
