@@ -20,11 +20,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-<<<<<<< HEAD
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-=======
->>>>>>> main
+
 import com.google.android.material.navigation.NavigationBarView;
 
 import vn.edu.tdc.rentaka.R;
@@ -51,22 +50,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_layout);
 
         //Khoi tao binding
-<<<<<<< HEAD
+
         binding = MainLayoutBinding.inflate(getLayoutInflater());
 
-=======
-        binding = vn.edu.tdc.rentaka.databinding.MainLayoutBinding.inflate(getLayoutInflater());
->>>>>>> main
         // Gán view cho binding
         setContentView(binding.getRoot());
 
 
-<<<<<<< HEAD
 
-
-=======
         // Khoi tạo lan dau
->>>>>>> main
+
         fragment = new HomeFragment();
         updateUI();
 
