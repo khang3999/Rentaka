@@ -14,6 +14,13 @@ public class Reservation {
     private String statusID;
 
 
+    public enum ReservationProperties{
+        id,
+        carID,
+        ownerID,
+        renterID,
+
+    }
     public String getId() {
         return id;
     }

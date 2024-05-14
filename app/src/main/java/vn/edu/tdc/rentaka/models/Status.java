@@ -7,14 +7,17 @@ public class Status {
     private String name;
 
     public enum StatusName {
-        PENDING,
-        ACCEPTED,
-        REJECTED,
-        CANCELLED,
-        COMPLETED,
-        UNAVAILABLE,
-        AVAILABLE,
-        CREATED
+        pending,
+        approved,
+        rejected,
+        canceled,
+        completed,
+        available,
+        unavailable,
+        created,
+        accepted,
+
+
     }
 
 

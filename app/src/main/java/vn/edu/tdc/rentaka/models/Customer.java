@@ -13,8 +13,18 @@ public class Customer {
     private String role;
 
     public enum CustomerType{
-        OWNER,
-        RENTER
+        owner,
+        renter
+    }
+    public  enum CustomerProperties{
+        id,
+        firstName,
+        lastName,
+        email,
+        phone,
+        driverLicenseNumber,
+        role
+
     }
 
     public String getId() {

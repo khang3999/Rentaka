@@ -8,9 +8,9 @@ public class Location {
     private LocationType type;
 
     public enum LocationType {
-        PICKUP,
-        RETURN,
-        CUSTOMER
+        pickUpLocation,
+        returnLocation,
+        customer
     }
 
     public LocationType getType() {

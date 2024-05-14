@@ -7,6 +7,11 @@ public class Date {
     private int month;
     private int year;
 
+    public enum DateType{
+       returnDate,
+        pickUpDate
+    }
+
     public int getDay() {
         return day;
     }

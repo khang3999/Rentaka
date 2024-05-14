@@ -12,6 +12,17 @@ public class Car {
     private int year;
     private int seat;
 
+    public enum CarProperties{
+        id,
+        model,
+        autoMaker,
+        color,
+        licensePLATE,
+        statusID,
+        description,
+        year,
+        seat
+    }
     public String getOwnerID() {
         return ownerID;
     }
