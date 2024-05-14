@@ -69,10 +69,10 @@ public class HomeFragment extends AbstractFragment {
 
         // Set adapter for Location
         listLocations = new ArrayList<Location>();
-        listLocations.add(new Location(1, "Ho Chi Minh"));
-        listLocations.add(new Location(2, "Ha Noi"));
-        listLocations.add(new Location(3, "Da Nang"));
-        listLocations.add(new Location(4, "Binh Duong"));
+//        listLocations.add(new Location(1, "Ho Chi Minh"));
+//        listLocations.add(new Location(2, "Ha Noi"));
+//        listLocations.add(new Location(3, "Da Nang"));
+//        listLocations.add(new Location(4, "Binh Duong"));
         locationAdapter = new LocationAdapter(this.getContext(), listLocations);
         LinearLayoutManager layoutManagerLocation = new LinearLayoutManager(this.getContext());
         layoutManagerLocation.setOrientation(RecyclerView.HORIZONTAL);
