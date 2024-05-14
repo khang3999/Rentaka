@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.ChooseDateActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/ic_find_24"
+            app:title="Thời gian"
+            app:titleCentered="true"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+
+        android:layout_gravity="center" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/timeCheckin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_32dp"
+            android:layout_marginEnd="@dimen/_16dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_transparent_border_radius_all_20"
+            android:orientation="vertical"
+            android:padding="@dimen/_8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nhan_xe"
+                android:textColor="@color/text_label_gray"
+                android:textSize="@dimen/_18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity=""
+                    android:layout_weight="1"
+                    android:text="@string/time_checkin"
+                    android:textSize="@dimen/_18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="@dimen/_18dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_alarm_clock_24" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/timeCheckout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16dp"
+            android:layout_marginEnd="@dimen/_32dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_transparent_border_radius_all_20"
+            android:orientation="vertical"
+            android:padding="@dimen/_8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tra_xe"
+                android:textColor="@color/text_label_gray"
+                android:textSize="@dimen/_18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:text="@string/time_checkout"
+                    android:textSize="@dimen/_18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="@dimen/_18dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_alarm_clock_24" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
+        android:paddingHorizontal="@dimen/_32dp">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="20h00, 10/5 - 20h00, 11/5"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+            app:layout_constraintEnd_toStartOf="@+id/bottom_guiline_vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/bottom_guiline_vertical"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số ngày thuê: "
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/totalDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_8dp"
+                android:text="1 ngày"
+                android:textColor="@color/black"/>
+
+            <ImageView
+                android:id="@+id/questionMark"
+                android:layout_width="@dimen/_18sp"
+                android:layout_height="@dimen/_18sp"
+                android:src="@drawable/ic_question_mark_cicle_24"
+                tools:layout_editor_absoluteX="204dp"
+                tools:layout_editor_absoluteY="43dp" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Tiếp theo"
+            android:layout_marginStart="@dimen/_32dp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_border_radius_all"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/bottom_guiline_vertical"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/bottom_guiline_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.6" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

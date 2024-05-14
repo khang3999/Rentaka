@@ -3,6 +3,7 @@ package vn.edu.tdc.rentaka.activities;
 import vn.edu.tdc.rentaka.R;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,20 +22,26 @@ import java.util.ArrayList;
 
 import vn.edu.tdc.rentaka.adapters.MyAccountAdapter;
 import vn.edu.tdc.rentaka.databinding.BottomSheetEditAccountLayoutBinding;
+import vn.edu.tdc.rentaka.databinding.BottomSheetPhoneNumberLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.MyAccountLayoutBinding;
 import vn.edu.tdc.rentaka.models.MyAccountModel;
 
 public class MyAccountActivity extends AppCompatActivity {
     MyAccountAdapter adapter;
     private MyAccountLayoutBinding binding;
-    private BottomSheetEditAccountLayoutBinding bottom_sheet_biding;
-    BottomSheetDialog bottomSheetDialog;
+    private BottomSheetEditAccountLayoutBinding bottomSheetEditAccountLayoutBinding;
+    private BottomSheetPhoneNumberLayoutBinding bottomSheetPhoneNumberLayoutBinding;
+    BottomSheetDialog bottomSheetDialogEdit;
+    BottomSheetDialog bottomSheetDialogPhone;
+    BottomSheetDialog bottomSheetDialogIDMESS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = MyAccountLayoutBinding.inflate(getLayoutInflater());
-        bottom_sheet_biding = BottomSheetEditAccountLayoutBinding.inflate(getLayoutInflater(), null, false);
+        //Lay man hinh nen de len man hinh chinh
+        bottomSheetEditAccountLayoutBinding = BottomSheetEditAccountLayoutBinding.inflate(getLayoutInflater(), null, false);
+        bottomSheetPhoneNumberLayoutBinding = BottomSheetPhoneNumberLayoutBinding.inflate(getLayoutInflater(), null, false);
         setContentView(binding.getRoot());
         ArrayList<MyAccountModel> dataFuc = new ArrayList<>();
         dataFuc.add(new MyAccountModel("Giấy phép lái xe", "Thêm giấy phép lái xe"));
@@ -57,36 +64,65 @@ public class MyAccountActivity extends AppCompatActivity {
             }
         });
         //Bottom sheet
-        bottomSheetDialog = new BottomSheetDialog(
+        // Tạo một đối tượng BottomSheetDialog mới
+        bottomSheetDialogEdit = new BottomSheetDialog(
+                MyAccountActivity.this, R.style.BottomSheetDialogTheme
+        );
+        bottomSheetDialogPhone = new BottomSheetDialog(
                 MyAccountActivity.this, R.style.BottomSheetDialogTheme
         );
 
-        bottomSheetDialog.setContentView(bottom_sheet_biding.getRoot());
-        bottom_sheet_biding.btnSave.setOnClickListener(new View.OnClickListener() {
+// Đặt nội dung view của BottomSheetDialog là root view của bottomSheetEditAccountLayoutBinding
+        bottomSheetDialogEdit.setContentView(bottomSheetEditAccountLayoutBinding.getRoot());
+
+// Đặt nội dung view của BottomSheetDialog là root view của bottomSheetPhoneNumberLayoutBinding
+        bottomSheetDialogPhone.setContentView(bottomSheetPhoneNumberLayoutBinding.getRoot());
+
+// Đặt một OnClickListener cho nút lưu trong bottomSheetEditAccountLayoutBinding
+
+        bottomSheetEditAccountLayoutBinding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MyAccountActivity.this, "Save success", Toast.LENGTH_SHORT).show();
-                bottomSheetDialog.dismiss();
+                Toast.makeText(MyAccountActivity.this, "Lưu thành công", Toast.LENGTH_SHORT).show();
+                bottomSheetDialogEdit.dismiss();
             }
         });
+        bottomSheetPhoneNumberLayoutBinding.btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MyAccountActivity.this, "Lưu thành công", Toast.LENGTH_SHORT).show();
+                bottomSheetDialogPhone.dismiss();
+            }
+        });
+
+
         //Button edit
         binding.rightImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bottomSheetDialog.show();
+                bottomSheetDialogEdit.show();
             }
         });
+        //Button so dien thoai
+        //Button edit
+
 
         //Button delete
-        bottom_sheet_biding.close.setOnClickListener(new View.OnClickListener() {
+        bottomSheetEditAccountLayoutBinding.close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bottomSheetDialog.dismiss();
+                bottomSheetDialogEdit.dismiss();
+            }
+        });
+        bottomSheetPhoneNumberLayoutBinding.close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetDialogPhone.dismiss();
             }
         });
         //Mutichoice giới tính
         // Set OnClickListener for the gender TextView
-        bottom_sheet_biding.gender.setOnClickListener(new View.OnClickListener() {
+        bottomSheetEditAccountLayoutBinding.gender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String[] genders = {"Male", "Female"};
@@ -95,14 +131,42 @@ public class MyAccountActivity extends AppCompatActivity {
                 builder.setTitle("Select Gender");
                 builder.setSingleChoiceItems(genders, -1, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(DialogInterface dialog, int postion) {
                         // Set the selected gender to the TextView
-                        bottom_sheet_biding.gender.setText(genders[which]);
+                        bottomSheetEditAccountLayoutBinding.gender.setText(genders[postion]);
                         dialog.dismiss();
                     }
                 });
                 builder.show();
             }
         });
+        // Chuyen cac man hinh khac
+      adapter.setOnItemClickListener(new MyAccountAdapter.OnItemClickListener() {
+          @Override
+          public void onClickListener(int position) {
+                switch (position) {
+                    case 0:
+                        Intent intent1 = new Intent(MyAccountActivity.this, DrivingLicenseActivity.class);
+                       // intent1.putExtra("name",data1.get(position).getContent());
+                        startActivity(intent1);
+                        break;
+                    case 1:
+                        bottomSheetDialogPhone.show();
+                        break;
+                    case 2:
+                        Toast.makeText(MyAccountActivity.this, "Email", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        Toast.makeText(MyAccountActivity.this, "Facebook", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 4:
+                        Toast.makeText(MyAccountActivity.this, "Google", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        Toast.makeText(MyAccountActivity.this, "Không có dữ liệu", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+          }
+      });
     }
 }

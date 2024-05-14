@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <dimen name="padding_whole_layout">15dp</dimen>
+
     <dimen name="padding_screen">15dp</dimen>
     <dimen name="margin_car_model">20dp</dimen>
     <dimen name="margin_element_start">10dp</dimen>
@@ -14,6 +14,7 @@
     <dimen name="margin_date_returned_title">45dp</dimen>
     <dimen name="margin_star_end">5dp</dimen>
     <dimen name="stroke_height">1dp</dimen>
+
     <dimen name="_25sp">25sp</dimen>
     <dimen name="_15sp">15sp</dimen>
     <dimen name="_20dp">20dp</dimen>
@@ -56,5 +57,10 @@
     <dimen name="_112dp">112dp</dimen>
     <dimen name="fragment_marginBottom_112">112dp</dimen>
     <dimen name="_20sp">20sp</dimen>
+    <dimen name="_18dp">18dp</dimen>
+    <dimen name="_200dp">200dp</dimen>
+    <dimen name="_120dp">120dp</dimen>
+    <dimen name="_30sp">30sp</dimen>
+    <dimen name="_50sp">50sp</dimen>
 
 </resources>
