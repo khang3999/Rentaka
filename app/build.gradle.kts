@@ -50,6 +50,12 @@ android {
 }
 dependencies {
 
+
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-firestore")
+
+
     // Custom CircleImageView
     implementation ("de.hdodenhof:circleimageview:3.1.0")
 //    //Material Design
@@ -68,10 +74,18 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
     implementation(libs.firebase.auth)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation("com.google.android.material:material:1.12.0")
+
+
+    implementation("com.google.firebase:firebase-storage")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("com.google.android.material:material:1.8.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     implementation("androidx.room:room-runtime:2.6.1")
     androidTestImplementation(platform(libs.compose.bom))
@@ -81,8 +95,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
-    // Import the BoM for the Firebase platform
-    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    
+
 
     // Add the dependency for the Firebase Authentication library
     // When using the BoM, you don't specify versions in Firebase library dependencies
