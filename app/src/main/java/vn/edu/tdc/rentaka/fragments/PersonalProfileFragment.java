@@ -3,6 +3,7 @@ package vn.edu.tdc.rentaka.fragments;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.activities.ChangeThePasswordActivity;
@@ -158,20 +165,12 @@ public class PersonalProfileFragment extends AbstractFragment {
                 // Set up the buttons in the dialog
                 builder.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-//                        //logout data
-//                        FirebaseAuth.getInstance().signOut();
-//                        Intent intent = new Intent(getActivity(), CheckLogin.class);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                        startActivity(intent);
-//                        Toast.makeText(getActivity(), "Bạn đã đăng xuất thành công.", Toast.LENGTH_SHORT).show();
-//                        //Xoa activity nay
-//                        getActivity().finish();
+                       // Dang xuat
                         FirebaseAuth.getInstance().signOut();
                         Intent intent = new Intent(getActivity(), LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         Toast.makeText(getActivity(), "Bạn đã đăng xuất thành công.", Toast.LENGTH_SHORT).show();
-
                     }
                 });
                 builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
@@ -185,6 +184,40 @@ public class PersonalProfileFragment extends AbstractFragment {
                 alertDialog.show();
             }
         });
+
+        //Gan ten va image ten user tu firebase ve
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String name = dataSnapshot.child("name").getValue(String.class);
+                        String imageUrl = dataSnapshot.child("imageUser").getValue(String.class);
+                       //Set ten nguoi dung
+                       binding.textName.setText(name);
+                        //Set anh nguoi dung
+//                        // Use Glide to load the profile image
+//                        Glide.with(getActivity())
+//                                .load(imageUrl)
+//                                .placeholder(R.drawable.placeholder_image) // Replace with your placeholder
+//                                .error(R.drawable.error_image) // Replace with your error image
+//                                .into(profileImageView);
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.d("Tag",databaseError.getMessage());
+                }
+            });
+        }
+
+
 
         return view;
     }

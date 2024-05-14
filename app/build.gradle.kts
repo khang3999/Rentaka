@@ -60,8 +60,8 @@ dependencies {
     implementation ("de.hdodenhof:circleimageview:3.1.0")
 //    //Material Design
     implementation ("com.google.android.material:material:1.4.0")
-    //Thu vien nhap ma pin
-
+ // Xuat anh tu Internet
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -74,7 +74,6 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
     implementation(libs.firebase.auth)
-
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -95,8 +94,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
-    
-
+    // Import the BoM for the Firebase platform
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
 
     // Add the dependency for the Firebase Authentication library
     // When using the BoM, you don't specify versions in Firebase library dependencies

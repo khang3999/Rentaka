@@ -47,7 +47,19 @@
                 android:background="@drawable/custom_avatar"
                 android:src="@drawable/image_account" />
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/avatar"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="170dp"
+                android:layout_marginBottom="39dp"
+                android:visibility="gone"
+                />
+
             <ImageView
+                android:id="@+id/addCamera"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentTop="true"
@@ -109,7 +121,7 @@
                 android:layout_height="wrap_content"
                 >
                 <TextView
-                    android:id="@+id/birthday"
+                    android:id="@+id/editTextBirthday"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:padding="20dp"
@@ -135,14 +147,16 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/gender"
-                    android:padding="10dp"
+                    android:id="@+id/editTextGender"
+                    android:padding="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:focusable="false"
+                    android:textSize="16sp"
                     android:background="@drawable/custom_button_account"
                     android:hint="@string/ch_n_gi_i_t_nh" />
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"

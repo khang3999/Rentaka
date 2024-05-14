@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,20 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,7 +45,7 @@ public class MyAccountActivity extends AppCompatActivity {
     MyAccountAdapter adapter;
     private MyAccountLayoutBinding binding;
     private BottomSheetEditAccountLayoutBinding bottomSheetEditAccountLayoutBinding;
-    private BottomSheetPhoneNumberLayoutBinding bottomSheetPhoneNumberLayoutBinding;
+//    private BottomSheetPhoneNumberLayoutBinding bottomSheetPhoneNumberLayoutBinding;
     BottomSheetDialog bottomSheetDialogEdit;
     BottomSheetDialog bottomSheetDialogPhone;
     BottomSheetDialog bottomSheetDialogIDMESS;
@@ -47,7 +56,7 @@ public class MyAccountActivity extends AppCompatActivity {
         binding = MyAccountLayoutBinding.inflate(getLayoutInflater());
         //Lay man hinh nen de len man hinh chinh
         bottomSheetEditAccountLayoutBinding = BottomSheetEditAccountLayoutBinding.inflate(getLayoutInflater(), null, false);
-        bottomSheetPhoneNumberLayoutBinding = BottomSheetPhoneNumberLayoutBinding.inflate(getLayoutInflater(), null, false);
+//        bottomSheetPhoneNumberLayoutBinding = BottomSheetPhoneNumberLayoutBinding.inflate(getLayoutInflater(), null, false);
         setContentView(binding.getRoot());
         ArrayList<MyAccountModel> dataFuc = new ArrayList<>();
         dataFuc.add(new MyAccountModel("Giấy phép lái xe", "Thêm giấy phép lái xe"));
@@ -82,7 +91,7 @@ public class MyAccountActivity extends AppCompatActivity {
         bottomSheetDialogEdit.setContentView(bottomSheetEditAccountLayoutBinding.getRoot());
 
 // Đặt nội dung view của BottomSheetDialog là root view của bottomSheetPhoneNumberLayoutBinding
-        bottomSheetDialogPhone.setContentView(bottomSheetPhoneNumberLayoutBinding.getRoot());
+//        bottomSheetDialogPhone.setContentView(bottomSheetPhoneNumberLayoutBinding.getRoot());
 
 // Đặt một OnClickListener cho nút lưu trong bottomSheetEditAccountLayoutBinding
 
@@ -100,7 +109,10 @@ public class MyAccountActivity extends AppCompatActivity {
         binding.rightImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Xu ly edit
+                informationUserEdit();
                 bottomSheetDialogEdit.show();
+
             }
         });
         //Button so dien thoai
@@ -114,12 +126,12 @@ public class MyAccountActivity extends AppCompatActivity {
                 bottomSheetDialogEdit.dismiss();
             }
         });
-        bottomSheetPhoneNumberLayoutBinding.close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetDialogPhone.dismiss();
-            }
-        });
+//        bottomSheetPhoneNumberLayoutBinding.close.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                bottomSheetDialogPhone.dismiss();
+//            }
+//        });
 
         // Chuyen cac man hinh khac
         adapter.setOnItemClickListener(new MyAccountAdapter.OnItemClickListener() {
@@ -149,6 +161,8 @@ public class MyAccountActivity extends AppCompatActivity {
                 }
             }
         });
+        //Gan cac thong tin user vao man hinh
+        informationUser();
         // Xu ly nhap gender
         selectGender();
         // Xu ly nhap ngay sinh
@@ -159,7 +173,7 @@ public class MyAccountActivity extends AppCompatActivity {
             // Set OnClickListener for the gender TextView
             final int[] checkedItem = {-1};
             // xử lý nút để mở hộp thoại cảnh báo với lựa chọn mục duy nhất khi được nhấp vào
-            bottomSheetEditAccountLayoutBinding.gender.setOnClickListener(v -> {
+            bottomSheetEditAccountLayoutBinding.editTextGender.setOnClickListener(v -> {
                 // instance của trình tạo AlertDialog để xây dựng hộp thoại cảnh báo
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(MyAccountActivity.this);
                 // tiêu đề của hộp thoại cảnh báo
@@ -174,8 +188,8 @@ public class MyAccountActivity extends AppCompatActivity {
                     // khi người dùng mở hộp thoại vào lần tiếp theo và chuyển thể hiện sang phương thức setSingleChoiceItems
                     checkedItem[0] = which;
 
-                    // bây giờ cũng cập nhật TextView để xem trước mục đã chọn
-                    bottomSheetEditAccountLayoutBinding.gender.setText(listItems[which]);
+                    // cập nhật TextView để xem trước mục đã chọn
+                    bottomSheetEditAccountLayoutBinding.editTextGender.setText(listItems[which]);
                     // khi được chọn một mục, hộp thoại sẽ được đóng bằng phương thức loại bỏ
                     dialog.dismiss();
                 });
@@ -190,7 +204,7 @@ public class MyAccountActivity extends AppCompatActivity {
         //Chon ngay sinh
     public void selectDate(){
         // Set OnClickListener for the birthday TextView
-        bottomSheetEditAccountLayoutBinding.birthday.setOnClickListener(new View.OnClickListener() {
+        bottomSheetEditAccountLayoutBinding.editTextBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Tạo một phiên bản DatePickerDialog mới
@@ -206,7 +220,7 @@ public class MyAccountActivity extends AppCompatActivity {
                         calendar.set(selectedYear, selectedMonth, selectedDay);
                         //Gan ngay thang nam vao edit text
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                        bottomSheetEditAccountLayoutBinding.birthday.setText(simpleDateFormat.format(calendar.getTime()));
+                        bottomSheetEditAccountLayoutBinding.editTextBirthday.setText(simpleDateFormat.format(calendar.getTime()));
                     }
                 }, year, month, day);
                 // Show ra dialog
@@ -214,7 +228,7 @@ public class MyAccountActivity extends AppCompatActivity {
             }
         });
         //Kiem tra xem ngay sinh co hop le khong
-        bottomSheetEditAccountLayoutBinding.birthday.addTextChangedListener(new TextWatcher() {
+        bottomSheetEditAccountLayoutBinding.editTextBirthday.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -232,11 +246,82 @@ public class MyAccountActivity extends AppCompatActivity {
                     bottomSheetEditAccountLayoutBinding.textInputLayoutBirthday.setError("Ngày sinh không hợp lệ");
                 }
                 else {
-                    bottomSheetEditAccountLayoutBinding.birthday.setError(null);
+                    bottomSheetEditAccountLayoutBinding.editTextBirthday.setError(null);
                 }
             }
         });
 
+    }
+     //Gan thong tin user vao man hinh
+    public void informationUser(){
+        //Gan ten va image ten user tu firebase ve
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String name = dataSnapshot.child("name").getValue(String.class);
+                        String imageUrl = dataSnapshot.child("imageUser").getValue(String.class);
+                        String dateCreateAccount = dataSnapshot.child("registrationDate").getValue(String.class);
+                        String phone = dataSnapshot.child("phone").getValue(String.class);
+                        String email = dataSnapshot.child("email").getValue(String.class);
+                        String birthday = dataSnapshot.child("birthday").getValue(String.class);
+                        String gender = dataSnapshot.child("gender").getValue(String.class);
+                        //Set ten nguoi dung
+                        binding.nameTextView.setText(name);
+                        //Set gioi tinh nguoi dung
+                        binding.gender.setText(gender);
+                        //Set ngay sinh nguoi dung
+                        binding.birthday.setText(birthday);
+                        //Set ngay tao tai khoan
+                        binding.joinedDateTextView.setText("Ngày tham gia : " + dateCreateAccount);
+
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.d("Tag",databaseError.getMessage());
+                }
+            });
+        }
+    }
+    public void informationUserEdit(){
+
+        //Gan ten va image ten user tu firebase ve
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String name = dataSnapshot.child("name").getValue(String.class);
+                        String imageUrl = dataSnapshot.child("imageUser").getValue(String.class);
+                        String birthday = dataSnapshot.child("birthday").getValue(String.class);
+                        String gender = dataSnapshot.child("gender").getValue(String.class);
+                        //Gan ten
+                        bottomSheetEditAccountLayoutBinding.editTextGender.setText(gender);
+                        bottomSheetEditAccountLayoutBinding.editTextBirthday.setText(birthday);
+                        bottomSheetEditAccountLayoutBinding.editTextName.setText(name);
+
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.d("Tag",databaseError.getMessage());
+                }
+            });
+        }
     }
     }
 
