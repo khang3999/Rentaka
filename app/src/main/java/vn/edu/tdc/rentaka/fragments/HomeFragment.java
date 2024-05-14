@@ -4,16 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.transition.TransitionInflater;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 
@@ -23,8 +21,8 @@ import vn.edu.tdc.rentaka.activities.ChooseLocationActivity;
 import vn.edu.tdc.rentaka.adapters.AdvantageAdapter;
 import vn.edu.tdc.rentaka.adapters.LocationAdapter;
 import vn.edu.tdc.rentaka.adapters.PromotionAdapter;
+import vn.edu.tdc.rentaka.databinding.BottomSheetDiaglogLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.HomeFragmentBinding;
-import vn.edu.tdc.rentaka.databinding.MainLayoutBinding;
 import vn.edu.tdc.rentaka.models.Advantage;
 import vn.edu.tdc.rentaka.models.Location;
 import vn.edu.tdc.rentaka.models.Promotion;
@@ -43,11 +41,16 @@ public class HomeFragment extends AbstractFragment {
     // Mac dinh search theo xe tu lai type = 0
     private int typeSearch = 0;
 
+    private BottomSheetDialog bottomSheetDialog;
+    private BottomSheetDiaglogLayoutBinding bottomSheetDiaglogLayoutBinding;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Khoi tao binding
         binding = HomeFragmentBinding.inflate(getLayoutInflater());
+        bottomSheetDiaglogLayoutBinding = BottomSheetDiaglogLayoutBinding.inflate(getLayoutInflater(),null,false);
+
         View fragment = null;
         // Inflate the layout for this fragment
         //fragment = inflater.inflate(R.layout.home_fragment, container, false);
@@ -61,6 +64,40 @@ public class HomeFragment extends AbstractFragment {
         listPromotions.add(new Promotion(3));
         listPromotions.add(new Promotion(4));
         promotionAdapter = new PromotionAdapter(this.getContext(), listPromotions);
+        promotionAdapter.setOnItemClickListener(new PromotionAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(PromotionAdapter.MyViewHolder holder) {
+
+                //Center diaglog
+                bottomSheetDialog = new BottomSheetDialog(
+                        activity, R.style.BottomSheetDialogTheme
+                );
+                //Kiem tra ton tai bottomSheetDiaglog hay chua
+                if(bottomSheetDialog != null){
+                    //// Kiểm tra xem centerSheetDiaglogLayout đã có parent hay không
+                    ViewGroup parentView = (ViewGroup) bottomSheetDiaglogLayoutBinding.getRoot().getParent();
+                    if (bottomSheetDiaglogLayoutBinding.getRoot().getParent()!=null){
+                        //Neu co thi xoa layout duoc gan vao bottomsheetDiaglog di
+                        parentView.removeView(bottomSheetDiaglogLayoutBinding.getRoot());
+                    }
+                    //Gan layout moi vao bottomshetdiaglog
+                    Promotion promotion = listPromotions.get(holder.getAdapterPosition());
+                    //Khi nao co hinh do vao day
+//                    centerSheetDiaglogLayoutBinding.imageDiaglog.setImageResource(promotion.getId());
+                    bottomSheetDialog.setContentView(bottomSheetDiaglogLayoutBinding.getRoot());
+                    bottomSheetDialog.show();
+
+                }
+            }
+        });
+        //Bat su kien khi click vao x de tat bottom sheet
+        bottomSheetDiaglogLayoutBinding.close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetDialog.dismiss();
+            }
+        });
+
         LinearLayoutManager layoutManagerPromotion = new LinearLayoutManager(this.getContext());
         layoutManagerPromotion.setOrientation(RecyclerView.HORIZONTAL);
         layoutManagerPromotion.setReverseLayout(false);

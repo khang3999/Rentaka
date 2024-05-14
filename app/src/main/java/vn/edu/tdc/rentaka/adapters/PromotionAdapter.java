@@ -64,6 +64,19 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.MyVi
         public MyViewHolder(@NonNull ViewBinding itemView) {
             super(itemView.getRoot());
             binding = itemView;
+            //Bat su kien chung
+            itemView.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (itemClickListener != null){
+                        itemClickListener.onItemClick(PromotionAdapter.MyViewHolder.this);
+
+                    }
+                    else {
+                        Log.d("adapter","You must create an ItemClickListener before!");
+                    }
+                }
+            });
         }
 
         public ViewBinding getBinding() {

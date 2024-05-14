@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationBarView;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -37,6 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import vn.edu.tdc.rentaka.R;
+import vn.edu.tdc.rentaka.databinding.BottomSheetDiaglogLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.MainLayoutBinding;
 import vn.edu.tdc.rentaka.fragments.AbstractFragment;
 import vn.edu.tdc.rentaka.fragments.HistoryFragment;
@@ -99,8 +101,12 @@ public class MainActivity extends AppCompatActivity {
 
         //Khoi tao binding
         binding = MainLayoutBinding.inflate(getLayoutInflater());
+
         // Gán view cho binding
         setContentView(binding.getRoot());
+
+
+
 
         fragment = new HomeFragment();
         updateUI();

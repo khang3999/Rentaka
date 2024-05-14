@@ -179,14 +179,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:src="@drawable/fuel_24"
-                        android:text="Xang" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
                         android:text="6L/100km" />
 
                 </LinearLayout>
@@ -417,6 +409,14 @@
                                 android:gravity="center"
                                 android:text="100%"
                                 android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:src="@drawable/fuel_24"
+                                android:text="Xang" />
 
                             <TextView
                                 android:layout_width="0dp"
