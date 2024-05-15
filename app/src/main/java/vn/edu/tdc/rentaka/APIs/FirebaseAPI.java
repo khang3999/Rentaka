@@ -12,7 +12,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.internal.bind.DefaultDateTypeAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import vn.edu.tdc.rentaka.models.Car;
 import vn.edu.tdc.rentaka.models.Reservation;
@@ -35,9 +37,110 @@ public class FirebaseAPI {
         void onCallBack(List<T> List);
     }
 
+    //Function fetch cars by service name from the Firestore database ***Working properly
+    public void fetchServiceByCarID(String carID, onCallBack<Service> callBack) {
+        List<Service> serviceList = new ArrayList<>();
+        db.collection("service_car").whereEqualTo("carID", carID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                List<Task<DocumentSnapshot>> tasks = new ArrayList<>();
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String serviceID = document.getString("serviceID");
+                    Task<DocumentSnapshot> fetchTask = db.collection("services").document(serviceID).get();
+                    tasks.add(fetchTask);
+                }
+
+                Tasks.whenAllSuccess(tasks).addOnSuccessListener(results -> {
+                    for (Object result : results) {
+                        DocumentSnapshot document = (DocumentSnapshot) result;
+                        Service service = document.toObject(Service.class);
+                        service.setId(document.getId());
+                        serviceList.add(service);
+                    }
+                    callBack.onCallBack(serviceList);
+                    Log.d("Success", "fetchServiceByCarID: " + serviceList.toString());
+                }).addOnFailureListener(e -> {
+                    Log.d("Error", "Error getting documents: ", e);
+                });
+            } else {
+                Log.d("Error", "Error getting documents: ", task.getException());
+            }
+        });
+    }
+
+    //Function update services for a car to the Firestore database ***Working properly
+    public void updateServicesForCar(String carID, List<Service> services) {
+
+        db.collection("services_cars").whereEqualTo("carID", carID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                List<Task<Void>> deleteTasks = new ArrayList<>();
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    deleteTasks.add(document.getReference().delete());
+                }
+                Tasks.whenAllSuccess(deleteTasks).addOnSuccessListener(results -> {
+                    addServicesForCar(carID, services);
+                    Log.d("Success", "updateServicesForCar: " + carID);
+                }).addOnFailureListener(e -> {
+                    Log.d("Error", "Error getting documents: ", e);
+                });
+            } else {
+                Log.d("Error", "Error getting documents: ", task.getException());
+            }
+        });
+    }
+
+    //Function add services for a car to the Firestore database ***Working properly
+    public void addServicesForCar(String carID, List<Service> services) {
+        for(Service service : services) {
+            Map<String, String> newServiceCar = new HashMap<>();
+            newServiceCar.put("carID", carID);
+            newServiceCar.put("serviceID", service.getId());
+
+            db.collection("services_cars").add(newServiceCar).addOnSuccessListener(documentReference -> {
+                db.collection("services_cars")
+                        .document(documentReference.getId())
+                        .update("serviceID", service.getId());
+
+                Log.d("Success", "updateServicesForCar: " + carID);
+            }).addOnFailureListener(e -> {
+                Log.d("Error", "Error getting documents: ", e);
+            });
+        }
+    }
+
+    //Function fetch services from Firestore database ***Working properly
+    public void fetchServices(onCallBack<Service> callBack){
+        List<Service> serviceList = new ArrayList<>();
+        Thread thread = new Thread(() -> {
+            db.collection("services").get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Service service = document.toObject(Service.class);
+                        service.setId(document.getId());
+                        serviceList.add(service);
+                    }
+                    callBack.onCallBack(serviceList);
+                    Log.d("Success", "fetchServices: " + serviceList.toString());
+                } else {
+                    Log.d("Error", "Error getting documents: ", task.getException());
+                }
+            });
+        });
+        thread.start();
 
 
+    }
 
+    //Function add service to the Firestore database **working properly
+    public void addService(Service service) {
+        db.collection("services").add(service).addOnSuccessListener(documentReference -> {
+                    db.collection("services")
+                    .document(documentReference.getId())
+                    .update("id", documentReference.getId());
+            System.out.println("Added successfully service with ID: " + documentReference.getId());
+        }).addOnFailureListener(e -> {
+            System.out.println("Added service failure " + e);
+        });
+    }
 
     //Function fetch reservations by total cost **working properly
     public void fetchReservationsByTotalCost(int totalCost, onCallBack<Reservation> callBack){

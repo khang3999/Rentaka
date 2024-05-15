@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 
@@ -21,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -242,6 +244,13 @@ public class MainActivity extends AppCompatActivity {
         updateUI();
 
 
+        ArrayList<Service> services = new ArrayList<>();
+        Service service = new Service("Voice Control");
+        service.setId("aVNHtuUxJPgsH7pI9zZE");
+
+        services.add(service);
+
+        firebaseAPI.updateServicesForCar("H3giptVltU9j0AcwgMWA",services);
     }
 
     private void updateUI(){
