@@ -131,4 +131,5 @@
     <string name="hintDate_dd_mm_yyyy">10/05/2024</string>
     <string name="s_a_kh_ng_th_nh_c_ng">Sửa không thành công</string>
     <string name="i_m_t_kh_u_th_nh_c_ng">Đổi mật khẩu thành công</string>
+    <string name="b_n_ph_i_tr_n_18_tu_i">Bạn phải trên 18 tuổi</string>
 </resources>

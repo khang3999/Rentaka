@@ -142,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                        // Dang nhap thanh cong
                         binding.progressBar.setVisibility(View.GONE);
 
-                        Intent intent = new Intent(LoginActivity.this, test2.class);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                     } else {
                         //Khi sai mk , tk

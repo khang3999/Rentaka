@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -200,11 +201,14 @@ public class PersonalProfileFragment extends AbstractFragment {
                        binding.textName.setText(name);
                         //Set anh nguoi dung
 //                        // Use Glide to load the profile image
-//                        Glide.with(getActivity())
-//                                .load(imageUrl)
-//                                .placeholder(R.drawable.placeholder_image) // Replace with your placeholder
-//                                .error(R.drawable.error_image) // Replace with your error image
-//                                .into(profileImageView);
+                        if (imageUrl != null && !imageUrl.isEmpty()) {
+                            Glide.with(PersonalProfileFragment.this)
+                                    .load(imageUrl)
+                                    .into(binding.avatar);
+                        } else {
+                            //Set anh
+                            binding.avatar.setImageResource(R.drawable.avatar);
+                        }
 
 
                     }
