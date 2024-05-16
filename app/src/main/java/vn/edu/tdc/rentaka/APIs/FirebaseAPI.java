@@ -40,6 +40,45 @@ public class FirebaseAPI {
 
 
 
+    //Function fetch payments by property from the Firestore database ***Working properly
+    public void fetchPaymentsByProperty(Payment.PaymentProperties property, String keyword, onCallBack<Payment> callBack) {
+        List<Payment> paymentList = new ArrayList<>();
+        db.collection("payments").whereEqualTo(property.toString(), keyword).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Payment payment = document.toObject(Payment.class);
+                    payment.setId(document.getId());
+                    paymentList.add(payment);
+                }
+                callBack.onCallBack(paymentList);
+                Log.d("Success", "fetchPaymentsByProperty: " + paymentList.toString());
+            } else {
+                Log.d("Error", "Error getting documents: ", task.getException());
+            }
+        });
+    }
+
+    // function add payment to the Firestore database **working properly
+    public void addPayment(Payment payment) {
+        //Add status for the payment
+        addStatus(new Status(Status.StatusName.completed));
+
+        db.collection("payments").add(payment).addOnSuccessListener(documentReference -> {
+            db.collection("payments")
+                    .document(documentReference.getId())
+                    .update("id", documentReference.getId(), "statusID", mRefString);
+
+            payment.setId(documentReference.getId());
+            payment.setStatusID(mRefString);
+
+            System.out.println("Added successfully payment with ID: " + documentReference.getId());
+        }).addOnFailureListener(e -> {
+            System.out.println("Added payment failure " + e);
+        });
+
+        mRefString = "";
+    }
+
     //fetch valid discount from the Firestore database ***Working properly
     public void fetchValidDiscounts(onCallBack<Discount> callBack) {
         List<Discount> discountList = new ArrayList<>();

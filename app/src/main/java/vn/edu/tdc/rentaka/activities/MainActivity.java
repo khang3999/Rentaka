@@ -246,21 +246,7 @@ public class MainActivity extends AppCompatActivity {
         Date currentDate = new Date(LocalDate.now());
 //        firebaseAPI.addDiscount(new Discount("Giam gia dac biet ngay mua nhu lu lut !!!",currentDate,currentDate,0.2 ));
 
-        firebaseAPI.fetchReservationsByProperty(Reservation.ReservationProperties.ownerID, "837N5VnztJt7JRKKefo5", new FirebaseAPI.onCallBack<Reservation>() {
-            @Override
-            public void onCallBack(List<Reservation> reservations) {
-                for (Reservation reservation : reservations) {
-                   reservation.setPickUpDate(currentDate);
-                     reservation.setReturnDate(currentDate);
-                        reservation.setPickUpLocation(new Location("LA", "location 43", Location.LocationType.pickUpLocation));
-                        reservation.setReturnLocation(new Location("AL", "location 34", Location.LocationType.returnLocation));
-                        reservation.setRenterID("K3MZ3sL0Uu83Of1ycDPP");
-                        reservation.setDiscount(new Discount("Giam gia dac biet ngay mua nhu lu lut !!!",currentDate,currentDate,0.2 ));
-                        firebaseAPI.updateReservationWhenRenterRentsCar(reservation);
 
-                }
-            }
-        });
 
     }
 
