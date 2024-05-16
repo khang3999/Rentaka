@@ -39,6 +39,7 @@ import vn.edu.tdc.rentaka.models.*;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.credentials.exceptions.domerrors.DataError;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -242,15 +243,25 @@ public class MainActivity extends AppCompatActivity {
         // Khoi tạo lan dau
         fragment = new HomeFragment();
         updateUI();
+        Date currentDate = new Date(LocalDate.now());
+//        firebaseAPI.addDiscount(new Discount("Giam gia dac biet ngay mua nhu lu lut !!!",currentDate,currentDate,0.2 ));
 
+        firebaseAPI.fetchReservationsByProperty(Reservation.ReservationProperties.ownerID, "837N5VnztJt7JRKKefo5", new FirebaseAPI.onCallBack<Reservation>() {
+            @Override
+            public void onCallBack(List<Reservation> reservations) {
+                for (Reservation reservation : reservations) {
+                   reservation.setPickUpDate(currentDate);
+                     reservation.setReturnDate(currentDate);
+                        reservation.setPickUpLocation(new Location("LA", "location 43", Location.LocationType.pickUpLocation));
+                        reservation.setReturnLocation(new Location("AL", "location 34", Location.LocationType.returnLocation));
+                        reservation.setRenterID("K3MZ3sL0Uu83Of1ycDPP");
+                        reservation.setDiscount(new Discount("Giam gia dac biet ngay mua nhu lu lut !!!",currentDate,currentDate,0.2 ));
+                        firebaseAPI.updateReservationWhenRenterRentsCar(reservation);
 
-        ArrayList<Service> services = new ArrayList<>();
-        Service service = new Service("Voice Control");
-        service.setId("aVNHtuUxJPgsH7pI9zZE");
+                }
+            }
+        });
 
-        services.add(service);
-
-        firebaseAPI.updateServicesForCar("H3giptVltU9j0AcwgMWA",services);
     }
 
     private void updateUI(){

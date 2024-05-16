@@ -1,6 +1,7 @@
 package vn.edu.tdc.rentaka.models;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Date {
     private int day;
@@ -54,5 +55,40 @@ public class Date {
         return day+"/"+month+"/"+year;
     }
 
-    // Add getters and setters for day, month, and year
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Date date = (Date) o;
+        return day == date.day && month == date.month && year == date.year;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(day, month, year);
+    }
+
+    //Function compare to date
+    public Integer compareTo(Date date){
+        if(this.year > date.year){
+            return 1;
+        }else if(this.year < date.year){
+            return -1;
+        }else{
+            if(this.month > date.month){
+                return 1;
+            }else if(this.month < date.month){
+                return -1;
+            }else{
+                if(this.day > date.day){
+                    return 1;
+                }else if(this.day < date.day){
+                    return -1;
+                }else{
+                    return 0;
+                }
+            }
+        }
+    }
 }
