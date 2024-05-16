@@ -38,7 +38,48 @@ public class FirebaseAPI {
         void onCallBack(List<T> List);
     }
 
+    //Function fetch rates by customer id from the Firestore database ***Working properly
+    public void fetchRatesByCustomerID(String customerID, Customer.CustomerType customerType, onCallBack<Rate> callBack) {
+        List<Rate> rateList = new ArrayList<>();
+        String idType = customerType.toString().equals("recipient") ? "recipientID" : "reviewerID";
+        db.collection("rates").whereEqualTo(idType, customerID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Rate rate = document.toObject(Rate.class);
+                    rate.setId(document.getId());
+                    rateList.add(rate);
+                }
+                callBack.onCallBack(rateList);
+                Log.d("Success", "fetchRatesByCustomerID: " + rateList.toString());
+            } else {
+                Log.d("Error", "Error getting documents: ", task.getException());
+            }
+        });
+    }
 
+    //Function update rate from the Firestore database ***Working properly
+    public void updateRate(Rate rate) {
+        db.collection("rates").document(rate.getId())
+                .update("rating", rate.getRating(),
+                        "comment", rate.getComment(),
+                        "updatedAt", new Date(LocalDate.now())).addOnSuccessListener(aVoid -> {
+                    Log.d("Success", "updateRate: " + rate.toString());
+                }).addOnFailureListener(e -> {
+                    Log.d("Error", "Error getting documents: ", e);
+                });
+    }
+
+    //Function add rate to the Firestore database **working properly
+    public void addRate(Rate rate) {
+        db.collection("rates").add(rate).addOnSuccessListener(documentReference -> {
+            db.collection("rates")
+                    .document(documentReference.getId())
+                    .update("id", documentReference.getId());
+            System.out.println("Added successfully rate with ID: " + documentReference.getId());
+        }).addOnFailureListener(e -> {
+            System.out.println("Added rate failure " + e);
+        });
+    }
 
     //Function fetch payments by property from the Firestore database ***Working properly
     public void fetchPaymentsByProperty(Payment.PaymentProperties property, String keyword, onCallBack<Payment> callBack) {

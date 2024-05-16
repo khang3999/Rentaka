@@ -246,6 +246,17 @@ public class MainActivity extends AppCompatActivity {
         Date currentDate = new Date(LocalDate.now());
 //        firebaseAPI.addDiscount(new Discount("Giam gia dac biet ngay mua nhu lu lut !!!",currentDate,currentDate,0.2 ));
 
+        Rate rate = new Rate("K3MZ3sL0Uu83Of1ycDPP", "837N5VnztJt7JRKKefo5", 1, "Rat te");
+        rate.setId("x3O4CIxMQHVQ7fTMmisL");
+
+        firebaseAPI.fetchRatesByCustomerID("837N5VnztJt7JRKKefo5", Customer.CustomerType.reviewer, new FirebaseAPI.onCallBack<Rate>() {
+            @Override
+            public void onCallBack(List<Rate> List) {
+                for (Rate rate : List){
+                    Log.d("Rate", rate.toString());
+                }
+            }
+        });
 
 
     }
