@@ -3,7 +3,7 @@
     <style name="Base.Theme.Rentaka" parent="Theme.Material3.DayNight.NoActionBar">
 
     </style>
-
+    <style name="Theme.MaterialDatePicker" parent="Theme.Material3.Light"/>
     <style name="Theme.Carrental" parent="Base.Theme.Rentaka" />
 
     <style name="CustomOutlinedCallButton" parent="Widget.Material3.Button.OutlinedButton.Icon">

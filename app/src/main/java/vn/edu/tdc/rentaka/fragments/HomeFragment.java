@@ -60,10 +60,11 @@ public class HomeFragment extends AbstractFragment {
         activity = getActivity();
         // Set adapter for Promotion
         listPromotions = new ArrayList<Promotion>();
-        listPromotions.add(new Promotion(1));
-        listPromotions.add(new Promotion(2));
-        listPromotions.add(new Promotion(3));
-        listPromotions.add(new Promotion(4));
+        listPromotions.add(new Promotion(1,"Promotion 1","promotion1.jpg","Chuong trinh khuyen mai so 1"));
+        listPromotions.add(new Promotion(2,"Promotion 2","promotion2.jpg","Chuong trinh khuyen mai so 2"));
+        listPromotions.add(new Promotion(3,"Promotion 3","promotion3.jpg","Chuong trinh khuyen mai so 3"));
+        listPromotions.add(new Promotion(4,"Promotion 4","promotion4.jpg","Chuong trinh khuyen mai so 4"));
+
         promotionAdapter = new PromotionAdapter(this.getContext(), listPromotions);
         promotionAdapter.setOnItemClickListener(new PromotionAdapter.ItemClickListener() {
             @Override
@@ -82,10 +83,12 @@ public class HomeFragment extends AbstractFragment {
                         //Neu co thi xoa layout duoc gan vao bottomsheetDiaglog di
                         parentView.removeView(bottomSheetDiaglogLayoutBinding.getRoot());
                     }
-                    //Gan layout moi vao bottomshetdiaglog
-                    Promotion promotion = listPromotions.get(holder.getAdapterPosition());
-                    //Khi nao co hinh do vao day
-//                    centerSheetDiaglogLayoutBinding.imageDiaglog.setImageResource(promotion.getId());
+//                    //Gan layout moi vao bottomshetdiaglog
+//                    Promotion promotion = listPromotions.get(holder.getAdapterPosition());
+//                    //Khi nao co hinh do vao day con thieu anh
+//                    bottomSheetDiaglogLayoutBinding.title.setText(promotion.getTitle());
+//                    bottomSheetDiaglogLayoutBinding.description.setText(promotion.getDescription());
+//
                     bottomSheetDialog.setContentView(bottomSheetDiaglogLayoutBinding.getRoot());
                     bottomSheetDialog.show();
 
