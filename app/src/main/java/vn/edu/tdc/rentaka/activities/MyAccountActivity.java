@@ -65,7 +65,6 @@ public class MyAccountActivity extends AppCompatActivity {
     private BottomSheetEditAccountLayoutBinding bottomSheetEditAccountLayoutBinding;
     BottomSheetDialog bottomSheetDialogEdit;
     private static final int STORAGE_PERMISSION_CODE = 101;
-    private static final int PICK_IMAGE_REQUEST = 102;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
     //Dat 1 bien la URI
     Uri imageUri;
@@ -89,8 +88,7 @@ public class MyAccountActivity extends AppCompatActivity {
                     // Kiểm tra nếu kết quả trả về là thành công (RESULT_OK) và có dữ liệu (data không null)
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                         imageUri = result.getData().getData(); // Lấy Uri của ảnh được chọn từ kết quả trả về
-                        // Sử dụng thư viện Glide để tải và hiển thị ảnh đã chọn trong ImageView (avatar)
-                        Glide.with(this).load(imageUri).into(bottomSheetEditAccountLayoutBinding.avatar);
+                        bottomSheetEditAccountLayoutBinding.avatar.setImageURI(imageUri);
                     }
                 }
         );
@@ -150,9 +148,8 @@ public class MyAccountActivity extends AppCompatActivity {
         bottomSheetEditAccountLayoutBinding.addCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkAndRequestPermissions()) {
-                    openImageSelector();
-                }
+                //Kiem tra quyen anh
+                checkAndRequestPermissions();
             }
         });
 
@@ -224,31 +221,20 @@ public class MyAccountActivity extends AppCompatActivity {
     }
 
     // Phương thức kiểm tra và yêu cầu các quyền cần thiết để truy cập bộ nhớ
-    private boolean checkAndRequestPermissions() {
+    private void checkAndRequestPermissions() {
         // Kiểm tra nếu phiên bản Android từ API 33 (Android 13) trở lên
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            // Từ Android 13 (API 33) trở lên, sử dụng các quyền phương tiện cụ thể hơn
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
-                // Yêu cầu người dùng cấp quyền đọc hình ảnh
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.READ_MEDIA_IMAGES},
-                        STORAGE_PERMISSION_CODE);
-                return false; // Quyền chưa được cấp, yêu cầu quyền và trả về false
-            }
-            // Kiểm tra nếu phiên bản Android từ API 29 (Android 10) trở lên
+            // Yêu cầu quyền đọc hình ảnh
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_MEDIA_IMAGES},
+                    STORAGE_PERMISSION_CODE);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            // Từ Android 10 (API 29) trở lên, mô hình lưu trữ theo phạm vi được áp dụng
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                // Yêu cầu người dùng cấp quyền đọc bộ nhớ ngoài
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        STORAGE_PERMISSION_CODE);
-                // Quyền chưa được cấp, yêu cầu quyền và trả về false
-                return false;
-            }
+            // Kiểm tra nếu phiên bản Android từ API 29 (Android 10) trở lên
+            // Yêu cầu quyền đọc bộ nhớ ngoài
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    STORAGE_PERMISSION_CODE);
         }
-        // Nếu tất cả các quyền cần thiết đã được cấp, trả về true
-        return true;
     }
 
 
@@ -312,7 +298,7 @@ public class MyAccountActivity extends AppCompatActivity {
         //Chon ngay sinh
         public void selectDate(){
 
-        // Set OnClickListener for the birthday TextView
+        // Tao bang chon ngay thang nam (lich)
         bottomSheetEditAccountLayoutBinding.editTextBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

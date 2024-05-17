@@ -32,8 +32,10 @@ import vn.edu.tdc.rentaka.activities.FavoriteCar;
 import vn.edu.tdc.rentaka.activities.LoginActivity;
 import vn.edu.tdc.rentaka.activities.MainActivity;
 import vn.edu.tdc.rentaka.activities.MyAccountActivity;
+import vn.edu.tdc.rentaka.activities.UserAddressActivity;
 import vn.edu.tdc.rentaka.adapters.PersonalProfileAdapter;
 import vn.edu.tdc.rentaka.databinding.PersonalProfileLayoutBinding;
+import vn.edu.tdc.rentaka.databinding.UserAddressLayoutBinding;
 import vn.edu.tdc.rentaka.models.PersonalProfileModel;
 
 import java.lang.reflect.Field;
@@ -54,6 +56,9 @@ public class PersonalProfileFragment extends AbstractFragment {
 
         binding = PersonalProfileLayoutBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
+        //Cap nhat du lieu
+        updateData();
 
         List<PersonalProfileModel> data1 = new ArrayList<>();
         data1.add(new PersonalProfileModel("ic_user","Tài khoản của tôi"));
@@ -89,7 +94,6 @@ public class PersonalProfileFragment extends AbstractFragment {
                 switch (position) {
                     case 0:
                         Intent intent1 = new Intent(requireActivity(), MyAccountActivity.class);
-//                        intent1.putExtra("name",data1.get(position).getContent());
                         startActivity(intent1);
                         break;
                     case 1:
@@ -97,16 +101,15 @@ public class PersonalProfileFragment extends AbstractFragment {
                         break;
                     case 2:
                         Intent intent3 = new Intent(requireActivity(), FavoriteCar.class);
-//                        intent3.putExtra("name",data1.get(position).getContent());
                         startActivity(intent3);
                         break;
                     case 3:
-                        Toast.makeText(requireActivity(), "Địa chỉ của tôi", Toast.LENGTH_SHORT).show();
+                        Intent intent4 = new Intent(requireActivity(), UserAddressActivity.class);
+                        startActivity(intent4);
                         break;
                     case 4:
-                        Intent intent4 = new Intent(requireActivity(), DrivingLicenseActivity.class);
-//                        intent4.putExtra("name",data1.get(position).getContent());
-                        startActivity(intent4);
+                        Intent intent5 = new Intent(requireActivity(), DrivingLicenseActivity.class);
+                        startActivity(intent5);
                         break;
                     default:
                         Toast.makeText(requireActivity(), "Thẻ của tôi", Toast.LENGTH_SHORT).show();
@@ -186,6 +189,15 @@ public class PersonalProfileFragment extends AbstractFragment {
             }
         });
 
+
+
+
+        return view;
+    }
+    //Cap nhat du lieu
+    private void updateData() {
+        //Loading
+        binding.progressBar.setVisibility(View.VISIBLE);
         //Gan ten va image ten user tu firebase ve
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -197,8 +209,8 @@ public class PersonalProfileFragment extends AbstractFragment {
                     if (dataSnapshot.exists()) {
                         String name = dataSnapshot.child("name").getValue(String.class);
                         String imageUrl = dataSnapshot.child("imageUser").getValue(String.class);
-                       //Set ten nguoi dung
-                       binding.textName.setText(name);
+                        //Set ten nguoi dung
+                        binding.textName.setText(name);
                         //Set anh nguoi dung
 //                        // Use Glide to load the profile image
                         if (imageUrl != null && !imageUrl.isEmpty()) {
@@ -220,10 +232,8 @@ public class PersonalProfileFragment extends AbstractFragment {
                 }
             });
         }
-
-
-
-        return view;
+        //An loading
+        binding.progressBar.setVisibility(View.GONE);
     }
 
 }

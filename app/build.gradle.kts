@@ -74,6 +74,7 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
     implementation(libs.firebase.auth)
+    implementation(libs.places)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -102,5 +103,8 @@ dependencies {
     implementation("com.google.firebase:firebase-auth");
     //thue viện firebase database
     implementation("com.google.firebase:firebase-database:20.3.0")
+
+    //Thu vien gg map
+    implementation ("com.google.android.libraries.places:places:3.1.0")
 }
 
