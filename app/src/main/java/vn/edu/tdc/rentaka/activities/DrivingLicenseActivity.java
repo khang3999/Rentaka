@@ -248,6 +248,7 @@ public class DrivingLicenseActivity extends AppCompatActivity {
                         // Nếu có ảnh, hiển thị ảnh bằng Glide hoặc một thư viện khác
                         if (imageGPLX != null && !imageGPLX.isEmpty()) {
                             Glide.with(DrivingLicenseActivity.this).load(imageGPLX).into(binding.imageGPLX);
+                            isImageGPLXValid = true;
                         }
                     }
                 }
@@ -304,6 +305,7 @@ public class DrivingLicenseActivity extends AppCompatActivity {
               if (isCalendar && isNameValid && isGPLXValid && isImageGPLXValid){
                   //Luu du lieu
                   saveGPLXData();
+                  finish();
               }
               else {
                   Toast.makeText(DrivingLicenseActivity.this, "Đăng kí giấy phép lái xe không thành công", Toast.LENGTH_SHORT).show();
@@ -320,6 +322,7 @@ public class DrivingLicenseActivity extends AppCompatActivity {
               if (!isImageGPLXValid){
                   binding.textErrorImage.setVisibility(View.VISIBLE);
               }
+
           }
           //Luu len server va len firebase
           private void saveGPLXData() {

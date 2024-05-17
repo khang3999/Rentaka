@@ -504,7 +504,7 @@ public class RegisterActivity extends AppCompatActivity {
                             String address= "";
                             String birthday= "00/00/0000";
                             // Registration successful
-                            UserModel user = new UserModel(phone, username, pass, email,gender,currentDate,imageUser,address,birthday);
+                            UserModel user = new UserModel(phone, username, email, gender,currentDate,imageUser,address,birthday);
                             String id = task.getResult().getUser().getUid();
                             database.getReference().child("Users").child(id).setValue(user);
                             //an load

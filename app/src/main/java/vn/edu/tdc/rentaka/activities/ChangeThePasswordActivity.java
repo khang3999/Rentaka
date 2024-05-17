@@ -12,7 +12,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,9 +30,9 @@ import vn.edu.tdc.rentaka.databinding.ChangeThePasswordLayoutBinding;
 
 public class ChangeThePasswordActivity extends AppCompatActivity {
     private ChangeThePasswordLayoutBinding binding;
-    private boolean isPasswordValid = false;
-    private boolean isPasswordConfirmValid = false;
-    private boolean isPasswordUnique = false;
+     boolean isPasswordValid = false;
+     boolean isPasswordConfirmValid = false;
+     boolean isPasswordUnique = true;
     FirebaseAuth mAuth;
     DatabaseReference databaseReference;
     @Override
@@ -145,23 +149,15 @@ public class ChangeThePasswordActivity extends AppCompatActivity {
                     currentUser.updatePassword(newPassword)
                             .addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
-                                    // Cập nhật mật khẩu trong FirebaseDatabase
-                                    DatabaseReference userRef = databaseReference.child("Users").child(currentUser.getUid());
-                                    userRef.child("password").setValue(newPassword).addOnCompleteListener(task1 -> {
-                                        if (task1.isSuccessful()) {
-                                            Snackbar.make(view, R.string.i_m_t_kh_u_th_nh_c_ng, Snackbar.LENGTH_LONG).show();
-                                            finish();
-                                        } else {
-                                            Snackbar.make(view, R.string.s_a_kh_ng_th_nh_c_ng, Snackbar.LENGTH_LONG).show();
-                                        }
-                                    });
+                                    // Hiển thị thông báo cập nhật mật khẩu thành công
+                                    Snackbar.make(view, R.string.i_m_t_kh_u_th_nh_c_ng, Snackbar.LENGTH_LONG).show();
+                                    finish();
                                 } else {
                                     Snackbar.make(view, R.string.s_a_kh_ng_th_nh_c_ng, Snackbar.LENGTH_LONG).show();
                                 }
                             });
                 }
-            }
-            else {
+            } else {
                 Snackbar.make(view, R.string.s_a_kh_ng_th_nh_c_ng, Snackbar.LENGTH_LONG).show();
                 // Hiển thị thông báo lỗi nếu người dùng chưa nhập mật khẩu mới hoặc mật khẩu xác nhận
                 if (binding.editTextPassword.getText().toString().isEmpty()) {
@@ -173,35 +169,34 @@ public class ChangeThePasswordActivity extends AppCompatActivity {
             }
         });
     }
+
     private void checkPassword(final String newPassword) {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            DatabaseReference userRef = databaseReference.child("Users").child(currentUser.getUid());
-            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            // Lấy email của người dùng hiện tại
+            String currentEmail = currentUser.getEmail();
+
+            // Lấy mật khẩu hiện tại của người dùng từ Firebase Authentication
+            AuthCredential credential = EmailAuthProvider.getCredential(currentEmail, newPassword);
+
+            // Re-authenticate người dùng
+            currentUser.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        String userPassword = dataSnapshot.child("password").getValue(String.class);
-                        if (newPassword.equals(userPassword)) {
-                            isPasswordUnique = false;
-                            binding.textInputLayoutPassword.setError("Mật khẩu mới không được trùng với mật khẩu cũ");
-                        }
-                        else {
-                            isPasswordUnique = true;
-                            binding.textInputLayoutPassword.setError(null);
-                        }
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        // Nếu re-authentication thành công, mật khẩu mới trùng với mật khẩu hiện tại
+                        isPasswordUnique = false;
+                        binding.textInputLayoutPassword.setError("Mật khẩu mới không được trùng với mật khẩu hiện tại");
+                    } else {
+                        // Nếu re-authentication không thành công, mật khẩu mới không trùng với mật khẩu hiện tại
+                        isPasswordUnique = true;
+                        binding.textInputLayoutPassword.setError(null);
                     }
-//                    else {
-//                        Toast.makeText(ChangeThePasswordActivity.this, "User data not found.", Toast.LENGTH_SHORT).show();
-//                    }
                     updateChangePasswordButton();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
                 }
             });
         }
-    }
+
+}
+
 }

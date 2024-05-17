@@ -197,7 +197,6 @@ public class PersonalProfileFragment extends AbstractFragment {
     //Cap nhat du lieu
     private void updateData() {
         //Loading
-        binding.progressBar.setVisibility(View.VISIBLE);
         //Gan ten va image ten user tu firebase ve
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -233,7 +232,6 @@ public class PersonalProfileFragment extends AbstractFragment {
             });
         }
         //An loading
-        binding.progressBar.setVisibility(View.GONE);
     }
 
 }

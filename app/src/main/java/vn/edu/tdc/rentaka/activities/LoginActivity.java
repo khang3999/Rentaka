@@ -43,6 +43,14 @@ public class LoginActivity extends AppCompatActivity {
         binding.textViewRegister.setText(Html.fromHtml(text_register, Html.FROM_HTML_MODE_COMPACT));
         //Custome error textview
         //Theo doi nhap text
+        binding.textViewForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ForgotThePasswordActivity.class);
+                intent.putExtra("email", binding.editTextEmail.getText().toString());
+                startActivity(intent);
+            }
+        });
         binding.editTextEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
