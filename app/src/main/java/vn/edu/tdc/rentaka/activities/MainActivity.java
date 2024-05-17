@@ -249,14 +249,16 @@ public class MainActivity extends AppCompatActivity {
         Rate rate = new Rate("K3MZ3sL0Uu83Of1ycDPP", "837N5VnztJt7JRKKefo5", 1, "Rat te");
         rate.setId("x3O4CIxMQHVQ7fTMmisL");
 
-        firebaseAPI.fetchRatesByCustomerID("837N5VnztJt7JRKKefo5", Customer.CustomerType.reviewer, new FirebaseAPI.onCallBack<Rate>() {
-            @Override
-            public void onCallBack(List<Rate> List) {
-                for (Rate rate : List){
-                    Log.d("Rate", rate.toString());
+       firebaseAPI.fetchReservationsByProperty(Reservation.ReservationProperties.ownerID, "837N5VnztJt7JRKKefo5", new FirebaseAPI.onCallBack<Reservation>() {
+           @Override
+           public void onCallBack(List<Reservation> List) {
+                for (Reservation reservation : List){
+                    reservation.setRenterID("K3MZ3sL0Uu83Of1ycDPP");
+                     firebaseAPI.updateReservationWhenRenterRentsCar(reservation);
                 }
-            }
-        });
+           }
+       });
+
 
 
     }
