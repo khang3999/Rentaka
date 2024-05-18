@@ -77,6 +77,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+
     private void updateUI() {
         // Set title
         // Neu da ton tai thi tai su dung

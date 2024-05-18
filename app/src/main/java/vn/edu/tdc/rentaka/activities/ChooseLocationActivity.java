@@ -87,14 +87,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
         binding.icDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.boxEditTextLocation.setBackgroundResource(R.drawable.border_line_gray);
-                binding.boxListLocation.setVisibility(View.INVISIBLE);
-                binding.icPickNow.setVisibility(View.VISIBLE);
-                binding.tvLocationNow.setVisibility(View.VISIBLE);
-                binding.icDelete.setVisibility(View.INVISIBLE);
-                binding.editTextPickLocation.clearFocus();
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(binding.editTextPickLocation.getWindowToken(), 0);
+               setUIDefault();
             }
         });
 
@@ -154,6 +147,17 @@ public class ChooseLocationActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setUIDefault();
+    }
+    private void setUIDefault(){
+        binding.editTextPickLocation.clearFocus();
+        binding.boxEditTextLocation.setBackgroundResource(R.drawable.border_line_gray);
+        binding.boxListLocation.setVisibility(View.INVISIBLE);
+        binding.icPickNow.setVisibility(View.VISIBLE);
+        binding.tvLocationNow.setVisibility(View.VISIBLE);
+        binding.icDelete.setVisibility(View.INVISIBLE);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(binding.editTextPickLocation.getWindowToken(), 0);
 
     }
 }
