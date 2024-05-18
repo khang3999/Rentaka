@@ -129,4 +129,10 @@
     <string name="labelDateCheckin">Ngày nhận xe</string>
     <string name="labelDateCheckout">Ngày trả xe</string>
     <string name="hintDate_dd_mm_yyyy">10/05/2024</string>
+    <string name="label_choose_time">Chọn giờ</string>
+    <string name="label_date_start">Ngày nhận xe:</string>
+    <string name="label_date_end">Ngày trả xe:</string>
+    <string name="title_time">Thời gian</string>
+    <string name="label_choose_date">Chọn ngày</string>
+    <string name="hint_default_choose_date">Chưa chọn</string>
 </resources>

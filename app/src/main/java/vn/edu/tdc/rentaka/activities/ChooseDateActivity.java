@@ -1,57 +1,53 @@
 package vn.edu.tdc.rentaka.activities;
 
-import android.content.DialogInterface;
-import android.icu.util.LocaleData;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.widget.Button;
-import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 
 import com.google.android.material.datepicker.CalendarConstraints;
-import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 
-import org.checkerframework.checker.units.qual.C;
-
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoField;
-import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
-import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.ChooseDateLayoutBinding;
+import vn.edu.tdc.rentaka.models.Date;
 
 public class ChooseDateActivity extends AppCompatActivity {
     // Properties
     private ChooseDateLayoutBinding binding;
-    private LocalDate dateStart;
-    private LocalDate dateEnd;
-    private LocalTime timeStart = LocalTime.of(5, 0, 0);
-    private LocalTime timeEnd = LocalTime.of(21, 0, 0);
+    private Date dateStart;
+    private Date dateEnd;
+
+    private LocalTime timeStart;
+    private LocalTime timeEnd;
+    private int totalDays = 0;
+
+    // Khi thay doi
+    private LocalTime timePickUp = LocalTime.of(5, 0, 0);
+    private LocalTime timeReturn = LocalTime.of(23, 0, 0);
     // Khi nao chon ngay thang, gio giac moi cho search
-    private boolean isChooseCondition;
+    private int statusChooseCondition = 0;
     // Mang chua cac ngay đã có lịch đặt trước get từ databse Co kieu du lieu là Date
-    private ArrayList<LocalDate> disabledDates = new ArrayList<LocalDate>();
+    // Su dung khi dat xe, taij man hinh nay khong su dung
+    //private ArrayList<LocalDate> disabledDates = new ArrayList<LocalDate>();
     private final long MILISOFDAY = 86400000;
+    private ArrayList<LocalTime> listTimeStart;
+    private ArrayList<LocalTime> listTimeEnd;
+    private ArrayAdapter<LocalTime> adapterTimeSpinnerStart;
+    private ArrayAdapter<LocalTime> adapterTimeSpinnerEnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,23 +55,150 @@ public class ChooseDateActivity extends AppCompatActivity {
         binding = ChooseDateLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+//        Khoi tao mang chuan bi cho adapter
+        listTimeStart = new ArrayList<>();
+        listTimeEnd = new ArrayList<>();
+
+        /// SHOW DateRangePicker when click on image calendar button
         binding.btnChooseDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDateRangePicker();
             }
         });
+
+        // Bat su kien cho spinner
+        binding.spinnerTimeStart.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Ngay nhan = ngay tra
+                if(dateStart.getDay() == dateEnd.getDay() && dateStart.getMonth() == dateEnd.getMonth()){
+                    // Thoi gian tra luon = thoi gian co the nhan + 1h ->
+                    createTimeList(listTimeStart.get(position).plusHours(1),timeReturn,listTimeEnd);
+                    // Cap nhat adapter
+                    adapterTimeSpinnerEnd.notifyDataSetChanged();
+                    // hien thi o spinner
+                    binding.spinnerTimeEnd.setSelection(listTimeEnd.size() - 1);
+                    // Cap nhat bien timeEnd == timeEndMax = timeReturn
+                    timeEnd = listTimeEnd.get(listTimeEnd.size() - 1);
+                } else{ // Ngay nhan != ngay tra
+                    createTimeList(timePickUp,timeReturn,listTimeEnd);
+                    // Cap nhat adapter
+                    adapterTimeSpinnerEnd.notifyDataSetChanged();
+                    // hien thi o spinner
+                    binding.spinnerTimeEnd.setSelection(0);
+                    // Cap nhat tong ngay
+                    totalDays = dateEnd.getDay()-dateStart.getDay();
+                    binding.tvTotalDay.setText(dateEnd.getDay()-dateStart.getDay()+" ngày");
+                    // Cap nhat bien timeEnd = timePickup => luon <= so ngay chenh lech
+                    timeEnd = listTimeEnd.get(0);
+                }
+
+                // Cap nhật bien timeStart = gia tri cua item tai vi tri dc tap vao trong listTimeStart
+                timeStart = listTimeStart.get(position);
+
+                // Update confirm area
+                binding.cfTimeStart.setText(timeStart.getHour()+"h00, ");
+                binding.cfTimeEnd.setText(timeEnd.getHour()+"h00, ");
+                Log.d("TAGSTART", "onPositiveButtonClick: " + timeStart);
+                Log.d("TAGSTART", "onPositiveButtonClick: " + timeEnd);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        binding.spinnerTimeEnd.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                Set default totalDays
+                totalDays = dateEnd.getDay() - dateStart.getDay();
+                // Ngay nhan = ngay tra
+                if (dateStart.getDay() == dateEnd.getDay() && dateStart.getMonth() == dateEnd.getMonth()){
+                    timeEnd = listTimeEnd.get(position);
+                    binding.cfTimeEnd.setText(timeEnd.getHour()+"h00, ");
+                } else { // Ngay nhan != ngay tra
+                    if(listTimeEnd.get(position).isAfter(timeStart)){
+                        totalDays += 1;
+                    }
+                    binding.tvTotalDay.setText(totalDays+" ngày");
+                }
+//                timeEndValid = listTimeEnd.get(position);
+//                totalDays = dateEnd.getDay() - dateStart.getDay();
+//                binding.cfTimeEnd.setText(timeEndValid.getHour()+"h00, ");
+//                Log.d("TAG", "onItemSelected: "+dateStart);
+//                Log.d("TAG", "onItemSelected: "+dateEnd);
+//
+//                if(dateStart.getDay() != dateEnd.getDay() || dateStart.getMonth() != dateEnd.getMonth()){
+//                    Log.d("TAG", "onItemSelected: call"+totalDays);
+//                    Log.d("TAG", "onItemSelected: call"+timeStartValid);
+//                    Log.d("TAG", "onItemSelected: call"+timeEndValid);
+//
+//                    if (timeStartValid.isBefore(timeEndValid)){
+//                        totalDays +=1;
+//                    }
+//                    binding.tvTotalDay.setText(totalDays + " ngày");
+//                }
+                Log.d("TAGEND", "onPositiveButtonClick: " + timeStart);
+                Log.d("TAGEND", "onPositiveButtonClick: " + timeEnd);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        // Bat su kien cho ic_question_mark
+        binding.imgQuestionMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Show dialog
+            }
+        });
+        // Bat su kien cho button continue
+        binding.btnContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // Set is choose condition
-        isChooseCondition = false;
         // Dua ve default
-        setDateAndTimeDefault();
+        binding.tvDateStart.setText("Chưa chọn");
+        binding.tvDateEnd.setText("Chưa chọn");
+        dateStart = new Date();
+        dateEnd = new Date();
+        binding.cfDateStart.setText("? - ");
+        binding.cfDateEnd.setText("?");
+
+        binding.spinnerTimeStart.setEnabled(false);
+        binding.spinnerTimeEnd.setEnabled(false);
+        binding.btnContinue.setEnabled(false);
+
+        // Setting for spinner
+        // Khoi tao mang array list cho thoi gian nhan xe: listTimeStart
+        createTimeList(timePickUp, timeReturn, listTimeStart);
+        // Khoi tao mang array list cho thoi gian tra xe: listTimeEnd
+        createTimeList(timePickUp, timeReturn, listTimeEnd);
+
+        adapterTimeSpinnerStart = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, listTimeStart);
+        binding.spinnerTimeStart.setAdapter(adapterTimeSpinnerStart);
+
+        adapterTimeSpinnerEnd = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, listTimeEnd);
+        binding.spinnerTimeEnd.setAdapter(adapterTimeSpinnerEnd);
+
     }
 
+    // DATE RANGE PICKER
     private void showDateRangePicker() {
         // Tạo một CalendarConstraints.Builder -----Start
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
@@ -85,7 +208,7 @@ public class ChooseDateActivity extends AppCompatActivity {
         LocalTime currentTime = LocalTime.now();// Lấy thời gian hiện tại
         // Set ngay hien thi tren textHeader dung logic: Neu tre hon endTime => set ngay mai
         // Vi Localdate khong cho set lai nen can tao moi
-        LocalDate defaultDatePicked = currentTime.isAfter(timeEnd) ? today.plusDays(1) : today;
+        LocalDate defaultDatePicked = currentTime.isAfter(timeReturn) ? today.plusDays(1) : today;
         LocalDate endMonthDisplay = today.plusMonths(3);
 
 //        // Thiết lập hiển thị 4 thang. Vi du: thang 5 thi hien thi thang 5 6 7 8;
@@ -125,16 +248,15 @@ public class ChooseDateActivity extends AppCompatActivity {
 
             }
         });
-        // Tạo date format
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
         // Tạo ràng buộc lịch từ builder
         CalendarConstraints constraints = constraintsBuilder.build();
-        // ------End
+        // ------END
         // 1. Tao builder
         MaterialDatePicker<Pair<Long, Long>> dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
                 .setTitleText("Select Date")
                 // Set ngay mac dinh duoc chon và set text tren textHeader
-                .setSelection(Pair.create((defaultDatePicked.toEpochDay() * MILISOFDAY), (defaultDatePicked.plusDays(1).toEpochDay() * MILISOFDAY)))
+                .setSelection(Pair.create((defaultDatePicked.toEpochDay() * MILISOFDAY), (defaultDatePicked.toEpochDay() * MILISOFDAY)))
                 .setCalendarConstraints(constraints)
                 .build();
         // Khi nhan button save
@@ -147,14 +269,95 @@ public class ChooseDateActivity extends AppCompatActivity {
                 if (selectedDates != null) {
                     long startDateLong = selectedDates.first;
                     long endDateLong = selectedDates.second;
-                    LocalDate startDate = convertToLocalDate(startDateLong);
-                    LocalDate endDate = convertToLocalDate(endDateLong);
+                    // Tạo Instant từ số mili giây
+                    Instant instantStart = Instant.ofEpochMilli(startDateLong);
+                    Instant instantEnd = Instant.ofEpochMilli(endDateLong);
+                    LocalDate startLocalDate = instantStart.atZone(ZoneId.of("UTC")).toLocalDate();
+                    LocalDate endLocalDate = instantEnd.atZone(ZoneId.of("UTC")).toLocalDate();
+
                     // Luu ngay thang duoc chon lai
-                    dateStart = startDate;
-                    dateEnd = endDate;
-                    // Khi nhan save, khong goi onResume cua Activity => update giao dien ngay khi ban button save
-                    // Chuyển trang thai da cap nhat
-                    isChooseCondition = true;
+                    dateStart = new Date(startLocalDate);
+                    dateEnd = new Date(endLocalDate);
+
+                    // Chuyen trang thai
+                    binding.spinnerTimeStart.setEnabled(true);
+                    binding.spinnerTimeEnd.setEnabled(true);
+
+                    // XU LY UPDATE Choose date UI vaf luu gia tri cac bien
+                    // Ngay bat dau = today
+                    if (startLocalDate.isEqual(LocalDate.now())){
+                        // Gio nhan xe xu li chung
+                        LocalTime currentTime = LocalTime.now();
+                        // 1.1 Xu li thoi gian nhan xe
+                        if (currentTime.isBefore(timePickUp)){ // Book truoc 5h sang
+                            timeStart = timePickUp;
+                        } else { // Book sau 5h sang, luon luon truoc timeEnd vi neu sau timeEnd => truong hop khac da xu ly
+                            timeStart = currentTime.plusHours(1);
+                        }
+                        // Ham createTimeList nhan 3 tham so: minTime, maxTime, ArrayList cho adapter
+                        // maxTimeStart luon = timeReturn - 1
+                        createTimeList(timeStart, timeReturn.minusHours(1),listTimeStart);
+//                        Log.d("TAG", "onPositiveButtonClick: " + listTimeStart);
+
+                        // 1.2 Xu li thoi gian tra xe
+                        // Tinh list gio nhan xe
+                        // Gio tra xe min xu li theo ngay tra
+                        if (endLocalDate.equals(LocalDate.now())){ // Tra xe trong ngay hom nay, timeEndMin = timeStartMin + 1:  (timeStartMin = timeStart, end tuong tu)
+                            timeEnd = timeStart.plusHours(1);
+                        } else { // Tra xe trong ngay khac
+                            timeEnd = timePickUp;
+                        }
+                        // Tinh list gio tra xe
+                        // TimeEndMin thay doi, timeEndMax khong thay doi luon = timeReturn
+                        createTimeList(timeEnd, timeReturn,listTimeEnd);
+//                        Log.d("TAG", "onPositiveButtonClick: " + listTimeEnd);
+
+                    } else { // Ngay bat dau != hom nay
+                        // 1. Xu li list time start
+                        // Tinh timeStartMin = timeStart = timePickup
+                        timeStart = timePickUp;
+                        // Ham createTimeList nhan 3 tham so: minTime, maxTime, ArrayList cho adapter
+                        // minTime luon = timePickup,maxTimeStart luon = timeReturn - 1
+                        createTimeList(timeStart,timeReturn.minusHours(1), listTimeStart);
+
+                        // Xu li list time end
+                        if (endLocalDate.equals(startLocalDate)){
+                            timeEnd = timeStart.plusHours(1);
+                            // tra trong ngay: list
+                            createTimeList(timeEnd, timeReturn, listTimeEnd);
+                        }else {
+                            timeEnd = timeStart;
+                            createTimeList(timeEnd, timeReturn, listTimeEnd);
+                        }
+                    }
+
+                    adapterTimeSpinnerStart.notifyDataSetChanged();
+                    adapterTimeSpinnerEnd.notifyDataSetChanged();
+                    binding.spinnerTimeStart.setSelection(0);
+                    binding.spinnerTimeEnd.setSelection(0);
+
+                    // Update tv choose date area
+                    binding.tvDateStart.setText(startLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                    binding.tvDateEnd.setText(endLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                    // Update confirm time
+                    binding.cfTimeStart.setText(timeStart.getHour() + "h00, ");
+                    binding.cfTimeEnd.setText(timeStart.getHour() +"h00, ");
+                    // Update confirm date
+                    binding.cfDateStart.setText(startLocalDate.format(DateTimeFormatter.ofPattern("dd/MM")) + " - ");
+                    binding.cfDateEnd.setText(endLocalDate.format(DateTimeFormatter.ofPattern("dd/MM")));
+
+                    // Update total date
+                    if (startLocalDate.equals(endLocalDate)){
+                        totalDays = 1;
+                    } else {
+                        totalDays = endLocalDate.getDayOfMonth() - startLocalDate.getDayOfMonth();
+                    }
+                    binding.tvTotalDay.setText(totalDays + " ngày");
+
+                    // Chuyen trang thai de hien thi button continue
+                    binding.btnContinue.setEnabled(true);
+//                    Log.d("TAGSAVE", "onPositiveButtonClick: " + timeStart);
+//                    Log.d("TAGSAVE", "onPositiveButtonClick: " + timeEnd);
                 }
             }
         });
@@ -162,64 +365,12 @@ public class ChooseDateActivity extends AppCompatActivity {
         dateRangePicker.show(getSupportFragmentManager(), "Material_Range");
     }
 
-//    private void updateDateAndTime(long startDate, long endDate) {
-//        // Update at confirm area
-//        binding.cfTimeStart.setText(timeCheckIn + ", ");
-//        binding.cfDateStart.setText(dateStart.substring(0, 5) + " - ");
-//        binding.cfTimeEnd.setText(timeCheckOut + ", ");
-//        binding.cfDateEnd.setText(dateEnd.substring(0, 5));
-//
-//        // Update total day
-//        long differenceInMilliSecond = Math.abs(endDate - startDate);
-//        long days = (long) Math.ceil(TimeUnit.MILLISECONDS.toDays(differenceInMilliSecond));
-//        binding.tvTotalDay.setText(days + " ngày ");
-//    }
 
-    private void setDateAndTimeDefault() {
-        LocalDate today = LocalDate.now();
-        LocalTime currentTime = LocalTime.now();
-        // Choose date area
-        binding.tvDateStart.setText(today.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        binding.tvDateEnd.setText(today.plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-
-
-        // Confirm area
-        // Date
-        binding.cfDateStart.setText(today.format(DateTimeFormatter.ofPattern("dd/MM")));
-        binding.cfDateEnd.setText(today.plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM")));
-        // Time
-        if (currentTime.getHour() < timeEnd.getHour()){ // Van con trong khoang thoi gian hop le
-            // Set date
-            binding.cfDateStart.setText(today.format(DateTimeFormatter.ofPattern("dd/MM")));
-            binding.cfDateEnd.setText(today.plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM")));
-            // Set time
-            if (currentTime.getMinute() <= 30) {
-                binding.cfTimeStart.setText(currentTime.format(DateTimeFormatter.ofPattern("HH'h'mm")));
-            } else {
-                binding.cfTimeEnd.setText(currentTime.plusHours(1).format(DateTimeFormatter.ofPattern("HH'h'mm")));
-            }
-        } else {
-            // Set date
-            binding.cfDateStart.setText(today.plusDays(1).format(DateTimeFormatter.ofPattern("dd/MM")));
-            binding.cfDateEnd.setText(today.plusDays(2).format(DateTimeFormatter.ofPattern("dd/MM")));
-            binding.cfTimeStart.setText(timeStart.format(DateTimeFormatter.ofPattern("HH'h'mm")));
-            binding.cfTimeStart.setText(timeStart.format(DateTimeFormatter.ofPattern("HH'h'mm")));
+    private void createTimeList(LocalTime minTime, LocalTime maxTime, ArrayList<LocalTime> list){
+        list.clear();
+        for (int i = minTime.getHour(); i <= maxTime.getHour(); i++ ){
+            LocalTime t = LocalTime.of(i,0,0);
+            list.add(t);
         }
-
-//        SimpleDateFormat dateDefault = new SimpleDateFormat("dd/MM", Locale.getDefault());
-//        SimpleDateFormat timeDefault = new SimpleDateFormat("HH'h'mm", Locale.getDefault());
-//        binding.cfTimeStart.setText(timeDefault.format(new Date()) + ", ");
-//        binding.cfDateStart.setText(dateDefault.format(new Date()) + " - ");
-//        binding.cfTimeEnd.setText(", ");
-//        binding.cfDateEnd.setText(dateDefault.format(new Date()));
-//        binding.tvTotalDay.setText("1 ngày");
-    }
-
-    private LocalDate convertToLocalDate(long milliseconds) {
-        // Tạo Instant từ số mili giây
-        Instant instant = Instant.ofEpochMilli(milliseconds);
-        // Chuyển đổi Instant thành LocalDate với múi giờ UTC
-        LocalDate localDate = instant.atZone(ZoneId.of("UTC")).toLocalDate();
-        return localDate;
     }
 }
