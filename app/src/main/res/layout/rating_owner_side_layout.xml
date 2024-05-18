@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_screen">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:text="@string/let_s_leave_a_review_title" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_outline">
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/message_for_owner_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:hint="@string/hint_message_review"
+                    android:textAlignment="viewStart"
+                    android:textColorHint="@color/grey"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.285"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recipient_img">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/message_for_owner_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="220dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <ImageView
+                    android:id="@+id/recipient_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="30dp"
+                    android:background="@drawable/round_outline"
+                    android:src="@mipmap/ic_launcher"
+                    app:layout_constraintEnd_toStartOf="@+id/recipient_rating_bar"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rating_and_review_textview_title" />
+
+                <RatingBar
+                    android:id="@+id/recipient_rating_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/RatingBar"
+                    app:layout_constraintBottom_toBottomOf="@+id/recipient_img"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/recipient_img"
+                    app:layout_constraintTop_toTopOf="@+id/recipient_img" />
+
+                <View
+                    android:id="@+id/stroke_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/stroke_height"
+                    android:layout_marginStart="@dimen/margin_stroke"
+                    android:layout_marginEnd="@dimen/margin_stroke"
+                    android:background="@android:color/darker_gray"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guideline13" />
+
+                <TextView
+                    android:id="@+id/pickup_location_title_textview"
+                    style="@style/SmallTextGreyStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/return_location"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/location_img_2"
+                    app:layout_constraintTop_toBottomOf="@+id/date_returned_textview" />
+
+                <TextView
+                    android:id="@+id/location_title_textview"
+                    style="@style/SmallTextGreyStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_star_end"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/pick_up_location"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline1"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/location_img"
+                    app:layout_constraintTop_toBottomOf="@+id/date_received_textview" />
+
+                <TextView
+                    android:id="@+id/rating_and_review_textview_title"
+                    style="@style/TitleTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/rating_and_review"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guideline13" />
+
+                <TextView
+                    android:id="@+id/rental_information_title_textview"
+                    style="@style/TitleTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_element_start"
+                    android:layout_marginTop="@dimen/margin_element_start"
+                    android:text="@string/rental_information_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/calendar_left_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_calendar_img"
+                    android:src="@mipmap/ic_calendar"
+                    app:layout_constraintEnd_toStartOf="@+id/date_received_title_textview"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rental_information_title_textview" />
+
+                <ImageView
+                    android:id="@+id/calendar_right_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_calendar_img_2"
+                    android:src="@mipmap/ic_calendar"
+                    app:layout_constraintEnd_toStartOf="@+id/date_returned_title_textview"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/guideline1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <ImageView
+                    android:id="@+id/location_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_start_location_ic"
+                    android:layout_marginTop="@dimen/margin_location_img"
+                    android:src="@mipmap/ic_location"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/date_received_textview" />
+
+                <ImageView
+                    android:id="@+id/location_img_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_element_start"
+                    android:layout_marginTop="@dimen/margin_location_img"
+                    android:src="@mipmap/ic_location"
+                    app:layout_constraintEnd_toStartOf="@+id/pickup_location_title_textview"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/location_title_textview"
+                    app:layout_constraintTop_toBottomOf="@+id/date_returned_textview" />
+
+                <TextView
+                    android:id="@+id/date_received_title_textview"
+                    style="@style/SmallTextGreyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_data_title"
+                    android:text="@string/date_received_title"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline1"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rental_information_title_textview" />
+
+                <TextView
+                    android:id="@+id/date_returned_title_textview"
+                    style="@style/SmallTextGreyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_date_returned_title"
+                    android:text="@string/date_returned_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/guideline1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/date_returned_textview"
+                    style="@style/NormalTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date_returned"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline1"
+                    app:layout_constraintTop_toBottomOf="@+id/calendar_right_img" />
+
+                <TextView
+                    android:id="@+id/date_received_textview"
+                    style="@style/NormalTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date_received"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/date_received_title_textview" />
+
+                <TextView
+                    android:id="@+id/location_textview_pickup"
+                    style="@style/NormalTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/location"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/location_title_textview" />
+
+                <TextView
+                    android:id="@+id/location_textview_return"
+                    style="@style/NormalTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/location"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/guideline1"
+                    app:layout_constraintTop_toBottomOf="@+id/pickup_location_title_textview" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.3" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/send_review_button"
+        style="@style/CustomConfirmButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:text="@string/send_review"
+        />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
