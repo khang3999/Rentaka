@@ -23,7 +23,7 @@
                 android:background="@drawable/round_outline">
 
                 <ImageView
-                    android:id="@+id/car_img"
+                    android:id="@+id/recipient_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_element_start"
@@ -41,7 +41,7 @@
                     android:layout_marginStart="@dimen/margin_car_model"
                     android:text="@string/car_model"
                     app:layout_constraintBottom_toTopOf="@+id/car_id_textview"
-                    app:layout_constraintStart_toEndOf="@+id/car_img"
+                    app:layout_constraintStart_toEndOf="@+id/recipient_img"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.5" />
 
@@ -66,7 +66,7 @@
                     android:layout_marginBottom="@dimen/_20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/car_img">
+                    app:layout_constraintStart_toEndOf="@+id/recipient_img">
 
                     <ImageView
                         android:id="@+id/icon_star"

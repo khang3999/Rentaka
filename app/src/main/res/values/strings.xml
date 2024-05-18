@@ -1,4 +1,5 @@
 <resources>
+
     <string name="support_contact">Cần hỗ trợ nhanh vui lòng gọi 1900 9217 (7:00AM - 10:00PM) hoặc gửi tin nhắn vào Mioto Fanpage</string>
     <string name="support_center">Trung tâm hỗ trợ nhanh</string>
     <string name="message">message</string>
@@ -130,6 +131,7 @@
     <string name="labelDateCheckout">Ngày trả xe</string>
     <string name="hintDate_dd_mm_yyyy">10/05/2024</string>
 
+
     <string name="s_a_kh_ng_th_nh_c_ng">Sửa không thành công</string>
     <string name="i_m_t_kh_u_th_nh_c_ng">Đổi mật khẩu thành công</string>
     <string name="b_n_ph_i_tr_n_18_tu_i">Bạn phải trên 18 tuổi</string>
@@ -143,5 +145,13 @@
     <string name="title_time">Thời gian</string>
     <string name="label_choose_date">Chọn ngày</string>
     <string name="hint_default_choose_date">Chưa chọn</string>
+
+
+    <string name="pick_up_location">Pick Up Location</string>
+    <string name="return_location">Return Location</string>
+    <string name="let_s_leave_a_review_title">Let\'s Leave A Review</string>
+    <string name="rating_and_review"><![CDATA[Rating & Review]]></string>
+    <string name="send_review">Send Review</string>
+    <string name="hint_message_review">Please write your review here. \nYou might want to include details about the car\'s condition,\n the owner\'s communication, and your overall experience.</string>
 
 </resources>
