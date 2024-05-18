@@ -13,6 +13,8 @@ public class Reservation {
     private Double totalCost;
     private String statusID;
 
+    private Discount discount;
+
 
     public enum ReservationProperties{
         id,
@@ -21,6 +23,15 @@ public class Reservation {
         renterID,
 
     }
+
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
+    }
+
     public String getId() {
         return id;
     }
@@ -104,7 +115,7 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(String carID, String ownerID, String renterID, Date pickUpDate, Date returnDate, Location pickUpLocation, Location returnLocation, Double totalCost) {
+    public Reservation(String carID, String ownerID, String renterID, Date pickUpDate, Date returnDate, Location pickUpLocation, Location returnLocation, Double totalCost,Discount discount) {
         this.carID = carID;
         this.ownerID = ownerID;
         this.renterID = renterID;
@@ -113,7 +124,7 @@ public class Reservation {
         this.pickUpLocation = pickUpLocation;
         this.returnLocation = returnLocation;
         this.totalCost = totalCost;
-
+        this.discount = discount;
     }
 
     @Override
@@ -129,6 +140,7 @@ public class Reservation {
                 ", returnLocation=" + returnLocation +
                 ", totalCost=" + totalCost +
                 ", statusID='" + statusID + '\'' +
+                ", discount=" + discount +
                 '}';
     }
 }

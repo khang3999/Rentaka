@@ -19,6 +19,11 @@ firebaseAuth = "23.0.0"
 navigationFragment = "2.6.0"
 navigationUi = "2.6.0"
 
+googleGmsGoogleServices = "4.4.1"
+firebaseStorage = "21.0.0"
+places = "3.4.0"
+
+
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -43,8 +48,12 @@ google-services = { group = "com.google.gms", name = "google-services", version.
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
+firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
+places = { group = "com.google.android.libraries.places", name = "places", version.ref = "places" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+googleGmsGoogleServices = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 
