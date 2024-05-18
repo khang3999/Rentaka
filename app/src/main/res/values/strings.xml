@@ -129,6 +129,7 @@
     <string name="labelDateCheckin">Ngày nhận xe</string>
     <string name="labelDateCheckout">Ngày trả xe</string>
     <string name="hintDate_dd_mm_yyyy">10/05/2024</string>
+
     <string name="s_a_kh_ng_th_nh_c_ng">Sửa không thành công</string>
     <string name="i_m_t_kh_u_th_nh_c_ng">Đổi mật khẩu thành công</string>
     <string name="b_n_ph_i_tr_n_18_tu_i">Bạn phải trên 18 tuổi</string>
@@ -136,4 +137,11 @@
     <string name="day_12_chu_so_o_mat_truoc_gplx">Dãy 12 chữ số ở mặt trước GPLX</string>
     <string name="ban_chua_anh">Bạn chưa nhập ảnh</string>
     <string name="a_ch_c_a_b_n">Địa chỉ của bạn</string>
+    <string name="label_choose_time">Chọn giờ</string>
+    <string name="label_date_start">Ngày nhận xe:</string>
+    <string name="label_date_end">Ngày trả xe:</string>
+    <string name="title_time">Thời gian</string>
+    <string name="label_choose_date">Chọn ngày</string>
+    <string name="hint_default_choose_date">Chưa chọn</string>
+
 </resources>
