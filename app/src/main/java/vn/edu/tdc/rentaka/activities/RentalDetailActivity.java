@@ -4,11 +4,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -20,12 +16,12 @@ public class RentalDetailActivity extends AppCompatActivity {
 
     private BottomSheetDialog bottomSheetDialog;
     private RentalDetailLayoutBinding rentalBinding;
-    private BottomSheetShowCancelPolicyLayoutBinding bottom_sheet_binding;
+    private BottomSheetShowCancelPolicyLayoutBinding bottomSheetBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         rentalBinding = RentalDetailLayoutBinding.inflate(getLayoutInflater());
-        bottom_sheet_binding = BottomSheetShowCancelPolicyLayoutBinding.inflate(getLayoutInflater(),null,false);
+        bottomSheetBinding = BottomSheetShowCancelPolicyLayoutBinding.inflate(getLayoutInflater(),null,false);
         setContentView(rentalBinding.getRoot());
 
         //Gach chan text
@@ -34,7 +30,7 @@ public class RentalDetailActivity extends AppCompatActivity {
         bottomSheetDialog = new BottomSheetDialog(
                 RentalDetailActivity.this, R.style.BottomSheetDialogTheme
         );
-        bottomSheetDialog.setContentView(bottom_sheet_binding.getRoot());
+        bottomSheetDialog.setContentView(bottomSheetBinding.getRoot());
         //Bat su kien khi click vao Xem them
         rentalBinding.btnMore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +39,7 @@ public class RentalDetailActivity extends AppCompatActivity {
             }
         });
         //Bat su kien khi click vao x de tat bottom sheet
-        bottom_sheet_binding.close.setOnClickListener(new View.OnClickListener() {
+        bottomSheetBinding.close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bottomSheetDialog.dismiss();
