@@ -27,10 +27,7 @@
         <activity
             android:name=".activities.ChooseDateActivity"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".activities.ChooseLocationActivity"
@@ -72,7 +69,10 @@
             android:exported="true"
             android:label="@string/title_activity_personal_profile"
             android:theme="@style/Theme.Rentaka">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
               
         </activity>
 

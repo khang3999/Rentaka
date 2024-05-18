@@ -1,5 +1,6 @@
 package vn.edu.tdc.rentaka.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.util.Log;
@@ -33,7 +34,6 @@ public class ChooseDateActivity extends AppCompatActivity {
     private ChooseDateLayoutBinding binding;
     private Date dateStart;
     private Date dateEnd;
-
     private LocalTime timeStart;
     private LocalTime timeEnd;
     private int totalDays = 0;
@@ -176,11 +176,16 @@ public class ChooseDateActivity extends AppCompatActivity {
         binding.btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (v.isEnabled()) {
+                    Intent intent = new Intent(ChooseDateActivity.this, MainActivity.class);
+                    String date = timeStart.getHour()+"h00, " + dateStart.toString() + " - "
+                            + timeEnd.getHour()+"h00, " + dateEnd.toString();
+                    intent.putExtra("date", date);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
+                }
             }
         });
-
-
     }
 
     @Override
