@@ -3,9 +3,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.widget.ImageView;
 
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
@@ -15,6 +17,8 @@ import vn.edu.tdc.rentaka.APIs.StorageAPI;
 import vn.edu.tdc.rentaka.R;
 
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.navigation.NavigationBarView;
 
 import vn.edu.tdc.rentaka.databinding.MainLayoutBinding;
 import vn.edu.tdc.rentaka.fragments.AbstractFragment;
@@ -41,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.rating_recipient_side_layout);
+        setContentView(R.layout.main_layout);
 
-        /*
+
         //Khoi tao binding
         binding = MainLayoutBinding.inflate(getLayoutInflater());
         // Gán view cho binding
@@ -70,7 +74,13 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        */
+
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
     }
 
     private void updateUI() {
