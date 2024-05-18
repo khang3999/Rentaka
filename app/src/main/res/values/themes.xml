@@ -3,7 +3,7 @@
     <style name="Base.Theme.Rentaka" parent="Theme.Material3.DayNight.NoActionBar">
 
     </style>
-
+    <style name="Theme.MaterialDatePicker" parent="Theme.Material3.Light"/>
     <style name="Theme.Carrental" parent="Base.Theme.Rentaka" />
 
     <style name="CustomOutlinedCallButton" parent="Widget.Material3.Button.OutlinedButton.Icon">
@@ -54,6 +54,11 @@
         <item name="fontFamily">@string/call_button_font</item>
         <item name="android:textColor">@color/grey</item>
         <item name="android:background">@drawable/ic_promotion_code_foreground</item>
+    </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/grey</item>
+        <item name="colorControlActivated">@color/yellow_star</item>
     </style>
 
     <style name="TitleTextStyle">

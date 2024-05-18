@@ -14,8 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-
 import java.util.ArrayList;
 
 import vn.edu.tdc.rentaka.R;
@@ -32,9 +30,6 @@ import vn.edu.tdc.rentaka.models.City;
 
 public class ChooseLocationActivity extends AppCompatActivity {
     private ChooseLocationLayoutBinding binding;
-    private AbstractFragment fragment;
-    private boolean checkExistFragment;
-    private FragmentTransaction transaction;
     private ArrayList<City> listCities;
     private ArrayList<City> copyList ;
     private CityAdapter adapterCities;

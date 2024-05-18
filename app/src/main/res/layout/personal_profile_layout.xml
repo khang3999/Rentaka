@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<ScrollView
+    android:layout_height="match_parent"
+    tools:context=".fragments.PersonalProfileFragment">
+
+    <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -15,7 +17,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/trang_xam"
-    tools:context=".fragment.PersonalProfileFragment"
     android:orientation="vertical">
 
     <View
@@ -90,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/listRycle"
         android:layout_marginTop="25dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="100dp"
         android:orientation="horizontal"
         >
         <ImageView
@@ -99,17 +100,20 @@
             android:src="@drawable/ic_log_out"
             android:layout_weight="1"/>
         <TextView
+            android:id="@+id/logout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:textColor="#ff0000"
             android:textStyle="bold"
-            android:textSize="15dp"
-            android:text="Đăng xuất"
+            android:textSize="15sp"
+            android:text="@string/ng_xu_t"
             />
 
     </LinearLayout>
 
+
 </RelativeLayout>
 </ScrollView>
-</LinearLayout>
+
+</FrameLayout>

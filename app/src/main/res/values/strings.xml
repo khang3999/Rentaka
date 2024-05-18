@@ -1,8 +1,5 @@
 <resources>
 
-    <!--    <string name="app_name">car-rental</string>-->
-    <string name="app_name">Rentaka</string>
-
     <string name="support_contact">Cần hỗ trợ nhanh vui lòng gọi 1900 9217 (7:00AM - 10:00PM) hoặc gửi tin nhắn vào Mioto Fanpage</string>
     <string name="support_center">Trung tâm hỗ trợ nhanh</string>
     <string name="message">message</string>
@@ -11,7 +8,6 @@
     <string name="insurance">Hotline insurance</string>
     <string name="SupportScreenTitleTextStyle">bold</string>
     <string name="information">Information</string>
-
     <string name="car_model">car model</string>
     <string name="car_id">car id</string>
     <string name="date_received_title">Date received</string>
@@ -48,8 +44,7 @@
     <string name="send_rental_request">Send rental request</string>
     <string name="rental_information_title">Rental information</string>
     <string name="mortgaged_property">Received customer doesn\'t have any mortgaged property</string>
-
- <string name="ten_app">Rentaka</string>
+    <string name="app_name">Rentaka</string>
     <string name="chuyen_cua_toi">Chuyến của tôi</string>
     <string name="title_activity_personal_profile">PersonalProfileActivity</string>
     <string name="t_i_kho_n">Tài Khoản</string>
@@ -91,11 +86,72 @@
     <string name="diaDiem">Địa điểm</string>
     <string name="thoiGianThue">Thời gian thuê</string>
     <string name="no_driver">Xe tự lái</string>
-    <string name="has_driver">Xe có tài xế</string>
+    <string name="has_driver">Có tài xế</string>
     <string name="display_location_result">Nhập địa điểm cần tìm kiếm</string>
-    <string name="nhan_xe">Giờ nhận xe</string>
-    <string name="tra_xe">Giờ trả xe</string>
+    <string name="x_c_th_c_s_i_n_tho_i">Xác thực số điện thoại</string>
+    <string name="h_th_ng_s_c_p_nh_t_v_g_i_m_t_tin_nh_n_c_ch_a_m_s_x_c_th_c_n_s_i_n_tho_i_c_a_b_n">Hệ thống sẽ cập nhật và gửi một tin nhắn có chữa mã số xác thực đến số điện thoại của bạn.</string>
+    <string name="nh_p_s_i_n_tho_i_c_a_b_n">Nhập số điện thoại của bạn</string>
+    <string name="ti_p_t_c">Tiếp tục</string>
+    <string name="nh_p_m_otp">Nhập mã OTP</string>
+    <string name="nh_p_m_g_m_6_ch_s_c_g_i_t_i">Nhập mã gồm 6 chữ số được gửi tới</string>
+    <string name="ng_nh_p">Đăng Nhập</string>
+    <string name="s_i_n_tho_i">Số điện thoại</string>
+    <string name="nh_p_m_t_kh_u">Nhập mật khẩu</string>
+    <string name="qu_n_m_t_kh_u">Quên mật khẩu</string>
+    <string name="google">Google</string>
+    <string name="facebook">Facebook</string>
+    <string name="b_n_ch_a_ph_i_l_th_nh_vi_n">Bạn chưa phải là thành viên ?</string>
+    <string name="ng_k_ngay">Đăng kí ngay</string>
+    <string name="dang_nhap">Đăng nhập</string>
+    <string name="ng_k">Đăng Ký</string>
+    <string name="dang_ki">Đăng kí</string>
+    <string name="so_dien_thoai">Số điện thoại phải có đúng 10 chữ số</string>
+    <string name="b_n_ph_i_tr_n_6_k_t_cho_t_n_hi_n_th">Bạn phải trên 6 kí tự cho tên hiển thị</string>
+    <string name="m_t_kh_u_kh_ng_kh_p">Mật khẩu không khớp</string>
+    <string name="m_t_kh_u_ph_i_c_t_nh_t_6_k_t">Mật khẩu phải có ít nhất 6 ký tự</string>
+    <string name="m_t_kh_u_kh_ng_c_qu_24_k_t">Mật khẩu không được quá 24 ký tự</string>
+    <string name="ng_k_kh_ng_th_nh_c_ng">Đăng kí không thành công</string>
+    <string name="dang_ki_khhong_thanh_cong">Đăng kí không thành công</string>
+    <string name="khong_tim_thay_ma">Không tìm thấy mã</string>
+    <string name="g_i_l_i_m">Gửi lại mã</string>
+    <string name="sai_m_t_kh_u_ho_c_t_i_kho_n">Sai mật khẩu hoặc tài khoản</string>
+    <string name="nh_p_email">Nhập email</string>
+    <string name="email_kh_ng_h_p_l">Email không hợp lệ</string>
+    <string name="s_i_n_tho_i_c_ng_k">Số điện thoại đã được đăng ký</string>
+    <string name="s_i_n_tho_i_t_n_t_i">Số điện thoại đã tồn tại</string>
+    <string name="email">Email</string>
+    <string name="nh_p_email_ng_k">Nhập email đã đăng kí</string>
+    <string name="b_n_c_ch_c_l_mu_n_ng_xu_t_kh_ng">Bạn có chắc là muốn đăng xuất không .</string>
+    <string name="ng_k_th_nh_c_ng">Đăng ký thành công</string>
+    <string name="label_time_start">Giờ nhận xe</string>
+    <string name="label_time_end">Giờ trả xe</string>
     <string name="time_checkout">20:00</string>
     <string name="time_checkin">20:00</string>
+    <string name="labelDateCheckin">Ngày nhận xe</string>
+    <string name="labelDateCheckout">Ngày trả xe</string>
+    <string name="hintDate_dd_mm_yyyy">10/05/2024</string>
+
+
+    <string name="s_a_kh_ng_th_nh_c_ng">Sửa không thành công</string>
+    <string name="i_m_t_kh_u_th_nh_c_ng">Đổi mật khẩu thành công</string>
+    <string name="b_n_ph_i_tr_n_18_tu_i">Bạn phải trên 18 tuổi</string>
+    <string name="ng_xu_t">Đăng xuất</string>
+    <string name="day_12_chu_so_o_mat_truoc_gplx">Dãy 12 chữ số ở mặt trước GPLX</string>
+    <string name="ban_chua_anh">Bạn chưa nhập ảnh</string>
+    <string name="a_ch_c_a_b_n">Địa chỉ của bạn</string>
+    <string name="label_choose_time">Chọn giờ</string>
+    <string name="label_date_start">Ngày nhận xe:</string>
+    <string name="label_date_end">Ngày trả xe:</string>
+    <string name="title_time">Thời gian</string>
+    <string name="label_choose_date">Chọn ngày</string>
+    <string name="hint_default_choose_date">Chưa chọn</string>
+
+
+    <string name="pick_up_location">Pick Up Location</string>
+    <string name="return_location">Return Location</string>
+    <string name="let_s_leave_a_review_title">Let\'s Leave A Review</string>
+    <string name="rating_and_review"><![CDATA[Rating & Review]]></string>
+    <string name="send_review">Send Review</string>
+    <string name="hint_message_review">Please write your review here. \nYou might want to include details about the car\'s condition,\n the owner\'s communication, and your overall experience.</string>
 
 </resources>
