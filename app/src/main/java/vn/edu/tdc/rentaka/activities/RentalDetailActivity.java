@@ -14,7 +14,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.BottomSheetDiaglogLayoutBinding;
-import vn.edu.tdc.rentaka.databinding.BottomSheetShowCancelPolicyLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.RentalDetailLayoutBinding;
 
 public class RentalDetailActivity extends AppCompatActivity {
