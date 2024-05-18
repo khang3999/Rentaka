@@ -179,6 +179,7 @@
               android:text="@string/ng_y_sinh"
               />
         <TextView
+            android:id="@+id/birthday"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -199,6 +200,7 @@
             android:text="@string/gi_i_t_nh"
             />
         <TextView
+            android:id="@+id/gender"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -219,4 +221,5 @@
     </LinearLayout>
 
   </LinearLayout>
-    </RelativeLayout>
+
+</RelativeLayout>

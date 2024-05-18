@@ -14,7 +14,10 @@ public class Customer {
 
     public enum CustomerType{
         owner,
-        renter
+        renter,
+        recipient,
+        reviewer
+
     }
     public  enum CustomerProperties{
         id,

@@ -11,14 +11,15 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top">
+        android:layout_gravity="top"
+        android:elevation="@dimen/_8dp">
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:navigationIcon="@drawable/ic_find_24"
-            app:title="Thời gian"
-            app:titleCentered="true"/>
+            app:navigationIcon="@drawable/back_return_24"
+            app:title="@string/title_time"
+            app:titleCentered="true" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
@@ -28,15 +29,31 @@
         android:layout_gravity="center"
         android:layout_weight="8"
         android:orientation="vertical">
-
-        <TextView
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:text="Chọn ngày"
-            android:textColor="@color/gray"
-            android:textSize="@dimen/_20sp" />
+            android:elevation="@dimen/_4dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_16dp"
+                android:gravity="center"
+                android:text="@string/label_choose_date"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/_20sp"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_calendar_24"/>
+        </LinearLayout>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -47,7 +64,8 @@
                 android:id="@+id/labelDateStart"
                 android:layout_width="@dimen/_120dp"
                 android:layout_height="wrap_content"
-                android:text="Ngày nhận xe: "
+                android:text="@string/label_date_start"
+                android:layout_marginStart="@dimen/_32dp"
                 android:textSize="@dimen/_18sp"
                 app:layout_constraintBottom_toTopOf="@+id/labelDateEnd"
                 app:layout_constraintEnd_toStartOf="@+id/tvDateStart"
@@ -58,10 +76,10 @@
 
             <TextView
                 android:id="@+id/tvDateStart"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:hint="@string/hintDate_dd_mm_yyyy"
+                android:hint="@string/hint_default_choose_date"
                 android:inputType="date"
                 android:textSize="@dimen/_18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/labelDateStart"
@@ -74,7 +92,7 @@
                 android:id="@+id/labelDateEnd"
                 android:layout_width="@dimen/_120dp"
                 android:layout_height="wrap_content"
-                android:text="Ngày trả xe: "
+                android:text="@string/label_date_end"
                 android:textSize="@dimen/_18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/labelDateStart"
@@ -84,10 +102,10 @@
 
             <TextView
                 android:id="@+id/tvDateEnd"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:hint="@string/hintDate_dd_mm_yyyy"
+                android:hint="@string/hint_default_choose_date"
                 android:inputType="date"
                 android:textSize="@dimen/_18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/labelDateEnd"
@@ -116,24 +134,39 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <TextView
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="Chọn giờ"
-            android:textSize="@dimen/_20sp"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:textColor="@color/gray"/>
+            android:elevation="@dimen/_4dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_16dp"
+                android:text="@string/label_choose_time"
+                android:textSize="@dimen/_20sp"
+                android:gravity="center"
+                android:textColor="@color/gray" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_alarm_clock_24"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="5"
             android:paddingHorizontal="@dimen/_32dp"
-            android:paddingTop="@dimen/_18dp"
+            android:paddingTop="@dimen/_32dp"
             android:orientation="horizontal">
-
             <LinearLayout
-                android:id="@+id/timeCheckin"
+                android:id="@+id/groupTimeStart"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_16dp"
@@ -145,6 +178,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="@string/nhan_xe"
                     android:textColor="@color/text_label_gray"
                     android:textSize="@dimen/_18sp" />
@@ -155,25 +189,24 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinnerTimeStart"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity=""
                         android:layout_weight="1"
-                        android:text="@string/time_checkin"
                         android:textSize="@dimen/_18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"/>
 
-                    <ImageView
-                        android:layout_width="@dimen/_18dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_alarm_clock_24" />
+<!--                    <ImageView-->
+<!--                        android:layout_width="@dimen/_18dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:src="@drawable/ic_alarm_clock_24" />-->
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/timeCheckout"
+                android:id="@+id/groupTimeEnd"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_16dp"
@@ -185,6 +218,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="@string/tra_xe"
                     android:textColor="@color/text_label_gray"
                     android:textSize="@dimen/_18sp" />
@@ -195,24 +229,39 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinnerTimeEnd"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_weight="1"
-                        android:text="@string/time_checkout"
                         android:textSize="@dimen/_18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"/>
 
-                    <ImageView
-                        android:layout_width="@dimen/_18dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_alarm_clock_24" />
+<!--                    <ImageView-->
+<!--                        android:layout_width="@dimen/_18dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="center_horizontal"-->
+<!--                        android:src="@drawable/ic_alarm_clock_24" />-->
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="3"-->
+<!--            android:gravity="center_horizontal">-->
+<!--            <androidx.appcompat.widget.AppCompatImageButton-->
+<!--                android:id="@+id/btnChooseTime"-->
+<!--                android:layout_width="@dimen/_50dp"-->
+<!--                android:layout_height="@dimen/_50dp"-->
+<!--                android:scaleType="fitXY"-->
+<!--                android:src="@drawable/ic_alarm_clock_24"-->
+<!--                android:background="@android:color/transparent"/>-->
+<!--        </LinearLayout>-->
     </LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -230,31 +279,35 @@
             app:layout_constraintEnd_toStartOf="@+id/bottom_guiline_vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" >
+            app:layout_constraintVertical_bias="0.5">
+
             <TextView
                 android:id="@+id/cf_timeStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="20h00, "
-                android:textColor="@color/black"/>
+                android:text="5h00, "
+                android:textColor="@color/black" />
+
             <TextView
                 android:id="@+id/cf_dateStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10/5 - "
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
+
             <TextView
                 android:id="@+id/cf_timeEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="20h00, "
-                android:textColor="@color/black"/>
+                android:text="6h00 , "
+                android:textColor="@color/black" />
+
             <TextView
                 android:id="@+id/cf_dateEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="11/5"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
         </LinearLayout>
 
 
@@ -283,11 +336,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_8dp"
                 android:layout_marginStart="@dimen/_4dp"
-                android:text="11 ngày"
+                android:text="0 ngày"
                 android:textColor="@color/black" />
 
             <ImageView
-                android:id="@+id/questionMark"
+                android:id="@+id/img_question_mark"
                 android:layout_width="@dimen/_18sp"
                 android:layout_height="@dimen/_18sp"
                 android:src="@drawable/ic_question_mark_cicle_24"
@@ -296,10 +349,11 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnContinue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_32dp"
-            android:background="@drawable/button_border_radius_all"
+            android:background="@drawable/selector_button_continue"
             android:text="Tiếp theo"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
