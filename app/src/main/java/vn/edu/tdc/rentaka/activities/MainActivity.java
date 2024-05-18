@@ -3,14 +3,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.MenuItem;
 import android.widget.ImageView;
 
-import android.widget.Toast;
 
-
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
@@ -19,29 +14,7 @@ import vn.edu.tdc.rentaka.APIs.FirebaseAPI;
 import vn.edu.tdc.rentaka.APIs.StorageAPI;
 import vn.edu.tdc.rentaka.R;
 
-import java.lang.reflect.Array;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import vn.edu.tdc.rentaka.APIs.FirebaseAPI;
-import vn.edu.tdc.rentaka.APIs.StorageAPI;
-import vn.edu.tdc.rentaka.R;
-import vn.edu.tdc.rentaka.models.Car;
-import vn.edu.tdc.rentaka.models.Location;
-import vn.edu.tdc.rentaka.models.Reservation;
-import vn.edu.tdc.rentaka.models.*;
-
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.credentials.exceptions.domerrors.DataError;
-import androidx.fragment.app.Fragment;
-
 import androidx.fragment.app.FragmentTransaction;
-
-import com.google.android.material.navigation.NavigationBarView;
 
 import vn.edu.tdc.rentaka.databinding.MainLayoutBinding;
 import vn.edu.tdc.rentaka.fragments.AbstractFragment;
@@ -57,53 +30,6 @@ public class MainActivity extends AppCompatActivity {
     StorageAPI storageAPI = new StorageAPI();
 
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        EdgeToEdge.enable(this);
-//        setContentView(R.layout.confirm_rental_layout);
-//
-//
-//        Date date = new Date(LocalDate.now());
-//
-//        Customer owner = new Customer("Tran", "Phuc", "tranhieuphuc12@gmail.com", "123456789", new Location("LA", "location 43", Location.LocationType.customer), "123456789", Customer.CustomerType.owner);
-//        owner.setId("837N5VnztJt7JRKKefo5");
-//        Customer renter = new Customer("Nguyen", "Nhi", "phuongnhi12@gmail.com", "987654321", new Location("An Giang", "location 41", Location.LocationType.customer), "987654321", Customer.CustomerType.renter);
-//        Car car = new Car(owner.getId(), "Toyota", "Camry", "2021", "Black", "description", 2019, 4);
-//        car.setId("TIZUxOJ00qGBAuShSlJ9");
-//        car.setStatusID("foD0J0b2jeHV9LJH3dqJ");
-//        Reservation reservation = new Reservation("TIZUxOJ00qGBAuShSlJ9", owner.getId(), null, null,null,null,null, 100.0);
-
-//        reservation.setRenterID("K3MZ3sL0Uu83Of1ycDPP");
-//        reservation.setPickUpDate(date);
-//        reservation.setReturnDate(date);
-//        reservation.setPickUpLocation(new Location("LA", "location 43", Location.LocationType.pickUpLocation));
-//        reservation.setReturnLocation(new Location("AL", "location 34", Location.LocationType.returnLocation));
-//        reservation.setId("xCWQ4Jj43A2aen35FDfm");
-//        reservation.setStatusID("Vmmfoz79pLKTWPjljMJw");
-//
-//
-//        Button selectImage = (Button) findViewById(R.id.send_rental_request_button);
-//        Button uploadImage = (Button) findViewById(R.id.promotion_code_title_textview);
-
-
-//        selectImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                storageAPI.selectImage(MainActivity.this);
-//            }
-//        });
-//        uploadImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//            storageAPI.uploadImage(MainActivity.this);
-//            }
-//        });
-
-
-
-//    }
-
     //Properties
     private AbstractFragment fragment;
     private int currentFragment = 0;
@@ -115,8 +41,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_layout);
+        setContentView(R.layout.rating_recipient_side_layout);
 
+        /*
         //Khoi tao binding
         binding = MainLayoutBinding.inflate(getLayoutInflater());
         // Gán view cho binding
@@ -143,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
+        */
     }
 
     private void updateUI() {
@@ -201,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                         .getBitmap(
                                 getContentResolver(),
                                 storageAPI.filePath);
-                ImageView imageView = (ImageView) findViewById(R.id.car_img);
+                ImageView imageView = (ImageView) findViewById(R.id.recipient_img);
                 imageView.setImageBitmap(bitmap);
             }
 
