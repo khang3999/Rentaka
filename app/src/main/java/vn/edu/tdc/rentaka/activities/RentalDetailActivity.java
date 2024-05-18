@@ -16,6 +16,7 @@ public class RentalDetailActivity extends AppCompatActivity {
 
     private BottomSheetDialog bottomSheetDialog;
     private RentalDetailLayoutBinding rentalBinding;
+
     private BottomSheetDiaglogLayoutBinding bottomSheetBinding;
 
     @Override
@@ -23,6 +24,7 @@ public class RentalDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         rentalBinding = RentalDetailLayoutBinding.inflate(getLayoutInflater());
         bottomSheetBinding = BottomSheetDiaglogLayoutBinding.inflate(getLayoutInflater(),null,false);
+
         setContentView(rentalBinding.getRoot());
 
         //Gach chan text
