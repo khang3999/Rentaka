@@ -30,9 +30,6 @@ import vn.edu.tdc.rentaka.models.City;
 
 public class ChooseLocationActivity extends AppCompatActivity {
     private ChooseLocationLayoutBinding binding;
-    private AbstractFragment fragment;
-    private boolean checkExistFragment;
-    private FragmentTransaction transaction;
     private ArrayList<City> listCities;
     private ArrayList<City> copyList ;
     private CityAdapter adapterCities;

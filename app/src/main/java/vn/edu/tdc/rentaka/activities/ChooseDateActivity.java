@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -22,6 +23,8 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import vn.edu.tdc.rentaka.R;
+import vn.edu.tdc.rentaka.databinding.BottomSheetQuestionMarkTimeRentBinding;
 import vn.edu.tdc.rentaka.databinding.ChooseDateLayoutBinding;
 import vn.edu.tdc.rentaka.models.Date;
 
@@ -48,17 +51,29 @@ public class ChooseDateActivity extends AppCompatActivity {
     private ArrayList<LocalTime> listTimeEnd;
     private ArrayAdapter<LocalTime> adapterTimeSpinnerStart;
     private ArrayAdapter<LocalTime> adapterTimeSpinnerEnd;
-
+    private BottomSheetDialog bottomSheetDialog;
+    private BottomSheetQuestionMarkTimeRentBinding bottomSheetDialogBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Gan bingding
         binding = ChooseDateLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-//        Khoi tao mang chuan bi cho adapter
+        // Khoi tao bottom sheet dialog
+        bottomSheetDialogBinding = BottomSheetQuestionMarkTimeRentBinding.inflate(getLayoutInflater(), null, false);
+        bottomSheetDialog = new BottomSheetDialog(ChooseDateActivity.this, R.style.BottomSheetDialogTheme);
+        bottomSheetDialog.setContentView(bottomSheetDialogBinding.getRoot());
+
+        // Do du lieu cho bottom sheet dialog
+        bottomSheetDialogBinding.tvTitle.setText("Thời gian thuê xe");
+        bottomSheetDialogBinding.tvContent.setText("Giá thuê xe được tính theo ngày. Nếu bạn thuê xe dưới 24h sẽ được tính giá tròn 1 ngày.");
+
+        // Khoi tao mang chuan bi cho adapter
         listTimeStart = new ArrayList<>();
         listTimeEnd = new ArrayList<>();
 
+        // Bat su kien
         /// SHOW DateRangePicker when click on image calendar button
         binding.btnChooseDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +82,7 @@ public class ChooseDateActivity extends AppCompatActivity {
             }
         });
 
-        // Bat su kien cho spinner
+        // Bat su kien cho spinner timeStart
         binding.spinnerTimeStart.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -77,31 +92,36 @@ public class ChooseDateActivity extends AppCompatActivity {
                     createTimeList(listTimeStart.get(position).plusHours(1),timeReturn,listTimeEnd);
                     // Cap nhat adapter
                     adapterTimeSpinnerEnd.notifyDataSetChanged();
-                    // hien thi o spinner
-                    binding.spinnerTimeEnd.setSelection(listTimeEnd.size() - 1);
-                    // Cap nhat bien timeEnd == timeEndMax = timeReturn
-                    timeEnd = listTimeEnd.get(listTimeEnd.size() - 1);
+//                    // hien thi o spinner
+//                    binding.spinnerTimeEnd.setSelection(0);
+//                    // Cap nhat bien timeEnd == timeEndMax = timeReturn
+//                    timeEnd = listTimeEnd.get(0);
                 } else{ // Ngay nhan != ngay tra
                     createTimeList(timePickUp,timeReturn,listTimeEnd);
                     // Cap nhat adapter
                     adapterTimeSpinnerEnd.notifyDataSetChanged();
-                    // hien thi o spinner
-                    binding.spinnerTimeEnd.setSelection(0);
+//                    // hien thi o spinner
+//                    binding.spinnerTimeEnd.setSelection(0);
                     // Cap nhat tong ngay
                     totalDays = dateEnd.getDay()-dateStart.getDay();
                     binding.tvTotalDay.setText(dateEnd.getDay()-dateStart.getDay()+" ngày");
-                    // Cap nhat bien timeEnd = timePickup => luon <= so ngay chenh lech
-                    timeEnd = listTimeEnd.get(0);
+//                    // Cap nhat bien timeEnd = timePickup => luon <= so ngay chenh lech
+//                    timeEnd = listTimeEnd.get(0);
                 }
 
                 // Cap nhật bien timeStart = gia tri cua item tai vi tri dc tap vao trong listTimeStart
                 timeStart = listTimeStart.get(position);
 
+                // hien thi o spinner
+                binding.spinnerTimeEnd.setSelection(0);
+                // Cap nhat bien timeEnd == timeEndMax = timeReturn
+                timeEnd = listTimeEnd.get(0);
+
                 // Update confirm area
                 binding.cfTimeStart.setText(timeStart.getHour()+"h00, ");
                 binding.cfTimeEnd.setText(timeEnd.getHour()+"h00, ");
-                Log.d("TAGSTART", "onPositiveButtonClick: " + timeStart);
-                Log.d("TAGSTART", "onPositiveButtonClick: " + timeEnd);
+//                Log.d("TAGSTART", "onPositiveButtonClick: " + timeStart);
+//                Log.d("TAGSTART", "onPositiveButtonClick: " + timeEnd);
             }
 
             @Override
@@ -110,6 +130,7 @@ public class ChooseDateActivity extends AppCompatActivity {
             }
         });
 
+        // Bat su kien cho spinner timeEnd
         binding.spinnerTimeEnd.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -118,31 +139,15 @@ public class ChooseDateActivity extends AppCompatActivity {
                 // Ngay nhan = ngay tra
                 if (dateStart.getDay() == dateEnd.getDay() && dateStart.getMonth() == dateEnd.getMonth()){
                     timeEnd = listTimeEnd.get(position);
-                    binding.cfTimeEnd.setText(timeEnd.getHour()+"h00, ");
                 } else { // Ngay nhan != ngay tra
                     if(listTimeEnd.get(position).isAfter(timeStart)){
                         totalDays += 1;
                     }
+                    timeEnd = listTimeEnd.get(position);
                     binding.tvTotalDay.setText(totalDays+" ngày");
                 }
-//                timeEndValid = listTimeEnd.get(position);
-//                totalDays = dateEnd.getDay() - dateStart.getDay();
-//                binding.cfTimeEnd.setText(timeEndValid.getHour()+"h00, ");
-//                Log.d("TAG", "onItemSelected: "+dateStart);
-//                Log.d("TAG", "onItemSelected: "+dateEnd);
-//
-//                if(dateStart.getDay() != dateEnd.getDay() || dateStart.getMonth() != dateEnd.getMonth()){
-//                    Log.d("TAG", "onItemSelected: call"+totalDays);
-//                    Log.d("TAG", "onItemSelected: call"+timeStartValid);
-//                    Log.d("TAG", "onItemSelected: call"+timeEndValid);
-//
-//                    if (timeStartValid.isBefore(timeEndValid)){
-//                        totalDays +=1;
-//                    }
-//                    binding.tvTotalDay.setText(totalDays + " ngày");
-//                }
-                Log.d("TAGEND", "onPositiveButtonClick: " + timeStart);
-                Log.d("TAGEND", "onPositiveButtonClick: " + timeEnd);
+                binding.cfTimeEnd.setText(timeEnd.getHour()+"h00, ");
+               // Log.d("TAGEND", "choose time end: " + timeEnd);
             }
 
             @Override
@@ -156,6 +161,15 @@ public class ChooseDateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Show dialog
+                bottomSheetDialog.show();
+            }
+        });
+
+        // Bat su kien cho nut close
+        bottomSheetDialogBinding.btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetDialog.dismiss();
             }
         });
         // Bat su kien cho button continue
@@ -321,7 +335,7 @@ public class ChooseDateActivity extends AppCompatActivity {
                         createTimeList(timeStart,timeReturn.minusHours(1), listTimeStart);
 
                         // Xu li list time end
-                        if (endLocalDate.equals(startLocalDate)){
+                        if (endLocalDate.equals(startLocalDate)){ // Ngay bat dau == ngay ket thuc
                             timeEnd = timeStart.plusHours(1);
                             // tra trong ngay: list
                             createTimeList(timeEnd, timeReturn, listTimeEnd);
@@ -341,7 +355,7 @@ public class ChooseDateActivity extends AppCompatActivity {
                     binding.tvDateEnd.setText(endLocalDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                     // Update confirm time
                     binding.cfTimeStart.setText(timeStart.getHour() + "h00, ");
-                    binding.cfTimeEnd.setText(timeStart.getHour() +"h00, ");
+                    binding.cfTimeEnd.setText(timeEnd.getHour() +"h00, ");
                     // Update confirm date
                     binding.cfDateStart.setText(startLocalDate.format(DateTimeFormatter.ofPattern("dd/MM")) + " - ");
                     binding.cfDateEnd.setText(endLocalDate.format(DateTimeFormatter.ofPattern("dd/MM")));

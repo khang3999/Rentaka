@@ -123,8 +123,8 @@
     <string name="nh_p_email_ng_k">Nhập email đã đăng kí</string>
     <string name="b_n_c_ch_c_l_mu_n_ng_xu_t_kh_ng">Bạn có chắc là muốn đăng xuất không .</string>
     <string name="ng_k_th_nh_c_ng">Đăng ký thành công</string>
-    <string name="nhan_xe">Giờ nhận xe</string>
-    <string name="tra_xe">Giờ trả xe</string>
+    <string name="label_time_start">Giờ nhận xe</string>
+    <string name="label_time_end">Giờ trả xe</string>
     <string name="time_checkout">20:00</string>
     <string name="time_checkin">20:00</string>
     <string name="labelDateCheckin">Ngày nhận xe</string>
