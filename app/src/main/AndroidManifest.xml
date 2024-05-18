@@ -22,13 +22,13 @@
             android:name=".activities.ForgotThePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ForgotPasswordActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.UserAddressActivity"
             android:exported="false" />
         <activity
             android:name=".activities.ChooseDateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ChooseLocationActivity"
             android:exported="false" />
         <activity
             android:name=".activities.RegisterActivity"
@@ -43,7 +43,7 @@
             android:name=".fragments.SelfDrivingCarFragment"
             android:exported="false" />
         <activity
-            android:name=".activities.FavoriteCar"
+            android:name=".activities.FavoriteCarActivity"
             android:exported="false" />
         <activity
             android:name=".activities.ChangeThePasswordActivity"
@@ -57,11 +57,9 @@
         <activity
             android:name=".activities.test2"
             android:exported="false" />
+        
         <activity
-
-        <activity
-
-            android:name=".activities.CheckLogin"
+            android:name=".activities.CheckLoginActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"

@@ -24,6 +24,7 @@
             android:src="@drawable/ic_close" />
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -31,10 +32,12 @@
             android:textSize="@dimen/_22sp"
             android:textStyle="bold" />
         <ImageView
+            android:id="@+id/image"
             android:layout_width="wrap_content"
             android:layout_height="300dp"
             android:src="@drawable/cancel_policy" />
         <TextView
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="* Khách thuê không nhận xe sẽ không được hoàn tiền giữ chỗ\n* Chủ xe không giao xe sẽ hoàn &amp; đền 100% tiền giữ chỗ cho bạn\n* Tiền giữ chỗ &amp; bồi thường cho chủ xe hủy chuyến (nếu có) sẽ được Mioto hoàn trả đến bạn bằng chuyển khoản ngân hàng trong vòng 1-3 ngày làm việc."/>

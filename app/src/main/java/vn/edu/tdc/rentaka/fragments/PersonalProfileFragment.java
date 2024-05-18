@@ -12,7 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
@@ -26,19 +25,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.activities.ChangeThePasswordActivity;
-import vn.edu.tdc.rentaka.activities.CheckLogin;
 import vn.edu.tdc.rentaka.activities.DrivingLicenseActivity;
-import vn.edu.tdc.rentaka.activities.FavoriteCar;
+import vn.edu.tdc.rentaka.activities.FavoriteCarActivity;
 import vn.edu.tdc.rentaka.activities.LoginActivity;
-import vn.edu.tdc.rentaka.activities.MainActivity;
 import vn.edu.tdc.rentaka.activities.MyAccountActivity;
 import vn.edu.tdc.rentaka.activities.UserAddressActivity;
 import vn.edu.tdc.rentaka.adapters.PersonalProfileAdapter;
 import vn.edu.tdc.rentaka.databinding.PersonalProfileLayoutBinding;
-import vn.edu.tdc.rentaka.databinding.UserAddressLayoutBinding;
 import vn.edu.tdc.rentaka.models.PersonalProfileModel;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,7 +95,7 @@ public class PersonalProfileFragment extends AbstractFragment {
                         Toast.makeText(requireActivity(), "Đăng kí xe cho thuê", Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
-                        Intent intent3 = new Intent(requireActivity(), FavoriteCar.class);
+                        Intent intent3 = new Intent(requireActivity(), FavoriteCarActivity.class);
                         startActivity(intent3);
                         break;
                     case 3:

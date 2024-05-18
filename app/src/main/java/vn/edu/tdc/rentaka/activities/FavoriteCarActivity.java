@@ -2,13 +2,8 @@ package vn.edu.tdc.rentaka.activities;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TableLayout;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
@@ -16,9 +11,8 @@ import com.google.android.material.tabs.TabLayout;
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.adapters.MyViewFavoriteCarPageAdapter;
 import vn.edu.tdc.rentaka.databinding.FavoriteCarLayoutBinding;
-import vn.edu.tdc.rentaka.databinding.SelfDrivingCarLayoutBinding;
 
-public class FavoriteCar extends AppCompatActivity {
+public class FavoriteCarActivity extends AppCompatActivity {
     MyViewFavoriteCarPageAdapter myViewFavoriteCarPageAdapter;
     FavoriteCarLayoutBinding biding;
     @Override
