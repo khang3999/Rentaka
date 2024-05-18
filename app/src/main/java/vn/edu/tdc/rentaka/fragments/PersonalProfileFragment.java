@@ -3,6 +3,7 @@ package vn.edu.tdc.rentaka.fragments;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.activities.ChangeThePasswordActivity;
@@ -24,8 +32,10 @@ import vn.edu.tdc.rentaka.activities.FavoriteCar;
 import vn.edu.tdc.rentaka.activities.LoginActivity;
 import vn.edu.tdc.rentaka.activities.MainActivity;
 import vn.edu.tdc.rentaka.activities.MyAccountActivity;
+import vn.edu.tdc.rentaka.activities.UserAddressActivity;
 import vn.edu.tdc.rentaka.adapters.PersonalProfileAdapter;
 import vn.edu.tdc.rentaka.databinding.PersonalProfileLayoutBinding;
+import vn.edu.tdc.rentaka.databinding.UserAddressLayoutBinding;
 import vn.edu.tdc.rentaka.models.PersonalProfileModel;
 
 import java.lang.reflect.Field;
@@ -46,6 +56,9 @@ public class PersonalProfileFragment extends AbstractFragment {
 
         binding = PersonalProfileLayoutBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
+        //Cap nhat du lieu
+        updateData();
 
         List<PersonalProfileModel> data1 = new ArrayList<>();
         data1.add(new PersonalProfileModel("ic_user","Tài khoản của tôi"));
@@ -81,7 +94,6 @@ public class PersonalProfileFragment extends AbstractFragment {
                 switch (position) {
                     case 0:
                         Intent intent1 = new Intent(requireActivity(), MyAccountActivity.class);
-//                        intent1.putExtra("name",data1.get(position).getContent());
                         startActivity(intent1);
                         break;
                     case 1:
@@ -89,16 +101,15 @@ public class PersonalProfileFragment extends AbstractFragment {
                         break;
                     case 2:
                         Intent intent3 = new Intent(requireActivity(), FavoriteCar.class);
-//                        intent3.putExtra("name",data1.get(position).getContent());
                         startActivity(intent3);
                         break;
                     case 3:
-                        Toast.makeText(requireActivity(), "Địa chỉ của tôi", Toast.LENGTH_SHORT).show();
+                        Intent intent4 = new Intent(requireActivity(), UserAddressActivity.class);
+                        startActivity(intent4);
                         break;
                     case 4:
-                        Intent intent4 = new Intent(requireActivity(), DrivingLicenseActivity.class);
-//                        intent4.putExtra("name",data1.get(position).getContent());
-                        startActivity(intent4);
+                        Intent intent5 = new Intent(requireActivity(), DrivingLicenseActivity.class);
+                        startActivity(intent5);
                         break;
                     default:
                         Toast.makeText(requireActivity(), "Thẻ của tôi", Toast.LENGTH_SHORT).show();
@@ -158,20 +169,12 @@ public class PersonalProfileFragment extends AbstractFragment {
                 // Set up the buttons in the dialog
                 builder.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-//                        //logout data
-//                        FirebaseAuth.getInstance().signOut();
-//                        Intent intent = new Intent(getActivity(), CheckLogin.class);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                        startActivity(intent);
-//                        Toast.makeText(getActivity(), "Bạn đã đăng xuất thành công.", Toast.LENGTH_SHORT).show();
-//                        //Xoa activity nay
-//                        getActivity().finish();
+                       // Dang xuat
                         FirebaseAuth.getInstance().signOut();
                         Intent intent = new Intent(getActivity(), LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         Toast.makeText(getActivity(), "Bạn đã đăng xuất thành công.", Toast.LENGTH_SHORT).show();
-
                     }
                 });
                 builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
@@ -186,7 +189,49 @@ public class PersonalProfileFragment extends AbstractFragment {
             }
         });
 
+
+
+
         return view;
+    }
+    //Cap nhat du lieu
+    private void updateData() {
+        //Loading
+        //Gan ten va image ten user tu firebase ve
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String name = dataSnapshot.child("name").getValue(String.class);
+                        String imageUrl = dataSnapshot.child("imageUser").getValue(String.class);
+                        //Set ten nguoi dung
+                        binding.textName.setText(name);
+                        //Set anh nguoi dung
+//                        // Use Glide to load the profile image
+                        if (imageUrl != null && !imageUrl.isEmpty()) {
+                            Glide.with(PersonalProfileFragment.this)
+                                    .load(imageUrl)
+                                    .into(binding.avatar);
+                        } else {
+                            //Set anh
+                            binding.avatar.setImageResource(R.drawable.avatar);
+                        }
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.d("Tag",databaseError.getMessage());
+                }
+            });
+        }
+        //An loading
     }
 
 }

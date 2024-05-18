@@ -40,6 +40,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import vn.edu.tdc.rentaka.R;
@@ -63,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean isPasswordConfirmValid = false;
     private boolean isEmailValid = false;
     //Kiem tra so dien thoai co duy nhat khong
-    boolean isPhoneUnique = false;
+    boolean isPhoneUnique = true;
     FirebaseAuth mAuth;
     FirebaseDatabase database;
     DatabaseReference databaseReference;
@@ -275,6 +278,7 @@ public class RegisterActivity extends AppCompatActivity {
                         phone = "+84" + phone.substring(1);
                     }
                     Toast.makeText(RegisterActivity.this, phone, Toast.LENGTH_SHORT).show();
+                    //Gui ma otp
                     sendRequestOTP(phone);
                     //**************************************************************************
 //**************************************************************************
@@ -311,6 +315,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void logicBottomSheet() {
+
 //        Toast.makeText(this, "hi", Toast.LENGTH_SHORT).show();
         //Tao dialog moi
         bottomSheetDialogIDMESS = new BottomSheetDialog(
@@ -325,6 +330,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         //Set mot OnClickListener cho nut dong trong bottomSheetIDMESSLayoutBinding
         bottomSheetDialogIDMESS.show();
+
+        //Set nhap otp
+        setupOtpInputs();
         //Close
         bottomSheetOtpPhoneLayoutBinding.close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -335,6 +343,51 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     }
+   //Set up nut otp
+   private void setupOtpInputs() {
+       // Khai báo và khởi tạo mảng các trường EditText.
+       EditText[] otpInputs = new EditText[]{
+               bottomSheetOtpPhoneLayoutBinding.otp1,
+               bottomSheetOtpPhoneLayoutBinding.otp2,
+               bottomSheetOtpPhoneLayoutBinding.otp3,
+               bottomSheetOtpPhoneLayoutBinding.otp4,
+               bottomSheetOtpPhoneLayoutBinding.otp5,
+               bottomSheetOtpPhoneLayoutBinding.otp6
+       };
+
+       // Duyệt qua từng trường EditText trong mảng để thiết lập TextWatcher cho chúng.
+       for (int i = 0; i < otpInputs.length; i++) {
+           final int index = i; // Lưu lại chỉ số của trường hiện tại để sử dụng trong TextWatcher.
+
+           // Thiết lập TextWatcher cho từng trường EditText.
+           otpInputs[i].addTextChangedListener(new TextWatcher() {
+               @Override
+               public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+               }
+
+               @Override
+               public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+               }
+
+               @Override
+               public void afterTextChanged(Editable s) {
+                   // Kiểm tra nếu độ dài của chuỗi vừa nhập là 1 và không phải trường cuối cùng.
+                   if (s.length() == 1 && index < otpInputs.length - 1) {
+                       // Chuyển focus đến trường EditText tiếp theo.
+                       otpInputs[index + 1].requestFocus();
+                   }
+                   else if (s.length() == 0 && index > 0) {
+                       // Nếu ký tự bị xóa và trường hiện tại là trống, chuyển focus ngược lại trường trước đó.
+                       otpInputs[index - 1].requestFocus();
+                   }
+               }
+           });
+       }
+   }
+
+
 
     //Yeu cau lay OTP
     private void sendRequestOTP(String phone) {
@@ -370,9 +423,15 @@ public class RegisterActivity extends AppCompatActivity {
                         bottomSheetOtpPhoneLayoutBinding.otp5.setText(String.valueOf(code.charAt(4)));
                         bottomSheetOtpPhoneLayoutBinding.otp6.setText(String.valueOf(code.charAt(5)));
 
-//                       verifyCode(code);
                     }
+
                 }
+
+
+                private void setFocusChange(EditText current, EditText next) {
+
+                }
+
 
                 @Override
                 public void onVerificationFailed(@NonNull FirebaseException e) {
@@ -436,8 +495,16 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            // Get current date
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                            String currentDate = sdf.format(new Date());
+                            //Cac du lieu chua xu ly
+                            String gender ="None";
+                            String imageUser ="";
+                            String address= "";
+                            String birthday= "00/00/0000";
                             // Registration successful
-                            UserModel user = new UserModel(username, phone, pass, email);
+                            UserModel user = new UserModel(phone, username, email, gender,currentDate,imageUser,address,birthday);
                             String id = task.getResult().getUser().getUid();
                             database.getReference().child("Users").child(id).setValue(user);
                             //an load
