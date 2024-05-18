@@ -5,14 +5,40 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.widget.ImageView;
+
+import android.widget.Toast;
+
+
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
+
 import vn.edu.tdc.rentaka.APIs.FirebaseAPI;
 import vn.edu.tdc.rentaka.APIs.StorageAPI;
 import vn.edu.tdc.rentaka.R;
+
+import java.lang.reflect.Array;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import vn.edu.tdc.rentaka.APIs.FirebaseAPI;
+import vn.edu.tdc.rentaka.APIs.StorageAPI;
+import vn.edu.tdc.rentaka.R;
+import vn.edu.tdc.rentaka.models.Car;
+import vn.edu.tdc.rentaka.models.Location;
+import vn.edu.tdc.rentaka.models.Reservation;
+import vn.edu.tdc.rentaka.models.*;
+
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.credentials.exceptions.domerrors.DataError;
+import androidx.fragment.app.Fragment;
+
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationBarView;
@@ -186,5 +212,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
+
+
+
 }
 

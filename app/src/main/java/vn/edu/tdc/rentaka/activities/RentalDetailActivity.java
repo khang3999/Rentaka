@@ -9,19 +9,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import vn.edu.tdc.rentaka.R;
-import vn.edu.tdc.rentaka.databinding.BottomSheetShowCancelPolicyLayoutBinding;
+import vn.edu.tdc.rentaka.databinding.BottomSheetDiaglogLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.RentalDetailLayoutBinding;
 
 public class RentalDetailActivity extends AppCompatActivity {
 
     private BottomSheetDialog bottomSheetDialog;
     private RentalDetailLayoutBinding rentalBinding;
-    private BottomSheetShowCancelPolicyLayoutBinding bottomSheetBinding;
+    private BottomSheetDiaglogLayoutBinding bottomSheetBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         rentalBinding = RentalDetailLayoutBinding.inflate(getLayoutInflater());
-        bottomSheetBinding = BottomSheetShowCancelPolicyLayoutBinding.inflate(getLayoutInflater(),null,false);
+        bottomSheetBinding = BottomSheetDiaglogLayoutBinding.inflate(getLayoutInflater(),null,false);
         setContentView(rentalBinding.getRoot());
 
         //Gach chan text
