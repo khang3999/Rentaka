@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -41,7 +42,9 @@ public class HomeFragment extends AbstractFragment {
 
     // Mac dinh search theo xe tu lai type = 0
     private int typeSearch = 0;
-
+    // Check da chon dia diem va thoi gian
+    private String location="";
+    private String date="";
     private BottomSheetDialog bottomSheetDialog;
     private BottomSheetDiaglogLayoutBinding bottomSheetDiaglogLayoutBinding;
 
@@ -58,6 +61,7 @@ public class HomeFragment extends AbstractFragment {
         fragment = binding.getRoot();
         // Get Activity of this fragment
         activity = getActivity();
+
         // Set adapter for Promotion
         listPromotions = new ArrayList<Promotion>();
         listPromotions.add(new Promotion(1,"Promotion 1","promotion1.jpg","Chuong trinh khuyen mai so 1"));
@@ -146,7 +150,7 @@ public class HomeFragment extends AbstractFragment {
             }
         });
 
-        binding.tvTimeResult.setOnClickListener(new View.OnClickListener() {
+        binding.tvDateResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Chuyen sang activity chon thoi gian
@@ -183,6 +187,21 @@ public class HomeFragment extends AbstractFragment {
             }
         });
 
+        // Set disable for button searching
+        binding.btnSearch.setActivated(false);
+        binding.btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (location.equals("")){
+                    Toast.makeText(activity, "Vui lòng chọn địa điểm", Toast.LENGTH_SHORT).show();
+                } else if (date.equals("")){
+                    Toast.makeText(activity, "Vui lòng chọn thời gian", Toast.LENGTH_SHORT).show();
+                }
+//                if (v.isActivated()){
+//                }
+            }
+        });
+
         return fragment;
     }
 
@@ -191,16 +210,28 @@ public class HomeFragment extends AbstractFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (activity.getIntent() != null && activity.getIntent().hasExtra("city")){
+        if (activity.getIntent() != null && activity.getIntent().hasExtra("city")) {
             Intent intent = getActivity().getIntent();
-            binding.tvLocationResult.setText(intent.getStringExtra("city"));
-            Log.d("c city", "onResume: call");
+            location = intent.getStringExtra("city");
+//            binding.tvLocationResult.setText(location);
+//            chosenLocation = true;
+        } else if (activity.getIntent() != null && activity.getIntent().hasExtra("date")) {
+            Intent intent = getActivity().getIntent();
+            date = intent.getStringExtra("date");
+//            binding.tvDateResult.setText(intent.getStringExtra("date"));
+//            chosenDate = true;
         }
-        else if (activity.getIntent() != null && activity.getIntent().hasExtra("date")){
-            Intent intent = getActivity().getIntent();
-            binding.tvTimeResult.setText(intent.getStringExtra("date"));
-            Log.d("c date", "onResume: call");
+
+        if (!location.equals("")) {
+            binding.tvLocationResult.setText(location);
+            if (!date.equals("")) {
+                binding.tvDateResult.setText(date);
+            }
+            if (!location.equals("") && !date.equals("")) {
+                binding.btnSearch.setActivated(true);
+            }
 
         }
+
     }
 }

@@ -37,4 +37,6 @@
     <color name="green_button">#79D799</color>
     <color name="button_green_active">#79D799</color>
     <color name="button_green_no_active">#dff4e7</color>
+    <color name="light_gray">#dddddd</color>
+
 </resources>
