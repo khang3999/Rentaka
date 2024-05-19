@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,18 @@ public class UserAddressActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = UserAddressLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        //Button top back navigation -- Charcasbeos sua button back ve man hinh truoc -- start
+        setSupportActionBar(binding.topAppBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        binding.topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        //Button top back navigation -- Charcasbeos sua button back ve man hinh truoc -- end
+
 
         if (!Places.isInitialized()) {
             Places.initialize(getApplicationContext(), "AIzaSyCmSwQf7YNEZmKniG8nJe5uprltK_QlZyE");

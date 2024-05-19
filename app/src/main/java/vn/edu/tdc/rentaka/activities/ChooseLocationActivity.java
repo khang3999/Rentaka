@@ -44,6 +44,16 @@ public class ChooseLocationActivity extends AppCompatActivity {
         // Gán view cho binding
         setContentView(binding.getRoot());
 
+        //Button top back navigation
+        setSupportActionBar(binding.topAppBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        binding.topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         //Khoi tao mang gia
         listCities = new ArrayList<>();
         listCities.add(new City("hcm"));

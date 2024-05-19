@@ -87,12 +87,17 @@ public class DrivingLicenseActivity extends AppCompatActivity {
         // load du lieu vao man hinh user
         loadData();
         //Nut thoat
-        binding.leftImageView.setOnClickListener(new View.OnClickListener() {
+        //Button top back navigation -- Charcasbeos sua button back ve man hinh truoc -- start
+        setSupportActionBar(binding.topAppBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        binding.topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        //Button top back navigation -- Charcasbeos sua button back ve man hinh truoc -- end
+
         //Kiem tra du 12 chu so khong
         binding.editGPLX.addTextChangedListener(new TextWatcher() {
             @Override

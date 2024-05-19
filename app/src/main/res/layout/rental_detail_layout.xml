@@ -19,13 +19,15 @@
             android:orientation="vertical">
 
             <!--Slide image start-->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/list_image_car"
+            <ImageView
+                android:id="@+id/image_car"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_20dp">
+                android:layout_height="300dp"
+                android:scaleType="fitXY"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:src="@drawable/car">
 
-            </androidx.recyclerview.widget.RecyclerView>
+            </ImageView>
             <!-- Slide image end   -->
 
             <!--    Name - rating start -->
