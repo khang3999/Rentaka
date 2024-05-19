@@ -17,7 +17,6 @@
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:navigationIcon="@drawable/back_return_24"
             app:title="Đăng ký cho thuê "
             app:titleCentered="true"/>
     </com.google.android.material.appbar.AppBarLayout>
@@ -644,8 +643,17 @@
                 android:text="Price"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/title_haveBiker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:text="Co tai xe"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/box_price"
+                android:id="@+id/box_priceHaveBiker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_10dp"
@@ -661,13 +669,13 @@
                     android:layout_marginStart="@dimen/_10dp"
                     android:src="@drawable/money_24"
                     android:padding="@dimen/_8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/edit_price"
-                    app:layout_constraintEnd_toStartOf="@+id/edit_price"
+                    app:layout_constraintBottom_toBottomOf="@+id/edit_priceHaveBiker"
+                    app:layout_constraintEnd_toStartOf="@+id/edit_priceHaveBiker"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/edit_price" />
+                    app:layout_constraintTop_toTopOf="@+id/edit_priceHaveBiker" />
 
                 <EditText
-                    android:id="@+id/edit_price"
+                    android:id="@+id/edit_priceHaveBiker"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
@@ -685,7 +693,7 @@
                     android:text="VND"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/edit_price"
+                    app:layout_constraintStart_toEndOf="@+id/edit_priceHaveBiker"
                     app:layout_constraintTop_toTopOf="parent" />
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline15"
@@ -696,6 +704,72 @@
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.85" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/title_noBiker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20dp"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:text="Tu lai"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/box_priceNoBiker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10dp"
+                android:background="@drawable/border_line_gray"
+                app:layout_constraintBottom_toTopOf="@+id/guideline12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline7">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:src="@drawable/money_24"
+                    android:padding="@dimen/_8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/edit_priceNoBiker"
+                    app:layout_constraintEnd_toStartOf="@+id/edit_priceNoBiker"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/edit_priceNoBiker" />
+
+                <EditText
+                    android:id="@+id/edit_priceNoBiker"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:hint="Nhập số tiền cho thuê 1 ngày"
+                    android:textSize="@dimen/_18sp"
+                    android:inputType="number"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline18"
+                    app:layout_constraintStart_toStartOf="@+id/guideline17"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="VND"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/edit_priceNoBiker"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.15" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -712,6 +786,24 @@
                 android:text="Reference"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/_20dp">
+                <RadioButton
+                    android:id="@+id/rad_haveBiker"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Co tai xe"/>
+                <RadioButton
+                    android:id="@+id/rad_noBiker"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tu lai"/>
+            </RadioGroup>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

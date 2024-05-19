@@ -34,6 +34,16 @@ public class CreateCarActivity extends AppCompatActivity {
 
         binding = CreateCarLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        
+        //Button top back navigation
+        setSupportActionBar(binding.topAppBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        binding.topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 
