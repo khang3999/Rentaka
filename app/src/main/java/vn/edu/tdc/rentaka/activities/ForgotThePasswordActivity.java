@@ -42,12 +42,17 @@ public class ForgotThePasswordActivity extends AppCompatActivity {
         updateButtonState();
 
         // Out
-        binding.leftImageView.setOnClickListener(new View.OnClickListener() {
+        //Button top back navigation -- Charcasbeos sua button back ve man hinh truoc -- start
+        setSupportActionBar(binding.topAppBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        binding.topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        //Button top back navigation -- Charcasbeos sua button back ve man hinh truoc -- end
+
 
         binding.editTextEmail.addTextChangedListener(new TextWatcher() {
             @Override

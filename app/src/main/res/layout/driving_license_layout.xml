@@ -1,282 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/my_account_main"
-    >
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/topLayout"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/white"
-        android:elevation="8dp">
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
 
-        <TextView
-            android:id="@+id/titleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="@string/gi_y_ph_p_l_i_xe"
-            android:textColor="@android:color/black"
-            android:textSize="25sp"
-            android:layout_centerVertical="true"/>
-
-        <ImageView
-            android:id="@+id/leftImageView"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="50dp"
-            android:layout_toStartOf="@id/titleTextView"
-            android:src="@drawable/ic_left_arrow" />
-
-
-    </RelativeLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottomLayout"
-        android:layout_below="@id/topLayout"
-        >
-
-        <LinearLayout
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingRight="10dp"
-            android:paddingTop="15dp"
-            android:paddingLeft="10dp"
+            app:title="Giay phep lai xe"
+            app:titleCentered="true"/>
+    </com.google.android.material.appbar.AppBarLayout>
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/my_account_main">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottomLayout"
             >
-            <!-- NOTE-->
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@color/white">
-        <!--Ghi chu mauu do-->
-                <TextView
-                    android:id="@+id/textNote"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1.1"
-                    android:background="@drawable/custom_text_note"
-                    android:textColor="@color/maudo"
-                    android:text="///"
-                    android:gravity="center_vertical"
-                    />
-        <!-- Anh mat trc gplx-->
+                android:paddingRight="10dp"
+                android:paddingTop="15dp"
+                android:paddingLeft="10dp"
+                >
+                <!-- NOTE-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:orientation="vertical"
-                    android:layout_weight="0.8">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/nh_m_t_tr_c_gplx"
-                        android:textSize="@dimen/_18sp"
-                        android:textStyle="bold"
-                        />
-                    <TextView
-                        android:id="@+id/textGPLX"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="hii"/>
-                </LinearLayout>
-                <!-- Ảnh GPLX-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/custom_image_gplx"
-                    android:padding="3dp"
-                    android:layout_height="250dp">
-                    <ImageView
-                        android:id="@+id/imageGPLX"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/gplx"
-                        android:scaleType="fitXY"
-                        />
-
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/textErrorImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/maudo"
-                    android:visibility="gone"
-                    android:text="@string/ban_chua_anh"
-                    />
-                <!--INPUT-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:paddingBottom="30dp"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <!--GPLX-->
+                    android:orientation="vertical"
+                    android:background="@color/white">
+                    <!--Ghi chu mauu do-->
+                    <TextView
+                        android:id="@+id/textNote"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1.1"
+                        android:background="@drawable/custom_text_note"
+                        android:textColor="@color/maudo"
+                        android:text="///"
+                        android:gravity="center_vertical"
+                        />
+                    <!-- Anh mat trc gplx-->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="130dp"
-                        android:orientation="vertical">
-
+                        android:layout_height="0dp"
+                        android:orientation="vertical"
+                        android:layout_weight="0.8">
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/s_gplx"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/nh_m_t_tr_c_gplx"
                             android:textSize="@dimen/_18sp"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/day_12_chu_so_o_mat_truoc_gplx"
-                            android:textSize="@dimen/_12sp"
-                            android:layout_marginBottom="5dp"
+                            android:textStyle="bold"
                             />
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/textInputLayoutGPLX"
+                        <TextView
+                            android:id="@+id/textGPLX"
                             android:layout_width="match_parent"
-                            android:layout_marginTop="5dp"
                             android:layout_height="wrap_content"
-                            app:endIconTint="@color/xanh_dam"
-                            app:hintEnabled="false"
-                            app:errorTextColor="@color/maudo"
-                            app:endIconMode="clear_text">
-
-                            <EditText
-                                android:id="@+id/editGPLX"
-                                android:layout_width="match_parent"
-                                android:layout_height="60dp"
-                                android:inputType="number"
-                                android:textSize="@dimen/_16sp"
-                                android:background="@drawable/custom_button_account"
-                                android:hint="@string/_0000_0000_0000" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
+                            android:text="hii"/>
                     </LinearLayout>
-                    <!--Name user-->
+                    <!-- Ảnh GPLX-->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="110dp"
-                        android:orientation="vertical">
-
-                        <TextView
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/custom_image_gplx"
+                        android:padding="3dp"
+                        android:layout_height="250dp">
+                        <ImageView
+                            android:id="@+id/imageGPLX"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/t_n_hi_n_th"
-                            android:textSize="@dimen/_18sp"
-                            android:textStyle="bold" />
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/textInputLayoutName"
-                            android:layout_width="match_parent"
-                            android:layout_marginTop="5dp"
-                            android:layout_height="wrap_content"
-                            app:endIconTint="@color/xanh_dam"
-                            app:hintEnabled="false"
-                            app:errorTextColor="@color/maudo"
-                            app:endIconMode="clear_text">
-
-                            <EditText
-                                android:id="@+id/editTextName"
-                                android:layout_width="match_parent"
-                                android:layout_height="60dp"
-                                android:textSize="@dimen/_16sp"
-                                android:background="@drawable/custom_button_account"
-                                android:hint="@string/nh_p_t_n_hi_n_th" />
-                        </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_height="match_parent"
+                            android:src="@drawable/gplx"
+                            android:scaleType="fitXY"
+                            />
 
                     </LinearLayout>
-
-                    <!--BirthDay-->
+                    <TextView
+                        android:id="@+id/textErrorImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/maudo"
+                        android:visibility="gone"
+                        android:text="@string/ban_chua_anh"
+                        />
+                    <!--INPUT-->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="110dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:paddingBottom="30dp"
+                        android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <TextView
+                        <!--GPLX-->
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:text="@string/ng_sinh"
-                            android:textSize="@dimen/_18sp"
-                            android:textStyle="bold" />
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/textInputLayoutBirthday"
-                            android:layout_width="match_parent"
-                            android:layout_marginTop="5dp"
-                            android:layout_height="wrap_content"
-                            >
+                            android:layout_height="130dp"
+                            android:orientation="vertical">
+
                             <TextView
-                                android:id="@+id/editTextBirthday"
                                 android:layout_width="match_parent"
-                                android:layout_height="60dp"
-                                android:padding="20dp"
-                                android:textSize="@dimen/_16sp"
-                                android:background="@drawable/custom_button_account"
-                                android:hint="dd/mm/yyyy" />
-                        </com.google.android.material.textfield.TextInputLayout>
+                                android:layout_height="wrap_content"
+                                android:text="@string/s_gplx"
+                                android:textSize="@dimen/_18sp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/day_12_chu_so_o_mat_truoc_gplx"
+                                android:textSize="@dimen/_12sp"
+                                android:layout_marginBottom="5dp"
+                                />
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/textInputLayoutGPLX"
+                                android:layout_width="match_parent"
+                                android:layout_marginTop="5dp"
+                                android:layout_height="wrap_content"
+                                app:endIconTint="@color/xanh_dam"
+                                app:hintEnabled="false"
+                                app:errorTextColor="@color/maudo"
+                                app:endIconMode="clear_text">
 
+                                <EditText
+                                    android:id="@+id/editGPLX"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:inputType="number"
+                                    android:textSize="@dimen/_16sp"
+                                    android:background="@drawable/custom_button_account"
+                                    android:hint="@string/_0000_0000_0000" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+                        <!--Name user-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="110dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/t_n_hi_n_th"
+                                android:textSize="@dimen/_18sp"
+                                android:textStyle="bold" />
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/textInputLayoutName"
+                                android:layout_width="match_parent"
+                                android:layout_marginTop="5dp"
+                                android:layout_height="wrap_content"
+                                app:endIconTint="@color/xanh_dam"
+                                app:hintEnabled="false"
+                                app:errorTextColor="@color/maudo"
+                                app:endIconMode="clear_text">
+
+                                <EditText
+                                    android:id="@+id/editTextName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:textSize="@dimen/_16sp"
+                                    android:background="@drawable/custom_button_account"
+                                    android:hint="@string/nh_p_t_n_hi_n_th" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <!--BirthDay-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="110dp"
+                            android:layout_marginBottom="10dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:text="@string/ng_sinh"
+                                android:textSize="@dimen/_18sp"
+                                android:textStyle="bold" />
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/textInputLayoutBirthday"
+                                android:layout_width="match_parent"
+                                android:layout_marginTop="5dp"
+                                android:layout_height="wrap_content"
+                                >
+                                <TextView
+                                    android:id="@+id/editTextBirthday"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:padding="20dp"
+                                    android:textSize="@dimen/_16sp"
+                                    android:background="@drawable/custom_button_account"
+                                    android:hint="dd/mm/yyyy" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
-    </ScrollView>
+        </ScrollView>
 
-    <RelativeLayout
-        android:id="@+id/bottomLayout"
-        android:elevation="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp"
-        android:padding="10dp"
-        android:background="@color/white">
-        <LinearLayout
-            android:id="@+id/noteLayout2"
+        <RelativeLayout
+            android:id="@+id/bottomLayout"
+            android:elevation="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="40dp"
-                android:scaleType="fitCenter"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_exclamation_mark"
-                android:padding="10dp"/>
-            <TextView
-                android:id="@+id/textNote2"
+            android:layout_height="150dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:padding="10dp"
+            android:background="@color/white">
+            <LinearLayout
+                android:id="@+id/noteLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="///"
-                />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:scaleType="fitCenter"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_exclamation_mark"
+                    android:padding="10dp"/>
+                <TextView
+                    android:id="@+id/textNote2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="///"
+                    />
 
-        </LinearLayout>
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/noteLayout2"
-            >
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/save_GPLX"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="@color/xanh_dam"
-                android:text="@string/xac_nhan"
-                android:layout_gravity="center"
-                android:textSize="@dimen/_22sp" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/noteLayout2"
+                >
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/save_GPLX"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="@color/xanh_dam"
+                    android:text="@string/xac_nhan"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/_22sp" />
+            </LinearLayout>
 
 
+        </RelativeLayout>
     </RelativeLayout>
-</RelativeLayout>
+</LinearLayout>

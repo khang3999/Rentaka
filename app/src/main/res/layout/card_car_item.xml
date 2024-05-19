@@ -3,16 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     app:cardCornerRadius="20dp"
     android:layout_margin="10dp"
+
     >
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp">
+        android:layout_height="450dp"
+        android:layout_margin="10dp"
+        >
 
         <!--  Part 1 start      -->
 
@@ -25,10 +27,8 @@
             app:cardElevation="40dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -37,11 +37,37 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/car" />
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:layout_margin="15dp"
+                android:backgroundTint="@color/gray_line"
+                app:cardCornerRadius="@dimen/_20dp">
 
+                <ImageView
+                    android:id="@+id/ic_heart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_heart_24" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="@dimen/_20dp"
+                android:background="@drawable/border_radius_orange"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="Giam 15%"
+                android:textColor="@color/white" />
         </androidx.cardview.widget.CardView>
 
 
-            <!--  Part 1 end      -->
+        <!--  Part 1 end      -->
 
         <!--  Part 2 start      -->
 
@@ -49,12 +75,12 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_20dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/_20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="@dimen/_10dp"
             app:layout_constraintTop_toBottomOf="@+id/guideline_horizontal_1">
 
             <TextView
@@ -73,18 +99,9 @@
                 android:background="@drawable/border_radius_green"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="5dp"
-                android:text="Giao xe tan noi"
+                android:text="Xang"
                 app:cardElevation="40dp" />
-            <TextView
-                android:id="@+id/discount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/border_radius_orange"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="5dp"
-                android:text="Giam 15%"
-                android:textColor="@color/white" />
+
 
         </LinearLayout>
 
@@ -92,11 +109,11 @@
             android:id="@+id/linearLayout5"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:layout_marginBottom="@dimen/_20dp"
             android:gravity="center_vertical"
             android:orientation="vertical"
-            android:layout_marginBottom="@dimen/_20dp"
-            android:layout_marginTop="@dimen/_10dp"
-            android:layout_marginStart="@dimen/_10dp"
             app:layout_constraintBottom_toTopOf="@+id/view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -153,15 +170,15 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="@dimen/_20dp"
+            android:layout_marginBottom="@dimen/_20dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline_horizontal_2"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="@dimen/_20dp"
-            android:layout_marginTop="@dimen/_20dp">
+            app:layout_constraintTop_toTopOf="@+id/guideline_horizontal_2">
 
             <ImageView
                 android:id="@+id/icon_star"
@@ -176,9 +193,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.5"
-                android:textSize="12sp"
                 android:gravity="center"
-                android:text="5.0" />
+                android:text="5.0"
+                android:textSize="12sp" />
 
             <ImageView
                 android:id="@+id/icon_trip"
@@ -193,17 +210,17 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2.5"
-                android:textSize="12sp"
                 android:gravity="center"
-                android:text="7 chuyen" />
+                android:text="7 chuyen"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="10dp"
-            android:layout_marginBottom="@dimen/_20dp"
             android:layout_marginTop="@dimen/_20dp"
+            android:layout_marginBottom="@dimen/_20dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -228,8 +245,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textColor="#5FCE85"
                 android:text="888K"
+                android:textColor="#5FCE85"
                 android:textSize="17sp" />
 
             <TextView
@@ -241,6 +258,7 @@
                 android:text="/ ngay"
                 android:textSize="12sp" />
         </LinearLayout>
+
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
@@ -258,13 +276,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.6" />
+            app:layout_constraintGuide_percent="0.5" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_horizontal_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.85" />
+            app:layout_constraintGuide_percent="0.86" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_vertical_1"
@@ -272,6 +291,22 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.78" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

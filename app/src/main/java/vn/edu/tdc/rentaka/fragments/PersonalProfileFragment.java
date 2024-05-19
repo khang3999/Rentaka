@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.activities.ChangeThePasswordActivity;
+import vn.edu.tdc.rentaka.activities.CreateCarActivity;
 import vn.edu.tdc.rentaka.activities.DrivingLicenseActivity;
 import vn.edu.tdc.rentaka.activities.FavoriteCarActivity;
 import vn.edu.tdc.rentaka.activities.LoginActivity;
@@ -92,7 +93,8 @@ public class PersonalProfileFragment extends AbstractFragment {
                         startActivity(intent1);
                         break;
                     case 1:
-                        Toast.makeText(requireActivity(), "Đăng kí xe cho thuê", Toast.LENGTH_SHORT).show();
+                        Intent intent2 = new Intent(requireActivity(), CreateCarActivity.class);
+                        startActivity(intent2);
                         break;
                     case 2:
                         Intent intent3 = new Intent(requireActivity(), FavoriteCarActivity.class);

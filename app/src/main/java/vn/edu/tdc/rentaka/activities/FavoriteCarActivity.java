@@ -21,13 +21,18 @@ public class FavoriteCarActivity extends AppCompatActivity {
         setContentView(R.layout.favorite_car_layout);
         biding = FavoriteCarLayoutBinding.inflate(getLayoutInflater());
         setContentView(biding.getRoot());
-        //Set finish
-        biding.leftImageView.setOnClickListener(new View.OnClickListener() {
+
+        //Button top back navigation -- Charcasbeos sua button back ve man hinh truoc -- start
+        setSupportActionBar(biding.topAppBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        biding.topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        //Button top back navigation -- Charcasbeos sua button back ve man hinh truoc -- end
+
         //Set
         myViewFavoriteCarPageAdapter = new MyViewFavoriteCarPageAdapter(this);
         biding.viewPage.setAdapter(myViewFavoriteCarPageAdapter);
