@@ -45,12 +45,20 @@ public class ChangeThePasswordActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         //Trang thai nut chinh sua mat khau
         updateChangePasswordButton();
-        binding.leftImageView.setOnClickListener(new View.OnClickListener() {
+
+
+        //Button top back navigation -- Charcasbeos sua button back ve man hinh truoc -- start
+        setSupportActionBar(binding.topAppBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        binding.topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        //Button top back navigation -- Charcasbeos sua button back ve man hinh truoc -- end
+
+
         //Theo doi nhap text mat khau
         binding.editTextPassword.addTextChangedListener(new TextWatcher() {
             @Override

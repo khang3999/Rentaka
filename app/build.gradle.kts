@@ -74,6 +74,9 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
     implementation(libs.firebase.auth)
+
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
     implementation(libs.places)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
