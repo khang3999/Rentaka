@@ -186,6 +186,17 @@ public class ChooseDateActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // Display button back on top bar navigation
+        setSupportActionBar(binding.topAppBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        binding.topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("navi", "onClick: call");
+                finish();
+            }
+        });
     }
 
     @Override
