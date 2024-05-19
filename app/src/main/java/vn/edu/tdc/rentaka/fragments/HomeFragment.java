@@ -183,9 +183,10 @@ public class HomeFragment extends AbstractFragment {
             }
         });
 
-
         return fragment;
     }
+
+
 
     @Override
     public void onResume() {
@@ -193,6 +194,13 @@ public class HomeFragment extends AbstractFragment {
         if (activity.getIntent() != null && activity.getIntent().hasExtra("city")){
             Intent intent = getActivity().getIntent();
             binding.tvLocationResult.setText(intent.getStringExtra("city"));
+            Log.d("c city", "onResume: call");
+        }
+        else if (activity.getIntent() != null && activity.getIntent().hasExtra("date")){
+            Intent intent = getActivity().getIntent();
+            binding.tvTimeResult.setText(intent.getStringExtra("date"));
+            Log.d("c date", "onResume: call");
+
         }
     }
 }

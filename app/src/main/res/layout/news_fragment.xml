@@ -13,8 +13,5 @@
         android:text="News fragment"
         android:textColor="@color/appGreen"
         android:textSize="40sp"/>
-    <DatePicker
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
 </FrameLayout>
