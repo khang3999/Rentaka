@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -19,11 +20,13 @@ import java.util.ArrayList;
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.activities.ChooseDateActivity;
 import vn.edu.tdc.rentaka.activities.ChooseLocationActivity;
+import vn.edu.tdc.rentaka.activities.ListCarSearchActivity;
 import vn.edu.tdc.rentaka.adapters.AdvantageAdapter;
 import vn.edu.tdc.rentaka.adapters.LocationAdapter;
 import vn.edu.tdc.rentaka.adapters.PromotionAdapter;
 import vn.edu.tdc.rentaka.databinding.BottomSheetDiaglogLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.HomeFragmentBinding;
+import vn.edu.tdc.rentaka.databinding.LocationItemLayoutBinding;
 import vn.edu.tdc.rentaka.models.Advantage;
 import vn.edu.tdc.rentaka.models.Location;
 import vn.edu.tdc.rentaka.models.Promotion;
@@ -41,7 +44,9 @@ public class HomeFragment extends AbstractFragment {
 
     // Mac dinh search theo xe tu lai type = 0
     private int typeSearch = 0;
-
+    // Check da chon dia diem va thoi gian
+    private String location="";
+    private String date="";
     private BottomSheetDialog bottomSheetDialog;
     private BottomSheetDiaglogLayoutBinding bottomSheetDiaglogLayoutBinding;
 
@@ -58,6 +63,7 @@ public class HomeFragment extends AbstractFragment {
         fragment = binding.getRoot();
         // Get Activity of this fragment
         activity = getActivity();
+
         // Set adapter for Promotion
         listPromotions = new ArrayList<Promotion>();
         listPromotions.add(new Promotion(1,"Promotion 1","promotion1.jpg","Chuong trinh khuyen mai so 1"));
@@ -111,11 +117,23 @@ public class HomeFragment extends AbstractFragment {
 
         // Set adapter for Location
         listLocations = new ArrayList<Location>();
-//        listLocations.add(new Location(1, "Ho Chi Minh"));
-//        listLocations.add(new Location(2, "Ha Noi"));
-//        listLocations.add(new Location(3, "Da Nang"));
-//        listLocations.add(new Location(4, "Binh Duong"));
+        listLocations.add(new Location("Tp. Hồ Chí Minh", "",Location.LocationType.pickUpLocation));
+        listLocations.add(new Location("Hà Nội", "", Location.LocationType.pickUpLocation));
+        listLocations.add(new Location("Đà Nẵng", "", Location.LocationType.pickUpLocation));
+        listLocations.add(new Location("Bình Dương", "", Location.LocationType.pickUpLocation));
         locationAdapter = new LocationAdapter(this.getContext(), listLocations);
+
+        locationAdapter.setOnItemClickListener(new LocationAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(LocationAdapter.MyViewHolder holder) {
+                LocationItemLayoutBinding locationItemLayoutBinding = (LocationItemLayoutBinding) holder.getBinding();
+                Intent intent = new Intent(activity, ListCarSearchActivity.class);
+                intent.putExtra("location", locationItemLayoutBinding.cityName.getText());
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+            }
+        });
+
         LinearLayoutManager layoutManagerLocation = new LinearLayoutManager(this.getContext());
         layoutManagerLocation.setOrientation(RecyclerView.HORIZONTAL);
         layoutManagerLocation.setReverseLayout(false);
@@ -146,7 +164,7 @@ public class HomeFragment extends AbstractFragment {
             }
         });
 
-        binding.tvTimeResult.setOnClickListener(new View.OnClickListener() {
+        binding.tvDateResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Chuyen sang activity chon thoi gian
@@ -183,6 +201,26 @@ public class HomeFragment extends AbstractFragment {
             }
         });
 
+        // Set disable for button searching
+        binding.btnSearch.setActivated(false);
+        binding.btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (location.equals("")){
+                    Toast.makeText(activity, "Vui lòng chọn địa điểm", Toast.LENGTH_SHORT).show();
+                } else if (date.equals("")){
+                    Toast.makeText(activity, "Vui lòng chọn thời gian", Toast.LENGTH_SHORT).show();
+                }
+                if (v.isActivated()){
+                    Intent intent = new Intent(activity, ListCarSearchActivity.class);
+                    intent.putExtra("location", location);
+                    intent.putExtra("date", date);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
+                }
+            }
+        });
+
         return fragment;
     }
 
@@ -191,16 +229,28 @@ public class HomeFragment extends AbstractFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (activity.getIntent() != null && activity.getIntent().hasExtra("city")){
+        if (activity.getIntent() != null && activity.getIntent().hasExtra("city")) {
             Intent intent = getActivity().getIntent();
-            binding.tvLocationResult.setText(intent.getStringExtra("city"));
-            Log.d("c city", "onResume: call");
+            location = intent.getStringExtra("city");
+//            binding.tvLocationResult.setText(location);
+//            chosenLocation = true;
+        } else if (activity.getIntent() != null && activity.getIntent().hasExtra("date")) {
+            Intent intent = getActivity().getIntent();
+            date = intent.getStringExtra("date");
+//            binding.tvDateResult.setText(intent.getStringExtra("date"));
+//            chosenDate = true;
         }
-        else if (activity.getIntent() != null && activity.getIntent().hasExtra("date")){
-            Intent intent = getActivity().getIntent();
-            binding.tvTimeResult.setText(intent.getStringExtra("date"));
-            Log.d("c date", "onResume: call");
+
+        if (!location.equals("")) {
+            binding.tvLocationResult.setText(location);
+            if (!date.equals("")) {
+                binding.tvDateResult.setText(date);
+            }
+            if (!location.equals("") && !date.equals("")) {
+                binding.btnSearch.setActivated(true);
+            }
 
         }
+
     }
 }

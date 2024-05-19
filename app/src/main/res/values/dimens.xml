@@ -74,7 +74,9 @@
 
     <dimen name="margin_stroke">20dp</dimen>
     <dimen name="margin_start_location_ic">15dp</dimen>
-
+    <dimen name="_340dp">340dp</dimen>
+    <dimen name="_160dp">160dp</dimen>
+    <dimen name="_22dp">22dp</dimen>
 
 
 

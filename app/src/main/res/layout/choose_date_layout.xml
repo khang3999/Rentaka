@@ -33,7 +33,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray" />
+            android:background="@color/light_gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -140,7 +140,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray" />
+            android:layout_marginHorizontal="@dimen/_32dp"
+            android:background="@color/light_gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -249,6 +250,7 @@
         android:layout_height="0dp"
         android:layout_gravity="bottom"
         android:layout_weight="1"
+        android:background="@drawable/custom_sheet_bottom"
         android:paddingHorizontal="@dimen/_32dp">
 
         <LinearLayout
@@ -268,6 +270,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5h00, "
+                android:textStyle="bold"
                 android:textColor="@color/black" />
 
             <TextView
@@ -275,6 +278,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10/5 - "
+                android:textStyle="bold"
                 android:textColor="@color/black" />
 
             <TextView
@@ -282,6 +286,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="6h00 , "
+                android:textStyle="bold"
                 android:textColor="@color/black" />
 
             <TextView
@@ -289,6 +294,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="11/5"
+                android:textStyle="bold"
                 android:textColor="@color/black" />
         </LinearLayout>
 
@@ -319,6 +325,7 @@
                 android:layout_marginStart="@dimen/_4dp"
                 android:layout_marginEnd="@dimen/_8dp"
                 android:text="0 ngày"
+                android:textStyle="bold"
                 android:textColor="@color/black" />
 
             <ImageView
@@ -336,7 +343,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_32dp"
             android:gravity="center"
-            android:background="@drawable/selector_button_continue"
+            android:background="@drawable/selector_drawable_enable_button"
             android:text="Tiếp theo"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
