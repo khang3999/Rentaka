@@ -1,7 +1,9 @@
 package vn.edu.tdc.rentaka.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -54,6 +56,18 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
         public MyViewHolder(@NonNull ViewBinding itemView) {
             super(itemView.getRoot());
             binding = itemView;
+            //Bat su kien chung
+            itemView.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (itemClickListener != null){
+                        itemClickListener.onItemClick(LocationAdapter.MyViewHolder.this);
+                    }
+                    else {
+                        Log.d("adapter","You must create an ItemClickListener before!");
+                    }
+                }
+            });
         }
 
         public ViewBinding getBinding() {
@@ -66,6 +80,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
     }
     //    Interface
     public interface ItemClickListener{
-        public void onItemClick(PromotionAdapter.MyViewHolder holder);
+        public void onItemClick(LocationAdapter.MyViewHolder holder);
     }
 }

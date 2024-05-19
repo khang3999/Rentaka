@@ -20,11 +20,13 @@ import java.util.ArrayList;
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.activities.ChooseDateActivity;
 import vn.edu.tdc.rentaka.activities.ChooseLocationActivity;
+import vn.edu.tdc.rentaka.activities.ListCarSearchActivity;
 import vn.edu.tdc.rentaka.adapters.AdvantageAdapter;
 import vn.edu.tdc.rentaka.adapters.LocationAdapter;
 import vn.edu.tdc.rentaka.adapters.PromotionAdapter;
 import vn.edu.tdc.rentaka.databinding.BottomSheetDiaglogLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.HomeFragmentBinding;
+import vn.edu.tdc.rentaka.databinding.LocationItemLayoutBinding;
 import vn.edu.tdc.rentaka.models.Advantage;
 import vn.edu.tdc.rentaka.models.Location;
 import vn.edu.tdc.rentaka.models.Promotion;
@@ -115,11 +117,23 @@ public class HomeFragment extends AbstractFragment {
 
         // Set adapter for Location
         listLocations = new ArrayList<Location>();
-//        listLocations.add(new Location(1, "Ho Chi Minh"));
-//        listLocations.add(new Location(2, "Ha Noi"));
-//        listLocations.add(new Location(3, "Da Nang"));
-//        listLocations.add(new Location(4, "Binh Duong"));
+        listLocations.add(new Location("Tp. Hồ Chí Minh", "",Location.LocationType.pickUpLocation));
+        listLocations.add(new Location("Hà Nội", "", Location.LocationType.pickUpLocation));
+        listLocations.add(new Location("Đà Nẵng", "", Location.LocationType.pickUpLocation));
+        listLocations.add(new Location("Bình Dương", "", Location.LocationType.pickUpLocation));
         locationAdapter = new LocationAdapter(this.getContext(), listLocations);
+
+        locationAdapter.setOnItemClickListener(new LocationAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(LocationAdapter.MyViewHolder holder) {
+                LocationItemLayoutBinding locationItemLayoutBinding = (LocationItemLayoutBinding) holder.getBinding();
+                Intent intent = new Intent(activity, ListCarSearchActivity.class);
+                intent.putExtra("location", locationItemLayoutBinding.cityName.getText());
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+            }
+        });
+
         LinearLayoutManager layoutManagerLocation = new LinearLayoutManager(this.getContext());
         layoutManagerLocation.setOrientation(RecyclerView.HORIZONTAL);
         layoutManagerLocation.setReverseLayout(false);
@@ -197,8 +211,13 @@ public class HomeFragment extends AbstractFragment {
                 } else if (date.equals("")){
                     Toast.makeText(activity, "Vui lòng chọn thời gian", Toast.LENGTH_SHORT).show();
                 }
-//                if (v.isActivated()){
-//                }
+                if (v.isActivated()){
+                    Intent intent = new Intent(activity, ListCarSearchActivity.class);
+                    intent.putExtra("location", location);
+                    intent.putExtra("date", date);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
+                }
             }
         });
 

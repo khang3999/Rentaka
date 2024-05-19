@@ -1,5 +1,6 @@
 package vn.edu.tdc.rentaka.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -9,18 +10,28 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import vn.edu.tdc.rentaka.R;
+import vn.edu.tdc.rentaka.databinding.ListCarSearchLayoutBinding;
 
 public class ListCarSearchActivity extends AppCompatActivity {
-
+    private ListCarSearchLayoutBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.list_car_search_layout);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        binding = ListCarSearchLayoutBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        if (intent.hasExtra("location")){
+            binding.location.setText(intent.getStringExtra("location"));
+        }
+        if (intent.hasExtra("date")){
+            binding.date.setText(intent.getStringExtra("date"));
+        }
     }
 }
