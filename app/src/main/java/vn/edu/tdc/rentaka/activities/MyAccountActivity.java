@@ -94,7 +94,7 @@ public class MyAccountActivity extends AppCompatActivity {
         );
 
         //Gan adapter
-        updateAdapterData("","");
+        updateAdapterData("","", "");
 
         //Nut out
         binding.leftImageView.setOnClickListener(new View.OnClickListener() {
@@ -173,9 +173,9 @@ public class MyAccountActivity extends AppCompatActivity {
     }
 
 //Cap nhat adapter recycler view
-    public void updateAdapterData(String email, String phone) {
+    public void updateAdapterData(String email, String phone, String driveNumber) {
         ArrayList<MyAccountModel> dataFuc = new ArrayList<>();
-        dataFuc.add(new MyAccountModel("Giấy phép lái xe", "Thêm giấy phép lái xe"));
+        dataFuc.add(new MyAccountModel("Giấy phép lái xe", !driveNumber.isEmpty() ? driveNumber : "Thêm giấy phép lái xe"));
         dataFuc.add(new MyAccountModel("Điện thoại",!phone.isEmpty() ? phone : "Thêm số điện thoại"));
         dataFuc.add(new MyAccountModel("Email", !email.isEmpty() ? email : "Thêm email"));
         dataFuc.add(new MyAccountModel("Facebook", "Thêm facebook"));
@@ -414,6 +414,11 @@ public class MyAccountActivity extends AppCompatActivity {
                         String email = dataSnapshot.child("email").getValue(String.class);
                         String birthday = dataSnapshot.child("birthday").getValue(String.class);
                         String gender = dataSnapshot.child("gender").getValue(String.class);
+                        String drivingLicense = null;
+                        if (dataSnapshot.child("DrivingLicense").exists()) {
+                            drivingLicense = dataSnapshot.child("DrivingLicense").child("gplxNumber").getValue(String.class);
+                        }
+
                         //Set ten nguoi dung
                         binding.nameTextView.setText(name);
                         //Set gioi tinh nguoi dung
@@ -432,7 +437,7 @@ public class MyAccountActivity extends AppCompatActivity {
                             binding.avatar.setImageResource(R.drawable.avatar);
                         }
                         //Set phone email vao adapter
-                        updateAdapterData(email != null ? email : "", phone != null ? phone : "");
+                        updateAdapterData(email != null ? email : "", phone != null ? phone : "", drivingLicense != null ? drivingLicense : "");
                     }
                 }
                 @Override

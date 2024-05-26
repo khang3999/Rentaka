@@ -193,5 +193,19 @@
     <string name="rating_and_review"><![CDATA[Rating & Review]]></string>
     <string name="send_review">Send Review</string>
     <string name="hint_message_review">Please write your review here. \nYou might want to include details about the car\'s condition,\n the owner\'s communication, and your overall experience.</string>
+    <string name="search">Search</string>
+    <string name="your_selected_address_will_appear_here">Your selected address will appear here</string>
+    <string name="x_c_th_c_gi_y_ph_p_l_i_xe">Xác thực giấy phép lái xe</string>
+    <string name="xin_ch_o_qu_kh_ch_h_ng">Xin chào Quý khách hàng,</string>
+    <string name="inf_gptl_dâata">Nhằm tiếp tục nâng cao chất lượng cộng đồng, cũng như bảo vệ quyền lợi của tất cả các thành viên Mioto khi có sự cố ngoài ý muốn phát sinh trong quá trình thuê xe, BQL Mioto xin thông báo về việc triển khai tính năng Xác thực GPLX. Các bước xác thực được thực hiện online qua app/website Mioto, thời gian thao tác từ 1 - 2 phút, chúng tôi rất mong bạn vui lòng dành ít thời gian để hoàn tất bước xác thực này (thành viên cần xác thực Số điện thoại + GPLX để có thể gửi yêu cầu đặt xe qua Mioto)</string>
+    <string name="inf_gptl_huongdan">Bấm vào Ảnh đại diện - chọn Tài khoản - Mục GPLX  </string>
+    <string name="gplx_hd">* Nhập số GPLX, họ tên và ngày tháng năm sinh</string>
+    <string name="tai_anh">* Tải hình chụp GPLX và bấm \'Cập nhật\' để hoàn tất</string>
+    <string name="ghi_chu">Ghi chú</string>
+    <string name="bao_mat">Chỉ yêu cầu xác thực GPLX cho lần đặt xe đầu tiên Chỉ có chủ xe có thể nhìn thấy thông tin GPLX khi bạn đang thuê xe Thông tin được bảo mật tuyệt đối bởi Mioto</string>
+    <string name="cotact_data">Rất mong nhận được sự hợp tác từ bạn, vui lòng liên hệ Mioto qua Mioto Fanpage hoặc hotline 19009217 (7AM - 10PM) nếu bạn cần hỗ trợ</string>
+    <string name="xin_ch_n_th_nh_c_m_n">Xin chân thành cám ơn</string>
+    <string name="x_c_th_c">Xác Thực</string>
+
 
 </resources>
