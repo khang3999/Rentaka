@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import vn.edu.tdc.rentaka.R;
+import vn.edu.tdc.rentaka.databinding.BottomSheetDialogInformationGplxBinding;
 import vn.edu.tdc.rentaka.databinding.DrivingLicenseLayoutBinding;
 
 public class DrivingLicenseActivity extends AppCompatActivity {
@@ -46,6 +48,8 @@ public class DrivingLicenseActivity extends AppCompatActivity {
      boolean isGPLXValid = false;
      boolean isImageGPLXValid = false;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
+    private BottomSheetDialogInformationGplxBinding bottomSheetDialogInformationGplxBinding;
+    BottomSheetDialog bottomSheetDialogDritvingLicenseData;
     private static final int STORAGE_PERMISSION_CODE = 101;
     Uri imageUri;
 
@@ -56,6 +60,17 @@ public class DrivingLicenseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.driving_license_layout);
         binding = DrivingLicenseLayoutBinding.inflate(getLayoutInflater());
+        bottomSheetDialogInformationGplxBinding = BottomSheetDialogInformationGplxBinding.inflate(getLayoutInflater(),null,false);
+
+        //Bottom sheet
+        // Tạo một đối tượng BottomSheetDialog mới
+        bottomSheetDialogDritvingLicenseData = new BottomSheetDialog(
+                DrivingLicenseActivity.this, R.style.BottomSheetDialogTheme
+        );
+        // Đặt nội dung view của BottomSheetDialog là root view của lai xe bottomSheetDialogInformationGplxBinding
+        bottomSheetDialogDritvingLicenseData.setContentView(bottomSheetDialogInformationGplxBinding.getRoot());
+
+
         setContentView(binding.getRoot());
         //Set state save
         stateSaveGPLX();
@@ -84,6 +99,28 @@ public class DrivingLicenseActivity extends AppCompatActivity {
         binding.textNote.setText(Html.fromHtml(textNote, Html.FROM_HTML_MODE_COMPACT));
         binding.textGPLX.setText(Html.fromHtml(textGPLX, Html.FROM_HTML_MODE_COMPACT));
         binding.textNote2.setText(Html.fromHtml(textNote2, Html.FROM_HTML_MODE_COMPACT));
+
+        //Hien thi thong tin gplx
+        binding.textNote2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                bottomSheetDialogDritvingLicenseData.show();
+            }
+        });
+        //An button
+        bottomSheetDialogInformationGplxBinding.btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetDialogDritvingLicenseData.dismiss();
+            }
+        });
+        bottomSheetDialogInformationGplxBinding.close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetDialogDritvingLicenseData.dismiss();
+            }
+        });
         // load du lieu vao man hinh user
         loadData();
         //Nut thoat

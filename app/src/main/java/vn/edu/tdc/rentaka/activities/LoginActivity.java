@@ -40,7 +40,10 @@ public class LoginActivity extends AppCompatActivity {
         stateLogin();
         //Customs textview register
         String text_register = "<u><b>Đăng ký ngay</b></u>";
+        String text_forgot_password = "<u><b>Quên mật khẩu</b></u>";
         binding.textViewRegister.setText(Html.fromHtml(text_register, Html.FROM_HTML_MODE_COMPACT));
+        binding.textViewForgotPassword.setText(Html.fromHtml(text_forgot_password, Html.FROM_HTML_MODE_COMPACT));
+
         //Custome error textview
         //Theo doi nhap text
         binding.textViewForgotPassword.setOnClickListener(new View.OnClickListener() {

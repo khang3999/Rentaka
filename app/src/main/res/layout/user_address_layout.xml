@@ -11,48 +11,84 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
+        android:layout_height="wrap_content">
 
-        app:layout_constraintBottom_toTopOf="@+id/guideline7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="Dia chi"
+            app:title="Địa chỉ"
             app:titleCentered="true"/>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <fragment
-        android:id="@+id/autocomplete_fragment"
-        android:layout_margin="10dp"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"/>
+        android:orientation="horizontal"
+        android:padding="8dp">
 
-    <TextView
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="Search"/>
+
+        <EditText
+            android:id="@+id/searchAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:background="@drawable/custom_button_account"
+            android:hint="Mời bạn search"
+            android:padding="8dp"/>
+    </LinearLayout>
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal">
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="1"
+              android:text="Address:"
+              android:gravity="center"
+              android:textStyle="bold"
+              android:textSize="18sp"
+              />
+         <TextView
+             android:id="@+id/selectedAddress"
+             android:layout_width="0dp"
+             android:layout_weight="4"
+             android:layout_height="wrap_content"
+             android:padding="8dp"
+             android:text="@string/your_selected_address_will_appear_here"
+             android:textSize="18sp"/>
+     </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/addressSuggestions"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="Địa chỉ cụ thể"
-        android:gravity="center"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="bottom"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="8dp">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/save_address"
+            android:id="@+id/saveAddress"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
             android:background="@color/xanh_dam"
             android:text="@string/xac_nhan"
-            android:textSize="@dimen/_22sp"/>
+            android:textSize="22sp"/>
     </LinearLayout>
 </LinearLayout>
