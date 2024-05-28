@@ -206,6 +206,13 @@
     <string name="cotact_data">Rất mong nhận được sự hợp tác từ bạn, vui lòng liên hệ Mioto qua Mioto Fanpage hoặc hotline 19009217 (7AM - 10PM) nếu bạn cần hỗ trợ</string>
     <string name="xin_ch_n_th_nh_c_m_n">Xin chân thành cám ơn</string>
     <string name="x_c_th_c">Xác Thực</string>
+    <string name="label_in_app">- In app:</string>
+    <string name="label_direct">- Direct:</string>
+    <string name="daily_rent_price">Daily rent price:</string>
+    <string name="commission_fee_20">Commission Fee 20%:</string>
+    <string name="net_revenue_80">Net revenue 80%:</string>
+    <string name="mortgage">Mortgage</string>
+    <string name="register">Register</string>
 
 
 </resources>

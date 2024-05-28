@@ -2,6 +2,7 @@ package vn.edu.tdc.rentaka.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,8 +21,26 @@ public class ListCarSearchActivity extends AppCompatActivity {
 
         binding = ListCarSearchLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // Set event for back button
+        setSupportActionBar(binding.topAppBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        binding.topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListCarSearchActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                // Thiết lập animation
+                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+            }
+        });
     }
 
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
 
     @Override
     protected void onResume() {
@@ -32,6 +51,8 @@ public class ListCarSearchActivity extends AppCompatActivity {
         }
         if (intent.hasExtra("date")){
             binding.date.setText(intent.getStringExtra("date"));
+        } else {
+            binding.date.setText(intent.getStringExtra(""));
         }
     }
 }

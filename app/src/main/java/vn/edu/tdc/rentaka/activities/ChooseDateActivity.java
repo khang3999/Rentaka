@@ -183,6 +183,8 @@ public class ChooseDateActivity extends AppCompatActivity {
                     intent.putExtra("date", date);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
+                    // Main vao tu trai, choose date exit ve ben phai
+                    overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
                 }
             }
         });
@@ -193,8 +195,11 @@ public class ChooseDateActivity extends AppCompatActivity {
         binding.topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("navi", "onClick: call");
-                finish();
+                Intent intent = new Intent(ChooseDateActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                // Main vao tu trai, choose date exit ve ben phai
+                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
             }
         });
     }
@@ -203,8 +208,8 @@ public class ChooseDateActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // Dua ve default
-        binding.tvDateStart.setText("Chưa chọn");
-        binding.tvDateEnd.setText("Chưa chọn");
+//        binding.tvDateStart.setText("Chưa chọn");
+//        binding.tvDateEnd.setText("Chưa chọn");
         dateStart = new Date();
         dateEnd = new Date();
         binding.cfDateStart.setText("? - ");

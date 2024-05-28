@@ -53,8 +53,7 @@ public class PersonalProfileFragment extends AbstractFragment {
         binding = PersonalProfileLayoutBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        //Cap nhat du lieu
-        updateData();
+
 
         List<PersonalProfileModel> data1 = new ArrayList<>();
         data1.add(new PersonalProfileModel("ic_user","Tài khoản của tôi"));
@@ -185,12 +184,16 @@ public class PersonalProfileFragment extends AbstractFragment {
                 alertDialog.show();
             }
         });
-
-
-
-
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //Cap nhat du lieu
+        updateData();
+    }
+
     //Cap nhat du lieu
     private void updateData() {
         //Loading

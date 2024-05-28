@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -13,26 +15,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import vn.edu.tdc.rentaka.APIs.FirebaseAPI;
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.activities.ChooseDateActivity;
 import vn.edu.tdc.rentaka.activities.ChooseLocationActivity;
 import vn.edu.tdc.rentaka.activities.ListCarSearchActivity;
 import vn.edu.tdc.rentaka.adapters.AdvantageAdapter;
+import vn.edu.tdc.rentaka.adapters.CarAdapter;
 import vn.edu.tdc.rentaka.adapters.LocationAdapter;
 import vn.edu.tdc.rentaka.adapters.PromotionAdapter;
 import vn.edu.tdc.rentaka.databinding.BottomSheetDiaglogLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.HomeFragmentBinding;
 import vn.edu.tdc.rentaka.databinding.LocationItemLayoutBinding;
 import vn.edu.tdc.rentaka.models.Advantage;
+import vn.edu.tdc.rentaka.models.Car;
 import vn.edu.tdc.rentaka.models.Location;
 import vn.edu.tdc.rentaka.models.Promotion;
 
 public class HomeFragment extends AbstractFragment {
-
+    private FirebaseAPI firebaseAPI;
     private ArrayList<Promotion> listPromotions;
     private ArrayList<Location> listLocations;
     private ArrayList<Advantage> listAdvantage;
@@ -40,6 +54,9 @@ public class HomeFragment extends AbstractFragment {
     private PromotionAdapter promotionAdapter;
     private LocationAdapter locationAdapter;
     private AdvantageAdapter advantageAdapter;
+    private CarAdapter carHasDriverAdapter;
+    private CarAdapter carNoDriverAdapter;
+
     private Activity activity;
 
     // Mac dinh search theo xe tu lai type = 0
@@ -58,11 +75,12 @@ public class HomeFragment extends AbstractFragment {
         bottomSheetDiaglogLayoutBinding = BottomSheetDiaglogLayoutBinding.inflate(getLayoutInflater(),null,false);
 
         View fragment = null;
-        // Inflate the layout for this fragment
-        //fragment = inflater.inflate(R.layout.home_fragment, container, false);
         fragment = binding.getRoot();
         // Get Activity of this fragment
         activity = getActivity();
+
+        // Khoi tao firebase
+        firebaseAPI = new FirebaseAPI();
 
         // Set adapter for Promotion
         listPromotions = new ArrayList<Promotion>();
@@ -71,6 +89,7 @@ public class HomeFragment extends AbstractFragment {
         listPromotions.add(new Promotion(3,"Promotion 3","promotion3.jpg","Chuong trinh khuyen mai so 3"));
         listPromotions.add(new Promotion(4,"Promotion 4","promotion4.jpg","Chuong trinh khuyen mai so 4"));
 
+        // Khoi tao adapter
         promotionAdapter = new PromotionAdapter(this.getContext(), listPromotions);
         promotionAdapter.setOnItemClickListener(new PromotionAdapter.ItemClickListener() {
             @Override
@@ -114,6 +133,8 @@ public class HomeFragment extends AbstractFragment {
         layoutManagerPromotion.setReverseLayout(false);
         binding.listPromotion.setLayoutManager(layoutManagerPromotion);
         binding.listPromotion.setAdapter(promotionAdapter);
+        // Auto stop at center of item
+        attachSnapHelper(binding.listPromotion);
 
         // Set adapter for Location
         listLocations = new ArrayList<Location>();
@@ -122,6 +143,7 @@ public class HomeFragment extends AbstractFragment {
         listLocations.add(new Location("Đà Nẵng", "", Location.LocationType.pickUpLocation));
         listLocations.add(new Location("Bình Dương", "", Location.LocationType.pickUpLocation));
         locationAdapter = new LocationAdapter(this.getContext(), listLocations);
+
 
         locationAdapter.setOnItemClickListener(new LocationAdapter.ItemClickListener() {
             @Override
@@ -139,6 +161,7 @@ public class HomeFragment extends AbstractFragment {
         layoutManagerLocation.setReverseLayout(false);
         binding.listLocations.setLayoutManager(layoutManagerLocation);
         binding.listLocations.setAdapter(locationAdapter);
+        attachSnapHelper(binding.listLocations);
 
         // Set adapter for Advantage
         listAdvantage = new ArrayList<Advantage>();
@@ -152,6 +175,7 @@ public class HomeFragment extends AbstractFragment {
         layoutManagerAdvantage.setReverseLayout(false);
         binding.listAdvantages.setLayoutManager(layoutManagerAdvantage);
         binding.listAdvantages.setAdapter(advantageAdapter);
+        attachSnapHelper(binding.listAdvantages);
 
         // Bat su kien cho search theo dia diem: tinh va thanh pho
         binding.tvLocationResult.setOnClickListener(new View.OnClickListener() {
@@ -215,6 +239,7 @@ public class HomeFragment extends AbstractFragment {
                     Intent intent = new Intent(activity, ListCarSearchActivity.class);
                     intent.putExtra("location", location);
                     intent.putExtra("date", date);
+                    intent.putExtra("typeSearch", typeSearch);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
                 }
@@ -229,28 +254,97 @@ public class HomeFragment extends AbstractFragment {
     @Override
     public void onResume() {
         super.onResume();
+        // Get data Intent from choose location activity
         if (activity.getIntent() != null && activity.getIntent().hasExtra("city")) {
             Intent intent = getActivity().getIntent();
             location = intent.getStringExtra("city");
-//            binding.tvLocationResult.setText(location);
-//            chosenLocation = true;
-        } else if (activity.getIntent() != null && activity.getIntent().hasExtra("date")) {
+        }
+        if (activity.getIntent() != null && activity.getIntent().hasExtra("date")) {
             Intent intent = getActivity().getIntent();
             date = intent.getStringExtra("date");
-//            binding.tvDateResult.setText(intent.getStringExtra("date"));
-//            chosenDate = true;
         }
 
+//        if (!location.equals("")) {
+//            binding.tvLocationResult.setText(location);
+//            if (!date.equals("")) {
+//                binding.tvDateResult.setText(date);
+//            }
+//            if (!location.equals("") && !date.equals("")) {
+//                binding.btnSearch.setActivated(true);
+//            }
+//        }
         if (!location.equals("")) {
             binding.tvLocationResult.setText(location);
-            if (!date.equals("")) {
-                binding.tvDateResult.setText(date);
-            }
-            if (!location.equals("") && !date.equals("")) {
-                binding.btnSearch.setActivated(true);
-            }
+        }
+        if (!date.equals("")) {
+            binding.tvDateResult.setText(date);
+        }
+        if (!location.equals("") && !date.equals("")) {
+            binding.btnSearch.setActivated(true);
+        }
 
+        // Get car from database
+        firebaseAPI.fetchCars(new FirebaseAPI.onCallBack<Car>() {
+            @Override
+            public void onCallBack(List<Car> list) {
+                Log.d("fb", "onCallBack: "+ list.size());
+                carHasDriverAdapter = new CarAdapter(activity,(ArrayList<Car>) list);
+                LinearLayoutManager layoutManagerAdvantage = new LinearLayoutManager(activity);
+                layoutManagerAdvantage.setOrientation(RecyclerView.HORIZONTAL);
+                layoutManagerAdvantage.setReverseLayout(false);
+                binding.listCarNoDriver.setLayoutManager(layoutManagerAdvantage);
+                binding.listCarNoDriver.setAdapter(carHasDriverAdapter);
+
+                // Thiết lập LinearSnapHelper để vuốt dừng lại tại một item
+                attachSnapHelper(binding.listCarNoDriver);
+            }
+        });
+
+        // Update UI information user at home
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String name = dataSnapshot.child("name").getValue(String.class);
+                        String imageUrl = dataSnapshot.child("imageUser").getValue(String.class);
+                        //Set ten nguoi dung
+                        binding.username.setText(name);
+                        //Set anh nguoi dung
+//                        // Use Glide to load the profile image
+                        if (imageUrl != null && !imageUrl.isEmpty()) {
+                            Glide.with(HomeFragment.this)
+                                    .load(imageUrl)
+                                    .into(binding.userImage);
+                        } else {
+                            //Set anh mac dinh
+                            binding.userImage.setImageResource(R.drawable.avatar);
+                        }
+
+
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.d("Tag",databaseError.getMessage());
+                }
+            });
         }
 
     }
+
+        // Ham auto slide to center of recycle view item
+        public void attachSnapHelper(RecyclerView recyclerView) {
+            // Kiểm tra nếu đã gán rồi thì không làm nữa
+            if (recyclerView.getOnFlingListener() == null) {
+                // Nếu chưa, thì gắn SnapHelper
+                LinearSnapHelper snapHelper = new LinearSnapHelper();
+                snapHelper.attachToRecyclerView(recyclerView);
+            }
+
+        }
+
 }

@@ -4,8 +4,8 @@
         android:bottomRightRadius="@dimen/bottomRadius_R"
         android:bottomLeftRadius="@dimen/bottomRadius_L"/>
     <gradient
-        android:angle="45"
-        android:endColor="#01f1fa"
-        android:startColor="#0189ff"
+        android:angle="90"
+        android:endColor="@color/green_button"
+        android:startColor="@color/green_button"
         android:type="linear" />
 </shape>
