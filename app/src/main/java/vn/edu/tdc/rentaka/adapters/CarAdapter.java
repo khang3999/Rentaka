@@ -5,12 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -57,7 +57,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
         binding.icHeart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isFavorite = toggleFavorite(car);
+                boolean isFavorite = toggleFavorite(car, holder.itemView);
                 updateFavoriteIcon(binding, car);
             }
         });
@@ -102,18 +102,18 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
         void onItemClick(CarAdapter.MyViewHolder holder);
     }
 
-    private boolean toggleFavorite(Car car) {
+    private boolean toggleFavorite(Car car, View view) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             if (car.getFavourite().equals("like")) {
                 car.setFavorite("unlike");
                 db.collection("cars").document(car.getId()).update("favourite", "unlike");
-                Toast.makeText(context, "Bạn Đã Bỏ Yêu Thích", Toast.LENGTH_SHORT).show();
+                Snackbar.make(view, "Bạn Đã Bỏ Yêu Thích", Snackbar.ANIMATION_MODE_FADE).show();
                 return false;
             } else {
                 car.setFavorite("like");
                 db.collection("cars").document(car.getId()).update("favourite", "like");
-                Toast.makeText(context, "Bạn Đã Thêm Vào Yêu Thích", Toast.LENGTH_SHORT).show();
+                Snackbar.make(view, "Bạn Đã Thêm Vào Yêu Thích", Snackbar.ANIMATION_MODE_FADE).show();
                 return true;
             }
         }
