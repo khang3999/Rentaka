@@ -204,6 +204,13 @@ public class Car {
         this.priceSelf = priceSelf;
         this.priceDriver = priceDriver;
         this.description = description;
+        if(priceSelf > 0 && priceDriver > 0){
+            this.statusID = "both";
+        } else if (priceSelf > 0){
+            this.statusID = "self";
+        } else if (priceSelf > 0){
+            this.statusID = "driver";
+        }
     }
 
 
@@ -227,6 +234,7 @@ public class Car {
                 ", priceSelf=" + priceSelf +
                 ", priceDriver=" + priceDriver +
                 ", description='" + description + '\'' +
+                ", statusID='" + statusID + '\'' +
                 '}';
     }
 }
