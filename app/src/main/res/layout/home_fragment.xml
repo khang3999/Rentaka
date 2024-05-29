@@ -28,10 +28,10 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/userImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginStart="@dimen/margin_start_16"
                 android:layout_marginBottom="@dimen/margin_end_16"
                 android:src="@mipmap/ic_launcher"
@@ -47,19 +47,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_horizontal_8"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="@+id/imageButton"
+                app:layout_constraintBottom_toBottomOf="@+id/userImage"
                 app:layout_constraintEnd_toStartOf="@+id/imageView"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageButton"
-                app:layout_constraintTop_toTopOf="@+id/imageButton">
+                app:layout_constraintStart_toEndOf="@+id/userImage"
+                app:layout_constraintTop_toTopOf="@+id/userImage">
 
                 <TextView
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nguyen Huu Khang"
-                    android:textSize="@dimen/username_20"
-                    app:layout_constraintTop_toTopOf="@+id/imageButton" />
+                    android:textSize="@dimen/_18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="@+id/userImage" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -73,11 +74,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin_end_16"
                 android:src="@drawable/ic_heart_24"
-                app:layout_constraintBottom_toBottomOf="@+id/imageButton"
+                app:layout_constraintBottom_toBottomOf="@+id/userImage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/infoWrap"
-                app:layout_constraintTop_toTopOf="@+id/imageButton" />
+                app:layout_constraintTop_toTopOf="@+id/userImage" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -255,7 +256,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.12" />
+                        app:layout_constraintGuide_begin="48dp" />
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/guideline_horizontal_dialog_75"
@@ -311,67 +312,73 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_horizontal_16"
             android:layout_marginBottom="@dimen/_24dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_horizontal_16"
                 android:text="Xem gần đây"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/_22sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listCarRecent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_20dp"
-                android:src="@drawable/ic_launcher_background" />
+                android:clipToPadding="false"
+                android:paddingHorizontal="@dimen/_8dp"
+                android:layout_marginVertical="@dimen/_20dp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_horizontal_16"
             android:layout_marginBottom="@dimen/_24dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_horizontal_16"
                 android:text="Xe tự lái dành cho bạn"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/_22sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listCarNoDriver"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_20dp"
-                android:src="@drawable/ic_launcher_background" />
+                android:clipToPadding="false"
+                android:paddingHorizontal="@dimen/_8dp"
+                android:layout_marginVertical="@dimen/_20dp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_horizontal_16"
             android:layout_marginBottom="@dimen/_24dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_horizontal_16"
                 android:text="Xe có tài xế dành cho bạn"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/_22sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listCarHasDriver"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_20dp"
-                android:src="@drawable/ic_launcher_background" />
+                android:clipToPadding="false"
+                android:paddingHorizontal="@dimen/_8dp"
+                android:layout_marginVertical="@dimen/_20dp"/>
         </LinearLayout>
 
         <LinearLayout

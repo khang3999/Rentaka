@@ -72,6 +72,19 @@ public class AdvantageAdapter extends RecyclerView.Adapter<AdvantageAdapter.MyVi
         public MyViewHolder(@NonNull ViewBinding itemView) {
             super(itemView.getRoot());
             binding = itemView;
+            //Bat su kien chung
+            itemView.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (itemClickListener != null){
+                        itemClickListener.onItemClick(AdvantageAdapter.MyViewHolder.this);
+
+                    }
+                    else {
+                        Log.d("adapter","You must create an ItemClickListener before!");
+                    }
+                }
+            });
         }
 
         public ViewBinding getBinding() {
@@ -85,6 +98,6 @@ public class AdvantageAdapter extends RecyclerView.Adapter<AdvantageAdapter.MyVi
 
     //    Interface
     public interface ItemClickListener {
-        public void onItemClick(PromotionAdapter.MyViewHolder holder);
+        public void onItemClick(AdvantageAdapter.MyViewHolder holder);
     }
 }

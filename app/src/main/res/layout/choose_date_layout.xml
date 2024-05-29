@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/title_time"
-            app:titleCentered="true" />
+            app:titleCentered="true"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout

@@ -32,11 +32,10 @@ import vn.edu.tdc.rentaka.fragments.PersonalProfileFragment;
 public class MainActivity extends AppCompatActivity {
     FirebaseAPI firebaseAPI = new FirebaseAPI();
     StorageAPI storageAPI = new StorageAPI();
-
-
     //Properties
     private AbstractFragment fragment;
     private int currentFragment = 0;
+    private int preFragment = 0;
     private MainLayoutBinding binding;
     // doi tuong dung de dan fragment vao khung man hinh
     private FragmentTransaction transaction;
@@ -47,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
 
+        // Khỏi tạo firebase
 
         //Khoi tao binding
         binding = MainLayoutBinding.inflate(getLayoutInflater());
@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomMenu.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                preFragment = currentFragment;
                 if (menuItem.getItemId() == R.id.homeItemMenu){
                     currentFragment = 0;
                 } else if(menuItem.getItemId() == R.id.newsItemMenu){
@@ -83,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         setIntent(intent);
     }
+
+
 
     private void updateUI() {
         // Set title
@@ -109,6 +112,14 @@ public class MainActivity extends AppCompatActivity {
         // CHUAN BI CHO TRANSACTION
         //Lay doi tuong fragment transaction
         transaction = getSupportFragmentManager().beginTransaction();
+        // Set annimation change fragment
+        if (currentFragment > preFragment){
+            // 2 tham số tuong ứng với 2 fragment: tham số 1 hieu ung cho man hinh hien thi, tham so 2 hieu ung cho man hinh exit
+            transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+        } else {
+            transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
+        }
+
         // Do du lieu vao doi tuong va dan doi tuong fragment vao khung man hinh,
         // voi tham so dau tien la id cua khung chua fragment o layout )
         transaction.replace(R.id.fragmentContainer, fragment, currentFragment + "");

@@ -66,23 +66,11 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
                     android:hint="Nhập hãng xe của bạn"
-                    android:textSize="@dimen/_18sp"
+                    android:textSize="@dimen/_16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline14"
                     app:layout_constraintStart_toStartOf="@+id/guideline11"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/ic_delete"
-                    android:visibility="invisible"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_margin="@dimen/_10dp"
-                    android:src="@drawable/delete_24"
-                    app:layout_constraintBottom_toBottomOf="@+id/autoComplete_brand"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/guideline14"
-                    app:layout_constraintTop_toTopOf="@+id/autoComplete_brand" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline11"
@@ -139,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
                     android:hint="Nhập tên xe của bạn"
-                    android:textSize="@dimen/_18sp"
+                    android:textSize="@dimen/_16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline2"
                     app:layout_constraintStart_toStartOf="@+id/guideline1"
@@ -200,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
                     android:hint="Nhập hãng xe của bạn"
-                    android:textSize="@dimen/_18sp"
+                    android:textSize="@dimen/_16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
                     app:layout_constraintStart_toStartOf="@+id/guideline3"
@@ -220,6 +208,68 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.85" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--            Bien so xe-->
+            <TextView
+                android:id="@+id/title_licensePlate"
+                style="@style/TitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:text="License plate"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/box_licensePlate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10dp"
+                android:background="@drawable/border_line_gray"
+                app:layout_constraintBottom_toTopOf="@+id/guideline12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline7">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:src="@drawable/since_24"
+                    android:padding="@dimen/_8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/autoComplete_licensePlate"
+                    app:layout_constraintEnd_toStartOf="@+id/autoComplete_licensePlate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/autoComplete_licensePlate" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoComplete_licensePlate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:hint="Nhập biển số xe"
+                    android:textSize="@dimen/_16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline_licensePlate2"
+                    app:layout_constraintStart_toStartOf="@+id/guideline_licensePlate1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_licensePlate1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.15" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_licensePlate2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.85" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <!--    Fuel        -->
             <TextView
@@ -243,17 +293,17 @@
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Dau"/>
+                        android:text="Diesel"/>
                     <RadioButton
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Xang"/>
+                        android:text="Gasoline"/>
                     <RadioButton
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Dien"/>
+                        android:text="Electricity"/>
                 </RadioGroup>
             <!--    Type        -->
             <TextView
@@ -277,12 +327,12 @@
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Tu dong"/>
+                    android:text="Automatic Transmission (AT)"/>
                 <RadioButton
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="So san"/>
+                    android:text="Manual Transmission (MT)"/>
             </RadioGroup>
 
             <!--    Seat        -->
@@ -434,7 +484,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Cavet"
+                android:text="Inspection Certificate"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <RelativeLayout
@@ -473,7 +523,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Car's insurrance"
+                android:text="Insurrance"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <RelativeLayout
@@ -546,13 +596,13 @@
 
             <!--    Mortage        -->
             <TextView
-                android:id="@+id/title_mortage"
+                android:id="@+id/title_mortgage"
                 style="@style/TitleTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Mortage"
+                android:text="@string/mortgage"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <RadioGroup
@@ -567,19 +617,19 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Khong"/>
+                    android:text="Free"/>
                 <RadioButton
                     android:id="@+id/only_money"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Chi nhan tien"/>
+                    android:text="Cash"/>
                 <RadioButton
                     android:id="@+id/money_asset"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Tien hoac tai san co gia tri tuong duong"/>
+                    android:text="Cash or equivalent assets"/>
 
             </RadioGroup>
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -649,7 +699,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20dp"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Co tai xe"
+                android:text="1. Driver-driving Car"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -709,13 +759,156 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.85" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--            Referance co tai xe-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_outline">
+
+                <LinearLayout
+                    android:id="@+id/hasDriver_linearLayout1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline12"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/final_amount_label_has_driver"
+                        style="@style/NormalTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_element_start"
+                        android:layout_marginTop="@dimen/margin_element_start"
+                        android:text="@string/daily_rent_price"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/commission_label_has_driver"
+                        style="@style/NormalTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_element_start"
+                        android:layout_marginTop="@dimen/margin_element_start"
+                        android:text="@string/commission_fee_20"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/net_revenue_label_has_driver"
+                        style="@style/NormalTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/net_revenue_80"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/in_app_label_has_driver"
+                        style="@style/NormalTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/label_in_app"
+                        />
+                    <TextView
+                        android:id="@+id/direct_label_has_driver"
+                        style="@style/NormalTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/label_direct"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="@dimen/_10dp"
+                    app:layout_constraintStart_toStartOf="@+id/guideline12"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/daily_rent_price_value_has_driver"
+                        style="@style/NormalTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_element_start"
+                        android:layout_marginTop="@dimen/margin_element_start"
+                        android:text="100,000"
+                        android:textStyle="bold"
+                        android:layout_gravity="right"/>
+
+                    <TextView
+                        android:id="@+id/commission_value_has_driver"
+                        style="@style/NormalTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_element_start"
+                        android:layout_marginTop="@dimen/margin_element_start"
+                        android:text="-20,000"
+                        android:textColor="@color/gray_line"
+                        android:textStyle="italic"
+                        android:layout_gravity="right"/>
+
+                    <TextView
+                        android:id="@+id/net_revenue_value_has_driver"
+                        style="@style/NormalTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="80,000"
+                        android:textStyle="bold"
+                        android:textColor="@color/green"
+                        android:layout_gravity="right"/>
+                    <TextView
+                        android:id="@+id/in_app_value_has_driver"
+                        style="@style/NormalTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="10,000"
+                        android:layout_gravity="right"/>
+                    <TextView
+                        android:id="@+id/direct_value_has_driver"
+                        style="@style/NormalTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="70,000"
+                        android:layout_gravity="right"/>
+
+
+                </LinearLayout>
+
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             <TextView
                 android:id="@+id/title_noBiker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20dp"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Tu lai"
+                android:text="2. Self-driving Car"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -775,35 +968,8 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.85" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <!--    Reference        -->
-            <TextView
-                android:id="@+id/title_reference"
-                style="@style/TitleTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_element_start"
-                android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Reference"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/_20dp">
-                <RadioButton
-                    android:id="@+id/rad_haveBiker"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Co tai xe"/>
-                <RadioButton
-                    android:id="@+id/rad_noBiker"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tu lai"/>
-            </RadioGroup>
+            <!--    Reference driver-driving   -->
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -815,7 +981,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline12"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline13"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -826,7 +992,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_element_start"
                         android:layout_marginTop="@dimen/margin_element_start"
-                        android:text="Xe thue 1 ngay"
+                        android:text="@string/daily_rent_price"
                         android:textStyle="bold" />
 
                     <TextView
@@ -836,7 +1002,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_element_start"
                         android:layout_marginTop="@dimen/margin_element_start"
-                        android:text="Phi hoa hong 20%"
+                        android:text="@string/commission_fee_20"
                         android:textStyle="italic" />
 
                     <TextView
@@ -846,7 +1012,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="Tong tien nhan duoc 80%"
+                        android:text="@string/net_revenue_80"
                         android:textStyle="bold" />
                     <TextView
                         android:id="@+id/method_received1_title_textview"
@@ -855,7 +1021,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
                         android:layout_marginTop="10dp"
-                        android:text=" - Nhan qua app"
+                        android:text="@string/label_in_app"
                         />
                     <TextView
                         android:id="@+id/method_received2_title_textview"
@@ -864,7 +1030,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
                         android:layout_marginTop="10dp"
-                        android:text=" - Nhan khi giao xe"
+                        android:text="@string/label_direct"
                         />
 
                 </LinearLayout>
@@ -876,11 +1042,11 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="@dimen/_10dp"
-                    app:layout_constraintStart_toStartOf="@+id/guideline12"
+                    app:layout_constraintStart_toStartOf="@+id/guideline13"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/final_amount_number"
+                        android:id="@+id/daily_rent_price_value_no_driver"
                         style="@style/NormalTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -891,7 +1057,7 @@
                         android:layout_gravity="right"/>
 
                     <TextView
-                        android:id="@+id/commission_number"
+                        android:id="@+id/commission_value_no_driver"
                         style="@style/NormalTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -903,7 +1069,7 @@
                         android:layout_gravity="right"/>
 
                     <TextView
-                        android:id="@+id/money_received_number"
+                        android:id="@+id/net_revenue_value_no_driver"
                         style="@style/NormalTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -914,7 +1080,7 @@
                         android:textColor="@color/green"
                         android:layout_gravity="right"/>
                     <TextView
-                        android:id="@+id/method_received1_number"
+                        android:id="@+id/in_app_value_no_driver"
                         style="@style/NormalTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -923,7 +1089,7 @@
                         android:text="10,000"
                         android:layout_gravity="right"/>
                     <TextView
-                        android:id="@+id/method_received2_number"
+                        android:id="@+id/direct_value_no_driver"
                         style="@style/NormalTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -937,7 +1103,7 @@
 
 
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline12"
+                    android:id="@+id/guideline13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -949,7 +1115,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="@dimen/_20dp">
+                android:layout_margin="@dimen/_20dp"
+                android:gravity="center">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -959,17 +1126,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:text="Xe cua ban se duoc quan tri vien kiem duyet thong tin"
-                    />
+                    android:text="Your car will be reviewed by an administrator" />
             </LinearLayout>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/green_button"
-                android:textSize="24sp"
-                android:layout_margin="@dimen/_20dp"
-                android:text="Register"/>
+                android:gravity="center"
+                android:background="@drawable/selector_drawable_enable_button"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:layout_marginHorizontal="@dimen/_20dp"
+                android:text="@string/register"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
