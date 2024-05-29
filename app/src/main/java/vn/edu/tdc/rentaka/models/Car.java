@@ -21,6 +21,19 @@ public class Car {
     private String description;
 
     private String statusID;
+    private String favourite;
+
+
+
+    public String getFavourite() {
+        return favourite;
+    }
+
+    public void setFavorite(String favourite) {
+        this.favourite = favourite;
+    }
+
+
 
 
 
@@ -186,7 +199,7 @@ public class Car {
                int year, String licensePlate, String fuel, String type,
                int seat, String color, String inspection, String insurrance,
                String registration, String mortgage, double priceSelf,
-               double priceDriver, String description) {
+               double priceDriver, String description,String favourite) {
         this.id = id;
         this.ownerID = ownerID;
         this.model = model;
@@ -204,6 +217,7 @@ public class Car {
         this.priceSelf = priceSelf;
         this.priceDriver = priceDriver;
         this.description = description;
+        this.favourite = favourite;
     }
 
 
@@ -227,6 +241,7 @@ public class Car {
                 ", priceSelf=" + priceSelf +
                 ", priceDriver=" + priceDriver +
                 ", description='" + description + '\'' +
+                ", favourite='" + favourite + '\'' +
                 '}';
     }
 }

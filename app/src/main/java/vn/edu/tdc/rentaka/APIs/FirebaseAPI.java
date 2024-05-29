@@ -9,10 +9,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.gson.internal.bind.DefaultDateTypeAdapter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -711,5 +711,93 @@ public class FirebaseAPI {
         mRefString = "";
 
     }
+    // Lay type xe tu lai
+    // Function to fetch cars with type = "self" from the Firestore database
+    public void fetchCarsBySelf (onCallBack<Car> callBack) {
+        List<Car> carList = new ArrayList<>();
+        db.collection("cars")
+                .whereEqualTo("type", "self")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Car car = document.toObject(Car.class);
+                            car.setId(document.getId());
+                            carList.add(car);
+                        }
+                        callBack.onCallBack(carList);
+                        Log.d("Success", "fetchCarsByRef: " + carList.toString());
+                    } else {
+                        Log.d("Error", "Error getting documents: ", task.getException());
+                    }
+                });
+    }
 
+    // Lay type thue xe co tai xe
+    // Function to fetch cars with type = "driving" from the Firestore database
+    public void fetchCarsByDriving (onCallBack<Car> callBack) {
+        List<Car> carList = new ArrayList<>();
+        db.collection("cars")
+                .whereEqualTo("type", "driving")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Car car = document.toObject(Car.class);
+                            car.setId(document.getId());
+                            carList.add(car);
+                        }
+                        callBack.onCallBack(carList);
+                        Log.d("Success", "fetchCarsByRef: " + carList.toString());
+                    } else {
+                        Log.d("Error", "Error getting documents: ", task.getException());
+                    }
+                });
+    }
+
+    // Lay type xe tu lai yeu thich
+    // Function to fetch cars with type = "self" from the Firestore database
+    public void fetchCarsBySelfFavourite(onCallBack<Car> callBack) {
+        List<Car> carList = new ArrayList<>();
+        db.collection("cars")
+                .whereEqualTo("type", "self")
+                .whereEqualTo("favourite", "like")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Car car = document.toObject(Car.class);
+                            car.setId(document.getId());
+                            carList.add(car);
+                        }
+                        callBack.onCallBack(carList);
+                        Log.d("Success", "fetchCarsByRef: " + carList.toString());
+                    } else {
+                        Log.d("Error", "Error getting documents: ", task.getException());
+                    }
+                });
+    }
+
+    // Lay type thue xe co tai xe yeu thich
+    // Function to fetch cars with type = "driving" from the Firestore database
+    public void fetchCarsByDrivingFavourite (onCallBack<Car> callBack) {
+        List<Car> carList = new ArrayList<>();
+        db.collection("cars")
+                .whereEqualTo("type", "driving")
+                .whereEqualTo("favourite", "like")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Car car = document.toObject(Car.class);
+                            car.setId(document.getId());
+                            carList.add(car);
+                        }
+                        callBack.onCallBack(carList);
+                        Log.d("Success", "fetchCarsByRef: " + carList.toString());
+                    } else {
+                        Log.d("Error", "Error getting documents: ", task.getException());
+                    }
+                });
+    }
 }

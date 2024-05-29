@@ -38,6 +38,7 @@ import vn.edu.tdc.rentaka.adapters.CarAdapter;
 import vn.edu.tdc.rentaka.adapters.LocationAdapter;
 import vn.edu.tdc.rentaka.adapters.PromotionAdapter;
 import vn.edu.tdc.rentaka.databinding.BottomSheetDiaglogLayoutBinding;
+import vn.edu.tdc.rentaka.databinding.CardCarItemBinding;
 import vn.edu.tdc.rentaka.databinding.HomeFragmentBinding;
 import vn.edu.tdc.rentaka.databinding.LocationItemLayoutBinding;
 import vn.edu.tdc.rentaka.models.Advantage;
@@ -51,6 +52,7 @@ public class HomeFragment extends AbstractFragment {
     private ArrayList<Location> listLocations;
     private ArrayList<Advantage> listAdvantage;
     private HomeFragmentBinding binding;
+    private CardCarItemBinding cardCarItemBinding;
     private PromotionAdapter promotionAdapter;
     private LocationAdapter locationAdapter;
     private AdvantageAdapter advantageAdapter;
@@ -73,6 +75,7 @@ public class HomeFragment extends AbstractFragment {
         // Khoi tao binding
         binding = HomeFragmentBinding.inflate(getLayoutInflater());
         bottomSheetDiaglogLayoutBinding = BottomSheetDiaglogLayoutBinding.inflate(getLayoutInflater(),null,false);
+        cardCarItemBinding = CardCarItemBinding.inflate(getLayoutInflater(),null,false);
 
         View fragment = null;
         fragment = binding.getRoot();
@@ -213,6 +216,8 @@ public class HomeFragment extends AbstractFragment {
             }
         });
 
+
+
         binding.btnHasDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -245,6 +250,7 @@ public class HomeFragment extends AbstractFragment {
                 }
             }
         });
+
 
         return fragment;
     }
