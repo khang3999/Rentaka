@@ -715,8 +715,11 @@ public class FirebaseAPI {
     // Function to fetch cars with type = "self" from the Firestore database
     public void fetchCarsBySelf (onCallBack<Car> callBack) {
         List<Car> carList = new ArrayList<>();
+        List<String> condition = new ArrayList<>();
+        condition.add("self");
+        condition.add("both");
         db.collection("cars")
-                .whereEqualTo("type", "self")
+                .whereIn("typeDriving",condition)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -737,8 +740,11 @@ public class FirebaseAPI {
     // Function to fetch cars with type = "driving" from the Firestore database
     public void fetchCarsByDriving (onCallBack<Car> callBack) {
         List<Car> carList = new ArrayList<>();
+        List<String> condition = new ArrayList<>();
+        condition.add("driver");
+        condition.add("both");
         db.collection("cars")
-                .whereEqualTo("type", "driving")
+                .whereIn("typeDriving",condition)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
