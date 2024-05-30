@@ -9,7 +9,7 @@ public class Car {
     private int year;
     private String licensePlate;
     private String fuel;
-    private String type;
+    private String typeGearbox;
     private int seat;
     private String color;
     private String inspection;
@@ -23,7 +23,15 @@ public class Car {
     private String statusID;
     private String favourite;
 
+    private String typeDriving;
 
+    public String getTypeDriving() {
+        return typeDriving;
+    }
+
+    public void setTypeDriving(String typeDriving) {
+        this.typeDriving = typeDriving;
+    }
 
     public String getFavourite() {
         return favourite;
@@ -105,12 +113,12 @@ public class Car {
         this.fuel = fuel;
     }
 
-    public String getType() {
-        return type;
+    public String getTypeGearbox() {
+        return typeGearbox;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTypeGearbox(String typeGearbox) {
+        this.typeGearbox = typeGearbox;
     }
 
     public int getSeat() {
@@ -193,10 +201,11 @@ public class Car {
         this.statusID = statusID;
     }
     public Car() {
+
     }
 
     public Car(String ownerID, String model, String autoMaker,
-               int year, String licensePlate, String fuel, String type,
+               int year, String licensePlate, String fuel, String typeGearbox,
                int seat, String color, String inspection, String insurrance,
                String registration, String mortgage, double priceSelf,
                double priceDriver, String description,String favourite) {
@@ -207,7 +216,7 @@ public class Car {
         this.year = year;
         this.licensePlate = licensePlate;
         this.fuel = fuel;
-        this.type = type;
+        this.typeGearbox = typeGearbox;
         this.seat = seat;
         this.color = color;
         this.inspection = inspection;
@@ -218,11 +227,11 @@ public class Car {
         this.priceDriver = priceDriver;
         this.description = description;
         if(priceSelf > 0 && priceDriver > 0){
-            this.statusID = "both";
+            this.typeDriving = "both";
         } else if (priceSelf > 0){
-            this.statusID = "self";
+            this.typeDriving = "self";
         } else if (priceSelf > 0){
-            this.statusID = "driver";
+            this.typeDriving = "driver";
         }
     }
 
@@ -237,7 +246,7 @@ public class Car {
                 ", year=" + year +
                 ", licensePlate='" + licensePlate + '\'' +
                 ", fuel='" + fuel + '\'' +
-                ", type='" + type + '\'' +
+                ", type='" + typeGearbox + '\'' +
                 ", seat=" + seat +
                 ", color='" + color + '\'' +
                 ", inspection='" + inspection + '\'' +
