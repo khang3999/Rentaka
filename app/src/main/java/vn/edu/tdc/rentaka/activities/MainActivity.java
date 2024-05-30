@@ -3,6 +3,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
@@ -27,6 +28,7 @@ import vn.edu.tdc.rentaka.fragments.HomeFragment;
 import vn.edu.tdc.rentaka.fragments.NewsFragment;
 import vn.edu.tdc.rentaka.fragments.NotificationFragment;
 import vn.edu.tdc.rentaka.fragments.PersonalProfileFragment;
+import vn.edu.tdc.rentaka.models.Car;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -46,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
 
+        Car car = new Car();
+        Log.d("price", "onCreate: "+car.getPriceDriver());
         // Khỏi tạo firebase
 
         //Khoi tao binding

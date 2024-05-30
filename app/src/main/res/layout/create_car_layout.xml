@@ -67,6 +67,7 @@
                     android:backgroundTint="@android:color/transparent"
                     android:hint="Nhập hãng xe của bạn"
                     android:textSize="@dimen/_16sp"
+                    android:inputType="text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline14"
                     app:layout_constraintStart_toStartOf="@+id/guideline11"
@@ -116,18 +117,19 @@
                     android:layout_marginStart="@dimen/_10dp"
                     android:src="@drawable/car_add_24"
                     android:padding="@dimen/_8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/edit_name"
-                    app:layout_constraintEnd_toStartOf="@+id/edit_name"
+                    app:layout_constraintBottom_toBottomOf="@+id/editText_model"
+                    app:layout_constraintEnd_toStartOf="@+id/editText_model"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/edit_name" />
+                    app:layout_constraintTop_toTopOf="@+id/editText_model" />
 
                 <EditText
-                    android:id="@+id/edit_name"
+                    android:id="@+id/editText_model"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
                     android:hint="Nhập tên xe của bạn"
                     android:textSize="@dimen/_16sp"
+                    android:inputType="text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline2"
                     app:layout_constraintStart_toStartOf="@+id/guideline1"
@@ -177,18 +179,19 @@
                     android:layout_marginStart="@dimen/_10dp"
                     android:src="@drawable/since_24"
                     android:padding="@dimen/_8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/autoComplete_since"
-                    app:layout_constraintEnd_toStartOf="@+id/autoComplete_since"
+                    app:layout_constraintBottom_toBottomOf="@+id/editText_since"
+                    app:layout_constraintEnd_toStartOf="@+id/editText_since"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/autoComplete_since" />
+                    app:layout_constraintTop_toTopOf="@+id/editText_since" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/autoComplete_since"
+                <EditText
+                    android:id="@+id/editText_since"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
-                    android:hint="Nhập hãng xe của bạn"
+                    android:hint="Nhập năm sản xuất xe"
                     android:textSize="@dimen/_16sp"
+                    android:inputType="number"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
                     app:layout_constraintStart_toStartOf="@+id/guideline3"
@@ -238,18 +241,19 @@
                     android:layout_marginStart="@dimen/_10dp"
                     android:src="@drawable/since_24"
                     android:padding="@dimen/_8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/autoComplete_licensePlate"
-                    app:layout_constraintEnd_toStartOf="@+id/autoComplete_licensePlate"
+                    app:layout_constraintBottom_toBottomOf="@+id/editText_licensePlate"
+                    app:layout_constraintEnd_toStartOf="@+id/editText_licensePlate"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/autoComplete_licensePlate" />
+                    app:layout_constraintTop_toTopOf="@+id/editText_licensePlate" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/autoComplete_licensePlate"
+                <EditText
+                    android:id="@+id/editText_licensePlate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
                     android:hint="Nhập biển số xe"
                     android:textSize="@dimen/_16sp"
+                    android:inputType="text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline_licensePlate2"
                     app:layout_constraintStart_toStartOf="@+id/guideline_licensePlate1"
@@ -270,6 +274,66 @@
                     app:layout_constraintGuide_percent="0.85" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <!--   Color         -->
+            <TextView
+                android:id="@+id/title_color"
+                style="@style/TitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:text="Color"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/box_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10dp"
+                android:background="@drawable/border_line_gray"
+                app:layout_constraintBottom_toTopOf="@+id/guideline12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline7">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:src="@drawable/color_24"
+                    android:padding="@dimen/_8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/editText_color"
+                    app:layout_constraintEnd_toStartOf="@+id/editText_color"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/editText_color" />
+
+                <EditText
+                    android:id="@+id/editText_color"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:hint="Nhập màu xe của bạn"
+                    android:inputType="text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline6"
+                    app:layout_constraintStart_toStartOf="@+id/guideline5"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.15" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.85" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!--    Fuel        -->
             <TextView
@@ -284,7 +348,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <RadioGroup
-                    android:id="@+id/choose_fuel"
+                    android:id="@+id/group_choose_fuel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
@@ -318,7 +382,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <RadioGroup
-                android:id="@+id/choose_type"
+                android:id="@+id/group_choose_type"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
@@ -348,7 +412,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <RadioGroup
-                android:id="@+id/choose_seat"
+                android:id="@+id/group_choose_seat"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
@@ -376,66 +440,7 @@
                     android:text="Minivan"/>
             </RadioGroup>
 
-            <!--   Color         -->
-            <TextView
-                android:id="@+id/title_color"
-                style="@style/TitleTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_element_start"
-                android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Color"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/box_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10dp"
-                android:background="@drawable/border_line_gray"
-                app:layout_constraintBottom_toTopOf="@+id/guideline12"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline7">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="@dimen/_10dp"
-                    android:src="@drawable/color_24"
-                    android:padding="@dimen/_8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/edit_color"
-                    app:layout_constraintEnd_toStartOf="@+id/edit_color"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/edit_color" />
-
-                <EditText
-                    android:id="@+id/edit_color"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@android:color/transparent"
-                    android:hint="Nhập tên xe của bạn"
-                    android:textSize="@dimen/_18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline6"
-                    app:layout_constraintStart_toStartOf="@+id/guideline5"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.15" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.85" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!--   Image car         -->
             <TextView
@@ -605,33 +610,34 @@
                 android:text="@string/mortgage"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-            <RadioGroup
-                android:id="@+id/choose_mortage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_margin="@dimen/_10dp">
+<!--            <RadioGroup-->
+<!--                android:id="@+id/group_choose_mortage"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:layout_margin="@dimen/_10dp">-->
 
-                <RadioButton
-                    android:id="@+id/no_mortage"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="Free"/>
-                <RadioButton
-                    android:id="@+id/only_money"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="Cash"/>
-                <RadioButton
-                    android:id="@+id/money_asset"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="Cash or equivalent assets"/>
+<!--                <RadioButton-->
+<!--                    android:id="@+id/no_mortage"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:checked="true"-->
+<!--                    android:text="Free"/>-->
+<!--                <RadioButton-->
+<!--                    android:id="@+id/only_money"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:text="Cash"/>-->
+<!--                <RadioButton-->
+<!--                    android:id="@+id/money_asset"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:text="Cash or equivalent assets"/>-->
 
-            </RadioGroup>
+<!--            </RadioGroup>-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/box_mortage_money"
                 android:layout_width="match_parent"
@@ -643,19 +649,27 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline7">
 
-
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:src="@drawable/money_24"
+                    android:padding="@dimen/_8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/editText_mortgage_money"
+                    app:layout_constraintEnd_toStartOf="@+id/editText_mortgage_money"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/editText_mortgage_money" />
                 <EditText
-                    android:id="@+id/edit_mortage_money"
+                    android:id="@+id/editText_mortgage_money"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
-                    android:hint="Nhập so tien khach can coc"
-                    android:textSize="@dimen/_18sp"
+                    android:hint="Nhập số tiền thế chấp"
                     android:inputType="number"
-                    android:focusable="false"
+                    android:focusable="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline9"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline8"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -664,7 +678,7 @@
                     android:text="VND"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/edit_mortage_money"
+                    app:layout_constraintStart_toEndOf="@+id/editText_mortgage_money"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.constraintlayout.widget.Guideline
@@ -719,18 +733,17 @@
                     android:layout_marginStart="@dimen/_10dp"
                     android:src="@drawable/money_24"
                     android:padding="@dimen/_8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/edit_priceHaveBiker"
-                    app:layout_constraintEnd_toStartOf="@+id/edit_priceHaveBiker"
+                    app:layout_constraintBottom_toBottomOf="@+id/editText_priceDriver"
+                    app:layout_constraintEnd_toStartOf="@+id/editText_priceDriver"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/edit_priceHaveBiker" />
+                    app:layout_constraintTop_toTopOf="@+id/editText_priceDriver" />
 
                 <EditText
-                    android:id="@+id/edit_priceHaveBiker"
+                    android:id="@+id/editText_priceDriver"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
                     android:hint="Nhập số tiền cho thuê 1 ngày"
-                    android:textSize="@dimen/_18sp"
                     android:inputType="number"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline16"
@@ -743,7 +756,7 @@
                     android:text="VND"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/edit_priceHaveBiker"
+                    app:layout_constraintStart_toEndOf="@+id/editText_priceDriver"
                     app:layout_constraintTop_toTopOf="parent" />
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline15"
@@ -928,13 +941,13 @@
                     android:layout_marginStart="@dimen/_10dp"
                     android:src="@drawable/money_24"
                     android:padding="@dimen/_8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/edit_priceNoBiker"
-                    app:layout_constraintEnd_toStartOf="@+id/edit_priceNoBiker"
+                    app:layout_constraintBottom_toBottomOf="@+id/editText_priceSelf"
+                    app:layout_constraintEnd_toStartOf="@+id/editText_priceSelf"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/edit_priceNoBiker" />
+                    app:layout_constraintTop_toTopOf="@+id/editText_priceSelf" />
 
                 <EditText
-                    android:id="@+id/edit_priceNoBiker"
+                    android:id="@+id/editText_priceSelf"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
@@ -952,7 +965,7 @@
                     android:text="VND"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/edit_priceNoBiker"
+                    app:layout_constraintStart_toEndOf="@+id/editText_priceSelf"
                     app:layout_constraintTop_toTopOf="parent" />
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline17"
@@ -1130,6 +1143,7 @@
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
