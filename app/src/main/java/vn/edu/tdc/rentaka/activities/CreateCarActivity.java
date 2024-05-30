@@ -11,6 +11,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -24,19 +25,29 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 import vn.edu.tdc.rentaka.APIs.FirebaseAPI;
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.CreateCarLayoutBinding;
+import vn.edu.tdc.rentaka.fragments.HomeFragment;
 import vn.edu.tdc.rentaka.models.Car;
 
 public class CreateCarActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> imagePickerLauncher;
     private static final int STORAGE_PERMISSION_CODE = 101;
     Uri imageUri;
+    private String accounID;
     private CreateCarLayoutBinding binding;
     private boolean isValidBrand = false;
     private boolean isValidModel = false;
@@ -49,6 +60,7 @@ public class CreateCarActivity extends AppCompatActivity {
     private boolean isValidMortgage = false;
     private boolean isValidPriceSelf = false;
     private boolean isValidPriceDriver = false;
+    private boolean isValidDescription = false;
 
     private FirebaseAPI firebaseAPI;
     @Override
@@ -60,6 +72,13 @@ public class CreateCarActivity extends AppCompatActivity {
 
         // Khởi tạo firebaseAPI
         firebaseAPI = new FirebaseAPI();
+
+        // Update UI information user at home
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+            accounID = userId;
+        }
 
         //Button top back navigation
         setSupportActionBar(binding.topAppBar);
@@ -84,7 +103,7 @@ public class CreateCarActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // It nhat 1 ký tu
-                String regex = "^[a-z]{1,}$";
+                String regex = "^([a-zA-Z]{1,})$";
                 if (s.toString().matches(regex)) {
                     isValidBrand = true;
                     binding.autoCompleteBrand.setError(null);
@@ -110,7 +129,7 @@ public class CreateCarActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // It nhat 1 ký tu
-                String regex = "^[a-z]{1,}$";
+                String regex = "^([a-zA-Z]{1,})$";
                 if (s.toString().matches(regex)) {
                     isValidModel= true;
                     binding.editTextModel.setError(null);
@@ -161,7 +180,7 @@ public class CreateCarActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // It nhat 1 ký tu
-                String regex = "^[a-z]{1,}$";
+                String regex = "^.{1,}$";
                 if (s.toString().matches(regex)) {
                     isValidLicense= true;
                     binding.editTextLicensePlate.setError(null);
@@ -187,13 +206,38 @@ public class CreateCarActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // It nhat 1 ký tu
-                String regex = "^[a-z]{1,}$";
+                String regex = "^[a-zA-Z]{1,}$";
                 if (s.toString().matches(regex)) {
                     isValidColor= true;
                     binding.editTextColor.setError(null);
                 } else {
                     isValidColor = false;
                     binding.editTextColor.setError("Please enter at least 1 characters");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        // Required input description
+        binding.editTextDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // It nhat 1 ký tu
+                String regex = "^.{1,}$";
+                if (s.toString().matches(regex)) {
+                    isValidDescription= true;
+                    binding.editTextDescription.setError(null);
+                } else {
+                    isValidDescription = false;
+                    binding.editTextDescription.setError("Please enter at least 1 characters");
                 }
             }
 
@@ -263,7 +307,7 @@ public class CreateCarActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // >= 100.000 VND
-                String regex = "^(19\\d{2}|20[0-1]\\d|202[0-4])$";
+                String regex = "^((1[0-9]{2,}000|[2-9][0-9]{2,}000)|0)$";
                 if (s.toString().matches(regex)) {
                     isValidPriceSelf = true;
                     binding.editTextPriceSelf.setError(null);
@@ -289,7 +333,7 @@ public class CreateCarActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // >= 100.000
-                String regex = "^(19\\d{2}|20[0-1]\\d|202[0-4])$";
+                String regex = "^((1[0-9]{2,}000|[2-9][0-9]{2,}000)|0)$";
                 if (s.toString().matches(regex)) {
                     isValidPriceDriver = true;
                     binding.editTextPriceDriver.setError(null);
@@ -304,6 +348,19 @@ public class CreateCarActivity extends AppCompatActivity {
 
             }
         });
+        //Chon hinh
+        // Set up the image picker launcher
+        // Khởi tạo ActivityResultLauncher để mở bộ chọn ảnh và nhận kết quả trả về
+        imagePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    // Kiểm tra nếu kết quả trả về là thành công (RESULT_OK) và có dữ liệu (data không null)
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        imageUri = result.getData().getData(); // Lấy Uri của ảnh được chọn từ kết quả trả về
+                        binding.imageCavet.setImageURI(imageUri);
+                    }
+                }
+        );
 
         // Add event for button register
         binding.btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -313,10 +370,35 @@ public class CreateCarActivity extends AppCompatActivity {
                         && isValidLicense && isValidColor && isValidFuel && isValidType
                         && isValidSeat && isValidMortgage && isValidPriceDriver && isValidPriceSelf;
                 if (valid){
+                    //Create car và đưa lên cơ sơ dữ liêu
+                    Car car = new Car();
+                    car.setOwnerID(accounID);
+                    car.setModel(binding.editTextModel.getText().toString());
+                    car.setAutoMaker(binding.autoCompleteBrand.getText().toString());
+                    car.setYear(Integer.parseInt(binding.editTextSince.getText().toString()));
+                    car.setLicensePlate(binding.editTextLicensePlate.getText().toString());
+                    int idFeul = binding.groupChooseFuel.getCheckedRadioButtonId();
+                    RadioButton radFuelChoose = findViewById(idFeul);
+                    car.setFuel(radFuelChoose.getText().toString());
+                    int idType = binding.groupChooseType.getCheckedRadioButtonId();
+                    RadioButton radTypeChoose = findViewById(idType);
+                    car.setType(radTypeChoose.getText().toString());
+                    int idSeat = binding.groupChooseSeat.getCheckedRadioButtonId();
+                    RadioButton radSeatChoose = findViewById(idSeat);
+                    car.setSeat(Integer.parseInt(radSeatChoose.getText().toString()));
+                    car.setColor(binding.editTextColor.getText().toString());
+                    car.setMortgage(binding.editTextMortgageMoney.getText().toString());
+                    car.setPriceSelf(Integer.parseInt(binding.editTextPriceSelf.getText().toString()));
+                    car.setPriceDriver(Integer.parseInt(binding.editTextPriceDriver.getText().toString()));
+                    car.setDescription(binding.editTextDescription.getText().toString());
+                    firebaseAPI.addCar(car);
+                    Intent intent = new Intent(CreateCarActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
                     Log.d("btn regis", "onClick: trueeeee");
                 }
                 else {
-                    Snackbar snackbar = Snackbar.make(v, "Vui long ", Snackbar.LENGTH_LONG);
+                    Snackbar snackbar = Snackbar.make(v, "Please input all fields! ", Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }
             }
@@ -340,4 +422,44 @@ public class CreateCarActivity extends AppCompatActivity {
         binding.editTextPriceSelf.setText("");
 
     }
+    // Phương thức kiểm tra và yêu cầu các quyền cần thiết để truy cập bộ nhớ
+    private void checkAndRequestPermissions() {
+        // Kiểm tra nếu phiên bản Android từ API 33 (Android 13) trở lên
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Yêu cầu quyền đọc hình ảnh
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_MEDIA_IMAGES},
+                    STORAGE_PERMISSION_CODE);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            // Kiểm tra nếu phiên bản Android từ API 29 (Android 10) trở lên
+            // Yêu cầu quyền đọc bộ nhớ ngoài
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    STORAGE_PERMISSION_CODE);
+        }
+    }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openImageSelector(); // Mở bộ chọn ảnh khi quyền được cấp
+            } else {
+                Toast.makeText(this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    // Ham mo bo chon anh
+    private void openImageSelector() {
+        //Intent.ACTION_PICK được sử dụng để mở ứng dụng chọn ảnh
+        // Tạo Intent để mở bộ chọn ảnh của hệ thống
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        // Sử dụng ActivityResultLauncher để khởi chạy Intent, mở bộ chọn ảnh
+        imagePickerLauncher.launch(intent);
+    }
+
 }

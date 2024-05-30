@@ -289,7 +289,7 @@ public class HomeFragment extends AbstractFragment {
             binding.btnSearch.setActivated(true);
         }
 
-        // Get car from database
+        // Get cars from database
         firebaseAPI.fetchCars(new FirebaseAPI.onCallBack<Car>() {
             @Override
             public void onCallBack(List<Car> list) {
