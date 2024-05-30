@@ -15,32 +15,19 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 
 import vn.edu.tdc.rentaka.APIs.FirebaseAPI;
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.CreateCarLayoutBinding;
-import vn.edu.tdc.rentaka.fragments.HomeFragment;
 import vn.edu.tdc.rentaka.models.Car;
 
 public class CreateCarActivity extends AppCompatActivity {
@@ -382,7 +369,7 @@ public class CreateCarActivity extends AppCompatActivity {
                     car.setFuel(radFuelChoose.getText().toString());
                     int idType = binding.groupChooseType.getCheckedRadioButtonId();
                     RadioButton radTypeChoose = findViewById(idType);
-                    car.setType(radTypeChoose.getText().toString());
+                    car.setTypeGearbox(radTypeChoose.getText().toString());
                     int idSeat = binding.groupChooseSeat.getCheckedRadioButtonId();
                     RadioButton radSeatChoose = findViewById(idSeat);
                     car.setSeat(Integer.parseInt(radSeatChoose.getText().toString()));
@@ -391,6 +378,13 @@ public class CreateCarActivity extends AppCompatActivity {
                     car.setPriceSelf(Integer.parseInt(binding.editTextPriceSelf.getText().toString()));
                     car.setPriceDriver(Integer.parseInt(binding.editTextPriceDriver.getText().toString()));
                     car.setDescription(binding.editTextDescription.getText().toString());
+                    if(Integer.parseInt(binding.editTextPriceSelf.getText().toString()) > 0 && Integer.parseInt(binding.editTextPriceDriver.getText().toString()) > 0){
+                        car.setTypeDriving("both");
+                    } else if (Integer.parseInt(binding.editTextPriceDriver.getText().toString()) > 0){
+                        car.setTypeDriving("self");
+                    } else if (Integer.parseInt(binding.editTextPriceSelf.getText().toString()) > 0){
+                        car.setTypeDriving("driver");
+                    }
                     firebaseAPI.addCar(car);
                     Intent intent = new Intent(CreateCarActivity.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
