@@ -51,16 +51,16 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
         Car car = listCar.get(position);
 
         binding.nameCar.setText(car.getModel() + " " + car.getDescription());
-        updateFavoriteIcon(binding, car);
+//        updateFavoriteIcon(binding, car);
 
-        // Handle favorite icon click
-        binding.icHeart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean isFavorite = toggleFavorite(car, holder.itemView);
-                updateFavoriteIcon(binding, car);
-            }
-        });
+//        // Handle favorite icon click
+//        binding.icHeart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                boolean isFavorite = toggleFavorite(car, holder.itemView);
+//                updateFavoriteIcon(binding, car);
+//            }
+//        });
     }
 
     @Override
@@ -102,29 +102,29 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
         void onItemClick(CarAdapter.MyViewHolder holder);
     }
 
-    private boolean toggleFavorite(Car car, View view) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            if (car.getFavourite().equals("like")) {
-                car.setFavorite("unlike");
-                db.collection("cars").document(car.getId()).update("favourite", "unlike");
-                Snackbar.make(view, "Bạn Đã Bỏ Yêu Thích", Snackbar.ANIMATION_MODE_FADE).show();
-                return false;
-            } else {
-                car.setFavorite("like");
-                db.collection("cars").document(car.getId()).update("favourite", "like");
-                Snackbar.make(view, "Bạn Đã Thêm Vào Yêu Thích", Snackbar.ANIMATION_MODE_FADE).show();
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void updateFavoriteIcon(CardCarItemBinding binding, Car car) {
-        if (car.getFavourite().equals("like")) {
-            binding.icHeart.setImageResource(R.drawable.ic_heart_24_press);
-        } else {
-            binding.icHeart.setImageResource(R.drawable.ic_heart);
-        }
-    }
+//    private boolean toggleFavorite(Car car, View view) {
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        if (user != null) {
+//            if (car.getFavourite().equals("like")) {
+//                car.setFavorite("unlike");
+//                db.collection("cars").document(car.getId()).update("favourite", "unlike");
+//                Snackbar.make(view, "Bạn Đã Bỏ Yêu Thích", Snackbar.ANIMATION_MODE_FADE).show();
+//                return false;
+//            } else {
+//                car.setFavorite("like");
+//                db.collection("cars").document(car.getId()).update("favourite", "like");
+//                Snackbar.make(view, "Bạn Đã Thêm Vào Yêu Thích", Snackbar.ANIMATION_MODE_FADE).show();
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//
+//    private void updateFavoriteIcon(CardCarItemBinding binding, Car car) {
+//        if (car.getFavourite().equals("like")) {
+//            binding.icHeart.setImageResource(R.drawable.ic_heart_24_press);
+//        } else {
+//            binding.icHeart.setImageResource(R.drawable.ic_heart);
+//        }
+//    }
 }
