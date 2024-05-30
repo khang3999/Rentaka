@@ -94,6 +94,7 @@ public class PersonalProfileFragment extends AbstractFragment {
                         break;
                     case 1:
                         Intent intent2 = new Intent(requireActivity(), CreateCarActivity.class);
+                        intent2.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                         startActivity(intent2);
                         break;
                     case 2:
