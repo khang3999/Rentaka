@@ -47,11 +47,9 @@ public class PromotionAdapter extends RecyclerView.Adapter<PromotionAdapter.MyVi
         PromotionItemLayoutBinding binding = (PromotionItemLayoutBinding) holder.getBinding();
         // Khi lay du lieu tu firebase => setImageBitmap
         // Set tam image
-        if (position % 2 == 0){
-            binding.promotionImage.setImageResource(R.drawable.promotion1);
-        } else {
-            binding.promotionImage.setImageResource(R.drawable.promotion2);
-        }
+
+            binding.promotionImage.setImageResource(R.drawable.khuyenmai10);
+
     }
 
     @Override

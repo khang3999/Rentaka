@@ -87,10 +87,10 @@ public class HomeFragment extends AbstractFragment {
 
         // Set adapter for Promotion
         listPromotions = new ArrayList<Promotion>();
-        listPromotions.add(new Promotion(1,"Promotion 1","promotion1.jpg","Chuong trinh khuyen mai so 1"));
-        listPromotions.add(new Promotion(2,"Promotion 2","promotion2.jpg","Chuong trinh khuyen mai so 2"));
-        listPromotions.add(new Promotion(3,"Promotion 3","promotion3.jpg","Chuong trinh khuyen mai so 3"));
-        listPromotions.add(new Promotion(4,"Promotion 4","promotion4.jpg","Chuong trinh khuyen mai so 4"));
+        listPromotions.add(new Promotion(1,"Promotion 1","khuyenmai10.jpg","Chuong trinh khuyen mai so 1"));
+        listPromotions.add(new Promotion(2,"Promotion 2","khuyenmai10.jpg","Chuong trinh khuyen mai so 2"));
+        listPromotions.add(new Promotion(3,"Promotion 3","khuyenmai10.jpg","Chuong trinh khuyen mai so 3"));
+        listPromotions.add(new Promotion(4,"Promotion 4","khuyenmai10.jpg","Chuong trinh khuyen mai so 4"));
 
         // Khoi tao adapter
         promotionAdapter = new PromotionAdapter(this.getContext(), listPromotions);
@@ -136,6 +136,11 @@ public class HomeFragment extends AbstractFragment {
         layoutManagerPromotion.setReverseLayout(false);
         binding.listPromotion.setLayoutManager(layoutManagerPromotion);
         binding.listPromotion.setAdapter(promotionAdapter);
+        //Get promotion in firebase
+
+
+
+
         // Auto stop at center of item
         attachSnapHelper(binding.listPromotion);
 

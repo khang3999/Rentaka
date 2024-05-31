@@ -15,7 +15,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
+import java.util.List;
 
+import vn.edu.tdc.rentaka.APIs.FirebaseAPI;
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.adapters.CityAdapter;
 import vn.edu.tdc.rentaka.databinding.CardItemCityLayoutBinding;
@@ -30,8 +32,8 @@ import vn.edu.tdc.rentaka.models.City;
 
 public class ChooseLocationActivity extends AppCompatActivity {
     private ChooseLocationLayoutBinding binding;
-    private ArrayList<City> listCities;
-    private ArrayList<City> copyList ;
+    private FirebaseAPI firebaseAPI;
+    private ArrayList<City> copyList = new ArrayList<>();
     private CityAdapter adapterCities;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
         binding = ChooseLocationLayoutBinding.inflate(getLayoutInflater());
         // Gán view cho binding
         setContentView(binding.getRoot());
-
+        firebaseAPI = new FirebaseAPI();
         //Button top back navigation
         setSupportActionBar(binding.topAppBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -54,36 +56,87 @@ public class ChooseLocationActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
             }
         });
+        adapterCities = new CityAdapter(ChooseLocationActivity.this, copyList);
+                LinearLayoutManager layoutManagerCities = new LinearLayoutManager(ChooseLocationActivity.this);
+                layoutManagerCities.setOrientation(RecyclerView.VERTICAL);
+                layoutManagerCities.setReverseLayout(false);
+                binding.listCities.setLayoutManager(layoutManagerCities);
+                binding.listCities.setAdapter(adapterCities);
 
-        //Khoi tao mang gia
-        listCities = new ArrayList<>();
-        listCities.add(new City("hcm"));
-        listCities.add(new City("hn"));
-        listCities.add(new City("dn"));
-        listCities.add(new City("qn"));
 
-        copyList = listCities;
-        adapterCities = new CityAdapter(this, copyList);
-        LinearLayoutManager layoutManagerCities = new LinearLayoutManager(this);
-        layoutManagerCities.setOrientation(RecyclerView.VERTICAL);
-        layoutManagerCities.setReverseLayout(false);
-        binding.listCities.setLayoutManager(layoutManagerCities);
-        binding.listCities.setAdapter(adapterCities);
-
-        //Bat su kien click vao item adapter
-        adapterCities.setOnItemClickListener(new CityAdapter.ItemClickListener() {
+         //Lay du lieu tren firebase về
+        firebaseAPI.fetchCities(new FirebaseAPI.onCallBack<City>() {
             @Override
-            public void onItemClick(CityAdapter.MyViewHolder holder) {
-                CardItemCityLayoutBinding binding1 = (CardItemCityLayoutBinding)holder.getBinding();
-                Log.d("TAG", "onItemClick: "+binding1.cityName.getText().toString());
-                Intent intent = new Intent(ChooseLocationActivity.this, MainActivity.class);
-                intent.putExtra("city", binding1.cityName.getText().toString());
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                // Main vao tu trai, choose date exit ve ben phai
-                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+            public void onCallBack(List<City> list) {
+
+                copyList.addAll(list);
+                adapterCities = new CityAdapter(ChooseLocationActivity.this, copyList);
+                LinearLayoutManager layoutManagerCities = new LinearLayoutManager(ChooseLocationActivity.this);
+                layoutManagerCities.setOrientation(RecyclerView.VERTICAL);
+                layoutManagerCities.setReverseLayout(false);
+                binding.listCities.setLayoutManager(layoutManagerCities);
+                binding.listCities.setAdapter(adapterCities);
+
+                //Bat su kien khi search
+                binding.editTextPickLocation.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        binding.icDelete.setVisibility(View.VISIBLE);
+                        if (s.toString().isEmpty()) {
+                            Log.d("test", "onTextChanged: empty");
+                            copyList = (ArrayList<City>)list;
+                            for (City c : copyList
+                            ) {
+                                Log.d("test", "empty: " + c.getName());
+                            }
+                        } else {
+
+                            Log.d("test", "onTextChanged: " + s.toString());
+                            copyList = new ArrayList<>();
+                            for (City c : (ArrayList<City>)list) {
+                                if (c.getName().contains(s.toString())) {
+                                    copyList.add(c);
+                                    Log.d("test", "filter: " + c.getName());
+                                }
+                            }
+                        }
+                        adapterCities.setListCites(copyList);
+                        adapterCities.notifyDataSetChanged();
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        Log.d("test", "afterTextChanged: "+s.toString());
+                    }
+                });
+                //Bat su kien click vao item adapter
+                adapterCities.setOnItemClickListener(new CityAdapter.ItemClickListener() {
+                    @Override
+                    public void onItemClick(CityAdapter.MyViewHolder holder) {
+                        CardItemCityLayoutBinding binding1 = (CardItemCityLayoutBinding)holder.getBinding();
+                        Log.d("TAG", "onItemClick: "+binding1.cityName.getText().toString());
+                        Intent intent = new Intent(ChooseLocationActivity.this, MainActivity.class);
+                        intent.putExtra("city", binding1.cityName.getText().toString());
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        startActivity(intent);
+                        // Main vao tu trai, choose date exit ve ben phai
+                        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+                    }
+                });
+
             }
         });
+
+
+
+
 
         // bat su kien khi focus do edittext
         binding.editTextPickLocation.setOnFocusChangeListener(
@@ -108,44 +161,7 @@ public class ChooseLocationActivity extends AppCompatActivity {
         });
 
         // Bat su kien khi nhap ky tu
-        binding.editTextPickLocation.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                binding.icDelete.setVisibility(View.VISIBLE);
-                if (s.toString().isEmpty()) {
-                    Log.d("test", "onTextChanged: empty");
-                    copyList = listCities;
-                    for (City c : copyList
-                    ) {
-                        Log.d("test", "empty: " + c.getName());
-                    }
-                } else {
-
-                    Log.d("test", "onTextChanged: " + s.toString());
-                    copyList = new ArrayList<>();
-                    for (City c : listCities) {
-                        if (c.getName().contains(s.toString())) {
-                            copyList.add(c);
-                            Log.d("test", "filter: " + c.getName());
-                        }
-                    }
-                }
-                adapterCities.setListCites(copyList);
-                adapterCities.notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                Log.d("test", "afterTextChanged: "+s.toString());
-            }
-        });
 
     }
 
