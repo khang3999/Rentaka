@@ -50,7 +50,10 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
         CardCarItemBinding binding = (CardCarItemBinding) holder.getBinding();
         Car car = listCar.get(position);
 
-        binding.nameCar.setText(car.getModel() + " " + car.getDescription());
+        binding.textViewTypeGearBox.setText(car.getTypeGearbox());
+        binding.textViewFuel.setText(car.getFuel());
+        binding.nameCar.setText(car.getModel());
+        binding.addressCar.setText(car.getDescription());
         //updateFavoriteIcon(binding, car);
 
 
