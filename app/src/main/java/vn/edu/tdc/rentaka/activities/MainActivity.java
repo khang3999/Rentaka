@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         Car car = new Car();
         Log.d("price", "onCreate: "+car.getPriceDriver());
         // Khỏi tạo firebase
+        firebaseAPI = new FirebaseAPI();
+
 
         //Khoi tao binding
         binding = MainLayoutBinding.inflate(getLayoutInflater());

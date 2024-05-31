@@ -6,6 +6,7 @@ public class City {
     public City(String name) {
         this.name = name;
     }
+    public City(){}
 
     public String getName() {
         return name;

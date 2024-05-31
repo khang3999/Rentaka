@@ -11,6 +11,6 @@
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:scaleType="fitXY"
-        android:src="@drawable/promotion1"/>
+        android:src="@drawable/khuyenmai10"/>
 
 </androidx.cardview.widget.CardView>
