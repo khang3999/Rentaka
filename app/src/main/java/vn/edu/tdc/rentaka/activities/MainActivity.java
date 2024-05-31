@@ -28,6 +28,7 @@ import vn.edu.tdc.rentaka.fragments.HomeFragment;
 import vn.edu.tdc.rentaka.fragments.NewsFragment;
 import vn.edu.tdc.rentaka.fragments.NotificationFragment;
 import vn.edu.tdc.rentaka.fragments.PersonalProfileFragment;
+import vn.edu.tdc.rentaka.fragments.SupportFragment;
 import vn.edu.tdc.rentaka.models.Car;
 
 
@@ -68,11 +69,11 @@ public class MainActivity extends AppCompatActivity {
                 preFragment = currentFragment;
                 if (menuItem.getItemId() == R.id.homeItemMenu){
                     currentFragment = 0;
-                } else if(menuItem.getItemId() == R.id.newsItemMenu){
+                } else if(menuItem.getItemId() == R.id.notificationItemMenu){
                     currentFragment = 1;
                 } else if(menuItem.getItemId() == R.id.historyItemMenu){
                     currentFragment = 2;
-                } else if(menuItem.getItemId() == R.id.notificationItemMenu){
+                } else if(menuItem.getItemId() == R.id.supportItemMenu){
                     currentFragment = 3;
                 } else if(menuItem.getItemId() == R.id.profileItemMenu){
                     currentFragment = 4;
@@ -105,11 +106,11 @@ public class MainActivity extends AppCompatActivity {
             if (currentFragment == 0) {
                 fragment = new HomeFragment();
             } else if (currentFragment == 1) {
-                fragment = new NewsFragment();
+                fragment = new NotificationFragment();
             } else if (currentFragment == 2) {
                 fragment = new HistoryFragment();
             } else if (currentFragment == 3) {
-                fragment = new NotificationFragment();
+                fragment = new SupportFragment();
             } else if (currentFragment == 4) {
                 fragment = new PersonalProfileFragment();
             }

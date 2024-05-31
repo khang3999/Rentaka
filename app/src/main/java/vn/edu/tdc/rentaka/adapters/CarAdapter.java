@@ -51,7 +51,8 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
         Car car = listCar.get(position);
 
         binding.nameCar.setText(car.getModel() + " " + car.getDescription());
-//        updateFavoriteIcon(binding, car);
+        //updateFavoriteIcon(binding, car);
+
 
 //        // Handle favorite icon click
 //        binding.icHeart.setOnClickListener(new View.OnClickListener() {
