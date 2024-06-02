@@ -32,6 +32,7 @@ import vn.edu.tdc.rentaka.fragments.NotificationFragment;
 import vn.edu.tdc.rentaka.fragments.PersonalProfileFragment;
 import vn.edu.tdc.rentaka.fragments.SupportFragment;
 import vn.edu.tdc.rentaka.models.Car;
+import vn.edu.tdc.rentaka.models.City;
 import vn.edu.tdc.rentaka.models.Status;
 
 
@@ -54,19 +55,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_layout);
 
 
-        realTimeAPI.fetchAllStatuses(new RealTimeAPI.FetchListener<Status>() {
+      realTimeAPI.fetchAllCities(new RealTimeAPI.FetchListener<City>() {
             @Override
-            public void onFetched(List<Status> allStatuses) {
-                // Handle the retrieved statuses
-                for (Status status : allStatuses) {
-                    System.out.println("Status ID: " + status.getId());
-                    System.out.println("Status Name: " + status.getName());
+            public void onFetched(List<City> data) {
+                for (City city : data) {
+                    Log.d("City", city.getName());
                 }
             }
 
             @Override
             public void onError(Exception e) {
-                System.out.println("Error fetching statuses: " + e.getMessage());
+                Log.e("Error", e.getMessage());
             }
         });
 

@@ -10,10 +10,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import vn.edu.tdc.rentaka.models.City;
 import vn.edu.tdc.rentaka.models.Status;
 
 public class RealTimeAPI {
@@ -28,6 +30,69 @@ public class RealTimeAPI {
         void onFetched(List<T> data);
         void onError(Exception e);
     }
+
+    // Method to fetch all cities ** working properly
+    public void fetchAllCities(FetchListener<City> listener) {
+        DatabaseReference citiesRef = mDatabase.child("cities");
+        citiesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<City> allCities = new ArrayList<>();
+
+                for (DataSnapshot citySnapshot : dataSnapshot.getChildren()) {
+                    String cityName = citySnapshot.child("data").getValue(String.class);
+                    City city = new City(cityName);
+                    if (cityName != null) {
+                        allCities.add(city);
+                    }
+                }
+
+                listener.onFetched(allCities);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onError(databaseError.toException());
+            }
+        });
+    }
+
+    //Method to add all cites in vietnam to the database
+    public void addCitesInVietNam() {
+        List<String> cityNames = Arrays.asList(
+                "An Giang", "Bà Rịa - Vũng Tàu", "Bạc Liêu", "Bắc Kạn", "Bắc Giang", "Bắc Ninh",
+                "Bến Tre", "Bình Định", "Bình Dương", "Bình Phước", "Bình Thuận", "Cà Mau",
+                "Cao Bằng", "Cần Thơ", "Đà Nẵng", "Đắk Lắk", "Đắk Nông", "Điện Biên",
+                "Đồng Nai", "Đồng Tháp", "Gia Lai", "Hà Giang", "Hà Nam", "Hà Nội", "Hà Tĩnh",
+                "Hải Dương", "Hải Phòng", "Hậu Giang", "Hòa Bình", "Hưng Yên", "Khánh Hòa",
+                "Kiên Giang", "Kon Tum", "Lai Châu", "Lâm Đồng", "Lạng Sơn", "Lào Cai",
+                "Long An", "Nam Định", "Nghệ An", "Ninh Bình", "Ninh Thuận", "Phú Thọ",
+                "Phú Yên", "Quảng Bình", "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị",
+                "Sóc Trăng", "Sơn La", "Tây Ninh", "Thái Bình", "Thái Nguyên", "Thanh Hóa",
+                "Thừa Thiên Huế", "Tiền Giang", "TP Hồ Chí Minh", "Trà Vinh", "Tuyên Quang",
+                "Vĩnh Long", "Vĩnh Phúc", "Yên Bái"
+        );
+        DatabaseReference citiesRef = mDatabase.child("cities");
+        for (String cityName : cityNames) {
+            DatabaseReference cityRef = citiesRef.push();
+            String cityId = cityRef.getKey();
+            Map<String, Object> cityData = new HashMap<>();
+            cityData.put("id", cityId);
+            cityData.put("data", cityName);
+            cityRef.setValue(cityData, new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                    if (databaseError != null) {
+                        System.out.println("Data could not be saved " + databaseError.getMessage());
+                    } else {
+                        System.out.println("City saved successfully.");
+                    }
+                }
+            });
+        }
+
+    }
+
 
     // Method to fetch all existing statuses ** working properly
     public void fetchAllStatuses(FetchListener<Status> listener) {
