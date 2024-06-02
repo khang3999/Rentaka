@@ -2,14 +2,18 @@ package vn.edu.tdc.rentaka.models;
 
 public class Discount {
     private String id;
-    private String name;
+    private String description;
     private Double percentage;
     private Date validFrom;
     private Date validTo;
 
 
-    public void setName(String name) {
-        this.name = name;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Double getPercentage() {
@@ -20,9 +24,7 @@ public class Discount {
         this.percentage = percentage;
     }
 
-    public String getName() {
-        return name;
-    }
+
     public String getId() {
         return id;
     }
@@ -49,8 +51,8 @@ public class Discount {
 
     public Discount() {
     }
-    public Discount(String name, Date validFrom, Date validTo,Double percentage) {
-        this.name = name;
+    public Discount(String description, Date validFrom, Date validTo, Double percentage) {
+        this.description = description;
         this.percentage = percentage;
         this.validFrom = validFrom;
         this.validTo = validTo;
@@ -59,7 +61,7 @@ public class Discount {
     @Override
     public String toString() {
         return "Discount{" +
-                "name=" + name +
+                "name=" + description +
                 "id='" + id + '\'' +
                 ", percentage=" + percentage +
                 ", validFrom=" + validFrom +
