@@ -12,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
+import java.util.List;
 
 import vn.edu.tdc.rentaka.APIs.FirebaseAPI;
+import vn.edu.tdc.rentaka.APIs.RealTimeAPI;
 import vn.edu.tdc.rentaka.APIs.StorageAPI;
 import vn.edu.tdc.rentaka.R;
 
@@ -30,10 +32,12 @@ import vn.edu.tdc.rentaka.fragments.NotificationFragment;
 import vn.edu.tdc.rentaka.fragments.PersonalProfileFragment;
 import vn.edu.tdc.rentaka.fragments.SupportFragment;
 import vn.edu.tdc.rentaka.models.Car;
+import vn.edu.tdc.rentaka.models.Status;
 
 
 public class MainActivity extends AppCompatActivity {
     FirebaseAPI firebaseAPI = new FirebaseAPI();
+    RealTimeAPI realTimeAPI = new RealTimeAPI();
     StorageAPI storageAPI = new StorageAPI();
     //Properties
     private AbstractFragment fragment;
@@ -49,10 +53,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
 
-        Car car = new Car();
-        Log.d("price", "onCreate: "+car.getPriceDriver());
-        // Khỏi tạo firebase
-        firebaseAPI = new FirebaseAPI();
+
+        realTimeAPI.fetchAllStatuses(new RealTimeAPI.FetchListener<Status>() {
+            @Override
+            public void onFetched(List<Status> allStatuses) {
+                // Handle the retrieved statuses
+                for (Status status : allStatuses) {
+                    System.out.println("Status ID: " + status.getId());
+                    System.out.println("Status Name: " + status.getName());
+                }
+            }
+
+            @Override
+            public void onError(Exception e) {
+                System.out.println("Error fetching statuses: " + e.getMessage());
+            }
+        });
+
 
 
         //Khoi tao binding
