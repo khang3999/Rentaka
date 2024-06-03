@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         //Khoi tao binding
         binding = MainLayoutBinding.inflate(getLayoutInflater());
         // Gán view cho binding

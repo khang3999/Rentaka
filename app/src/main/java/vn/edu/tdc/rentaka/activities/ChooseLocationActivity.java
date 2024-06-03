@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,9 @@ public class ChooseLocationActivity extends AppCompatActivity {
     private ChooseLocationLayoutBinding binding;
     private FirebaseAPI firebaseAPI;
     private ArrayList<City> copyList = new ArrayList<>();
+    private ArrayList<City> listCities = new ArrayList<>();
     private CityAdapter adapterCities;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,87 +59,68 @@ public class ChooseLocationActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
             }
         });
+        //Goi ham lay list cities
+        firebaseAPI.fetchCities(listCities);
+        copyList.addAll(listCities);
+        //Copy de search
         adapterCities = new CityAdapter(ChooseLocationActivity.this, copyList);
-                LinearLayoutManager layoutManagerCities = new LinearLayoutManager(ChooseLocationActivity.this);
-                layoutManagerCities.setOrientation(RecyclerView.VERTICAL);
-                layoutManagerCities.setReverseLayout(false);
-                binding.listCities.setLayoutManager(layoutManagerCities);
-                binding.listCities.setAdapter(adapterCities);
+        LinearLayoutManager layoutManagerCities = new LinearLayoutManager(ChooseLocationActivity.this);
+        layoutManagerCities.setOrientation(RecyclerView.VERTICAL);
+        layoutManagerCities.setReverseLayout(false);
+        binding.listCities.setLayoutManager(layoutManagerCities);
+        binding.listCities.setAdapter(adapterCities);
 
+        //Bat su kien khi search
+        binding.editTextPickLocation.addTextChangedListener(new TextWatcher() {
 
-         //Lay du lieu tren firebase về
-        firebaseAPI.fetchCities(new FirebaseAPI.onCallBack<City>() {
             @Override
-            public void onCallBack(List<City> list) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                copyList.addAll(list);
-                adapterCities = new CityAdapter(ChooseLocationActivity.this, copyList);
-                LinearLayoutManager layoutManagerCities = new LinearLayoutManager(ChooseLocationActivity.this);
-                layoutManagerCities.setOrientation(RecyclerView.VERTICAL);
-                layoutManagerCities.setReverseLayout(false);
-                binding.listCities.setLayoutManager(layoutManagerCities);
-                binding.listCities.setAdapter(adapterCities);
+            }
 
-                //Bat su kien khi search
-                binding.editTextPickLocation.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                    }
+                binding.icDelete.setVisibility(View.VISIBLE);
+                if (s.toString().isEmpty()) {
+                    Log.d("test", "onTextChanged: aaaa");
+                    copyList.clear();
+                    copyList.addAll(listCities);
 
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                } else {
 
-                        binding.icDelete.setVisibility(View.VISIBLE);
-                        if (s.toString().isEmpty()) {
-                            Log.d("test", "onTextChanged: empty");
-                            copyList = (ArrayList<City>)list;
-                            for (City c : copyList
-                            ) {
-                                Log.d("test", "empty: " + c.getName());
-                            }
-                        } else {
-
-                            Log.d("test", "onTextChanged: " + s.toString());
-                            copyList = new ArrayList<>();
-                            for (City c : (ArrayList<City>)list) {
-                                if (c.getName().contains(s.toString())) {
-                                    copyList.add(c);
-                                    Log.d("test", "filter: " + c.getName());
-                                }
-                            }
+                    Log.d("test", "onTextChanged: " + s.toString());
+                    copyList.clear();
+                    for (City c : listCities) {
+                        if (c.getName().toLowerCase().contains(s.toString().toLowerCase())) {
+                            copyList.add(c);
                         }
-                        adapterCities.setListCites(copyList);
-                        adapterCities.notifyDataSetChanged();
-
                     }
+                }
+                adapterCities.notifyDataSetChanged();
 
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        Log.d("test", "afterTextChanged: "+s.toString());
-                    }
-                });
-                //Bat su kien click vao item adapter
-                adapterCities.setOnItemClickListener(new CityAdapter.ItemClickListener() {
-                    @Override
-                    public void onItemClick(CityAdapter.MyViewHolder holder) {
-                        CardItemCityLayoutBinding binding1 = (CardItemCityLayoutBinding)holder.getBinding();
-                        Log.d("TAG", "onItemClick: "+binding1.cityName.getText().toString());
-                        Intent intent = new Intent(ChooseLocationActivity.this, MainActivity.class);
-                        intent.putExtra("city", binding1.cityName.getText().toString());
-                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                        startActivity(intent);
-                        // Main vao tu trai, choose date exit ve ben phai
-                        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
-                    }
-                });
+            }
 
+            @Override
+            public void afterTextChanged(Editable s) {
+                Log.d("test", "afterTextChanged: " + s.toString());
             }
         });
 
-
-
-
+        //Bat su kien click vao item adapter
+        adapterCities.setOnItemClickListener(new CityAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(CityAdapter.MyViewHolder holder) {
+                CardItemCityLayoutBinding binding1 = (CardItemCityLayoutBinding) holder.getBinding();
+                Log.d("TAG", "onItemClick: " + binding1.cityName.getText().toString());
+                Intent intent = new Intent(ChooseLocationActivity.this, MainActivity.class);
+                intent.putExtra("city", binding1.cityName.getText().toString());
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                // Main vao tu trai, choose date exit ve ben phai
+                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+            }
+        });
 
         // bat su kien khi focus do edittext
         binding.editTextPickLocation.setOnFocusChangeListener(
@@ -156,21 +140,29 @@ public class ChooseLocationActivity extends AppCompatActivity {
         binding.icDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               setUIDefault();
+                setUIDefault();
             }
         });
 
-        // Bat su kien khi nhap ky tu
+        Log.d("test", "onCreate: final");
 
 
     }
+
+
 
     @Override
     protected void onResume() {
         super.onResume();
+//        firebaseAPI.fetchCities(listCities);
+//        copyList.clear();
+//        copyList.addAll(listCities);
+//        adapterCities.notifyDataSetChanged();
         setUIDefault();
     }
-    private void setUIDefault(){
+
+
+    private void setUIDefault() {
         binding.editTextPickLocation.clearFocus();
         binding.boxEditTextLocation.setBackgroundResource(R.drawable.border_line_gray);
         binding.boxListLocation.setVisibility(View.INVISIBLE);
