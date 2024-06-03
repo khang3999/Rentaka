@@ -19,11 +19,15 @@ public class Car {
     private String mortgage;
     private double priceDaily;
     private double salaryDriver;
+    private String autoMaker;
 
     private String statusID;
     private String favourite;
 
     private String typeDriving;
+    private Integer year;
+    private double priceSelf;
+    private double priceDriver;
 
     public String getTypeDriving() {
         return typeDriving;

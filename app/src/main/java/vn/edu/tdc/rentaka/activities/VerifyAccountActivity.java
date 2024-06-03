@@ -99,7 +99,7 @@ public class VerifyAccountActivity extends AppCompatActivity {
         String textNote = "<b>Lưu ý:</b> Để tránh phát sinh vấn đề trong quá trình sử dụng thẻ ngân hàng, người đăng ký thẻ trên hệ thống (đã xác thực chứng minh nhân dân) <b>ĐỒNG THỜI</b> phải là người sử dụng thẻ.";
         String textCCCD = "Hình chụp cần thấy <b> Ảnh đại diện</b> và <b> Số CCCD </b>";
         String textBank = "Hình chụp cần thấy <b> Ảnh đại diện</b> và <b> Số Bank </b>";
-        String textNote2 = "<b><u>Vì sao tôi phải Xác thực GPLX </u></b>";
+        String textNote2 = "<b><u>Vì sao tôi phải Xác thực danh tính </u></b>";
 
         // Sử dụng để hiển thị nội dung HTML trong một TextView // Chuyển đổi nội dung HTML thành một đối tượng Spanned
         binding.textNote.setText(Html.fromHtml(textNote, Html.FROM_HTML_MODE_COMPACT));
@@ -128,10 +128,10 @@ public class VerifyAccountActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s != null && s.length() != 12) {
-                    binding.textCCCD.setError("Số CCCD là 12 số");
+                    binding.textInputLayoutCCCD.setError("Số CCCD là 12 số");
                     isNumberCCCDValid = false;
                 } else {
-                    binding.textCCCD.setError(null);
+                    binding.textInputLayoutCCCD.setError(null);
                     isNumberCCCDValid = true;
                 }
             }
@@ -147,10 +147,10 @@ public class VerifyAccountActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() < 8 || s.length() > 19) {
-                    binding.textBank.setError("Số tài khoản phải từ 8 đến 19 số");
+                    binding.textInputLayoutBank.setError("Số tài khoản phải từ 8 đến 19 số");
                     isNumberBankValid = false;
                 } else {
-                    binding.textBank.setError(null);
+                    binding.textInputLayoutBank.setError(null);
                     isNumberBankValid = true;
                 }
             }
@@ -274,10 +274,10 @@ public class VerifyAccountActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s != null && s.length() < 4) {
                     isNameBankValid = false;
-                    binding.textInputLayoutUserNameBank.setError(getString(R.string.b_n_ph_i_tr_n_4_k_t_cho_t_n_hi_n_th));
+                    binding.textInputLayoutNameBank.setError(getString(R.string.b_n_ph_i_tr_n_4_k_t_cho_t_n_hi_n_th));
                 } else {
                     isNameBankValid = true;
-                    binding.textInputLayoutUserNameBank.setError(null);
+                    binding.textInputLayoutNameBank.setError(null);
                 }
             }
         });
@@ -409,45 +409,68 @@ public class VerifyAccountActivity extends AppCompatActivity {
 
     // Nut luu cua giay phep lai xe
     private void stateSaveGPLX() {
+
         binding.saveXacNhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isNumberBankValid && isImageBankValid && isNumberCCCDValid && isCalendarBank && isCalendarCCCD && isUserNameCCCDValid && isUserNameBankValid && isNameBankValid && isImageCCCDValid) {
+                boolean isValid = true;
+
+                if (!isNumberBankValid) {
+                    binding.textInputLayoutBank.setError("Chưa nhập số TK BANK");
+                    isValid = false;
+                }
+
+                if (!isImageBankValid) {
+                    binding.textErrorImageBank.setVisibility(View.VISIBLE);
+                    isValid = false;
+                }
+
+                if (!isNumberCCCDValid) {
+                    binding.textInputLayoutCCCD.setError("Chưa nhập số CCCD");
+                    isValid = false;
+                }
+
+                if (!isCalendarBank) {
+                    binding.textInputLayoutBankDateIssued.setError("Chưa nhập ngày cấp");
+                    isValid = false;
+                }
+
+                if (!isCalendarCCCD) {
+                    binding.textInputLayoutDateIssuedCCCD.setError("Chưa nhập ngày cấp");
+                    isValid = false;
+                }
+
+                if (!isUserNameCCCDValid) {
+                    binding.textInputLayoutUserNameCCCD.setError("Chưa nhập tên người trên cccd");
+                    isValid = false;
+                }
+
+                if (!isUserNameBankValid) {
+                    binding.textInputLayoutUserNameBank.setError("Chưa nhập tên người trên TK");
+                    isValid = false;
+                }
+
+                if (!isNameBankValid) {
+                    binding.textInputLayoutNameBank.setError("Chưa nhập tên ngân hàng");
+                    isValid = false;
+                }
+
+                if (!isImageCCCDValid) {
+                    binding.textErrorImage.setVisibility(View.VISIBLE);
+                    isValid = false;
+                }
+
+                if (isValid) {
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user != null) {
                         String userId = user.getUid();
                         saveGPLXData(userId);
                         saveBankData(userId);
+                        Toast.makeText(VerifyAccountActivity.this, "Đăng kí thanh cong", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 } else {
                     Toast.makeText(VerifyAccountActivity.this, "Đăng kí không thành công", Toast.LENGTH_SHORT).show();
-                }
-                if (!isCalendarCCCD) {
-                    binding.textInputLayoutDateIssuedCCCD.setError("Chưa nhập ngày cấp ");
-                }
-                if (!isCalendarBank) {
-                    binding.textInputLayoutBankDateIssued.setError("Chưa nhập ngày cấp ");
-                }
-                if (!isUserNameCCCDValid) {
-                    binding.textInputLayoutUserNameCCCD.setError("Chưa nhập tên người trên cccd");
-                }
-                if (!isUserNameBankValid) {
-                    binding.textInputLayoutUserNameBank.setError("Chưa nhập tên người trên TK");
-                }
-                if (!isNameBankValid) {
-                    binding.textInputLayoutNameBank.setError("Chưa nhập tên ngân hàng");
-                }
-                if (!isNumberCCCDValid) {
-                    binding.editCCCD.setError("Chưa nhập số CCCD");
-                }
-                if (!isNumberBankValid) {
-                    binding.editBank.setError("Chưa nhập số TK BANK");
-                }
-                if (!isImageCCCDValid) {
-                    binding.textErrorImage.setVisibility(View.VISIBLE);
-                }
-                if (!isImageBankValid) {
-                    binding.textErrorImageBank.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -460,7 +483,7 @@ public class VerifyAccountActivity extends AppCompatActivity {
         String cccdNumber = binding.editCCCD.getText().toString();
 
         if (imageUriCCCD != null) {
-            uploadImageAndSaveInfo(imageUriCCCD, userId, name, dateIssued, cccdNumber, "citizenIdCard", "imageCCCD");
+            uploadImageAndSaveInfo(imageUriCCCD, userId, name,null, dateIssued, cccdNumber, "citizenIdCard", "imageCCCD");
         }
     }
 
@@ -472,23 +495,23 @@ public class VerifyAccountActivity extends AppCompatActivity {
         String bankName = binding.editTextNameBank.getText().toString();
 
         if (imageUriBank != null) {
-            uploadImageAndSaveInfo(imageUriBank, userId, name, dateIssued, bankNumber, "bankCard", "imageBank");
+            uploadImageAndSaveInfo(imageUriBank, userId, name,bankName, dateIssued, bankNumber, "bankCard", "imageBank");
         }
     }
 
     // Phuong thuc upload anh va luu thong tin len Firebase
-    private void uploadImageAndSaveInfo(Uri imageUri, String userId, String name, String dateIssued, String number, String node, String imageField) {
-        StorageReference fileRef = FirebaseStorage.getInstance().getReference().child(node + "/" + userId + "/" + imageField + ".jpg");
+    private void uploadImageAndSaveInfo(Uri imageUri, String userId, String name,String bankName, String dateIssued, String number, String node, String imageField) {
+        StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("users/" + userId ).child(node).child(imageField + ".jpg");
         fileRef.putFile(imageUri)
                 .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
                     String imageUrl = uri.toString();
-                    saveInfoToDatabase(userId, name, dateIssued, number, imageUrl, node);
+                    saveInfoToDatabase(userId, name,bankName, dateIssued, number, imageUrl, node);
                 }))
                 .addOnFailureListener(e -> Toast.makeText(VerifyAccountActivity.this, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     // Phuong thuc luu thong tin len Firebase Database
-    private void saveInfoToDatabase(String userId, String name, String dateIssued, String number, String imageUrl, String node) {
+    private void saveInfoToDatabase(String userId, String name,String bankName, String dateIssued, String number, String imageUrl, String node) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userId).child(node);
         Map<String, Object> updates = new HashMap<>();
         updates.put("fullName", name);
@@ -497,9 +520,11 @@ public class VerifyAccountActivity extends AppCompatActivity {
         if (imageUrl != null) {
             updates.put("image", imageUrl);
         }
-
+        if (bankName != null) {
+            updates.put("bankName", bankName);
+        }
         databaseReference.updateChildren(updates)
-                .addOnSuccessListener(aVoid -> Toast.makeText(VerifyAccountActivity.this, "Định danh cá nhân thành công", Toast.LENGTH_SHORT).show())
+//                .addOnSuccessListener(aVoid -> Toast.makeText(VerifyAccountActivity.this, "Định danh cá nhân thành công", Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e -> Toast.makeText(VerifyAccountActivity.this, "Định danh cá nhân thất bại", Toast.LENGTH_SHORT).show());
     }
 }
