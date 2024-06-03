@@ -18,6 +18,7 @@ import java.util.Map;
 import vn.edu.tdc.rentaka.models.City;
 import vn.edu.tdc.rentaka.models.Date;
 import vn.edu.tdc.rentaka.models.Discount;
+import vn.edu.tdc.rentaka.models.Rate;
 import vn.edu.tdc.rentaka.models.Service;
 import vn.edu.tdc.rentaka.models.Status;
 
@@ -34,6 +35,56 @@ public class RealTimeAPI {
 
         void onError(Exception e);
     }
+
+    //Method to add rate to the database ** working properly
+    public void addRate(Rate rate){
+        DatabaseReference ratesRef = mDatabase.child("rates");
+        ratesRef.orderByKey().limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                long highestId = -1; // Start with -1 to handle the case where no rates exist
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    try {
+                        highestId = Long.parseLong(snapshot.getKey());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid ID format in the database: " + snapshot.getKey());
+                        return;
+                    }
+
+                    long newId = highestId + 1;
+                    DatabaseReference newRateRef = ratesRef.child(String.valueOf(newId));
+                    Map<String, Object> rateData = new HashMap<>();
+                    rateData.put("id", newId);
+                    rateData.put("recipientID", rate.getRecipientID());
+                    rateData.put("reviewerID", rate.getReviewerID());
+                    rateData.put("rating", rate.getRating());
+                    rateData.put("comment", rate.getComment());
+                    rateData.put("createdAt", rate.getCreatedAt());
+                    rateData.put("updatedAt", rate.getUpdatedAt());
+
+                    newRateRef.setValue(rateData, new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                            if (databaseError != null) {
+                                System.out.println("Data could not be saved " + databaseError.getMessage());
+                            } else {
+                                System.out.println("Rate saved successfully.");
+                            }
+                        }
+                    });
+
+                    highestId = newId; // Update highestId for the next rate
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                System.out.println("Error fetching highest ID: " + databaseError.getMessage());
+            }
+        });
+    }
+
 
     //Method to fetch all valid discounts from the database ** working properly
     public void fetchValidDiscount(FetchListener<Discount> listener) {
