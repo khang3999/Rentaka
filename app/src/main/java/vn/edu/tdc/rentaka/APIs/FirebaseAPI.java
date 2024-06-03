@@ -2,8 +2,16 @@ package vn.edu.tdc.rentaka.APIs;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.compose.runtime.snapshots.Snapshot;
+
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -823,30 +831,35 @@ public class FirebaseAPI {
                 "Vĩnh Long", "Vĩnh Phúc", "Yên Bái"
         );
 
-        for (String cityName : cityNames) {
-            Map<String, Object> cityData = new HashMap<>();
-            cityData.put("name", cityName);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("cities");
 
-            db.collection("city").add(cityData)
-                    .addOnSuccessListener(documentReference -> {
-                        System.out.println("Added successfully city '" + cityName + "' with ID: " + documentReference.getId());
-                    })
-                    .addOnFailureListener(e -> {
-                        System.out.println("Failed to add city '" + cityName + "': " + e);
-                    });
+        for (int i = 0; i < cityNames.size(); i++) {
+            String cityName = cityNames.get(i);
+            City city = new City(i, cityName);
+            databaseReference.child(String.valueOf(i)).setValue(city);
         }
     }
     //Get city
-    public void fetchCities(onCallBack<City> callBack){
-        List<City> cities = new ArrayList<>();
-        db.collection("city").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()){
-                for (QueryDocumentSnapshot documentSnapshot: task.getResult()){
-                    City city = documentSnapshot.toObject(City.class);
-                    cities.add(city);
+    public void fetchCities(ArrayList<City> listCities){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("cities");
+        Log.d("databaseRef", "fetchCities: "+databaseReference);
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listCities.clear();
+                for (DataSnapshot s : snapshot.getChildren()) {
+                    City city = s.getValue(City.class);
+                    listCities.add(city);
+                    Log.d("databaseRef", "onDataChange: "+city);
                 }
-                callBack.onCallBack(cities);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
-    }
+        }
 }

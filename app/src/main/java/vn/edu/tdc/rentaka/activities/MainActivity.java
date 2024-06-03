@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         // Khỏi tạo firebase
         firebaseAPI = new FirebaseAPI();
 
-
         //Khoi tao binding
         binding = MainLayoutBinding.inflate(getLayoutInflater());
         // Gán view cho binding
