@@ -48,6 +48,10 @@ import java.util.concurrent.TimeUnit;
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.BottomSheetOtpPhoneLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.RegisterLayoutBinding;
+import vn.edu.tdc.rentaka.models.BankCard;
+import vn.edu.tdc.rentaka.models.CitizenIdentificationCard;
+import vn.edu.tdc.rentaka.models.DrivingLicense;
+import vn.edu.tdc.rentaka.models.Identification;
 import vn.edu.tdc.rentaka.models.UserModel;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -268,22 +272,22 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (isPhoneValid && isNameValid && isPasswordValid && isPasswordConfirmValid && isEmailValid && isPhoneUnique) {
-                    //**********************************************************************
-                    //Hàm dang ki neu dung dc otp chua qua 10sms
-                    //Hien thi boom sheet
-                    logicBottomSheet();
-                    //Gui yeu cau OTP
-                    String phone = binding.editTextPhone.getText().toString();
-                    if (phone.startsWith("0")) {
-                        phone = "+84" + phone.substring(1);
-                    }
-                    Toast.makeText(RegisterActivity.this, phone, Toast.LENGTH_SHORT).show();
-                    //Gui ma otp
-                    sendRequestOTP(phone);
-                    //**************************************************************************
+//                    //**********************************************************************
+//                    //Hàm dang ki neu dung dc otp chua qua 10sms
+//                    //Hien thi boom sheet
+//                    logicBottomSheet();
+//                    //Gui yeu cau OTP
+//                    String phone = binding.editTextPhone.getText().toString();
+//                    if (phone.startsWith("0")) {
+//                        phone = "+84" + phone.substring(1);
+//                    }
+//                    Toast.makeText(RegisterActivity.this, phone, Toast.LENGTH_SHORT).show();
+//                    //Gui ma otp
+//                    sendRequestOTP(phone);
+//                    //**************************************************************************
 //**************************************************************************
-                    //Hàm dang ki neu otp qua 10sms
-//                    RegisterAPI();
+//                    Hàm dang ki neu otp qua 10sms
+                    RegisterAPI();
 //**************************************************************************
 
                 } else {
@@ -495,18 +499,18 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Get current date
+
+                            //Khoi tao cac class
+                            BankCard bankCard = new BankCard();
+                            DrivingLicense  drivingLicense = new DrivingLicense();
+                            CitizenIdentificationCard  citizenIdentificationCard = new CitizenIdentificationCard();
+                            // Lay ngay hien tai
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                             String currentDate = sdf.format(new Date());
-                            //Cac du lieu chua xu ly
-                            String gender ="None";
-                            String imageUser ="";
-                            String address= "";
-                            String birthday= "00/00/0000";
-                            // Registration successful
-                            UserModel user = new UserModel(phone, username, email, gender,currentDate,imageUser,address,birthday);
+                            // Dang ky thanh cong
+                            UserModel user = new UserModel(phone, username, email,currentDate,drivingLicense,bankCard,citizenIdentificationCard);
                             String id = task.getResult().getUser().getUid();
-                            database.getReference().child("Users").child(id).setValue(user);
+                            database.getReference().child("users").child(id).setValue(user);
                             //an load
                             binding.progressBar.setVisibility(View.GONE);
                             //Chuyen ve login
@@ -528,7 +532,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     // Kiểm tra số điện thoại tren fire base
     private void checkPhoneNumber(final String phone) {
-        DatabaseReference usersRef = database.getReference().child("Users");
+        DatabaseReference usersRef = database.getReference().child("users");
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

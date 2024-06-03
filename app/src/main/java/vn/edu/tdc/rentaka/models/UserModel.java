@@ -10,7 +10,38 @@ public class UserModel {
     private String address;
     private String birthday;
 
-    public UserModel(String phone, String name, String email, String gender, String registrationDate, String imageUser, String address, String birthday) {
+    private Double balance;
+
+    public DrivingLicense getDrivingLicense() {
+        return drivingLicense;
+    }
+
+    public void setDrivingLicense(DrivingLicense drivingLicense) {
+        this.drivingLicense = drivingLicense;
+    }
+
+    public BankCard getBankCard() {
+        return bankCard;
+    }
+
+    public void setBankCard(BankCard bankCard) {
+        this.bankCard = bankCard;
+    }
+
+    public CitizenIdentificationCard getCitizenIdCard() {
+        return citizenIdCard;
+    }
+
+    public void setCitizenIdCard(CitizenIdentificationCard citizenIdCard) {
+        this.citizenIdCard = citizenIdCard;
+    }
+
+    private DrivingLicense drivingLicense;
+    private BankCard bankCard;
+    private CitizenIdentificationCard citizenIdCard;
+
+    public UserModel(String phone, String name, String email, String gender, String registrationDate, String imageUser, String address, String birthday, Double balance, DrivingLicense drivingLicense, BankCard bankCard,
+                     CitizenIdentificationCard citizenIdCard) {
         this.phone = phone;
         this.name = name;
         this.email = email;
@@ -19,6 +50,26 @@ public class UserModel {
         this.imageUser = imageUser;
         this.address = address;
         this.birthday = birthday;
+        this.balance = balance;
+        this.drivingLicense = drivingLicense;
+        this.bankCard = bankCard;
+        this.citizenIdCard = citizenIdCard;
+    }
+
+    public UserModel(String phone, String name, String email, String registrationDate, DrivingLicense drivingLicense, BankCard bankCard,
+                     CitizenIdentificationCard citizenIdCard) {
+        this.phone = phone;
+        this.name = name;
+        this.email = email;
+        this.balance = 0.0;
+        this.gender = "None";
+        this.registrationDate = registrationDate;
+        this.imageUser = "";
+        this.address = "";
+        this.birthday = "00/00/0000";
+        this.drivingLicense = drivingLicense;
+        this.bankCard = bankCard;
+        this.citizenIdCard = citizenIdCard;
     }
 
     public String getPhone() {
@@ -83,5 +134,12 @@ public class UserModel {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public Double getBalance() {
+        return balance;
+    }
+    public void setBalance(Double balance) {
+        this.balance = balance;
     }
 }
