@@ -1,7 +1,9 @@
 package vn.edu.tdc.rentaka.models;
 
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.IgnoreExtraProperties;
 
+@IgnoreExtraProperties
 public class Status {
     private String id;
     private String name;
@@ -19,7 +21,13 @@ public class Status {
 
 
     }
-
+    public enum StatusGroup {
+        reservation,
+        car,
+        user,
+        payment,
+        review,
+    }
 
     public Status() {
     }
