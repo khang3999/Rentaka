@@ -47,20 +47,20 @@ public class SelfDrivingCarFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        // Get car from database
-        firebaseAPI.fetchCarsBySelfFavourite(new FirebaseAPI.onCallBack<Car>() {
-            @Override
-            public void onCallBack(List<Car> list) {
-                Log.d("fb", "onCallBack: "+ list.size());
-                carSeflDriverAdapter = new CarAdapter(activity,(ArrayList<Car>) list);
-                LinearLayoutManager layoutManagerAdvantage = new LinearLayoutManager(activity);
-                binding.listCarNoDriver.setLayoutManager(layoutManagerAdvantage);
-                binding.listCarNoDriver.setAdapter(carSeflDriverAdapter);
-
-            }
-        });
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        // Get car from database
+//        firebaseAPI.fetchCarsBySelfFavourite(new FirebaseAPI.onCallBack<Car>() {
+//            @Override
+//            public void onCallBack(List<Car> list) {
+//                Log.d("fb", "onCallBack: "+ list.size());
+//                carSeflDriverAdapter = new CarAdapter(activity,(ArrayList<Car>) list);
+//                LinearLayoutManager layoutManagerAdvantage = new LinearLayoutManager(activity);
+//                binding.listCarNoDriver.setLayoutManager(layoutManagerAdvantage);
+//                binding.listCarNoDriver.setAdapter(carSeflDriverAdapter);
+//
+//            }
+//        });
+//    }
 }

@@ -44,20 +44,20 @@ public class HaveADriverFragment extends Fragment
         return fragment;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        // Get car from database
-        firebaseAPI.fetchCarsByDrivingFavourite(new FirebaseAPI.onCallBack<Car>() {
-            @Override
-            public void onCallBack(List<Car> list) {
-                Log.d("fb", "onCallBack: "+ list.size());
-                haveDriverAdapter = new CarAdapter(activity,(ArrayList<Car>) list);
-                LinearLayoutManager layoutManagerAdvantage = new LinearLayoutManager(activity);
-                binding.listCarWithDriver.setLayoutManager(layoutManagerAdvantage);
-                binding.listCarWithDriver.setAdapter(haveDriverAdapter);
-
-            }
-        });
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        // Get car from database
+//        firebaseAPI.fetchCarsByDrivingFavourite(new FirebaseAPI.onCallBack<Car>() {
+//            @Override
+//            public void onCallBack(List<Car> list) {
+//                Log.d("fb", "onCallBack: "+ list.size());
+//                haveDriverAdapter = new CarAdapter(activity,(ArrayList<Car>) list);
+//                LinearLayoutManager layoutManagerAdvantage = new LinearLayoutManager(activity);
+//                binding.listCarWithDriver.setLayoutManager(layoutManagerAdvantage);
+//                binding.listCarWithDriver.setAdapter(haveDriverAdapter);
+//
+//            }
+//        });
+//    }
 }
