@@ -116,7 +116,7 @@ public class CreateCarActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // It nhat 1 ký tu
-                String regex = "^([a-zA-Z]{1,})$";
+                String regex = "^([a-zA-Z0-9]{1,})$";
                 if (s.toString().matches(regex)) {
                     isValidModel= true;
                     binding.editTextModel.setError(null);
@@ -167,7 +167,7 @@ public class CreateCarActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // It nhat 1 ký tu
-                String regex = "^.{1,}$";
+                String regex = "^[a-zA-Z0-9]{1,}$";
                 if (s.toString().matches(regex)) {
                     isValidLicense= true;
                     binding.editTextLicensePlate.setError(null);

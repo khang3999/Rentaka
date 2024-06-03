@@ -3,22 +3,22 @@ package vn.edu.tdc.rentaka.models;
 public class Car {
     private String id;
     private String ownerID;
+    private String brand;
     private String model;
-    // Auto maker <=> brand
-    private String autoMaker;
-    private int year;
+    private int since;
     private String licensePlate;
+    private String color;
+    private String description;
+    private City city;
     private String fuel;
     private String typeGearbox;
     private int seat;
-    private String color;
     private String inspection;
     private String insurrance;
     private String registration;
     private String mortgage;
-    private double priceSelf;
-    private double priceDriver;
-    private String description;
+    private double priceDaily;
+    private double salaryDriver;
 
     private String statusID;
     private String favourite;
