@@ -33,6 +33,7 @@ import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.activities.ChooseDateActivity;
 import vn.edu.tdc.rentaka.activities.ChooseLocationActivity;
 import vn.edu.tdc.rentaka.activities.ListCarSearchActivity;
+import vn.edu.tdc.rentaka.activities.RentalDetailActivity;
 import vn.edu.tdc.rentaka.adapters.AdvantageAdapter;
 import vn.edu.tdc.rentaka.adapters.CarAdapter;
 import vn.edu.tdc.rentaka.adapters.LocationAdapter;
@@ -305,6 +306,16 @@ public class HomeFragment extends AbstractFragment {
                 layoutManagerAdvantage.setReverseLayout(false);
                 binding.listCarNoDriver.setLayoutManager(layoutManagerAdvantage);
                 binding.listCarNoDriver.setAdapter(carHasDriverAdapter);
+
+                carHasDriverAdapter.setOnItemClickListener(new CarAdapter.ItemClickListener() {
+                    @Override
+                    public void onItemClick(CarAdapter.MyViewHolder holder) {
+                        Intent intent = new Intent(getActivity(), RentalDetailActivity.class);
+                        intent.putExtra("carId", list.get(holder.getAdapterPosition()).getId());
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        startActivity(intent);
+                    }
+                });
 
                 // Thiết lập LinearSnapHelper để vuốt dừng lại tại một item
                 attachSnapHelper(binding.listCarNoDriver);

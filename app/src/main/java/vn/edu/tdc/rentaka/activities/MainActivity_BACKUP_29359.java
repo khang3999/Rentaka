@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_layout);
 
 
+<<<<<<< HEAD
+=======
       realTimeAPI.fetchAllCities(new RealTimeAPI.FetchListener<City>() {
             @Override
             public void onFetched(List<City> data) {
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+>>>>>>> main
         //Khoi tao binding
         binding = MainLayoutBinding.inflate(getLayoutInflater());
         // Gán view cho binding

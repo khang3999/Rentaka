@@ -405,7 +405,7 @@ public class DrivingLicenseActivity extends AppCompatActivity {
               if (imageUrl != null) {
                   updates.put("imageGPLX", imageUrl);
               }
-
+                databaseReference.setValue(updates);
               databaseReference.updateChildren(updates)
                       .addOnSuccessListener(aVoid -> Toast.makeText(DrivingLicenseActivity.this, "Đăng kí giấy phép lái xe thành công", Toast.LENGTH_SHORT).show())
                       .addOnFailureListener(e -> Toast.makeText(DrivingLicenseActivity.this, "Đăng kí giấy phép lái xe thất bại", Toast.LENGTH_SHORT).show());

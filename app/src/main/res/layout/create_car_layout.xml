@@ -358,7 +358,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline7">
 
-
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/_10dp"
+                    android:src="@drawable/custom_text_note"
+                    android:padding="@dimen/_8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/editText_description"
+                    app:layout_constraintEnd_toStartOf="@+id/editText_description"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/editText_description" />
                 <EditText
                     android:id="@+id/editText_description"
                     android:layout_width="0dp"
@@ -385,7 +394,21 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.85" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+                <!--    Location-->
+            <TextView
+                android:id="@+id/title_location"
+                style="@style/TitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_element_start"
+                android:layout_marginTop="@dimen/margin_element_start"
+                android:text="Location" />
 
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinner_location"
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/margin_element_start"
+                android:layout_height="wrap_content"/>
             <!--    Fuel        -->
             <TextView
                 android:id="@+id/title_fuel"
@@ -394,9 +417,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Fuel"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="Fuel" />
 
             <RadioGroup
                     android:id="@+id/group_choose_fuel"
