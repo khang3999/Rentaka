@@ -236,7 +236,7 @@ public class RealTimeAPI {
             }
         });
     }
-
+/*
     // Method to fetch all cities ** working properly
     public void fetchAllCities(FetchListener<City> listener) {
         DatabaseReference citiesRef = mDatabase.child("cities");
@@ -262,7 +262,7 @@ public class RealTimeAPI {
             }
         });
     }
-
+*/
     //Method to add all cites in vietnam to the database ** working properly
     public void addCitesInVietNam() {
         List<String> cityNames = Arrays.asList(
