@@ -1,11 +1,14 @@
 package vn.edu.tdc.rentaka.models;
 
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.IgnoreExtraProperties;
 
+@IgnoreExtraProperties
 public class Status {
     private int id;
     private String description;
     private String title;
+
 
 
     public int getId() {

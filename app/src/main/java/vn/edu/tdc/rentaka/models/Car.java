@@ -3,6 +3,7 @@ package vn.edu.tdc.rentaka.models;
 public class Car {
     private String id;
     private String ownerID;
+    private String imageCarUrl;
     private String brand;
     private String model;
     private int since;
@@ -20,7 +21,7 @@ public class Car {
     // So cavet xe
     private String registration;
     // The chap
-    private String mortgage;
+    private double mortgage;
 
     private double priceDaily;
     private double salaryDriver;
@@ -41,6 +42,14 @@ public class Car {
 
     public void setOwnerID(String ownerID) {
         this.ownerID = ownerID;
+    }
+
+    public String getImageCarUrl() {
+        return imageCarUrl;
+    }
+
+    public void setImageCarUrl(String imageCarUrl) {
+        this.imageCarUrl = imageCarUrl;
     }
 
     public String getBrand() {
@@ -147,11 +156,11 @@ public class Car {
         this.registration = registration;
     }
 
-    public String getMortgage() {
+    public double getMortgage() {
         return mortgage;
     }
 
-    public void setMortgage(String mortgage) {
+    public void setMortgage(double mortgage) {
         this.mortgage = mortgage;
     }
 
@@ -179,9 +188,10 @@ public class Car {
         this.statusId = statusId;
     }
 
-    public Car(String id, String ownerID, String brand, String model, int since, String licensePlate, String color, String description, City city, String fuel, String typeGearbox, int seat, String inspection, String insurrance, String registration, String mortgage, double priceDaily, double salaryDriver, Status statusId) {
+    public Car(String id, String ownerID, String imageCarUrl, String brand, String model, int since, String licensePlate, String color, String description, City city, String fuel, String typeGearbox, int seat, String inspection, String insurrance, String registration, double mortgage, double priceDaily, double salaryDriver, Status statusId) {
         this.id = id;
         this.ownerID = ownerID;
+        this.imageCarUrl = imageCarUrl;
         this.brand = brand;
         this.model = model;
         this.since = since;
@@ -209,6 +219,7 @@ public class Car {
         return "Car{" +
                 "id='" + id + '\'' +
                 ", ownerID='" + ownerID + '\'' +
+                ", imageCarUrl='" + imageCarUrl + '\'' +
                 ", brand='" + brand + '\'' +
                 ", model='" + model + '\'' +
                 ", since=" + since +
@@ -222,7 +233,7 @@ public class Car {
                 ", inspection='" + inspection + '\'' +
                 ", insurrance='" + insurrance + '\'' +
                 ", registration='" + registration + '\'' +
-                ", mortgage='" + mortgage + '\'' +
+                ", mortgage=" + mortgage +
                 ", priceDaily=" + priceDaily +
                 ", salaryDriver=" + salaryDriver +
                 ", statusId=" + statusId +
