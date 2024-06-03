@@ -91,79 +91,7 @@ public class CreateCarActivity extends AppCompatActivity {
                 adapterCity = new ArrayAdapter<String>(CreateCarActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, listCitiesName);
                 binding.spinnerLocation.setAdapter(adapterCity);
 
-//                binding.btnRegister.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        boolean valid = isValidBrand && isValidModel && isValidSince
-//                                && isValidLicense && isValidColor && isValidFuel && isValidType
-//                                && isValidSeat && isValidMortgage && isValidPriceDriver && isValidPriceSelf;
-//                        if (valid){
-//                            //Create car và đưa lên cơ sơ dữ liêu
-//                            Car car = new Car();
-//                            car.setOwnerID(userId);
-//                            car.setBrand(binding.autoCompleteBrand.getText().toString());
-//                            car.setModel(binding.editTextModel.getText().toString());
-//                            car.setSince(Integer.parseInt(binding.editTextSince.getText().toString()));
-//                            car.setLicensePlate(binding.editTextLicensePlate.getText().toString());
-//                            car.setColor(binding.editTextColor.getText().toString());
-//                            car.setDescription(binding.editTextDescription.getText().toString());
-//                            // Create City
-//                            City city = listCities.get(binding.spinnerLocation.getSelectedItemPosition());
-//                            car.setCity(city);
-//                            // Set fuel
-//                            int idFuel = binding.groupChooseFuel.getCheckedRadioButtonId();
-//                            RadioButton radFuelChoose = findViewById(idFuel);
-//                            car.setFuel(radFuelChoose.getText().toString());
-//                            // Set gearBox
-//                            int idType = binding.groupChooseType.getCheckedRadioButtonId();
-//                            RadioButton radTypeChoose = findViewById(idType);
-//                            car.setTypeGearbox(radTypeChoose.getText().toString());
-//                            // Set Seat
-//                            int idSeat = binding.groupChooseSeat.getCheckedRadioButtonId();
-//                            RadioButton radSeatChoose = findViewById(idSeat);
-//                            car.setSeat(Integer.parseInt(radSeatChoose.getText().toString()));
-//                            // Set mortgage
-//                            double m = 0.0;
-//                            try {
-//                                m = Double.parseDouble(binding.editTextMortgageMoney.getText().toString());
-//                            }
-//                            catch (NumberFormatException e){
-//                                m = 0.0;
-//                            }
-//                            double priceDaily = 0.0;
-//                            try {
-//                                priceDaily = Double.parseDouble(binding.editTextPriceDaily.getText().toString());
-//                            }
-//                            catch (NumberFormatException e){
-//                                priceDaily = 0.0;
-//                            }
-//                            double salary = 0.0;
-//                            try {
-//                                salary = Double.parseDouble(binding.editTextSalaryDriver.getText().toString());
-//                            }
-//                            catch (NumberFormatException e){
-//                                salary = 0.0;
-//                            }
-//                            car.setMortgage(m);
-//                            // Set price daily
-//                            car.setPriceDaily(priceDaily);
-//                            // Set salary driver
-//                            car.setPriceDaily(salary);
 //
-//                            Log.d("car", "onClick: "+car);
-//
-//                            createNewCar(userId = "1111",car,imageUriCar,imageUriInspection,imageUriInsurance,imageUriRegister);
-//
-//
-//                        }
-//                        else {
-//                            Snackbar snackbar = Snackbar.make(v, "Please input all fields! ", Snackbar.LENGTH_LONG);
-//                            snackbar.show();
-//                        }
-//
-//                        finish();
-//                    }
-//                });
             }
 
             @Override
