@@ -120,7 +120,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:paddingVertical="5dp"
-                    android:text="Dac diem"
+                    android:text="Đặc điểm"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -148,11 +148,7 @@
                         android:layout_weight="1"
                         android:src="@drawable/fuel_24" />
 
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@drawable/engine_24" />
+
 
                 </LinearLayout>
 
@@ -167,14 +163,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="So tu dong" />
+                        android:text="Số tự động" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="7 cho" />
+                        android:text="7 chỗ" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -182,14 +178,9 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:src="@drawable/fuel_24"
-                        android:text="Xang" />
+                        android:text="Xăng" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="6L/100km" />
+
 
                 </LinearLayout>
             </LinearLayout>
@@ -214,7 +205,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:paddingVertical="5dp"
-                    android:text="Mo ta"
+                    android:text="Mô tả"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -228,38 +219,7 @@
             </LinearLayout>
             <!--    Description end-->
 
-            <!--    Convenient start-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_20dp"
-                android:orientation="vertical"
-                android:paddingHorizontal="10dp">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gray_line" />
-
-                <TextView
-                    android:id="@+id/convenient_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingVertical="5dp"
-                    android:text="Cac tien nghi tren xe"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <!--                Khang lam tiep nha-->
-
-                </LinearLayout>
-            </LinearLayout>
-            <!--    Convenient end-->
 
             <!--    Owner start-->
             <LinearLayout
@@ -275,7 +235,7 @@
                     android:gravity="center"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="5dp"
-                    android:text="Chu xe"
+                    android:text="Chủ xe"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -453,7 +413,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:paddingVertical="5dp"
-                    android:text="Giay to thue xe"
+                    android:text="Giấy tờ thuê xe"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -464,7 +424,7 @@
                     android:gravity="center"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="5dp"
-                    android:text="Chon 1 trong 2 hinh thuc:"
+                    android:text="Chọn 1 trong 2 hình thúc:"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -489,7 +449,7 @@
                         android:layout_weight="8"
                         android:paddingHorizontal="10dp"
                         android:paddingVertical="5dp"
-                        android:text="GPLX va CCCD gan chip (doi chieu) " />
+                        android:text="GPLX va CCCD gắn chíp (đối chiếu) " />
 
                 </LinearLayout>
 
@@ -514,7 +474,7 @@
                         android:layout_weight="8"
                         android:paddingHorizontal="10dp"
                         android:paddingVertical="5dp"
-                        android:text="GPLX(Doi chieu) va Passport (giu lai) " />
+                        android:text="GPLX(Đối chiếu) va Passport (giữ lại) " />
 
                 </LinearLayout>
             </LinearLayout>
@@ -540,7 +500,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:paddingVertical="5dp"
-                    android:text="Tai san the chap"
+                    android:text="Tài sản thế chấp"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -550,7 +510,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingVertical="5dp"
-                    android:text="Khong yeu cau Khach thue the chap Tien mat hoac Xe may" />
+                    android:text="Không yêu cầu khách thế chấp tài sản." />
 
                 <TextView
                     android:id="@+id/provision_title"
@@ -558,7 +518,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:paddingVertical="5dp"
-                    android:text="Dieu khoan"
+                    android:text="Điều khoản"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -581,6 +541,47 @@ Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệ
 
             </LinearLayout>
             <!--    Mortgage end-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="10dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_line" />
+
+                <TextView
+                    android:id="@+id/title_require_driver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingVertical="5dp"
+                    android:text="Yâu cầu tài xế "
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/radNoRequireDriver"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:checked="true"
+                        android:layout_height="wrap_content"
+                        android:text="Không"/>
+                    <RadioButton
+                        android:id="@+id/radRequireDriver"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Có"/>
+                </RadioGroup>
+            </LinearLayout>
 
 
             <!--    Cancel policy start-->
@@ -603,7 +604,7 @@ Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệ
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:paddingVertical="5dp"
-                    android:text="Chinh sach huy chuye "
+                    android:text="Chính sách huỷ chuyến "
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -613,12 +614,12 @@ Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệ
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingVertical="5dp"
-                    android:text="An tam thue xe, khong bi lo huy chuyen voi Chinh sach huy chuyen cua Rentaka!"/>
+                    android:text="An tâm thuê xe, không lo huỷ chuyến với chính sách huỷ chuyến của Rentaka!"/>
                 <TextView
                     android:id="@+id/btn_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Xem them &gt;"
+                    android:text="Xem thêm &gt;"
                     android:textStyle="bold" />
             </LinearLayout>
             <!--    Cancel policy end-->
@@ -640,32 +641,22 @@ Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệ
 
 
         <TextView
-            android:id="@+id/price_normal"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="999K"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="18sp" />
-
-        <TextView
             android:id="@+id/price_sale"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="7"
             android:gravity="center"
             android:text="888K"
             android:textColor="#5FCE85"
-            android:textSize="20sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/unit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:gravity="center"
-            android:text="/ ngay"
+            android:text="/ ngày"
             android:textSize="15sp" />
     </LinearLayout>
 
@@ -690,7 +681,7 @@ Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệ
             android:layout_width="0dp"
             android:layout_weight="7"
             android:layout_height="match_parent"
-            android:text="Chon thue"
+            android:text="Chọn thuê"
             android:textSize="20sp"
             android:textColor="@color/white"
             android:gravity="center_vertical"/>

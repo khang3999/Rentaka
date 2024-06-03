@@ -535,7 +535,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_element_start"
                     android:layout_marginTop="@dimen/margin_element_start"
-                    android:text="@string/please_choose_one_of_two_methods_title"
+                    android:text="Khách được chọn 1 trong 2 hình thức"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
