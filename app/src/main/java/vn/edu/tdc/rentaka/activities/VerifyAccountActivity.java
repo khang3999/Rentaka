@@ -96,7 +96,7 @@ public class VerifyAccountActivity extends AppCompatActivity {
         );
 
         // SET HTML CHO TEXTVIEW (CUSTOM)
-        String textNote = "<b>Lưu ý:</b> Để tránh phát sinh vấn đề trong quá trình sử dụng thẻ ngân hàng, người đăng ký thẻ trên hệ thống (đã xác thực chứng minh nhân dân) <b>ĐỒNG THỜI</b> phải là người sử dụng thẻ.";
+        String textNote = "<b>Lưu ý:</b> Để tránh phát sinh vấn đề trong quá trình sử dụng thẻ ngân hàng, người đăng ký thẻ trên hệ thống (đã xác thực CCCD) <b>ĐỒNG THỜI</b> phải là người sử dụng thẻ.";
         String textCCCD = "Hình chụp cần thấy <b> Ảnh đại diện</b> và <b> Số CCCD </b>";
         String textBank = "Hình chụp cần thấy <b> Ảnh đại diện</b> và <b> Số Bank </b>";
         String textNote2 = "<b><u>Vì sao tôi phải Xác thực danh tính </u></b>";
