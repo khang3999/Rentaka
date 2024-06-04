@@ -103,12 +103,12 @@ public class CreateCarActivity extends AppCompatActivity {
 
 
 
-//        // Lay id user dang dang nhap, dung thu vien FirebaseUser
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        if (user != null) {
-//            String id = user.getUid();
-//            this.userId = id;
-//        }
+        // Lay id user dang dang nhap, dung thu vien FirebaseUser
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String id = user.getUid();
+            this.userId = id;
+        }
 
 
         //Button top back navigation
@@ -472,31 +472,17 @@ public class CreateCarActivity extends AppCompatActivity {
                     RadioButton radSeatChoose = findViewById(idSeat);
                     car.setSeat(Integer.parseInt(radSeatChoose.getText().toString()));
                     // Set mortgage
-                    double m = 0.0;
-                    try {
-                        m = Double.parseDouble(binding.editTextMortgageMoney.getText().toString());
-                    } catch (NumberFormatException e) {
-                        m = 0.0;
-                    }
-                    double priceDaily = 0.0;
-                    try {
-                        priceDaily = Double.parseDouble(binding.editTextPriceDaily.getText().toString());
-                    } catch (NumberFormatException e) {
-                        priceDaily = 0.0;
-                    }
-                    double salary = 0.0;
-                    try {
-                        salary = Double.parseDouble(binding.editTextSalaryDriver.getText().toString());
-                    } catch (NumberFormatException e) {
-                        salary = 0.0;
-                    }
-                    car.setMortgage(m);
+                    int mortgage = Integer.parseInt(binding.editTextMortgageMoney.getText().toString());
+                    car.setMortgage(mortgage);
                     // Set price daily
+                    int priceDaily = Integer.parseInt(binding.editTextPriceDaily.getText().toString());
                     car.setPriceDaily(priceDaily);
                     // Set salary driver
-                    car.setPriceDaily(salary);
+                    int salaryDriver = Integer.parseInt(binding.editTextSalaryDriver.getText().toString());
+                    car.setPriceDaily(salaryDriver);
 
-                    realTimeAPI.createNewCar(userId = "scGmRrT8oHMXwRUErikbmLKmF213", car, imageUriCar, imageUriInspection, imageUriInsurance, imageUriRegister, CreateCarActivity.this);
+                    
+                    realTimeAPI.createNewCar(userId, car, imageUriCar, imageUriInspection, imageUriInsurance, imageUriRegister, CreateCarActivity.this);
 
                 } else {
                     Snackbar snackbar = Snackbar.make(v, "Please input all fields! ", Snackbar.LENGTH_LONG);

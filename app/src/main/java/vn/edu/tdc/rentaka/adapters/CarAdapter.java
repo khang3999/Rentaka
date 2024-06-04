@@ -65,7 +65,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
         binding.textViewFuel.setText(car.getFuel());
         binding.nameCar.setText(car.getModel());
         binding.addressCar.setText(car.getCity().getName());
-        
+        binding.textViewPriceDaily.setText(car.getPriceDaily()+"");
         //updateFavoriteIcon(binding, car);
 
 
