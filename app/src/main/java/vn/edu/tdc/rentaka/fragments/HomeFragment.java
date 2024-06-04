@@ -34,21 +34,28 @@ import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.activities.ChooseDateActivity;
 import vn.edu.tdc.rentaka.activities.ChooseLocationActivity;
 import vn.edu.tdc.rentaka.activities.ListCarSearchActivity;
+import vn.edu.tdc.rentaka.activities.MainActivity;
 import vn.edu.tdc.rentaka.activities.RentalDetailActivity;
+
 import vn.edu.tdc.rentaka.adapters.AdvantageAdapter;
 import vn.edu.tdc.rentaka.adapters.CarAdapter;
+import vn.edu.tdc.rentaka.adapters.CityAdapter;
 import vn.edu.tdc.rentaka.adapters.LocationAdapter;
 import vn.edu.tdc.rentaka.adapters.PromotionAdapter;
 import vn.edu.tdc.rentaka.databinding.BottomSheetDiaglogLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.CardCarItemBinding;
+import vn.edu.tdc.rentaka.databinding.CardItemCityLayoutBinding;
+import vn.edu.tdc.rentaka.databinding.ConfirmRentalLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.HomeFragmentBinding;
 import vn.edu.tdc.rentaka.databinding.LocationItemLayoutBinding;
+import vn.edu.tdc.rentaka.databinding.RentalDetailLayoutBinding;
 import vn.edu.tdc.rentaka.models.Advantage;
 import vn.edu.tdc.rentaka.models.Car;
 import vn.edu.tdc.rentaka.models.Location;
 import vn.edu.tdc.rentaka.models.Promotion;
 
 public class HomeFragment extends AbstractFragment {
+
     //    private RealTimeAPI realTimeAPI;
     private ArrayList<Promotion> listPromotions;
     private ArrayList<Location> listLocations;
@@ -166,7 +173,25 @@ public class HomeFragment extends AbstractFragment {
                         listCars.add(car);
                     }
                 }
+                Log.d("tesss", "onDataChange: "+listCars);
                 carAdapter.notifyDataSetChanged();
+                //Bat su kien khi click vao item caradapter
+                carAdapter.setOnItemClickListener(new CarAdapter.ItemClickListener() {
+                    @Override
+                    public void onItemClick(CarAdapter.MyViewHolder holder) {
+                        CardCarItemBinding binding1 = (CardCarItemBinding) holder.getBinding();
+                        Intent intent = new Intent(activity, RentalDetailActivity.class);
+                        intent.putExtra("car", listCars.get(holder.getAdapterPosition()).getId());
+                        Log.d("tesss", "position: "+holder.getAdapterPosition());
+                        Log.d("tesssss", "carid: "+listCars.get(holder.getAdapterPosition()).getId());
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        startActivity(intent);
+//                // Main vao tu trai, choose date exit ve ben phai
+//                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+                    }
+                });
+
+
             }
 
             @Override
@@ -174,6 +199,8 @@ public class HomeFragment extends AbstractFragment {
 
             }
         });
+        Log.d("tesss", "onDataChange: ngoai "+listCars);
+
 
 
         // Auto stop at center of item
@@ -289,8 +316,42 @@ public class HomeFragment extends AbstractFragment {
                 }
             }
         });
+        //Goi ham lay list cas
+        listCars = new ArrayList<>();
+        carAdapter = new CarAdapter(activity, listCars);
+        LinearLayoutManager layoutManagerCities = new LinearLayoutManager(activity);
+        layoutManagerCities.setOrientation(RecyclerView.HORIZONTAL);
+        layoutManagerCities.setReverseLayout(false);
+        binding.listCar.setLayoutManager(layoutManagerCities);
+        binding.listCar.setAdapter(carAdapter);
 
-// Update UI information user at home
+        DatabaseReference carsReference = FirebaseDatabase.getInstance().getReference("cars");
+        Log.d("databaseRef", "fetchCities: "+carsReference);
+
+        carsReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listCars.clear();
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    for (DataSnapshot user : data.getChildren()) {
+                        Car car = user.getValue(Car.class);
+                        listCars.add(car);
+                    }
+
+                }
+                carAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+        // Update UI information user at home
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             userId = user.getUid();
