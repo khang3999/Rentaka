@@ -29,12 +29,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.tdc.rentaka.APIs.FirebaseAPI;
+import vn.edu.tdc.rentaka.APIs.RealTimeAPI;
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.activities.ChooseDateActivity;
 import vn.edu.tdc.rentaka.activities.ChooseLocationActivity;
 import vn.edu.tdc.rentaka.activities.ListCarSearchActivity;
+import vn.edu.tdc.rentaka.activities.MainActivity;
 import vn.edu.tdc.rentaka.adapters.AdvantageAdapter;
 import vn.edu.tdc.rentaka.adapters.CarAdapter;
+import vn.edu.tdc.rentaka.adapters.CityAdapter;
 import vn.edu.tdc.rentaka.adapters.LocationAdapter;
 import vn.edu.tdc.rentaka.adapters.PromotionAdapter;
 import vn.edu.tdc.rentaka.databinding.BottomSheetDiaglogLayoutBinding;
@@ -48,15 +51,18 @@ import vn.edu.tdc.rentaka.models.Promotion;
 
 public class HomeFragment extends AbstractFragment {
     private FirebaseAPI firebaseAPI;
+    private RealTimeAPI realTimeAPI = new RealTimeAPI();
     private ArrayList<Promotion> listPromotions;
     private ArrayList<Location> listLocations;
     private ArrayList<Advantage> listAdvantage;
+    private ArrayList<Car> listCar;
     private HomeFragmentBinding binding;
     private CardCarItemBinding cardCarItemBinding;
     private PromotionAdapter promotionAdapter;
     private LocationAdapter locationAdapter;
     private AdvantageAdapter advantageAdapter;
     private CarAdapter carHasDriverAdapter;
+
     private CarAdapter carNoDriverAdapter;
 
     private Activity activity;
@@ -256,6 +262,41 @@ public class HomeFragment extends AbstractFragment {
             }
         });
 
+        //Goi ham lay list cas
+        listCar = new ArrayList<>();
+        carNoDriverAdapter = new CarAdapter(activity, listCar);
+        LinearLayoutManager layoutManagerCities = new LinearLayoutManager(activity);
+        layoutManagerCities.setOrientation(RecyclerView.HORIZONTAL);
+        layoutManagerCities.setReverseLayout(false);
+        binding.listCarNoDriver.setLayoutManager(layoutManagerCities);
+        binding.listCarNoDriver.setAdapter(carNoDriverAdapter);
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("cars");
+        Log.d("databaseRef", "fetchCities: "+databaseReference);
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listCar.clear();
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    Log.d("databaseRef", "onDataChange: a");
+                    for (DataSnapshot user : data.getChildren()) {
+                        Car car = user.getValue(Car.class);
+                        listCar.add(car);
+                        Log.d("databaseRef", "onDataChange: "+car);
+                    }
+
+                }
+                carNoDriverAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         return fragment;
     }
@@ -295,21 +336,21 @@ public class HomeFragment extends AbstractFragment {
         }
 
         // Get car self from database
-        firebaseAPI.fetchCarsBySelf(new FirebaseAPI.onCallBack<Car>() {
-            @Override
-            public void onCallBack(List<Car> list) {
-                Log.d("fb", "onCallBack: "+ list.size());
-                carHasDriverAdapter = new CarAdapter(activity,(ArrayList<Car>) list);
-                LinearLayoutManager layoutManagerAdvantage = new LinearLayoutManager(activity);
-                layoutManagerAdvantage.setOrientation(RecyclerView.HORIZONTAL);
-                layoutManagerAdvantage.setReverseLayout(false);
-                binding.listCarNoDriver.setLayoutManager(layoutManagerAdvantage);
-                binding.listCarNoDriver.setAdapter(carHasDriverAdapter);
-
-                // Thiết lập LinearSnapHelper để vuốt dừng lại tại một item
-                attachSnapHelper(binding.listCarNoDriver);
-            }
-        });
+//        firebaseAPI.fetchCarsBySelf(new FirebaseAPI.onCallBack<Car>() {
+//            @Override
+//            public void onCallBack(List<Car> list) {
+//                Log.d("fb", "onCallBack: "+ list.size());
+//                carHasDriverAdapter = new CarAdapter(activity,(ArrayList<Car>) list);
+//                LinearLayoutManager layoutManagerAdvantage = new LinearLayoutManager(activity);
+//                layoutManagerAdvantage.setOrientation(RecyclerView.HORIZONTAL);
+//                layoutManagerAdvantage.setReverseLayout(false);
+//                binding.listCarNoDriver.setLayoutManager(layoutManagerAdvantage);
+//                binding.listCarNoDriver.setAdapter(carHasDriverAdapter);
+//
+//                // Thiết lập LinearSnapHelper để vuốt dừng lại tại một item
+//                attachSnapHelper(binding.listCarNoDriver);
+//            }
+//        });
 
         // Update UI information user at home
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

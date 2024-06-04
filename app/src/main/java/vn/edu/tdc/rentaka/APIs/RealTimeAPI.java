@@ -1,5 +1,7 @@
 package vn.edu.tdc.rentaka.APIs;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -15,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import vn.edu.tdc.rentaka.models.Car;
 import vn.edu.tdc.rentaka.models.City;
 import vn.edu.tdc.rentaka.models.Status;
 
@@ -39,15 +42,15 @@ public class RealTimeAPI {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<City> allCities = new ArrayList<>();
 
-                for (DataSnapshot citySnapshot : dataSnapshot.getChildren()) {
-                    String cityName = citySnapshot.child("data").getValue(String.class);
-                    City city = new City(cityName);
-                    if (cityName != null) {
-                        allCities.add(city);
-                    }
-                }
-
-                listener.onFetched(allCities);
+//                for (DataSnapshot citySnapshot : dataSnapshot.getChildren()) {
+//                    String cityName = citySnapshot.child("data").getValue(String.class);
+//                    City city = new City(cityName);
+//                    if (cityName != null) {
+//                        allCities.add(city);
+//                    }
+//                }
+//
+//                listener.onFetched(allCities);
             }
 
             @Override
@@ -196,6 +199,33 @@ public class RealTimeAPI {
                 } else {
                     System.out.println("Status name saved successfully.");
                 }
+            }
+        });
+    }
+    //Get city
+    public void fetchCar(ArrayList<String> listCar){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("test");
+        Log.d("databaseRef", "fetchCities: "+databaseReference);
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listCar.clear();
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    Log.d("databaseRef", "onDataChange: a");
+                    for (DataSnapshot user : data.getChildren()) {
+                        String car = user.getValue(String.class);
+                        listCar.add(car);
+                        Log.d("databaseRef", "onDataChange: "+car);
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
