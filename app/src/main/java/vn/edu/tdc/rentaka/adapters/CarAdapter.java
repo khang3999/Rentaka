@@ -154,7 +154,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.CardCarItemBinding;
@@ -199,14 +201,20 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
             // Set ảnh mặc định
             binding.imageCar.setImageResource(R.drawable.car);
         }
-
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(new Locale("vi", "VN"));
         binding.textViewTypeGearBox.setText(car.getTypeGearbox());
         binding.textViewFuel.setText(car.getFuel());
+<<<<<<< HEAD
         binding.nameCar.setText(car.getBrand()+" "+car.getModel());
         binding.addressCar.setText(car.getCity().getName());
         binding.textViewPriceDaily.setText(car.getPriceDaily()+"");
 
 
+=======
+        binding.nameCar.setText(car.getModel());
+        binding.addressCar.setText(car.getCity().getName());
+        binding.textViewPriceDaily.setText(numberFormat.format(car.getPriceDaily()));
+>>>>>>> bd09c4a11828b8e74aba3e7b359b783d247cfe19
         //Update moi lan load
         updateFavoriteIcon(binding, car);
 

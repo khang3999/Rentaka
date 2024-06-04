@@ -904,9 +904,11 @@
                     app:layout_constraintGuide_percent="0.85" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <!--    Reference driver-driving   -->
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/_20dp"
                 android:background="@drawable/round_outline">
 
                 <LinearLayout
@@ -938,6 +940,7 @@
                         android:layout_marginTop="@dimen/margin_element_start"
                         android:text="Lương tài xe 1 ngày"
                         android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/commission_title_textview"
                         style="@style/NormalTextStyle"
@@ -957,34 +960,17 @@
                         android:layout_marginTop="10dp"
                         android:text="@string/net_revenue_80"
                         android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/method_received1_title_textview"
-                        style="@style/NormalTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/label_in_app"
-                        />
-                    <TextView
-                        android:id="@+id/method_received2_title_textview"
-                        style="@style/NormalTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginVertical="10dp"
-                        android:text="@string/label_direct"
-                        />
+
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_10dp"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="@dimen/_10dp"
                     app:layout_constraintStart_toStartOf="@+id/guideline13"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -993,21 +979,22 @@
                         style="@style/NormalTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="right"
                         android:layout_marginStart="@dimen/margin_element_start"
                         android:layout_marginTop="@dimen/margin_element_start"
-                        android:text="100,000"
-                        android:textStyle="bold"
-                        android:layout_gravity="right"/>
+                        android:text="0"
+                        android:textStyle="bold" />
+
                     <TextView
-                    android:id="@+id/salary_driver_value_total"
-                    style="@style/NormalTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_element_start"
-                    android:layout_marginTop="@dimen/margin_element_start"
-                    android:text="50,000"
-                    android:textStyle="bold"
-                    android:layout_gravity="right"/>
+                        android:id="@+id/salary_driver_value_total"
+                        style="@style/NormalTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginStart="@dimen/margin_element_start"
+                        android:layout_marginTop="@dimen/margin_element_start"
+                        android:text="0"
+                        android:textStyle="bold" />
 
 
                     <TextView
@@ -1015,43 +1002,24 @@
                         style="@style/NormalTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="right"
                         android:layout_marginStart="@dimen/margin_element_start"
                         android:layout_marginTop="@dimen/margin_element_start"
-                        android:text="-20,000"
+                        android:text="0"
                         android:textColor="@color/gray_line"
-                        android:textStyle="italic"
-                        android:layout_gravity="right"/>
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/net_revenue_value"
                         style="@style/NormalTextStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="right"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="80,000"
-                        android:textStyle="bold"
+                        android:text="0"
                         android:textColor="@color/green"
-                        android:layout_gravity="right"/>
-                    <TextView
-                        android:id="@+id/in_app_value"
-                        style="@style/NormalTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:text="10,000"
-                        android:layout_gravity="right"/>
-                    <TextView
-                        android:id="@+id/direct_value"
-                        style="@style/NormalTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginVertical="@dimen/_10dp"
-                        android:text="70,000"
-                        android:layout_gravity="right"/>
+                        android:textStyle="bold" />
 
 
                 </LinearLayout>
