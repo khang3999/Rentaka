@@ -1,6 +1,8 @@
 package vn.edu.tdc.rentaka.models;
 
-public class Car {
+import java.io.Serializable;
+
+public class Car  {
     private String id;
     private String ownerID;
     private String imageCarUrl;
