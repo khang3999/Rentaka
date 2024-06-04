@@ -17,14 +17,14 @@ public class Car {
     // So giay dang kiem
     private String inspection;
     // So giay bao hiem xe
-    private String insurrance;
+    private String insurance;
     // So cavet xe
     private String registration;
     // The chap
-    private double mortgage;
+    private int mortgage;
 
-    private double priceDaily;
-    private double salaryDriver;
+    private int priceDaily;
+    private int salaryDriver;
 
     private Status statusId;
 
@@ -140,12 +140,12 @@ public class Car {
         this.inspection = inspection;
     }
 
-    public String getInsurrance() {
-        return insurrance;
+    public String getinsurance() {
+        return insurance;
     }
 
-    public void setInsurrance(String insurrance) {
-        this.insurrance = insurrance;
+    public void setinsurance(String insurance) {
+        this.insurance = insurance;
     }
 
     public String getRegistration() {
@@ -156,27 +156,27 @@ public class Car {
         this.registration = registration;
     }
 
-    public double getMortgage() {
+    public int getMortgage() {
         return mortgage;
     }
 
-    public void setMortgage(double mortgage) {
+    public void setMortgage(int mortgage) {
         this.mortgage = mortgage;
     }
 
-    public double getPriceDaily() {
+    public int getPriceDaily() {
         return priceDaily;
     }
 
-    public void setPriceDaily(double priceDaily) {
+    public void setPriceDaily(int priceDaily) {
         this.priceDaily = priceDaily;
     }
 
-    public double getSalaryDriver() {
+    public int getSalaryDriver() {
         return salaryDriver;
     }
 
-    public void setSalaryDriver(double salaryDriver) {
+    public void setSalaryDriver(int salaryDriver) {
         this.salaryDriver = salaryDriver;
     }
 
@@ -188,7 +188,7 @@ public class Car {
         this.statusId = statusId;
     }
 
-    public Car(String id, String ownerID, String imageCarUrl, String brand, String model, int since, String licensePlate, String color, String description, City city, String fuel, String typeGearbox, int seat, String inspection, String insurrance, String registration, double mortgage, double priceDaily, double salaryDriver, Status statusId) {
+    public Car(String id, String ownerID, String imageCarUrl, String brand, String model, int since, String licensePlate, String color, String description, City city, String fuel, String typeGearbox, int seat, String inspection, String insurance, String registration, int mortgage, int priceDaily, int salaryDriver, Status statusId) {
         this.id = id;
         this.ownerID = ownerID;
         this.imageCarUrl = imageCarUrl;
@@ -203,7 +203,7 @@ public class Car {
         this.typeGearbox = typeGearbox;
         this.seat = seat;
         this.inspection = inspection;
-        this.insurrance = insurrance;
+        this.insurance = insurance;
         this.registration = registration;
         this.mortgage = mortgage;
         this.priceDaily = priceDaily;
@@ -231,7 +231,7 @@ public class Car {
                 ", typeGearbox='" + typeGearbox + '\'' +
                 ", seat=" + seat +
                 ", inspection='" + inspection + '\'' +
-                ", insurrance='" + insurrance + '\'' +
+                ", insurance='" + insurance + '\'' +
                 ", registration='" + registration + '\'' +
                 ", mortgage=" + mortgage +
                 ", priceDaily=" + priceDaily +

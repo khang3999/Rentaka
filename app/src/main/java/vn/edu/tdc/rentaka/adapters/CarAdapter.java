@@ -69,6 +69,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
         binding.textViewTypeGearBox.setText(car.getTypeGearbox());
         binding.textViewFuel.setText(car.getFuel());
         binding.nameCar.setText(car.getModel());
+
         binding.addressCar.setText(car.getDescription());
         //Update moi lan load
         updateFavoriteIcon(binding, car);
@@ -106,6 +107,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
                         }
                     });
         }
+
     }
 
     @Override
