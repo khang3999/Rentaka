@@ -47,9 +47,9 @@ public class RealTimeAPI {
     }
 
     // Method to get all City
-    public void fetchCities(FetchListener<City> listener){
+    public void fetchCities(FetchListener<City> listener) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("cities");
-        Log.d("databaseRef", "fetchCities: "+databaseReference);
+        Log.d("databaseRef", "fetchCities: " + databaseReference);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -58,7 +58,7 @@ public class RealTimeAPI {
                 for (DataSnapshot s : snapshot.getChildren()) {
                     City city = s.getValue(City.class);
                     listCities.add(city);
-                    Log.d("databaseRef", "onDataChange: "+city);
+                    Log.d("databaseRef", "onDataChange: " + city);
                 }
 
                 listener.onFetched(listCities);
@@ -72,7 +72,7 @@ public class RealTimeAPI {
     }
 
     //Method to add rate to the database ** working properly
-    public void addRate(Rate rate){
+    public void addRate(Rate rate) {
         DatabaseReference ratesRef = mDatabase.child("rates");
         ratesRef.orderByKey().limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -271,7 +271,8 @@ public class RealTimeAPI {
             }
         });
     }
-/*
+
+
     // Method to fetch all cities ** working properly
 //    public void fetchAllCities(FetchListener<City> listener) {
 //        DatabaseReference citiesRef = mDatabase.child("cities");
@@ -332,7 +333,7 @@ public class RealTimeAPI {
     }
 
 
-    public void createNewCar(String userId, Car car, Uri imageUriCar, Uri imageUriInspection, Uri imageUriInsurance, Uri imageUriRegister, Context context){
+    public void createNewCar(String userId, Car car, Uri imageUriCar, Uri imageUriInspection, Uri imageUriInsurance, Uri imageUriRegister, Context context) {
 
         // Lay node userIdRef
         DatabaseReference userIdRef = FirebaseDatabase.getInstance().getReference().child("cars").child(userId);
@@ -345,7 +346,7 @@ public class RealTimeAPI {
         car.setId(carId);
 
         // Luu 4 anh : car, inspection, insurance, register nhung chi update string image car
-        StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("users/"+userId).child("cars/" + carId);
+        StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("users/" + userId).child("cars/" + carId);
         fileRef.putFile(imageUriCar)
                 .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
                     String imageUrl = uri.toString();
@@ -479,6 +480,6 @@ public class RealTimeAPI {
 //            }
 //        });
 //    }
-
-
 }
+
+
