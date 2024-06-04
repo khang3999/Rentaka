@@ -4,7 +4,7 @@
 
     </style>
 
-    <style name="Theme.MaterialDatePicker" parent="Theme.Material3.Light" />
+    <style name="Theme.MaterialDatePicker" parent="Theme.Material3.Light.NoActionBar" />
 
     <style name="Theme.Carrental" parent="Base.Theme.Rentaka" />
 
