@@ -44,8 +44,11 @@ import vn.edu.tdc.rentaka.adapters.LocationAdapter;
 import vn.edu.tdc.rentaka.adapters.PromotionAdapter;
 import vn.edu.tdc.rentaka.databinding.BottomSheetDiaglogLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.CardCarItemBinding;
+import vn.edu.tdc.rentaka.databinding.CardItemCityLayoutBinding;
+import vn.edu.tdc.rentaka.databinding.ConfirmRentalLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.HomeFragmentBinding;
 import vn.edu.tdc.rentaka.databinding.LocationItemLayoutBinding;
+import vn.edu.tdc.rentaka.databinding.RentalDetailLayoutBinding;
 import vn.edu.tdc.rentaka.models.Advantage;
 import vn.edu.tdc.rentaka.models.Car;
 import vn.edu.tdc.rentaka.models.Location;
@@ -65,7 +68,7 @@ public class HomeFragment extends AbstractFragment {
     private AdvantageAdapter advantageAdapter;
     private CarAdapter carHasDriverAdapter;
 
-    private CarAdapter carNoDriverAdapter;
+    private CarAdapter carAdapter;
 
     private Activity activity;
 
@@ -266,12 +269,12 @@ public class HomeFragment extends AbstractFragment {
 
         //Goi ham lay list cas
         listCar = new ArrayList<>();
-        carNoDriverAdapter = new CarAdapter(activity, listCar);
+        carAdapter = new CarAdapter(activity, listCar);
         LinearLayoutManager layoutManagerCities = new LinearLayoutManager(activity);
         layoutManagerCities.setOrientation(RecyclerView.HORIZONTAL);
         layoutManagerCities.setReverseLayout(false);
         binding.listCarNoDriver.setLayoutManager(layoutManagerCities);
-        binding.listCarNoDriver.setAdapter(carNoDriverAdapter);
+        binding.listCarNoDriver.setAdapter(carAdapter);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("cars");
         Log.d("databaseRef", "fetchCities: "+databaseReference);
@@ -281,15 +284,13 @@ public class HomeFragment extends AbstractFragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listCar.clear();
                 for (DataSnapshot data : snapshot.getChildren()) {
-                    Log.d("databaseRef", "onDataChange: a");
                     for (DataSnapshot user : data.getChildren()) {
                         Car car = user.getValue(Car.class);
                         listCar.add(car);
-                        Log.d("databaseRef", "onDataChange: "+car);
                     }
 
                 }
-                carNoDriverAdapter.notifyDataSetChanged();
+                carAdapter.notifyDataSetChanged();
 
             }
 
@@ -298,6 +299,23 @@ public class HomeFragment extends AbstractFragment {
 
             }
         });
+
+        //Bat su kien khi click vao item caradapter
+        carAdapter.setOnItemClickListener(new CarAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(CarAdapter.MyViewHolder holder) {
+                CardCarItemBinding binding1 = (CardCarItemBinding) holder.getBinding();
+                Intent intent = new Intent(activity, RentalDetailActivity.class);
+                Bundle bundle = new Bundle();
+                Car car = listCar.get(holder.getAdapterPosition());
+                intent.putExtra("car", listCar.get(holder.getAdapterPosition()).getId());
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+//                // Main vao tu trai, choose date exit ve ben phai
+//                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+            }
+        });
+
 
 
         return fragment;

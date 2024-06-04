@@ -159,6 +159,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/type"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -166,6 +167,7 @@
                         android:text="Số tự động" />
 
                     <TextView
+                        android:id="@+id/seat"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -173,6 +175,7 @@
                         android:text="7 chỗ" />
 
                     <TextView
+                        android:id="@+id/fuel"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -253,7 +256,7 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:id="@+id/imageView"
+                            android:id="@+id/owner_img"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="3"

@@ -71,6 +71,20 @@ public class UserModel {
         this.bankCard = bankCard;
         this.citizenIdCard = citizenIdCard;
     }
+    public UserModel() {
+        this.phone = "0";
+        this.name = "unknow";
+        this.email = "email";
+        this.balance = 0.0;
+        this.gender = "None";
+        this.registrationDate = "registrationDate";
+        this.imageUser = "";
+        this.address = "";
+        this.birthday = "00/00/0000";
+        this.drivingLicense = new DrivingLicense();
+        this.bankCard = new BankCard();
+        this.citizenIdCard = new CitizenIdentificationCard();
+    }
 
     public String getPhone() {
         return phone;
