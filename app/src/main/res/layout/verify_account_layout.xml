@@ -20,7 +20,7 @@
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="Giay phep lai xe"
+            app:title="@string/dinh_danh_ca_nhan"
             app:titleCentered="true"/>
     </com.google.android.material.appbar.AppBarLayout>
     <RelativeLayout
@@ -59,7 +59,7 @@
                         android:text="///"
                         android:gravity="center_vertical"
                         />
-                    <!-- Anh mat trc gplx-->
+                    <!-- Anh mat trc CCCD-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -69,17 +69,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="@string/nh_m_t_tr_c_gplx"
+                            android:text="@string/m_t_tr_c_cccd"
                             android:textSize="@dimen/_18sp"
                             android:textStyle="bold"
                             />
                         <TextView
-                            android:id="@+id/textGPLX"
+                            android:id="@+id/textCCCD"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="hii"/>
                     </LinearLayout>
-                    <!-- Ảnh GPLX-->
+                    <!-- Ảnh CCCD-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_marginTop="10dp"
@@ -87,10 +87,10 @@
                         android:padding="3dp"
                         android:layout_height="250dp">
                         <ImageView
-                            android:id="@+id/imageGPLX"
+                            android:id="@+id/imageCCCD"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/gplx"
+                            android:src="@drawable/img_cccd"
                             android:scaleType="fitXY"
                             />
 
@@ -120,18 +120,18 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/s_gplx"
+                                android:text="Số CCCD"
                                 android:textSize="@dimen/_18sp"
                                 android:textStyle="bold" />
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/day_12_chu_so_o_mat_truoc_gplx"
+                                android:text="@string/day_12_chu_so_o_mat_truoc_cccd"
                                 android:textSize="@dimen/_12sp"
                                 android:layout_marginBottom="5dp"
                                 />
                             <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/textInputLayoutGPLX"
+                                android:id="@+id/textInputLayoutCCCD"
                                 android:layout_width="match_parent"
                                 android:layout_marginTop="5dp"
                                 android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
                                 app:endIconMode="clear_text">
 
                                 <EditText
-                                    android:id="@+id/editGPLX"
+                                    android:id="@+id/editCCCD"
                                     android:layout_width="match_parent"
                                     android:layout_height="60dp"
                                     android:inputType="number"
@@ -164,7 +164,7 @@
                                 android:textSize="@dimen/_18sp"
                                 android:textStyle="bold" />
                             <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/textInputLayoutName"
+                                android:id="@+id/textInputLayoutUserNameCCCD"
                                 android:layout_width="match_parent"
                                 android:layout_marginTop="5dp"
                                 android:layout_height="wrap_content"
@@ -174,7 +174,7 @@
                                 app:endIconMode="clear_text">
 
                                 <EditText
-                                    android:id="@+id/editTextName"
+                                    android:id="@+id/editTextUserNameCCCD"
                                     android:layout_width="match_parent"
                                     android:layout_height="60dp"
                                     android:textSize="@dimen/_16sp"
@@ -184,7 +184,7 @@
 
                         </LinearLayout>
 
-                        <!--BirthDay-->
+                        <!--Ngay cap-->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="110dp"
@@ -195,17 +195,201 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="5dp"
-                                android:text="@string/ng_y_c_p_gplx"
+                                android:text="@string/ng_y_c_p"
                                 android:textSize="@dimen/_18sp"
                                 android:textStyle="bold" />
                             <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/textInputLayoutDateIssued"
+                                android:id="@+id/textInputLayoutDateIssuedCCCD"
                                 android:layout_width="match_parent"
                                 android:layout_marginTop="5dp"
                                 android:layout_height="wrap_content"
                                 >
                                 <TextView
-                                    android:id="@+id/editTextDateIssued"
+                                    android:id="@+id/editTextDateIssuedCCCD"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:padding="20dp"
+                                    android:textSize="@dimen/_16sp"
+                                    android:background="@drawable/custom_button_account"
+                                    android:hint="dd/mm/yyyy" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Anh mat truoc ngan hang-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:orientation="vertical"
+                        android:layout_weight="0.8">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/m_t_tr_c_bank"
+                            android:textSize="@dimen/_18sp"
+                            android:textStyle="bold"
+                            />
+                        <TextView
+                            android:id="@+id/textBank"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="hii"/>
+                    </LinearLayout>
+                    <!-- Ảnh CCCD-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/custom_image_gplx"
+                        android:padding="3dp"
+                        android:layout_height="250dp">
+                        <ImageView
+                            android:id="@+id/imageBank"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/img_bank"
+                            android:scaleType="fitXY"
+                            />
+
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/textErrorImageBank"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/maudo"
+                        android:visibility="gone"
+                        android:text="@string/ban_chua_anh"
+                        />
+                    <!--INPUT-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:paddingBottom="30dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <!--GPLX-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="110dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Số Bank"
+                                android:textSize="@dimen/_18sp"
+                                android:textStyle="bold" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/textInputLayoutBank"
+                                android:layout_width="match_parent"
+                                android:layout_marginTop="5dp"
+                                android:layout_height="wrap_content"
+                                app:endIconTint="@color/xanh_dam"
+                                app:hintEnabled="false"
+                                app:errorTextColor="@color/maudo"
+                                app:endIconMode="clear_text">
+
+                                <EditText
+                                    android:id="@+id/editBank"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:inputType="number"
+                                    android:textSize="@dimen/_16sp"
+                                    android:background="@drawable/custom_button_account"
+                                    android:hint="@string/_0000_0000_0000" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+                        <!--Name user-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="110dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/ten_ngan_hang"
+                                android:textSize="@dimen/_18sp"
+                                android:textStyle="bold" />
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/textInputLayoutNameBank"
+                                android:layout_width="match_parent"
+                                android:layout_marginTop="5dp"
+                                android:layout_height="wrap_content"
+                                app:endIconTint="@color/xanh_dam"
+                                app:hintEnabled="false"
+                                app:errorTextColor="@color/maudo"
+                                app:endIconMode="clear_text">
+
+                                <EditText
+                                    android:id="@+id/editTextNameBank"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:textSize="@dimen/_16sp"
+                                    android:background="@drawable/custom_button_account"
+                                    android:hint="@string/nh_p_t_n_ng_n_h_ng" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+                        <!--Name user-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="110dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/t_n_ng_i_s_h_u"
+                                android:textSize="@dimen/_18sp"
+                                android:textStyle="bold" />
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/textInputLayoutUserNameBank"
+                                android:layout_width="match_parent"
+                                android:layout_marginTop="5dp"
+                                android:layout_height="wrap_content"
+                                app:endIconTint="@color/xanh_dam"
+                                app:hintEnabled="false"
+                                app:errorTextColor="@color/maudo"
+                                app:endIconMode="clear_text">
+
+                                <EditText
+                                    android:id="@+id/editTextUserNameBank"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:textSize="@dimen/_16sp"
+                                    android:background="@drawable/custom_button_account"
+                                    android:hint="@string/nh_p_t_n_hi_n_th" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <!--Ngay cap-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="110dp"
+                            android:layout_marginBottom="10dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:text="@string/ng_y_c_p"
+                                android:textSize="@dimen/_18sp"
+                                android:textStyle="bold" />
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/textInputLayoutBankDateIssued"
+                                android:layout_width="match_parent"
+                                android:layout_marginTop="5dp"
+                                android:layout_height="wrap_content"
+                                >
+                                <TextView
+                                    android:id="@+id/editTextBankDateIssued"
                                     android:layout_width="match_parent"
                                     android:layout_height="60dp"
                                     android:padding="20dp"
@@ -258,7 +442,7 @@
                 >
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/save_GPLX"
+                    android:id="@+id/save_XacNhan"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:background="@color/xanh_dam"

@@ -120,7 +120,7 @@ public class UserAddressActivity extends AppCompatActivity {
     private void loadDataAdress() {
         // Hiển thị địa chỉ được chọn lên TextView
         String idUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference userAddressRef = FirebaseDatabase.getInstance().getReference().child("Users").child(idUser).child("address");
+        DatabaseReference userAddressRef = FirebaseDatabase.getInstance().getReference().child("users").child(idUser).child("address");
         userAddressRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -148,7 +148,7 @@ public class UserAddressActivity extends AppCompatActivity {
         // Lấy ID của người dùng hiện tại
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         // Tạo một tham chiếu đến vị trí trong cơ sở dữ liệu Firebase Realtime Database
-        DatabaseReference userAddressRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("address");
+        DatabaseReference userAddressRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("address");
         // Đặt giá trị của địa chỉ vào tham chiếu
         userAddressRef.setValue(address);
         Toast.makeText(this, "Them thanh cong dia chi", Toast.LENGTH_SHORT).show();
