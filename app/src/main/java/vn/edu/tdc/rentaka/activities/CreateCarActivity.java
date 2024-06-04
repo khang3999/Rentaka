@@ -68,6 +68,7 @@ public class CreateCarActivity extends AppCompatActivity {
     private ArrayList<String> listCitiesName;
     private int tapOnImage;
     private RealTimeAPI realTimeAPI;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,12 +104,11 @@ public class CreateCarActivity extends AppCompatActivity {
 
 
         // Lay id user dang dang nhap, dung thu vien FirebaseUser
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        if (user != null) {
-//            String userId = user.getUid();
-//            userId = userId;
-//        }
-
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String id = user.getUid();
+            this.userId = id;
+        }
 
 
         //Button top back navigation
@@ -162,7 +162,7 @@ public class CreateCarActivity extends AppCompatActivity {
                 // It nhat 1 ký tu
                 String regex = "^([a-zA-Z0-9]{1,})$";
                 if (s.toString().matches(regex)) {
-                    isValidModel= true;
+                    isValidModel = true;
                     binding.editTextModel.setError(null);
                 } else {
                     isValidModel = false;
@@ -213,7 +213,7 @@ public class CreateCarActivity extends AppCompatActivity {
                 // It nhat 1 ký tu
                 String regex = "^[a-zA-Z0-9]{1,}$";
                 if (s.toString().matches(regex)) {
-                    isValidLicense= true;
+                    isValidLicense = true;
                     binding.editTextLicensePlate.setError(null);
                 } else {
                     isValidLicense = false;
@@ -239,7 +239,7 @@ public class CreateCarActivity extends AppCompatActivity {
                 // It nhat 1 ký tu
                 String regex = "^[a-zA-Z]{1,}$";
                 if (s.toString().matches(regex)) {
-                    isValidColor= true;
+                    isValidColor = true;
                     binding.editTextColor.setError(null);
                 } else {
                     isValidColor = false;
@@ -264,7 +264,7 @@ public class CreateCarActivity extends AppCompatActivity {
                 // It nhat 1 ký tu
                 String regex = "^.{1,}$";
                 if (s.toString().matches(regex)) {
-                    isValidDescription= true;
+                    isValidDescription = true;
                     binding.editTextDescription.setError(null);
                 } else {
                     isValidDescription = false;
@@ -379,7 +379,7 @@ public class CreateCarActivity extends AppCompatActivity {
 
             }
         });
-        
+
 
         //CHON HINH
         // Set up the image picker launcher
@@ -389,13 +389,13 @@ public class CreateCarActivity extends AppCompatActivity {
                 result -> {
                     // Kiểm tra nếu kết quả trả về là thành công (RESULT_OK) và có dữ liệu (data không null)
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                        if (tapOnImage == 0){
+                        if (tapOnImage == 0) {
                             imageUriCar = result.getData().getData(); // Lấy Uri của ảnh được chọn từ kết quả trả về
                             binding.imageCar.setImageURI(imageUriCar);
-                        } else if (tapOnImage == 1){
+                        } else if (tapOnImage == 1) {
                             imageUriInspection = result.getData().getData(); // Lấy Uri của ảnh được chọn từ kết quả trả về
                             binding.imageInspection.setImageURI(imageUriInspection);
-                        } else if (tapOnImage == 2){
+                        } else if (tapOnImage == 2) {
                             imageUriInsurance = result.getData().getData(); // Lấy Uri của ảnh được chọn từ kết quả trả về
                             binding.imageInsurance.setImageURI(imageUriInsurance);
                         } else {
@@ -446,7 +446,7 @@ public class CreateCarActivity extends AppCompatActivity {
                 boolean valid = isValidBrand && isValidModel && isValidSince
                         && isValidLicense && isValidColor && isValidFuel && isValidType
                         && isValidSeat && isValidMortgage && isValidPriceDriver && isValidPriceSelf;
-                if (valid){
+                if (valid) {
                     //Create car và đưa lên cơ sơ dữ liêu
                     Car car = new Car();
                     car.setOwnerID(userId);
@@ -472,37 +472,19 @@ public class CreateCarActivity extends AppCompatActivity {
                     RadioButton radSeatChoose = findViewById(idSeat);
                     car.setSeat(Integer.parseInt(radSeatChoose.getText().toString()));
                     // Set mortgage
-                    double m = 0.0;
-                    try {
-                        m = Double.parseDouble(binding.editTextMortgageMoney.getText().toString());
-                    }
-                    catch (NumberFormatException e){
-                        m = 0.0;
-                    }
-                    double priceDaily = 0.0;
-                    try {
-                        priceDaily = Double.parseDouble(binding.editTextPriceDaily.getText().toString());
-                    }
-                    catch (NumberFormatException e){
-                        priceDaily = 0.0;
-                    }
-                    double salary = 0.0;
-                    try {
-                        salary = Double.parseDouble(binding.editTextSalaryDriver.getText().toString());
-                    }
-                    catch (NumberFormatException e){
-                        salary = 0.0;
-                    }
-                    car.setMortgage(m);
+                    int mortgage = Integer.parseInt(binding.editTextMortgageMoney.getText().toString());
+                    car.setMortgage(mortgage);
                     // Set price daily
+                    int priceDaily = Integer.parseInt(binding.editTextPriceDaily.getText().toString());
                     car.setPriceDaily(priceDaily);
                     // Set salary driver
-                    car.setPriceDaily(salary);
+                    int salaryDriver = Integer.parseInt(binding.editTextSalaryDriver.getText().toString());
+                    car.setPriceDaily(salaryDriver);
 
-                    createNewCar(userId = "999",car,imageUriCar,imageUriInspection,imageUriInsurance,imageUriRegister);
+                    
+                    realTimeAPI.createNewCar(userId, car, imageUriCar, imageUriInspection, imageUriInsurance, imageUriRegister, CreateCarActivity.this);
 
-                }
-                else {
+                } else {
                     Snackbar snackbar = Snackbar.make(v, "Please input all fields! ", Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }
@@ -515,18 +497,6 @@ public class CreateCarActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Set default
-//        binding.autoCompleteBrand.setText("");
-//        binding.editTextModel.setText("");
-//        binding.editTextSince.setText("");
-//        binding.editTextLicensePlate.setText("");
-//        binding.editTextColor.setText("");
-//        binding.groupChooseFuel.clearCheck();
-//        binding.groupChooseType.clearCheck();
-//        binding.groupChooseSeat.clearCheck();
-//        binding.editTextMortgageMoney.setText("0");
-//        binding.editTextPriceDaily.setText("0");
-//        binding.editTextSalaryDriver.setText("0");
 
     }
 
@@ -538,6 +508,7 @@ public class CreateCarActivity extends AppCompatActivity {
         // Sử dụng ActivityResultLauncher để khởi chạy Intent, mở bộ chọn ảnh
         imagePickerLauncher.launch(intent);
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -565,67 +536,5 @@ public class CreateCarActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     STORAGE_PERMISSION_CODE);
         }
-    }
-
-//    ham tao xe moi
-    private void createNewCar(String userId, Car car, Uri imageUriCar, Uri imageUriInspection, Uri imageUriInsurance, Uri imageUriRegister){
-        // Lay node userIdRef
-        DatabaseReference userIdRef = FirebaseDatabase.getInstance().getReference().child("cars").child(userId);
-        // Tao node carId
-        DatabaseReference carIdRef = userIdRef.push();
-        // Lay id vua tao
-        String carId = carIdRef.getKey();
-        // update id cho car
-        car.setId(carId);
-        // Luu 4 anh : car, inspection, insurance, register nhung chi update string image car
-        //put image car
-        StorageReference imageCarRef = FirebaseStorage.getInstance().getReference().child("users/"+userId+"/cars/"+carId+"/imageCar/");
-        imageCarRef.putFile(imageUriCar)
-                .addOnSuccessListener(taskSnapshot -> imageCarRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                    String imageUrlCar = uri.toString();
-                    // set iamga car
-                    car.setImageCarUrl(imageUrlCar);
-                    // Chi can tai duoc anh xe thi se create car, khong can doi tai anh giay to khac
-                    carIdRef.setValue(car);
-                }))
-                .addOnFailureListener(e -> Toast.makeText(CreateCarActivity.this, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-
-       // Put  imageInspection
-        StorageReference imageInspection = FirebaseStorage.getInstance().getReference().child("users/"+userId+"/cars/"+carId+"/imageInspection/");
-        imageInspection.putFile(imageUriInspection)
-                .addOnSuccessListener(taskSnapshot -> imageInspection.getDownloadUrl().addOnSuccessListener(uri -> {
-                    String imageUrl = uri.toString();
-                }))
-                .addOnFailureListener(e -> Toast.makeText(CreateCarActivity.this, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-
-        // Put image imageInsurance
-        StorageReference imageInsurance = FirebaseStorage.getInstance().getReference().child("users/"+userId+"/cars/"+carId+"/imageInsurance/");
-        imageInsurance.putFile(imageUriInsurance)
-                .addOnSuccessListener(taskSnapshot -> imageInsurance.getDownloadUrl().addOnSuccessListener(uri -> {
-                    String imageUrl = uri.toString();
-                }))
-                .addOnFailureListener(e -> Toast.makeText(CreateCarActivity.this, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-
-        // Put image registration
-        StorageReference imageRegistration = FirebaseStorage.getInstance().getReference().child("users/"+userId+"/cars/"+carId+"/imageRegistration/");
-        imageRegistration.putFile(imageUriRegister)
-                .addOnSuccessListener(taskSnapshot -> imageRegistration.getDownloadUrl().addOnSuccessListener(uri -> {
-                    String imageUrl = uri.toString();
-                }))
-                .addOnFailureListener(e -> Toast.makeText(CreateCarActivity.this, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-
-        // save car into realtime database
-        Log.d("imageUrlCar", "createNewCar: "+car);
-//        carIdRef.setValue(car);
-    }
-
-//     Ham luu anh len firebase storage
-    private void uploadImageToStorage(Uri imageUri, String idCar, String folder) {
-        StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("users/"+userId).child("cars/" + idCar).child(folder);
-        fileRef.putFile(imageUri)
-                .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                    String imageUrl = uri.toString();
-                }))
-                .addOnFailureListener(e -> Toast.makeText(CreateCarActivity.this, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 }

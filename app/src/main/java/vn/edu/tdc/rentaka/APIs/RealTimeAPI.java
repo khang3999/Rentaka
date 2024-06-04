@@ -4,6 +4,8 @@ package vn.edu.tdc.rentaka.APIs;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Adapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import vn.edu.tdc.rentaka.activities.CreateCarActivity;
+import vn.edu.tdc.rentaka.adapters.CarAdapter;
 
 import vn.edu.tdc.rentaka.models.Car;
 import vn.edu.tdc.rentaka.models.City;
@@ -122,7 +125,9 @@ public class RealTimeAPI {
         });
     }
 
-
+    // Method to fetch
+    // Method to fetch list car but don't get car of self
+    // Lay toan bo, su dung gi thi xu li sau
     //Method to fetch all valid discounts from the database ** working properly
     public void fetchValidDiscount(FetchListener<Discount> listener) {
         DatabaseReference discountsRef = mDatabase.child("discounts");
@@ -336,44 +341,52 @@ public class RealTimeAPI {
 
 
     public void createNewCar(String userId, Car car, Uri imageUriCar, Uri imageUriInspection, Uri imageUriInsurance, Uri imageUriRegister, Context context){
-
-        // Lay node userIdRef
+//  Lay node userIdRef
         DatabaseReference userIdRef = FirebaseDatabase.getInstance().getReference().child("cars").child(userId);
-
         // Tao node carId
         DatabaseReference carIdRef = userIdRef.push();
         // Lay id vua tao
         String carId = carIdRef.getKey();
         // update id cho car
         car.setId(carId);
-
         // Luu 4 anh : car, inspection, insurance, register nhung chi update string image car
-        StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("users/"+userId).child("cars/" + carId);
-        fileRef.putFile(imageUriCar)
-                .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                    String imageUrl = uri.toString();
-                    car.setImageCarUrl(imageUrl);
+        //put image car
+        StorageReference imageCarRef = FirebaseStorage.getInstance().getReference().child("users/"+userId+"/cars/"+carId+"/imageCar/");
+        imageCarRef.putFile(imageUriCar)
+                .addOnSuccessListener(taskSnapshot -> imageCarRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String imageUrlCar = uri.toString();
+                    // set iamga car
+                    car.setImageCarUrl(imageUrlCar);
+                    // Chi can tai duoc anh xe thi se create car, khong can doi tai anh giay to khac
+                    carIdRef.setValue(car);
                 }))
                 .addOnFailureListener(e -> Toast.makeText(context, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-        fileRef.putFile(imageUriInspection)
-                .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                    String imageUrl = uri.toString();
-                }))
-                .addOnFailureListener(e -> Toast.makeText(context, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-        fileRef.putFile(imageUriInsurance)
-                .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                    String imageUrl = uri.toString();
-                }))
-                .addOnFailureListener(e -> Toast.makeText(context, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-        fileRef.putFile(imageUriRegister)
-                .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
+
+        // Put  imageInspection
+        StorageReference imageInspection = FirebaseStorage.getInstance().getReference().child("users/"+userId+"/cars/"+carId+"/imageInspection/");
+        imageInspection.putFile(imageUriInspection)
+                .addOnSuccessListener(taskSnapshot -> imageInspection.getDownloadUrl().addOnSuccessListener(uri -> {
                     String imageUrl = uri.toString();
                 }))
                 .addOnFailureListener(e -> Toast.makeText(context, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
 
-        // save car into realtime database
-        carIdRef.setValue(car).addOnSuccessListener(aVoid -> Toast.makeText(context, "Car data uploaded successfully", Toast.LENGTH_SHORT).show())
-                .addOnFailureListener(e -> Toast.makeText(context, "Failed to upload car data", Toast.LENGTH_SHORT).show());
+        // Put image imageInsurance
+        StorageReference imageInsurance = FirebaseStorage.getInstance().getReference().child("users/"+userId+"/cars/"+carId+"/imageInsurance/");
+        imageInsurance.putFile(imageUriInsurance)
+                .addOnSuccessListener(taskSnapshot -> imageInsurance.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String imageUrl = uri.toString();
+                }))
+                .addOnFailureListener(e -> Toast.makeText(context, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+
+        // Put image registration
+        StorageReference imageRegistration = FirebaseStorage.getInstance().getReference().child("users/"+userId+"/cars/"+carId+"/imageRegistration/");
+        imageRegistration.putFile(imageUriRegister)
+                .addOnSuccessListener(taskSnapshot -> imageRegistration.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String imageUrl = uri.toString();
+                }))
+                .addOnFailureListener(e -> Toast.makeText(context, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+
+
     }
 
 

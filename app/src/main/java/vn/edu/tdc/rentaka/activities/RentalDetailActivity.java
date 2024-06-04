@@ -34,6 +34,8 @@ public class RentalDetailActivity extends AppCompatActivity {
     private  String imageUrl;
 
     private UserModel owner;
+    private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,28 +44,79 @@ public class RentalDetailActivity extends AppCompatActivity {
 
         setContentView(rentalBinding.getRoot());
 
-        Intent intent = new Intent();
-        String carId = intent.getStringExtra("car");
+        //Button top back navigation
+        setSupportActionBar(rentalBinding.topAppBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        rentalBinding.topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RentalDetailActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                // Main vao tu trai, choose date exit ve ben phai
+                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+            }
+        });
+        intent = new Intent();
 
+
+
+        //Gach chan text
+        rentalBinding.btnMore.setPaintFlags(rentalBinding.btnMore.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+         //Bottom sheet
+        bottomSheetDialog = new BottomSheetDialog(
+                RentalDetailActivity.this, R.style.BottomSheetDialogTheme
+        );
+        bottomSheetDialog.setContentView(bottomSheetBinding.getRoot());
+        //Bat su kien khi click vao Xem them
+        rentalBinding.btnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetDialog.show();
+            }
+        });
+        //Bat su kien khi click vao x de tat bottom sheet
+        bottomSheetBinding.close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetDialog.dismiss();
+            }
+        });
+    }
+
+    @Override
+    protected void onNewIntent(@NonNull Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        intent = getIntent();
+        String carId = intent.getStringExtra("car");
+        Log.d("tesssss", "carid: "+carId);
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("cars");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                for (DataSnapshot data : snapshot.getChildren()) {
-                    for (DataSnapshot user : data.getChildren()) {
+                for (DataSnapshot userSnap : snapshot.getChildren()) {
+                    for (DataSnapshot carSnap : userSnap.getChildren()) {
                         car = new Car();
-                        car = user.getValue(Car.class);
+                        car = carSnap.getValue(Car.class);
+
+                        Log.d("tesssss", "carrental: "+car);
                         if (car.getId().equals(carId)){
-                            return;
+                            break;
                         }
-
                     }
-
-
+                    if (car.getId().equals(carId)){
+                        break;
+                    }
                 }
-                Log.d("tesssss", "car: "+car);
-                 imageUrl = car.getImageCarUrl();
+
+                Log.d("tesssss", "carrental: ngoai "+car);
+                imageUrl = car.getImageCarUrl();
 
                 if (imageUrl != null && !imageUrl.isEmpty()) {
                     Glide.with(RentalDetailActivity.this)
@@ -79,16 +132,18 @@ public class RentalDetailActivity extends AppCompatActivity {
                 rentalBinding.fuel.setText(car.getFuel()+"");
 
                 DatabaseReference ownerReference = FirebaseDatabase.getInstance().getReference("users");
-                databaseReference.addValueEventListener(new ValueEventListener() {
+                ownerReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                         for (DataSnapshot snapshotId : snapshot.getChildren()) {
                             if (snapshotId.getKey().equals(car.getOwnerID())){
                                 owner = snapshotId.getValue(UserModel.class);
+                                break;
                             }
 
                         }
+
                         Log.d("tesssss", "owner: "+owner);
                         String imageOwnerUrl = owner.getImageUser();
                         if (imageOwnerUrl != null && !imageOwnerUrl.isEmpty()) {
@@ -122,30 +177,5 @@ public class RentalDetailActivity extends AppCompatActivity {
         });
 
 
-
-//
-
-
-        //Gach chan text
-        rentalBinding.btnMore.setPaintFlags(rentalBinding.btnMore.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-         //Bottom sheet
-        bottomSheetDialog = new BottomSheetDialog(
-                RentalDetailActivity.this, R.style.BottomSheetDialogTheme
-        );
-        bottomSheetDialog.setContentView(bottomSheetBinding.getRoot());
-        //Bat su kien khi click vao Xem them
-        rentalBinding.btnMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetDialog.show();
-            }
-        });
-        //Bat su kien khi click vao x de tat bottom sheet
-        bottomSheetBinding.close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bottomSheetDialog.dismiss();
-            }
-        });
     }
 }

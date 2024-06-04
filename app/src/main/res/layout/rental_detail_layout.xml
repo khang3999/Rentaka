@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
+    <LinearLayout
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top">
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="Đăng ký cho thuê "
+                app:titleCentered="true"/>
+        </com.google.android.material.appbar.AppBarLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
     <!--Scroll view-->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -255,13 +272,12 @@
                         android:layout_margin="@dimen/_8dp"
                         android:orientation="horizontal">
 
-                        <ImageView
+                        <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/owner_img"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
+                            android:layout_width="80dp"
+                            android:layout_height="100dp"
                             android:layout_weight="3"
                             android:padding="@dimen/_20dp"
-                            android:scaleType="fitXY"
                             android:src="@drawable/avatar" />
 
                         <LinearLayout
@@ -703,3 +719,5 @@ Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệ
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+

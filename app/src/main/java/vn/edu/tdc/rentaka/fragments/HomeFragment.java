@@ -55,28 +55,27 @@ import vn.edu.tdc.rentaka.models.Location;
 import vn.edu.tdc.rentaka.models.Promotion;
 
 public class HomeFragment extends AbstractFragment {
-    private FirebaseAPI firebaseAPI;
-    private RealTimeAPI realTimeAPI = new RealTimeAPI();
+
+    //    private RealTimeAPI realTimeAPI;
     private ArrayList<Promotion> listPromotions;
     private ArrayList<Location> listLocations;
     private ArrayList<Advantage> listAdvantage;
-    private ArrayList<Car> listCar;
+    private ArrayList<Car> listCars;
     private HomeFragmentBinding binding;
     private CardCarItemBinding cardCarItemBinding;
     private PromotionAdapter promotionAdapter;
     private LocationAdapter locationAdapter;
     private AdvantageAdapter advantageAdapter;
-    private CarAdapter carHasDriverAdapter;
-
     private CarAdapter carAdapter;
 
+    private String userId;
     private Activity activity;
 
     // Mac dinh search theo xe tu lai type = 0
     private int typeSearch = 0;
     // Check da chon dia diem va thoi gian
-    private String location="";
-    private String date="";
+    private String location = "";
+    private String date = "";
     private BottomSheetDialog bottomSheetDialog;
     private BottomSheetDiaglogLayoutBinding bottomSheetDiaglogLayoutBinding;
 
@@ -85,8 +84,8 @@ public class HomeFragment extends AbstractFragment {
                              Bundle savedInstanceState) {
         // Khoi tao binding
         binding = HomeFragmentBinding.inflate(getLayoutInflater());
-        bottomSheetDiaglogLayoutBinding = BottomSheetDiaglogLayoutBinding.inflate(getLayoutInflater(),null,false);
-        cardCarItemBinding = CardCarItemBinding.inflate(getLayoutInflater(),null,false);
+        bottomSheetDiaglogLayoutBinding = BottomSheetDiaglogLayoutBinding.inflate(getLayoutInflater(), null, false);
+        cardCarItemBinding = CardCarItemBinding.inflate(getLayoutInflater(), null, false);
 
         View fragment = null;
         fragment = binding.getRoot();
@@ -94,14 +93,14 @@ public class HomeFragment extends AbstractFragment {
         activity = getActivity();
 
         // Khoi tao firebase
-        firebaseAPI = new FirebaseAPI();
+//        realTimeAPI = new RealTimeAPI();
 
         // Set adapter for Promotion
         listPromotions = new ArrayList<Promotion>();
-        listPromotions.add(new Promotion(1,"Promotion 1","khuyenmai10.jpg","Chuong trinh khuyen mai so 1"));
-        listPromotions.add(new Promotion(2,"Promotion 2","khuyenmai10.jpg","Chuong trinh khuyen mai so 2"));
-        listPromotions.add(new Promotion(3,"Promotion 3","khuyenmai10.jpg","Chuong trinh khuyen mai so 3"));
-        listPromotions.add(new Promotion(4,"Promotion 4","khuyenmai10.jpg","Chuong trinh khuyen mai so 4"));
+        listPromotions.add(new Promotion(1, "Promotion 1", "khuyenmai10.jpg", "Chuong trinh khuyen mai so 1"));
+        listPromotions.add(new Promotion(2, "Promotion 2", "khuyenmai10.jpg", "Chuong trinh khuyen mai so 2"));
+        listPromotions.add(new Promotion(3, "Promotion 3", "khuyenmai10.jpg", "Chuong trinh khuyen mai so 3"));
+        listPromotions.add(new Promotion(4, "Promotion 4", "khuyenmai10.jpg", "Chuong trinh khuyen mai so 4"));
 
         // Khoi tao adapter
         promotionAdapter = new PromotionAdapter(this.getContext(), listPromotions);
@@ -115,10 +114,10 @@ public class HomeFragment extends AbstractFragment {
                         activity, R.style.BottomSheetDialogTheme
                 );
                 //Kiem tra ton tai bottomSheetDiaglog hay chua
-                if(bottomSheetDialog != null){
+                if (bottomSheetDialog != null) {
                     //// Kiểm tra xem centerSheetDiaglogLayout đã có parent hay không
                     ViewGroup parentView = (ViewGroup) bottomSheetDiaglogLayoutBinding.getRoot().getParent();
-                    if (bottomSheetDiaglogLayoutBinding.getRoot().getParent()!=null){
+                    if (bottomSheetDiaglogLayoutBinding.getRoot().getParent() != null) {
                         //Neu co thi xoa layout duoc gan vao bottomsheetDiaglog di
                         parentView.removeView(bottomSheetDiaglogLayoutBinding.getRoot());
                     }
@@ -149,6 +148,57 @@ public class HomeFragment extends AbstractFragment {
         binding.listPromotion.setAdapter(promotionAdapter);
         //Get promotion in firebase
 
+        // Load data Cars from firebase
+        String userId = "1111";
+        listCars = new ArrayList<>();
+        carAdapter = new CarAdapter(activity, listCars);
+        LinearLayoutManager layoutManagerListCar = new LinearLayoutManager(activity);
+        layoutManagerListCar.setOrientation(RecyclerView.HORIZONTAL);
+        layoutManagerListCar.setReverseLayout(false);
+        binding.listCar.setLayoutManager(layoutManagerListCar);
+        binding.listCar.setAdapter(carAdapter);
+
+        DatabaseReference carsRef = FirebaseDatabase.getInstance().getReference("cars");
+        carsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listCars.clear();
+                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+//                    if (userSnapshot.getKey().equals(userId)) {
+//                        continue;
+//                    }
+                    for (DataSnapshot carSnapshot : userSnapshot.getChildren()) {
+                        Car car = carSnapshot.getValue(Car.class);
+                        listCars.add(car);
+                    }
+                }
+                Log.d("tesss", "onDataChange: "+listCars);
+                carAdapter.notifyDataSetChanged();
+                //Bat su kien khi click vao item caradapter
+                carAdapter.setOnItemClickListener(new CarAdapter.ItemClickListener() {
+                    @Override
+                    public void onItemClick(CarAdapter.MyViewHolder holder) {
+                        CardCarItemBinding binding1 = (CardCarItemBinding) holder.getBinding();
+                        Intent intent = new Intent(activity, RentalDetailActivity.class);
+                        intent.putExtra("car", listCars.get(holder.getAdapterPosition()).getId());
+                        Log.d("tesss", "position: "+holder.getAdapterPosition());
+                        Log.d("tesssss", "carid: "+listCars.get(holder.getAdapterPosition()).getId());
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        startActivity(intent);
+//                // Main vao tu trai, choose date exit ve ben phai
+//                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        Log.d("tesss", "onDataChange: ngoai "+listCars);
 
 
 
@@ -157,7 +207,7 @@ public class HomeFragment extends AbstractFragment {
 
         // Set adapter for Location
         listLocations = new ArrayList<Location>();
-        listLocations.add(new Location("Tp. Hồ Chí Minh", "",Location.LocationType.pickUpLocation));
+        listLocations.add(new Location("Tp. Hồ Chí Minh", "", Location.LocationType.pickUpLocation));
         listLocations.add(new Location("Hà Nội", "", Location.LocationType.pickUpLocation));
         listLocations.add(new Location("Đà Nẵng", "", Location.LocationType.pickUpLocation));
         listLocations.add(new Location("Bình Dương", "", Location.LocationType.pickUpLocation));
@@ -184,10 +234,10 @@ public class HomeFragment extends AbstractFragment {
 
         // Set adapter for Advantage
         listAdvantage = new ArrayList<Advantage>();
-        listAdvantage.add(new Advantage(1,"Dòng xe đa dạng","Hơn 100 dòng xe cho bạn tuỳ ý lựa chọn: Mini, Sedan, CUV, SUV, MPV, Bán tải."));
-        listAdvantage.add(new Advantage(2,"Giao xe tạn nơi","Bạn có thể lựa chọn giao xe tận nhà/sân bay... Phí tiết kiệm chỉ từ 15k/km."));
-        listAdvantage.add(new Advantage(3,"An tâm đặt xe","Không tính phí huỷ chuyến trong vòng 1h sau khi đặt cọc. Hoàn cọc và bồi thường 100% nếu chủ xe huỷ chuyến trong vòng 7 ngày trước chuyến đi."));
-        listAdvantage.add(new Advantage(4,"Thủ tục đơn giản","Chỉ cần có CCCD gắn chip (Hoặc Passport) & Giấy phép lái xe là bạn đã đủ điều kiện thuê xe trên Mioto."));
+        listAdvantage.add(new Advantage(1, "Dòng xe đa dạng", "Hơn 100 dòng xe cho bạn tuỳ ý lựa chọn: Mini, Sedan, CUV, SUV, MPV, Bán tải."));
+        listAdvantage.add(new Advantage(2, "Giao xe tạn nơi", "Bạn có thể lựa chọn giao xe tận nhà/sân bay... Phí tiết kiệm chỉ từ 15k/km."));
+        listAdvantage.add(new Advantage(3, "An tâm đặt xe", "Không tính phí huỷ chuyến trong vòng 1h sau khi đặt cọc. Hoàn cọc và bồi thường 100% nếu chủ xe huỷ chuyến trong vòng 7 ngày trước chuyến đi."));
+        listAdvantage.add(new Advantage(4, "Thủ tục đơn giản", "Chỉ cần có CCCD gắn chip (Hoặc Passport) & Giấy phép lái xe là bạn đã đủ điều kiện thuê xe trên Mioto."));
         advantageAdapter = new AdvantageAdapter(this.getContext(), listAdvantage);
         LinearLayoutManager layoutManagerAdvantage = new LinearLayoutManager(this.getContext());
         layoutManagerAdvantage.setOrientation(RecyclerView.HORIZONTAL);
@@ -224,7 +274,7 @@ public class HomeFragment extends AbstractFragment {
             @Override
             public void onClick(View v) {
                 // Doi mau va doi trang thai search
-                if (typeSearch != 0){
+                if (typeSearch != 0) {
                     binding.btnNoDriver.setActivated(true);
                     binding.btnHasDriver.setActivated(false);
                     typeSearch = 0;
@@ -233,12 +283,11 @@ public class HomeFragment extends AbstractFragment {
         });
 
 
-
         binding.btnHasDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Doi mau va doi trang thai search
-                if (typeSearch != 1){
+                if (typeSearch != 1) {
                     binding.btnHasDriver.setActivated(true);
                     binding.btnNoDriver.setActivated(false);
                     typeSearch = 1;
@@ -251,12 +300,12 @@ public class HomeFragment extends AbstractFragment {
         binding.btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (location.equals("")){
+                if (location.equals("")) {
                     Toast.makeText(activity, "Vui lòng chọn địa điểm", Toast.LENGTH_SHORT).show();
-                } else if (date.equals("")){
+                } else if (date.equals("")) {
                     Toast.makeText(activity, "Vui lòng chọn thời gian", Toast.LENGTH_SHORT).show();
                 }
-                if (v.isActivated()){
+                if (v.isActivated()) {
                     Intent intent = new Intent(activity, ListCarSearchActivity.class);
                     intent.putExtra("location", location);
                     intent.putExtra("date", date);
@@ -266,15 +315,14 @@ public class HomeFragment extends AbstractFragment {
                 }
             }
         });
-
         //Goi ham lay list cas
-        listCar = new ArrayList<>();
-        carAdapter = new CarAdapter(activity, listCar);
+        listCars = new ArrayList<>();
+        carAdapter = new CarAdapter(activity, listCars);
         LinearLayoutManager layoutManagerCities = new LinearLayoutManager(activity);
         layoutManagerCities.setOrientation(RecyclerView.HORIZONTAL);
         layoutManagerCities.setReverseLayout(false);
-        binding.listCarNoDriver.setLayoutManager(layoutManagerCities);
-        binding.listCarNoDriver.setAdapter(carAdapter);
+        binding.listCar.setLayoutManager(layoutManagerCities);
+        binding.listCar.setAdapter(carAdapter);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("cars");
         Log.d("databaseRef", "fetchCities: "+databaseReference);
@@ -282,11 +330,11 @@ public class HomeFragment extends AbstractFragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listCar.clear();
+                listCars.clear();
                 for (DataSnapshot data : snapshot.getChildren()) {
                     for (DataSnapshot user : data.getChildren()) {
                         Car car = user.getValue(Car.class);
-                        listCar.add(car);
+                        listCars.add(car);
                     }
 
                 }
@@ -300,28 +348,13 @@ public class HomeFragment extends AbstractFragment {
             }
         });
 
-        //Bat su kien khi click vao item caradapter
-        carAdapter.setOnItemClickListener(new CarAdapter.ItemClickListener() {
-            @Override
-            public void onItemClick(CarAdapter.MyViewHolder holder) {
-                CardCarItemBinding binding1 = (CardCarItemBinding) holder.getBinding();
-                Intent intent = new Intent(activity, RentalDetailActivity.class);
-                Bundle bundle = new Bundle();
-                Car car = listCar.get(holder.getAdapterPosition());
-                intent.putExtra("car", listCar.get(holder.getAdapterPosition()).getId());
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-//                // Main vao tu trai, choose date exit ve ben phai
-//                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
-            }
-        });
+
+
 
 
 
         return fragment;
     }
-
-
 
     @Override
     public void onResume() {
@@ -336,15 +369,6 @@ public class HomeFragment extends AbstractFragment {
             date = intent.getStringExtra("date");
         }
 
-//        if (!location.equals("")) {
-//            binding.tvLocationResult.setText(location);
-//            if (!date.equals("")) {
-//                binding.tvDateResult.setText(date);
-//            }
-//            if (!location.equals("") && !date.equals("")) {
-//                binding.btnSearch.setActivated(true);
-//            }
-//        }
         if (!location.equals("")) {
             binding.tvLocationResult.setText(location);
         }
@@ -355,11 +379,11 @@ public class HomeFragment extends AbstractFragment {
             binding.btnSearch.setActivated(true);
         }
 
-
         // Update UI information user at home
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            String userId = user.getUid();
+            userId = user.getUid();
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -379,28 +403,28 @@ public class HomeFragment extends AbstractFragment {
                             //Set anh mac dinh
                             binding.userImage.setImageResource(R.drawable.avatar);
                         }
-
-
                     }
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.d("Tag",databaseError.getMessage());
+                    Log.d("Tag", databaseError.getMessage());
                 }
             });
         }
 
+
     }
 
-        // Ham auto slide to center of recycle view item
-        public void attachSnapHelper(RecyclerView recyclerView) {
-            // Kiểm tra nếu đã gán rồi thì không làm nữa
-            if (recyclerView.getOnFlingListener() == null) {
-                // Nếu chưa, thì gắn SnapHelper
-                LinearSnapHelper snapHelper = new LinearSnapHelper();
-                snapHelper.attachToRecyclerView(recyclerView);
-            }
-
+    // Ham auto slide to center of recycle view item
+    public void attachSnapHelper(RecyclerView recyclerView) {
+        // Kiểm tra nếu đã gán rồi thì không làm nữa
+        if (recyclerView.getOnFlingListener() == null) {
+            // Nếu chưa, thì gắn SnapHelper
+            LinearSnapHelper snapHelper = new LinearSnapHelper();
+            snapHelper.attachToRecyclerView(recyclerView);
         }
+
+    }
 
 }
