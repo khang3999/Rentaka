@@ -139,7 +139,7 @@ public class HomeFragment extends AbstractFragment {
         layoutManagerPromotion.setReverseLayout(false);
         binding.listPromotion.setLayoutManager(layoutManagerPromotion);
         binding.listPromotion.setAdapter(promotionAdapter);
-        //Get promotion in firebase
+        attachSnapHelper(binding.listPromotion);
 
         // Load data Cars from firebase
         String userId = "1111";
@@ -150,6 +150,7 @@ public class HomeFragment extends AbstractFragment {
         layoutManagerListCar.setReverseLayout(false);
         binding.listCar.setLayoutManager(layoutManagerListCar);
         binding.listCar.setAdapter(carAdapter);
+        attachSnapHelper(binding.listCar); // Auto stop at center item
 
         DatabaseReference carsRef = FirebaseDatabase.getInstance().getReference("cars");
         carsRef.addValueEventListener(new ValueEventListener() {
@@ -289,53 +290,11 @@ public class HomeFragment extends AbstractFragment {
             }
         });
 
-//        realTimeAPI.fetchAllCarsNotInSelf(userId, new RealTimeAPI.FetchListener<Car>() {
-//            @Override
-//            public void onFetched(List<Car> data) {
-//                listCars.clear();
-//                listCars.addAll(data);
-//                carAdapter.notifyDataSetChanged();
-//
-//            }
-//
-//            @Override
-//            public void onError(Exception e) {
-//
-//            }
-//        });
-
-
-        return fragment;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        // Get data Intent from choose location activity
-        if (activity.getIntent() != null && activity.getIntent().hasExtra("city")) {
-            Intent intent = getActivity().getIntent();
-            location = intent.getStringExtra("city");
-        }
-        if (activity.getIntent() != null && activity.getIntent().hasExtra("date")) {
-            Intent intent = getActivity().getIntent();
-            date = intent.getStringExtra("date");
-        }
-
-        if (!location.equals("")) {
-            binding.tvLocationResult.setText(location);
-        }
-        if (!date.equals("")) {
-            binding.tvDateResult.setText(date);
-        }
-        if (!location.equals("") && !date.equals("")) {
-            binding.btnSearch.setActivated(true);
-        }
-
 // Update UI information user at home
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             userId = user.getUid();
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userId);
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -364,7 +323,31 @@ public class HomeFragment extends AbstractFragment {
             });
         }
 
+        return fragment;
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Get data Intent from choose location activity
+        if (activity.getIntent() != null && activity.getIntent().hasExtra("city")) {
+            Intent intent = getActivity().getIntent();
+            location = intent.getStringExtra("city");
+        }
+        if (activity.getIntent() != null && activity.getIntent().hasExtra("date")) {
+            Intent intent = getActivity().getIntent();
+            date = intent.getStringExtra("date");
+        }
+
+        if (!location.equals("")) {
+            binding.tvLocationResult.setText(location);
+        }
+        if (!date.equals("")) {
+            binding.tvDateResult.setText(date);
+        }
+        if (!location.equals("") && !date.equals("")) {
+            binding.btnSearch.setActivated(true);
+        }
     }
 
     // Ham auto slide to center of recycle view item

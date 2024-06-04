@@ -67,19 +67,6 @@
                     android:layout_height="wrap_content"
                     android:text="1000" />
             </LinearLayout>
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_end_16"
-                android:src="@drawable/ic_heart_24"
-                app:layout_constraintBottom_toBottomOf="@+id/userImage"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/infoWrap"
-                app:layout_constraintTop_toTopOf="@+id/userImage" />
-
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
