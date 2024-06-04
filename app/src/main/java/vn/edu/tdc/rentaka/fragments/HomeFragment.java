@@ -35,6 +35,8 @@ import vn.edu.tdc.rentaka.activities.ChooseDateActivity;
 import vn.edu.tdc.rentaka.activities.ChooseLocationActivity;
 import vn.edu.tdc.rentaka.activities.ListCarSearchActivity;
 import vn.edu.tdc.rentaka.activities.MainActivity;
+import vn.edu.tdc.rentaka.activities.RentalDetailActivity;
+
 import vn.edu.tdc.rentaka.adapters.AdvantageAdapter;
 import vn.edu.tdc.rentaka.adapters.CarAdapter;
 import vn.edu.tdc.rentaka.adapters.CityAdapter;
@@ -335,22 +337,6 @@ public class HomeFragment extends AbstractFragment {
             binding.btnSearch.setActivated(true);
         }
 
-        // Get car self from database
-//        firebaseAPI.fetchCarsBySelf(new FirebaseAPI.onCallBack<Car>() {
-//            @Override
-//            public void onCallBack(List<Car> list) {
-//                Log.d("fb", "onCallBack: "+ list.size());
-//                carHasDriverAdapter = new CarAdapter(activity,(ArrayList<Car>) list);
-//                LinearLayoutManager layoutManagerAdvantage = new LinearLayoutManager(activity);
-//                layoutManagerAdvantage.setOrientation(RecyclerView.HORIZONTAL);
-//                layoutManagerAdvantage.setReverseLayout(false);
-//                binding.listCarNoDriver.setLayoutManager(layoutManagerAdvantage);
-//                binding.listCarNoDriver.setAdapter(carHasDriverAdapter);
-//
-//                // Thiết lập LinearSnapHelper để vuốt dừng lại tại một item
-//                attachSnapHelper(binding.listCarNoDriver);
-//            }
-//        });
 
         // Update UI information user at home
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

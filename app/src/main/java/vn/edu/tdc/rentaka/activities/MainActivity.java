@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import vn.edu.tdc.rentaka.APIs.FirebaseAPI;
@@ -33,6 +35,9 @@ import vn.edu.tdc.rentaka.fragments.PersonalProfileFragment;
 import vn.edu.tdc.rentaka.fragments.SupportFragment;
 import vn.edu.tdc.rentaka.models.Car;
 import vn.edu.tdc.rentaka.models.City;
+import vn.edu.tdc.rentaka.models.Date;
+import vn.edu.tdc.rentaka.models.Discount;
+import vn.edu.tdc.rentaka.models.Service;
 import vn.edu.tdc.rentaka.models.Status;
 
 
@@ -55,19 +60,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_layout);
 
 
-      realTimeAPI.fetchAllCities(new RealTimeAPI.FetchListener<City>() {
-            @Override
-            public void onFetched(List<City> data) {
-                for (City city : data) {
-                    Log.d("City", city.getName());
-                }
-            }
-
-            @Override
-            public void onError(Exception e) {
-                Log.e("Error", e.getMessage());
-            }
-        });
+//      realTimeAPI.fetchAllCities(new RealTimeAPI.FetchListener<City>() {
+//            @Override
+//            public void onFetched(List<City> data) {
+//                for (City city : data) {
+//                    Log.d("City", city.getName());
+//                }
+//            }
+//
+//            @Override
+//            public void onError(Exception e) {
+//                Log.e("Error", e.getMessage());
+//            }
+//        });
 
 
         //Khoi tao binding
