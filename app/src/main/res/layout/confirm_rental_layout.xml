@@ -581,30 +581,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/rental_insurance_textview"
-                    style="@style/SmallTextGreyStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_element_start"
-                    android:layout_marginEnd="@dimen/margin_element_start"
-                    android:text="113 301 VND/Day"
-                    android:textSize="@dimen/small_text_size"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rental_price_textview" />
-
-                <TextView
-                    android:id="@+id/rental_insurance_title_textview"
-                    style="@style/SmallTextGreyStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_element_start"
-                    android:layout_marginTop="@dimen/margin_element_start"
-                    android:text="@string/rental_insurance_title"
-                    android:textSize="@dimen/small_text_size"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rental_price_title_textview" />
-
                 <View
                     android:id="@+id/stroke_2"
                     android:layout_width="match_parent"
@@ -649,14 +625,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.3" />
+                    app:layout_constraintGuide_percent="0.15" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.45" />
+                    app:layout_constraintGuide_percent="0.31" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline10"
