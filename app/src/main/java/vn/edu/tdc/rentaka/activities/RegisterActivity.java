@@ -508,8 +508,8 @@ public class RegisterActivity extends AppCompatActivity {
                             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                             String currentDate = sdf.format(new Date());
                             // Dang ky thanh cong
-                            UserModel user = new UserModel(phone, username, email,currentDate,drivingLicense,bankCard,citizenIdentificationCard);
                             String id = task.getResult().getUser().getUid();
+                            UserModel user = new UserModel(id,phone, username, email,currentDate,drivingLicense,bankCard,citizenIdentificationCard);
                             database.getReference().child("users").child(id).setValue(user);
                             //an load
                             binding.progressBar.setVisibility(View.GONE);

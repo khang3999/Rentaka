@@ -30,7 +30,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
 
 import vn.edu.tdc.rentaka.APIs.FirebaseAPI;
@@ -439,6 +441,69 @@ public class CreateCarActivity extends AppCompatActivity {
                 checkAndRequestPermissions();
             }
         });
+        binding.editTextPriceDaily.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String salaryText = binding.editTextSalaryDriver.getText().toString();
+                if (s.toString().isEmpty()){
+                    s = "0";
+                }
+                if ("".equals(salaryText)){
+                    salaryText="0";
+                }
+                binding.dailyRentPriceValueTotal.setText(s.toString());
+                int priceDaily = Integer.parseInt(s.toString());
+                int salaryDriver = Integer.parseInt(salaryText.toString());
+                int total = priceDaily + salaryDriver;
+                int commission = (int) (total * 0.2);
+                int netRevenue = total - commission;
+                // Update UI
+                binding.commissionValue.setText( commission+"");
+                binding.netRevenueValue.setText(netRevenue+"");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        binding.editTextSalaryDriver.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String priceDailyText = binding.editTextPriceDaily.getText().toString();
+                if (s.toString().isEmpty()){
+                    s = "0";
+                }
+                if ("".equals(priceDailyText)){
+                    priceDailyText="0";
+                }
+                binding.salaryDriverValueTotal.setText(s.toString());
+                int salaryDriver = Integer.parseInt(s.toString());
+                int priceDaily = Integer.parseInt(priceDailyText.toString());
+                int total = priceDaily + salaryDriver;
+                int commission = (int) (total * 0.2);
+                int netRevenue = total - commission;
+                // Update UI
+                binding.commissionValue.setText("-" + commission+"");
+                binding.netRevenueValue.setText(netRevenue+"");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         // Add event for button register
         binding.btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -472,38 +537,23 @@ public class CreateCarActivity extends AppCompatActivity {
                     RadioButton radSeatChoose = findViewById(idSeat);
                     car.setSeat(Integer.parseInt(radSeatChoose.getText().toString()));
                     // Set mortgage
-                    double m = 0.0;
-                    try {
-                        m = Double.parseDouble(binding.editTextMortgageMoney.getText().toString());
-                    } catch (NumberFormatException e) {
-                        m = 0.0;
-                    }
-                    double priceDaily = 0.0;
-                    try {
-                        priceDaily = Double.parseDouble(binding.editTextPriceDaily.getText().toString());
-                    } catch (NumberFormatException e) {
-                        priceDaily = 0.0;
-                    }
-                    double salary = 0.0;
-                    try {
-                        salary = Double.parseDouble(binding.editTextSalaryDriver.getText().toString());
-                    } catch (NumberFormatException e) {
-                        salary = 0.0;
-                    }
-                    car.setMortgage(m);
+                    int mortgage = Integer.parseInt(binding.editTextMortgageMoney.getText().toString());
+                    car.setMortgage(mortgage);
                     // Set price daily
+                    int priceDaily = Integer.parseInt(binding.editTextPriceDaily.getText().toString());
                     car.setPriceDaily(priceDaily);
                     // Set salary driver
-                    car.setPriceDaily(salary);
+                    int salaryDriver = Integer.parseInt(binding.editTextSalaryDriver.getText().toString());
+                    car.setSalaryDriver(salaryDriver);
+                    Log.d("daily price", "onClick: " + priceDaily);
 
                     realTimeAPI.createNewCar(userId, car, imageUriCar, imageUriInspection, imageUriInsurance, imageUriRegister, CreateCarActivity.this);
-
+                    finish();
                 } else {
                     Snackbar snackbar = Snackbar.make(v, "Please input all fields! ", Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }
 
-                finish();
             }
         });
     }
