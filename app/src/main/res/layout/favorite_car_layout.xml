@@ -17,47 +17,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="Yeu thich"
-            app:titleCentered="true"/>
+            app:titleCentered="true" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-
         >
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_favorite_car"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            app:tabTextColor="@color/black"
-            app:tabIndicatorHeight="5dp"
-            app:tabIndicatorFullWidth="true"
-            app:tabIndicatorColor="@color/xanh_dam">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:text="@string/xe_t_l_i" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/c_t_i_x" />
-
-        </com.google.android.material.tabs.TabLayout>
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPage"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="11"/>
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            android:scrollbars="vertical"
+            android:visibility="visible"/>
     </LinearLayout>
 </LinearLayout>
