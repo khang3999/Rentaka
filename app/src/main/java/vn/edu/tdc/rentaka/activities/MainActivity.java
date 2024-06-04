@@ -1,5 +1,8 @@
 package vn.edu.tdc.rentaka.activities;
+import android.Manifest;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -39,6 +42,8 @@ import vn.edu.tdc.rentaka.models.Date;
 import vn.edu.tdc.rentaka.models.Discount;
 import vn.edu.tdc.rentaka.models.Service;
 import vn.edu.tdc.rentaka.models.Status;
+import vn.edu.tdc.rentaka.receivers.SMSReceiver;
+import vn.edu.tdc.rentaka.services.SMSHandlingService;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -53,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
     // doi tuong dung de dan fragment vao khung man hinh
     private FragmentTransaction transaction;
 
+
+    private String ACTION = "android.provider.Telephony.SMS_RECEIVED";
+    private SMSReceiver smsReceiver;
+    private Intent smsService;
+    private IntentFilter intentFilter;
+    private int REQUEST_CODE = 666;
     // Set color when click
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,19 +71,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_layout);
 
 
-//      realTimeAPI.fetchAllCities(new RealTimeAPI.FetchListener<City>() {
-//            @Override
-//            public void onFetched(List<City> data) {
-//                for (City city : data) {
-//                    Log.d("City", city.getName());
-//                }
-//            }
-//
-//            @Override
-//            public void onError(Exception e) {
-//                Log.e("Error", e.getMessage());
-//            }
-//        });
+
 
 
         //Khoi tao binding
@@ -189,7 +188,50 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private boolean checkPermission(String permission) {
+        int check = checkSelfPermission(permission);
+        return check == PackageManager.PERMISSION_DENIED ? false : true;
+    }
 
+    //Dang ky receiver
+    private void implementPermission() {
+        smsService = new Intent(this, SMSHandlingService.class);
+        smsReceiver = new SMSReceiver();
+        intentFilter = new IntentFilter(ACTION);
+        registerReceiver(smsReceiver, intentFilter);
+
+    }
+
+    //Xu ly sau khi nguoi dung cap quyen
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE && permissions.length == grantResults.length) {
+            for (int check : grantResults) {
+                if (check != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+            }
+            implementPermission();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // check required permission
+        if (checkPermission(Manifest.permission.RECEIVE_SMS)) {
+//            implementPermission();
+        } else {
+            requestPermissions(new String[]{Manifest.permission.RECEIVE_SMS}, REQUEST_CODE);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        startForegroundService(smsService);
+    }
 
 
 

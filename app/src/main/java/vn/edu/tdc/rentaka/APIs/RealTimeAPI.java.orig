@@ -338,8 +338,14 @@ public class RealTimeAPI {
     }
 
 
+<<<<<<< HEAD
     public void createNewCar(String userId, Car car, Uri imageUriCar, Uri imageUriInspection, Uri imageUriInsurance, Uri imageUriRegister, Context context){
 //  Lay node userIdRef
+=======
+    public void createNewCar(String userId, Car car, Uri imageUriCar, Uri imageUriInspection, Uri imageUriInsurance, Uri imageUriRegister, Context context) {
+
+        // Lay node userIdRef
+>>>>>>> feature/implement-payment-feature
         DatabaseReference userIdRef = FirebaseDatabase.getInstance().getReference().child("cars").child(userId);
         // Tao node carId
         DatabaseReference carIdRef = userIdRef.push();
@@ -348,6 +354,7 @@ public class RealTimeAPI {
         // update id cho car
         car.setId(carId);
         // Luu 4 anh : car, inspection, insurance, register nhung chi update string image car
+<<<<<<< HEAD
         //put image car
         StorageReference imageCarRef = FirebaseStorage.getInstance().getReference().child("users/"+userId+"/cars/"+carId+"/imageCar/");
         imageCarRef.putFile(imageUriCar)
@@ -357,6 +364,13 @@ public class RealTimeAPI {
                     car.setImageCarUrl(imageUrlCar);
                     // Chi can tai duoc anh xe thi se create car, khong can doi tai anh giay to khac
                     carIdRef.setValue(car);
+=======
+        StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("users/" + userId).child("cars/" + carId);
+        fileRef.putFile(imageUriCar)
+                .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String imageUrl = uri.toString();
+                    car.setImageCarUrl(imageUrl);
+>>>>>>> feature/implement-payment-feature
                 }))
                 .addOnFailureListener(e -> Toast.makeText(context, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
 
