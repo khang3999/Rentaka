@@ -9,6 +9,9 @@ public class UserModel {
     private String imageUser;
     private String address;
     private String birthday;
+    private String id;
+
+
 
     private Double balance;
 
@@ -40,8 +43,9 @@ public class UserModel {
     private BankCard bankCard;
     private CitizenIdentificationCard citizenIdCard;
 
-    public UserModel(String phone, String name, String email, String gender, String registrationDate, String imageUser, String address, String birthday, Double balance, DrivingLicense drivingLicense, BankCard bankCard,
+    public UserModel(String id,String phone, String name, String email, String gender, String registrationDate, String imageUser, String address, String birthday, Double balance, DrivingLicense drivingLicense, BankCard bankCard,
                      CitizenIdentificationCard citizenIdCard) {
+        this.id = id;
         this.phone = phone;
         this.name = name;
         this.email = email;
@@ -56,8 +60,9 @@ public class UserModel {
         this.citizenIdCard = citizenIdCard;
     }
 
-    public UserModel(String phone, String name, String email, String registrationDate, DrivingLicense drivingLicense, BankCard bankCard,
+    public UserModel(String id,String phone, String name, String email, String registrationDate, DrivingLicense drivingLicense, BankCard bankCard,
                      CitizenIdentificationCard citizenIdCard) {
+        this.id = id;
         this.phone = phone;
         this.name = name;
         this.email = email;
@@ -70,6 +75,14 @@ public class UserModel {
         this.drivingLicense = drivingLicense;
         this.bankCard = bankCard;
         this.citizenIdCard = citizenIdCard;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPhone() {
