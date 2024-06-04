@@ -325,10 +325,10 @@ public class HomeFragment extends AbstractFragment {
         binding.listCar.setLayoutManager(layoutManagerCities);
         binding.listCar.setAdapter(carAdapter);
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("cars");
-        Log.d("databaseRef", "fetchCities: "+databaseReference);
+        DatabaseReference carsReference = FirebaseDatabase.getInstance().getReference("cars");
+        Log.d("databaseRef", "fetchCities: "+carsReference);
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        carsReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listCars.clear();
@@ -351,41 +351,7 @@ public class HomeFragment extends AbstractFragment {
 
 
 
-
-<<<<<<< HEAD
-
-
-        return fragment;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        // Get data Intent from choose location activity
-        if (activity.getIntent() != null && activity.getIntent().hasExtra("city")) {
-            Intent intent = getActivity().getIntent();
-            location = intent.getStringExtra("city");
-        }
-        if (activity.getIntent() != null && activity.getIntent().hasExtra("date")) {
-            Intent intent = getActivity().getIntent();
-            date = intent.getStringExtra("date");
-        }
-
-        if (!location.equals("")) {
-            binding.tvLocationResult.setText(location);
-        }
-        if (!date.equals("")) {
-            binding.tvDateResult.setText(date);
-        }
-        if (!location.equals("") && !date.equals("")) {
-            binding.btnSearch.setActivated(true);
-        }
-
         // Update UI information user at home
-
-=======
-// Update UI information user at home
->>>>>>> bd09c4a11828b8e74aba3e7b359b783d247cfe19
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             userId = user.getUid();
