@@ -97,10 +97,10 @@ public class HomeFragment extends AbstractFragment {
 
         // Set adapter for Promotion
         listPromotions = new ArrayList<Promotion>();
-        listPromotions.add(new Promotion(1, "Promotion 1", "khuyenmai10.jpg", "Chuong trinh khuyen mai so 1"));
-        listPromotions.add(new Promotion(2, "Promotion 2", "khuyenmai10.jpg", "Chuong trinh khuyen mai so 2"));
-        listPromotions.add(new Promotion(3, "Promotion 3", "khuyenmai10.jpg", "Chuong trinh khuyen mai so 3"));
-        listPromotions.add(new Promotion(4, "Promotion 4", "khuyenmai10.jpg", "Chuong trinh khuyen mai so 4"));
+        listPromotions.add(new Promotion(1, "Chương trình khuyến mãi 1", "khuyenmai10.jpg", "Áp dụng đến hết tháng 10 năm 2024"));
+        listPromotions.add(new Promotion(2, "Chương trình khuyến mãi 2", "khuyenmai10.jpg", "Áp dụng đến hết ngày 5 tháng 9 năm 2024"));
+        listPromotions.add(new Promotion(3, "Chương trình khuyến mãi 3", "khuyenmai10.jpg", "Áp dụng đến hết tháng 12 năm 2024"));
+        listPromotions.add(new Promotion(4, "Chương trình khuyến mãi 4", "khuyenmai10.jpg", "Áp dụng đến hết ngày 10 tháng 10 năm 2024"));
 
         // Khoi tao adapter
         promotionAdapter = new PromotionAdapter(this.getContext(), listPromotions);
@@ -121,12 +121,12 @@ public class HomeFragment extends AbstractFragment {
                         //Neu co thi xoa layout duoc gan vao bottomsheetDiaglog di
                         parentView.removeView(bottomSheetDiaglogLayoutBinding.getRoot());
                     }
-//                    //Gan layout moi vao bottomshetdiaglog
-//                    Promotion promotion = listPromotions.get(holder.getAdapterPosition());
-//                    //Khi nao co hinh do vao day con thieu anh
-//                    bottomSheetDiaglogLayoutBinding.title.setText(promotion.getTitle());
-//                    bottomSheetDiaglogLayoutBinding.description.setText(promotion.getDescription());
-//
+//                  //Gan layout moi vao bottomshetdiaglog
+                    Promotion promotion = listPromotions.get(holder.getAdapterPosition());
+//                  //Khi nao co hinh do vao day con thieu anh
+                    bottomSheetDiaglogLayoutBinding.title.setText(promotion.getTitle());
+                    bottomSheetDiaglogLayoutBinding.image.setImageResource(R.drawable.khuyenmai10);
+                    bottomSheetDiaglogLayoutBinding.description.setText(promotion.getDescription());
                     bottomSheetDialog.setContentView(bottomSheetDiaglogLayoutBinding.getRoot());
                     bottomSheetDialog.show();
 
