@@ -463,12 +463,12 @@
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Automatic Transmission (AT)"/>
+                    android:text="AT (Auto)"/>
                 <RadioButton
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Manual Transmission (MT)"/>
+                    android:text="MT (Manual)"/>
             </RadioGroup>
 
             <!--    Seat        -->
@@ -500,16 +500,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="7"/>
-                <RadioButton
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Ban tai"/>
-                <RadioButton
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Minivan"/>
             </RadioGroup>
 
 
@@ -555,7 +545,7 @@
 
             <!--   Cavet         -->
             <TextView
-                android:id="@+id/title_image_cavet"
+                android:id="@+id/title_image_inspection"
                 style="@style/TitleTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -569,7 +559,7 @@
                 android:layout_height="150dp"
                 android:layout_margin="@dimen/_10dp">
                 <ImageView
-                    android:id="@+id/image_cavet"
+                    android:id="@+id/image_inspection"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
@@ -594,13 +584,13 @@
 
             <!--   Car's insurrance         -->
             <TextView
-                android:id="@+id/title_image_insurrance"
+                android:id="@+id/title_image_insurance"
                 style="@style/TitleTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Insurrance"
+                android:text="Insurance"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <RelativeLayout
@@ -608,7 +598,7 @@
                 android:layout_height="150dp"
                 android:layout_margin="@dimen/_10dp">
                 <ImageView
-                    android:id="@+id/image_insurrance"
+                    android:id="@+id/image_insurance"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
@@ -616,7 +606,7 @@
                     />
 
                 <ImageView
-                    android:id="@+id/add_image_insurrance"
+                    android:id="@+id/add_image_insurance"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_alignParentStart="true"
@@ -737,7 +727,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
                     android:hint="Nhập số tiền thế chấp"
-                    android:inputType="number"
+                    android:inputType = "number"
                     android:focusable="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline9"
@@ -807,13 +797,13 @@
                     android:layout_marginStart="@dimen/_10dp"
                     android:src="@drawable/money_24"
                     android:padding="@dimen/_8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/editText_priceSelf"
-                    app:layout_constraintEnd_toStartOf="@+id/editText_priceSelf"
+                    app:layout_constraintBottom_toBottomOf="@+id/editText_price_daily"
+                    app:layout_constraintEnd_toStartOf="@+id/editText_price_daily"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/editText_priceSelf" />
+                    app:layout_constraintTop_toTopOf="@+id/editText_price_daily" />
 
                 <EditText
-                    android:id="@+id/editText_priceSelf"
+                    android:id="@+id/editText_price_daily"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
@@ -831,7 +821,7 @@
                     android:text="VND"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/editText_priceSelf"
+                    app:layout_constraintStart_toEndOf="@+id/editText_price_daily"
                     app:layout_constraintTop_toTopOf="parent" />
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline17"
@@ -874,13 +864,13 @@
                     android:layout_marginStart="@dimen/_10dp"
                     android:src="@drawable/money_24"
                     android:padding="@dimen/_8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/editText_priceDriver"
-                    app:layout_constraintEnd_toStartOf="@+id/editText_priceDriver"
+                    app:layout_constraintBottom_toBottomOf="@+id/editText_salary_driver"
+                    app:layout_constraintEnd_toStartOf="@+id/editText_salary_driver"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/editText_priceDriver" />
+                    app:layout_constraintTop_toTopOf="@+id/editText_salary_driver" />
 
                 <EditText
-                    android:id="@+id/editText_priceDriver"
+                    android:id="@+id/editText_salary_driver"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
@@ -897,7 +887,7 @@
                     android:text="VND"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/editText_priceDriver"
+                    app:layout_constraintStart_toEndOf="@+id/editText_salary_driver"
                     app:layout_constraintTop_toTopOf="parent" />
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline15"

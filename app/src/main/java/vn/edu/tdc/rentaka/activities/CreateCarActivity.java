@@ -11,6 +11,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -24,17 +25,31 @@ import androidx.core.app.ActivityCompat;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import vn.edu.tdc.rentaka.APIs.FirebaseAPI;
+import vn.edu.tdc.rentaka.APIs.RealTimeAPI;
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.CreateCarLayoutBinding;
 import vn.edu.tdc.rentaka.models.Car;
+import vn.edu.tdc.rentaka.models.City;
 
 public class CreateCarActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> imagePickerLauncher;
     private static final int STORAGE_PERMISSION_CODE = 101;
-    Uri imageUri;
-    private String accounID;
+    private Uri imageUriCar;
+    private Uri imageUriInspection;
+    private Uri imageUriInsurance;
+
+    private Uri imageUriRegister;
+
+    private String userId;
     private CreateCarLayoutBinding binding;
     private boolean isValidBrand = false;
     private boolean isValidModel = false;
@@ -48,8 +63,11 @@ public class CreateCarActivity extends AppCompatActivity {
     private boolean isValidPriceSelf = false;
     private boolean isValidPriceDriver = false;
     private boolean isValidDescription = false;
-
-    private FirebaseAPI firebaseAPI;
+    private ArrayAdapter<String> adapterCity;
+    private ArrayList<City> listCities;
+    private ArrayList<String> listCitiesName;
+    private int tapOnImage;
+    private RealTimeAPI realTimeAPI;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,15 +75,41 @@ public class CreateCarActivity extends AppCompatActivity {
         binding = CreateCarLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Khởi tạo firebaseAPI
-        firebaseAPI = new FirebaseAPI();
+        // Khởi tạo real time database
+        realTimeAPI = new RealTimeAPI();
+        listCities = new ArrayList<>();
+        realTimeAPI.fetchCities(new RealTimeAPI.FetchListener<City>() {
+            @Override
+            public void onFetched(List<City> list) {
+                listCitiesName = new ArrayList<>();
+                listCities.addAll(list);
+                for (City c : listCities) {
+                    listCitiesName.add(c.getName());
+                    Log.d("citi", "onCreate: " + c.getName());
+                }
 
-        // Update UI information user at home
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            String userId = user.getUid();
-            accounID = userId;
-        }
+                adapterCity = new ArrayAdapter<String>(CreateCarActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, listCitiesName);
+                binding.spinnerLocation.setAdapter(adapterCity);
+
+//
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
+
+
+
+        // Lay id user dang dang nhap, dung thu vien FirebaseUser
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        if (user != null) {
+//            String userId = user.getUid();
+//            userId = userId;
+//        }
+
+
 
         //Button top back navigation
         setSupportActionBar(binding.topAppBar);
@@ -285,7 +329,7 @@ public class CreateCarActivity extends AppCompatActivity {
         });
 
         // Check regex price self
-        binding.editTextPriceSelf.addTextChangedListener(new TextWatcher() {
+        binding.editTextPriceDaily.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -297,10 +341,10 @@ public class CreateCarActivity extends AppCompatActivity {
                 String regex = "^((1[0-9]{2,}000|[2-9][0-9]{2,}000)|0)$";
                 if (s.toString().matches(regex)) {
                     isValidPriceSelf = true;
-                    binding.editTextPriceSelf.setError(null);
+                    binding.editTextPriceDaily.setError(null);
                 } else {
                     isValidPriceSelf = false;
-                    binding.editTextPriceSelf.setError("Minimum denomination 100.000 VND");
+                    binding.editTextPriceDaily.setError("Minimum denomination 100.000 VND");
                 }
             }
 
@@ -311,7 +355,7 @@ public class CreateCarActivity extends AppCompatActivity {
         });
 
         // Check regex price driver
-        binding.editTextPriceDriver.addTextChangedListener(new TextWatcher() {
+        binding.editTextSalaryDriver.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -323,10 +367,10 @@ public class CreateCarActivity extends AppCompatActivity {
                 String regex = "^((1[0-9]{2,}000|[2-9][0-9]{2,}000)|0)$";
                 if (s.toString().matches(regex)) {
                     isValidPriceDriver = true;
-                    binding.editTextPriceDriver.setError(null);
+                    binding.editTextSalaryDriver.setError(null);
                 } else {
                     isValidPriceDriver = false;
-                    binding.editTextPriceDriver.setError("Minimum denomination 100.000 VND");
+                    binding.editTextSalaryDriver.setError("Minimum denomination 100.000 VND");
                 }
             }
 
@@ -335,7 +379,9 @@ public class CreateCarActivity extends AppCompatActivity {
 
             }
         });
-        //Chon hinh
+        
+
+        //CHON HINH
         // Set up the image picker launcher
         // Khởi tạo ActivityResultLauncher để mở bộ chọn ảnh và nhận kết quả trả về
         imagePickerLauncher = registerForActivityResult(
@@ -343,12 +389,56 @@ public class CreateCarActivity extends AppCompatActivity {
                 result -> {
                     // Kiểm tra nếu kết quả trả về là thành công (RESULT_OK) và có dữ liệu (data không null)
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                        imageUri = result.getData().getData(); // Lấy Uri của ảnh được chọn từ kết quả trả về
-                        binding.imageCavet.setImageURI(imageUri);
+                        if (tapOnImage == 0){
+                            imageUriCar = result.getData().getData(); // Lấy Uri của ảnh được chọn từ kết quả trả về
+                            binding.imageCar.setImageURI(imageUriCar);
+                        } else if (tapOnImage == 1){
+                            imageUriInspection = result.getData().getData(); // Lấy Uri của ảnh được chọn từ kết quả trả về
+                            binding.imageInspection.setImageURI(imageUriInspection);
+                        } else if (tapOnImage == 2){
+                            imageUriInsurance = result.getData().getData(); // Lấy Uri của ảnh được chọn từ kết quả trả về
+                            binding.imageInsurance.setImageURI(imageUriInsurance);
+                        } else {
+                            imageUriRegister = result.getData().getData(); // Lấy Uri của ảnh được chọn từ kết quả trả về
+                            binding.imageRegistration.setImageURI(imageUriRegister);
+                        }
+
                     }
                 }
         );
+//        Set event click to pick image for image car
+        binding.imageCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tapOnImage = 0;
+                checkAndRequestPermissions();
+            }
+        });
 
+        // Set event click to pick image for image inspection
+        binding.imageInspection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tapOnImage = 1;
+                checkAndRequestPermissions();
+            }
+        });
+        // Set event click to pick image for image insurance
+        binding.imageInsurance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tapOnImage = 2;
+                checkAndRequestPermissions();
+            }
+        });
+        // Set event click to pick image for image registration
+        binding.imageRegistration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tapOnImage = 3;
+                checkAndRequestPermissions();
+            }
+        });
         // Add event for button register
         binding.btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -359,42 +449,65 @@ public class CreateCarActivity extends AppCompatActivity {
                 if (valid){
                     //Create car và đưa lên cơ sơ dữ liêu
                     Car car = new Car();
-                    car.setOwnerID(accounID);
+                    car.setOwnerID(userId);
+                    car.setBrand(binding.autoCompleteBrand.getText().toString());
                     car.setModel(binding.editTextModel.getText().toString());
-                    car.setAutoMaker(binding.autoCompleteBrand.getText().toString());
-                    car.setYear(Integer.parseInt(binding.editTextSince.getText().toString()));
+                    car.setSince(Integer.parseInt(binding.editTextSince.getText().toString()));
                     car.setLicensePlate(binding.editTextLicensePlate.getText().toString());
-                    int idFeul = binding.groupChooseFuel.getCheckedRadioButtonId();
-                    RadioButton radFuelChoose = findViewById(idFeul);
+                    car.setColor(binding.editTextColor.getText().toString());
+                    car.setDescription(binding.editTextDescription.getText().toString());
+                    // Create City
+                    City city = listCities.get(binding.spinnerLocation.getSelectedItemPosition());
+                    car.setCity(city);
+                    // Set fuel
+                    int idFuel = binding.groupChooseFuel.getCheckedRadioButtonId();
+                    RadioButton radFuelChoose = findViewById(idFuel);
                     car.setFuel(radFuelChoose.getText().toString());
+                    // Set gearBox
                     int idType = binding.groupChooseType.getCheckedRadioButtonId();
                     RadioButton radTypeChoose = findViewById(idType);
                     car.setTypeGearbox(radTypeChoose.getText().toString());
+                    // Set Seat
                     int idSeat = binding.groupChooseSeat.getCheckedRadioButtonId();
                     RadioButton radSeatChoose = findViewById(idSeat);
                     car.setSeat(Integer.parseInt(radSeatChoose.getText().toString()));
-                    car.setColor(binding.editTextColor.getText().toString());
-                    car.setMortgage(binding.editTextMortgageMoney.getText().toString());
-                    car.setPriceSelf(Integer.parseInt(binding.editTextPriceSelf.getText().toString()));
-                    car.setPriceDriver(Integer.parseInt(binding.editTextPriceDriver.getText().toString()));
-                    car.setDescription(binding.editTextDescription.getText().toString());
-                    if(Integer.parseInt(binding.editTextPriceSelf.getText().toString()) > 0 && Integer.parseInt(binding.editTextPriceDriver.getText().toString()) > 0){
-                        car.setTypeDriving("both");
-                    } else if (Integer.parseInt(binding.editTextPriceDriver.getText().toString()) > 0){
-                        car.setTypeDriving("self");
-                    } else if (Integer.parseInt(binding.editTextPriceSelf.getText().toString()) > 0){
-                        car.setTypeDriving("driver");
+                    // Set mortgage
+                    double m = 0.0;
+                    try {
+                        m = Double.parseDouble(binding.editTextMortgageMoney.getText().toString());
                     }
-                    firebaseAPI.addCar(car);
-                    Intent intent = new Intent(CreateCarActivity.this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    startActivity(intent);
-                    Log.d("btn regis", "onClick: trueeeee");
+                    catch (NumberFormatException e){
+                        m = 0.0;
+                    }
+                    double priceDaily = 0.0;
+                    try {
+                        priceDaily = Double.parseDouble(binding.editTextPriceDaily.getText().toString());
+                    }
+                    catch (NumberFormatException e){
+                        priceDaily = 0.0;
+                    }
+                    double salary = 0.0;
+                    try {
+                        salary = Double.parseDouble(binding.editTextSalaryDriver.getText().toString());
+                    }
+                    catch (NumberFormatException e){
+                        salary = 0.0;
+                    }
+                    car.setMortgage(m);
+                    // Set price daily
+                    car.setPriceDaily(priceDaily);
+                    // Set salary driver
+                    car.setPriceDaily(salary);
+
+                    createNewCar(userId = "999",car,imageUriCar,imageUriInspection,imageUriInsurance,imageUriRegister);
+
                 }
                 else {
                     Snackbar snackbar = Snackbar.make(v, "Please input all fields! ", Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }
+
+                finish();
             }
         });
     }
@@ -403,19 +516,40 @@ public class CreateCarActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         // Set default
-        binding.autoCompleteBrand.setText("");
-        binding.editTextModel.setText("");
-        binding.editTextSince.setText("");
-        binding.editTextLicensePlate.setText("");
-        binding.editTextColor.setText("");
-        binding.groupChooseFuel.clearCheck();
-        binding.groupChooseType.clearCheck();
-        binding.groupChooseSeat.clearCheck();
-        binding.editTextMortgageMoney.setText("");
-        binding.editTextPriceDriver.setText("");
-        binding.editTextPriceSelf.setText("");
+//        binding.autoCompleteBrand.setText("");
+//        binding.editTextModel.setText("");
+//        binding.editTextSince.setText("");
+//        binding.editTextLicensePlate.setText("");
+//        binding.editTextColor.setText("");
+//        binding.groupChooseFuel.clearCheck();
+//        binding.groupChooseType.clearCheck();
+//        binding.groupChooseSeat.clearCheck();
+//        binding.editTextMortgageMoney.setText("0");
+//        binding.editTextPriceDaily.setText("0");
+//        binding.editTextSalaryDriver.setText("0");
 
     }
+
+    // Ham mo bo chon anh
+    private void openImageSelector() {
+        //Intent.ACTION_PICK được sử dụng để mở ứng dụng chọn ảnh
+        // Tạo Intent để mở bộ chọn ảnh của hệ thống
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        // Sử dụng ActivityResultLauncher để khởi chạy Intent, mở bộ chọn ảnh
+        imagePickerLauncher.launch(intent);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openImageSelector(); // Mở bộ chọn ảnh khi quyền được cấp
+            } else {
+                Toast.makeText(this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     // Phương thức kiểm tra và yêu cầu các quyền cần thiết để truy cập bộ nhớ
     private void checkAndRequestPermissions() {
         // Kiểm tra nếu phiên bản Android từ API 33 (Android 13) trở lên
@@ -433,27 +567,65 @@ public class CreateCarActivity extends AppCompatActivity {
         }
     }
 
+//    ham tao xe moi
+    private void createNewCar(String userId, Car car, Uri imageUriCar, Uri imageUriInspection, Uri imageUriInsurance, Uri imageUriRegister){
+        // Lay node userIdRef
+        DatabaseReference userIdRef = FirebaseDatabase.getInstance().getReference().child("cars").child(userId);
+        // Tao node carId
+        DatabaseReference carIdRef = userIdRef.push();
+        // Lay id vua tao
+        String carId = carIdRef.getKey();
+        // update id cho car
+        car.setId(carId);
+        // Luu 4 anh : car, inspection, insurance, register nhung chi update string image car
+        //put image car
+        StorageReference imageCarRef = FirebaseStorage.getInstance().getReference().child("users/"+userId+"/cars/"+carId+"/imageCar/");
+        imageCarRef.putFile(imageUriCar)
+                .addOnSuccessListener(taskSnapshot -> imageCarRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String imageUrlCar = uri.toString();
+                    // set iamga car
+                    car.setImageCarUrl(imageUrlCar);
+                    // Chi can tai duoc anh xe thi se create car, khong can doi tai anh giay to khac
+                    carIdRef.setValue(car);
+                }))
+                .addOnFailureListener(e -> Toast.makeText(CreateCarActivity.this, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
 
+       // Put  imageInspection
+        StorageReference imageInspection = FirebaseStorage.getInstance().getReference().child("users/"+userId+"/cars/"+carId+"/imageInspection/");
+        imageInspection.putFile(imageUriInspection)
+                .addOnSuccessListener(taskSnapshot -> imageInspection.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String imageUrl = uri.toString();
+                }))
+                .addOnFailureListener(e -> Toast.makeText(CreateCarActivity.this, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == STORAGE_PERMISSION_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                openImageSelector(); // Mở bộ chọn ảnh khi quyền được cấp
-            } else {
-                Toast.makeText(this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
-            }
-        }
+        // Put image imageInsurance
+        StorageReference imageInsurance = FirebaseStorage.getInstance().getReference().child("users/"+userId+"/cars/"+carId+"/imageInsurance/");
+        imageInsurance.putFile(imageUriInsurance)
+                .addOnSuccessListener(taskSnapshot -> imageInsurance.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String imageUrl = uri.toString();
+                }))
+                .addOnFailureListener(e -> Toast.makeText(CreateCarActivity.this, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+
+        // Put image registration
+        StorageReference imageRegistration = FirebaseStorage.getInstance().getReference().child("users/"+userId+"/cars/"+carId+"/imageRegistration/");
+        imageRegistration.putFile(imageUriRegister)
+                .addOnSuccessListener(taskSnapshot -> imageRegistration.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String imageUrl = uri.toString();
+                }))
+                .addOnFailureListener(e -> Toast.makeText(CreateCarActivity.this, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+
+        // save car into realtime database
+        Log.d("imageUrlCar", "createNewCar: "+car);
+//        carIdRef.setValue(car);
     }
 
-    // Ham mo bo chon anh
-    private void openImageSelector() {
-        //Intent.ACTION_PICK được sử dụng để mở ứng dụng chọn ảnh
-        // Tạo Intent để mở bộ chọn ảnh của hệ thống
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        // Sử dụng ActivityResultLauncher để khởi chạy Intent, mở bộ chọn ảnh
-        imagePickerLauncher.launch(intent);
+//     Ham luu anh len firebase storage
+    private void uploadImageToStorage(Uri imageUri, String idCar, String folder) {
+        StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("users/"+userId).child("cars/" + idCar).child(folder);
+        fileRef.putFile(imageUri)
+                .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String imageUrl = uri.toString();
+                }))
+                .addOnFailureListener(e -> Toast.makeText(CreateCarActivity.this, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
-
 }

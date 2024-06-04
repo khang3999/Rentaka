@@ -109,25 +109,25 @@ public class FirebaseAPI {
     }
 
     // function add payment to the Firestore database **working properly
-    public void addPayment(Payment payment) {
-        //Add status for the payment
-        addStatus(new Status(Status.StatusName.completed));
-
-        db.collection("payments").add(payment).addOnSuccessListener(documentReference -> {
-            db.collection("payments")
-                    .document(documentReference.getId())
-                    .update("id", documentReference.getId(), "statusID", mRefString);
-
-            payment.setId(documentReference.getId());
-            payment.setStatusID(mRefString);
-
-            System.out.println("Added successfully payment with ID: " + documentReference.getId());
-        }).addOnFailureListener(e -> {
-            System.out.println("Added payment failure " + e);
-        });
-
-        mRefString = "";
-    }
+//    public void addPayment(Payment payment) {
+//        //Add status for the payment
+//        addStatus(new Status(Status.StatusName.completed));
+//
+//        db.collection("payments").add(payment).addOnSuccessListener(documentReference -> {
+//            db.collection("payments")
+//                    .document(documentReference.getId())
+//                    .update("id", documentReference.getId(), "statusID", mRefString);
+//
+//            payment.setId(documentReference.getId());
+//            payment.setStatusID(mRefString);
+//
+//            System.out.println("Added successfully payment with ID: " + documentReference.getId());
+//        }).addOnFailureListener(e -> {
+//            System.out.println("Added payment failure " + e);
+//        });
+//
+//        mRefString = "";
+//    }
 
     //fetch valid discount from the Firestore database ***Working properly
     public void fetchValidDiscounts(onCallBack<Discount> callBack) {
@@ -386,59 +386,59 @@ public class FirebaseAPI {
     }
 
     //    function update reservation when owner accepts a renter's request **working properly
-    public void updateReservationWhenOwnerAcceptsRenterRequest(Reservation reservation) {
-        //update status to accepted when owner accepts a renter's request
-        updateStatus(new Status(reservation.getStatusID(), Status.StatusName.accepted));
-
-        db.collection("reservations").document(reservation.getId())
-                .update("statusID", reservation.getStatusID()).addOnSuccessListener(aVoid -> {
-                    Log.d("Success", "updateReservation: " + reservation.toString());
-                }).addOnFailureListener(e -> {
-                    Log.d("Error", "Error getting documents: ", e);
-                });
-    }
+//    public void updateReservationWhenOwnerAcceptsRenterRequest(Reservation reservation) {
+//        //update status to accepted when owner accepts a renter's request
+//        updateStatus(new Status(reservation.getStatusID(), Status.StatusName.accepted));
+//
+//        db.collection("reservations").document(reservation.getId())
+//                .update("statusID", reservation.getStatusID()).addOnSuccessListener(aVoid -> {
+//                    Log.d("Success", "updateReservation: " + reservation.toString());
+//                }).addOnFailureListener(e -> {
+//                    Log.d("Error", "Error getting documents: ", e);
+//                });
+//    }
 
     //function update reservation missing properties when a renter rents a car *** working properly
-    public void updateReservationWhenRenterRentsCar(Reservation reservation) {
-        //update status to pending when renter rents a car
-        updateStatus(new Status(reservation.getStatusID(), Status.StatusName.pending));
-
-        db.collection("reservations").document(reservation.getId())
-                .update("renterID", reservation.getRenterID(),
-                        "pickUpDate", reservation.getPickUpDate(),
-                        "returnDate", reservation.getReturnDate(),
-                        "discount",reservation.getDiscount(),
-                        "pickUpLocation", reservation.getPickUpLocation(),
-                        "returnLocation", reservation.getReturnLocation()).addOnSuccessListener(aVoid -> {
-                    Log.d("Success", "updateReservation: " + reservation.toString());
-                }).addOnFailureListener(e -> {
-                    Log.d("Error", "Error getting documents: ", e);
-                });
-    }
+//    public void updateReservationWhenRenterRentsCar(Reservation reservation) {
+//        //update status to pending when renter rents a car
+//        updateStatus(new Status(reservation.getStatusID(), Status.StatusName.pending));
+//
+//        db.collection("reservations").document(reservation.getId())
+//                .update("renterID", reservation.getRenterID(),
+//                        "pickUpDate", reservation.getPickUpDate(),
+//                        "returnDate", reservation.getReturnDate(),
+//                        "discount",reservation.getDiscount(),
+//                        "pickUpLocation", reservation.getPickUpLocation(),
+//                        "returnLocation", reservation.getReturnLocation()).addOnSuccessListener(aVoid -> {
+//                    Log.d("Success", "updateReservation: " + reservation.toString());
+//                }).addOnFailureListener(e -> {
+//                    Log.d("Error", "Error getting documents: ", e);
+//                });
+//    }
 
     //Function to add a new reservation to the Firestore database ** working properly
-    public void addReservation(Reservation reservation) {
-
-        //add new status for the reservation
-        addStatus(new Status(Status.StatusName.created));
-
-        db.collection("reservations").add(reservation).addOnSuccessListener(documentReference -> {
-            db.collection("reservations")
-                    .document(documentReference.getId())
-                    .update("id", documentReference.getId(), "statusID", mRefString);
-
-            reservation.setId(documentReference.getId());
-
-            System.out.println("Added successfully reservation with ID: " + documentReference.getId());
-        }).addOnFailureListener(e -> {
-            System.out.println("Added reservation failure " + e);
-        });
-
-
-        //update car status to unavailable
-
-        mRefString = "";
-    }
+//    public void addReservation(Reservation reservation) {
+//
+//        //add new status for the reservation
+//        addStatus(new Status(Status.StatusName.created));
+//
+//        db.collection("reservations").add(reservation).addOnSuccessListener(documentReference -> {
+//            db.collection("reservations")
+//                    .document(documentReference.getId())
+//                    .update("id", documentReference.getId(), "statusID", mRefString);
+//
+//            reservation.setId(documentReference.getId());
+//
+//            System.out.println("Added successfully reservation with ID: " + documentReference.getId());
+//        }).addOnFailureListener(e -> {
+//            System.out.println("Added reservation failure " + e);
+//        });
+//
+//
+//        //update car status to unavailable
+//
+//        mRefString = "";
+//    }
 
     public void fetchCustomerByCity(String city, onCallBack<Customer> callBack) {
         List<Customer> customerList = new ArrayList<>();
@@ -516,13 +516,13 @@ public class FirebaseAPI {
 
     }
 
-    public void updateStatus(Status status) {
-        db.collection("status").document(status.getId()).update("name", status.getName()).addOnSuccessListener(aVoid -> {
-            Log.d("Success", "updateStatus: " + status.toString());
-        }).addOnFailureListener(e -> {
-            Log.d("Error", "Error getting documents: ", e);
-        });
-    }
+//    public void updateStatus(Status status) {
+//        db.collection("status").document(status.getId()).update("name", status.getName()).addOnSuccessListener(aVoid -> {
+//            Log.d("Success", "updateStatus: " + status.toString());
+//        }).addOnFailureListener(e -> {
+//            Log.d("Error", "Error getting documents: ", e);
+//        });
+//    }
 
     // Function to add a new status to the Firestore database ***Working properly
     public void addStatus(Status status) {
@@ -539,48 +539,48 @@ public class FirebaseAPI {
     }
 
     //Function fetch status by car id from the Firestore database ***Working properly
-    public void fetchStatusByCarID(String carID, onCallBack<Status> callBack) {
-        List<Status> statusList = new ArrayList<>();
-        db.collection("cars").document(carID).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DocumentSnapshot document = task.getResult();
-                String statusID = document.getString("statusID");
-                db.collection("status").document(statusID).get().addOnCompleteListener(task1 -> {
-                    if (task1.isSuccessful()) {
-                        DocumentSnapshot document1 = task1.getResult();
-                        Status status = document1.toObject(Status.class);
-                        status.setId(document1.getId());
-                        statusList.add(status);
-                        callBack.onCallBack(statusList);
-                        Log.d("Success", "fetchStatusesByCarID: " + statusList.toString());
-                    } else {
-                        Log.d("Error", "Error getting documents: ", task1.getException());
-                    }
-                });
-            } else {
-                Log.d("Error", "Error getting documents: ", task.getException());
-            }
-        });
-
-    }
+//    public void fetchStatusByCarID(String carID, onCallBack<Status> callBack) {
+//        List<Status> statusList = new ArrayList<>();
+//        db.collection("cars").document(carID).get().addOnCompleteListener(task -> {
+//            if (task.isSuccessful()) {
+//                DocumentSnapshot document = task.getResult();
+//                String statusID = document.getString("statusID");
+//                db.collection("status").document(statusID).get().addOnCompleteListener(task1 -> {
+//                    if (task1.isSuccessful()) {
+//                        DocumentSnapshot document1 = task1.getResult();
+//                        Status status = document1.toObject(Status.class);
+//                        status.setId(document1.getId());
+//                        statusList.add(status);
+//                        callBack.onCallBack(statusList);
+//                        Log.d("Success", "fetchStatusesByCarID: " + statusList.toString());
+//                    } else {
+//                        Log.d("Error", "Error getting documents: ", task1.getException());
+//                    }
+//                });
+//            } else {
+//                Log.d("Error", "Error getting documents: ", task.getException());
+//            }
+//        });
+//
+//    }
 
     // Function to fetch statuses ** working properly
-    public void fetchStatuses(onCallBack<Status> callBack) {
-        List<Status> statusList = new ArrayList<>();
-        db.collection("status").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    Status status = document.toObject(Status.class);
-                    status.setId(document.getId());
-                    statusList.add(status);
-                }
-                callBack.onCallBack(statusList);
-                Log.d("Success", "fetchStatuses: " + statusList.toString());
-            } else {
-                Log.d("Error", "Error getting documents: ", task.getException());
-            }
-        });
-    }
+//    public void fetchStatuses(onCallBack<Status> callBack) {
+//        List<Status> statusList = new ArrayList<>();
+//        db.collection("status").get().addOnCompleteListener(task -> {
+//            if (task.isSuccessful()) {
+//                for (QueryDocumentSnapshot document : task.getResult()) {
+//                    Status status = document.toObject(Status.class);
+//                    status.setId(document.getId());
+//                    statusList.add(status);
+//                }
+//                callBack.onCallBack(statusList);
+//                Log.d("Success", "fetchStatuses: " + statusList.toString());
+//            } else {
+//                Log.d("Error", "Error getting documents: ", task.getException());
+//            }
+//        });
+//    }
 
     //Function remove status from the Firestore database ***Working properly
     public void removeStatus(String statusID) {
@@ -611,115 +611,115 @@ public class FirebaseAPI {
     }
 
     //function to remove a car from the Firestore database ***Working properly
-    public void removeCar(Car car) {
-        //remove status
-        removeStatus(car.getStatusID());
-
-        db.collection("cars").document(car.getId()).delete().addOnSuccessListener(aVoid -> {
-            Log.d("Success", "removeCar: " + car.toString());
-        }).addOnFailureListener(e -> {
-            Log.d("Error", "Error getting documents: ", e);
-        });
-    }
+//    public void removeCar(Car car) {
+//        //remove status
+//        removeStatus(car.getStatusID());
+//
+//        db.collection("cars").document(car.getId()).delete().addOnSuccessListener(aVoid -> {
+//            Log.d("Success", "removeCar: " + car.toString());
+//        }).addOnFailureListener(e -> {
+//            Log.d("Error", "Error getting documents: ", e);
+//        });
+//    }
 
     //Function fetch cars by property from the Firestore database *** Working properly
-    public void fetchCarsByProperty(Car.CarProperties property, String keyword, onCallBack<Car> callBack) {
-        List<Car> carList = new ArrayList<>();
-        keyword = keyword.substring(0, 1).toUpperCase() + keyword.substring(1).toLowerCase();
-        db.collection("cars").whereEqualTo(property.toString(), keyword).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    Car car = document.toObject(Car.class);
-                    car.setId(document.getId());
-                    carList.add(car);
-                }
-                callBack.onCallBack(carList);
-                Log.d("Success", "fetchCarsByProperty: " + carList.toString());
-            } else {
-                Log.d("Error", "Error getting documents: ", task.getException());
-            }
-        });
-    }
+//    public void fetchCarsByProperty(Car.CarProperties property, String keyword, onCallBack<Car> callBack) {
+//        List<Car> carList = new ArrayList<>();
+//        keyword = keyword.substring(0, 1).toUpperCase() + keyword.substring(1).toLowerCase();
+//        db.collection("cars").whereEqualTo(property.toString(), keyword).get().addOnCompleteListener(task -> {
+//            if (task.isSuccessful()) {
+//                for (QueryDocumentSnapshot document : task.getResult()) {
+//                    Car car = document.toObject(Car.class);
+//                    car.setId(document.getId());
+//                    carList.add(car);
+//                }
+//                callBack.onCallBack(carList);
+//                Log.d("Success", "fetchCarsByProperty: " + carList.toString());
+//            } else {
+//                Log.d("Error", "Error getting documents: ", task.getException());
+//            }
+//        });
+//    }
 
     //Function fetch cars by status name from the Firestore database ***Working properly
-    public void fetchCarsByStatusName(Status.StatusName statusName, onCallBack<Car> callBack) {
-        db.collection("status").whereEqualTo("name", statusName.toString()).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                List<Car> carList = new ArrayList<>();
-                List<Task<QuerySnapshot>> tasks = new ArrayList<>();
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    String statusID = document.getId();
-                    Task<QuerySnapshot> fetchTask = db.collection("cars").whereEqualTo("statusID", statusID).get();
-                    tasks.add(fetchTask);
-                }
-
-                Tasks.whenAllSuccess(tasks).addOnSuccessListener(results -> {
-                    for (Object result : results) {
-                        QuerySnapshot querySnapshot = (QuerySnapshot) result;
-                        for (QueryDocumentSnapshot document : querySnapshot) {
-                            Car car = document.toObject(Car.class);
-                            car.setId(document.getId());
-                            if (!carList.contains(car)) {
-                                carList.add(car);
-                            }
-                        }
-                    }
-                    callBack.onCallBack(carList);
-                    Log.d("Success", "fetchCarsByStatusName: " + carList.toString());
-                }).addOnFailureListener(e -> {
-                    Log.d("Error", "Error getting documents: ", e);
-                });
-            } else {
-                Log.d("Error", "Error getting documents: ", task.getException());
-            }
-        });
-    }
+//    public void fetchCarsByStatusName(Status.StatusName statusName, onCallBack<Car> callBack) {
+//        db.collection("status").whereEqualTo("name", statusName.toString()).get().addOnCompleteListener(task -> {
+//            if (task.isSuccessful()) {
+//                List<Car> carList = new ArrayList<>();
+//                List<Task<QuerySnapshot>> tasks = new ArrayList<>();
+//                for (QueryDocumentSnapshot document : task.getResult()) {
+//                    String statusID = document.getId();
+//                    Task<QuerySnapshot> fetchTask = db.collection("cars").whereEqualTo("statusID", statusID).get();
+//                    tasks.add(fetchTask);
+//                }
+//
+//                Tasks.whenAllSuccess(tasks).addOnSuccessListener(results -> {
+//                    for (Object result : results) {
+//                        QuerySnapshot querySnapshot = (QuerySnapshot) result;
+//                        for (QueryDocumentSnapshot document : querySnapshot) {
+//                            Car car = document.toObject(Car.class);
+//                            car.setId(document.getId());
+//                            if (!carList.contains(car)) {
+//                                carList.add(car);
+//                            }
+//                        }
+//                    }
+//                    callBack.onCallBack(carList);
+//                    Log.d("Success", "fetchCarsByStatusName: " + carList.toString());
+//                }).addOnFailureListener(e -> {
+//                    Log.d("Error", "Error getting documents: ", e);
+//                });
+//            } else {
+//                Log.d("Error", "Error getting documents: ", task.getException());
+//            }
+//        });
+//    }
 
     // Function to fetch cars by reference from the Firestore database *** Don't call after addCar function has been invoked
-    public void fetchCarsByOwnerID(String refID, onCallBack<Car> callBack) {
-        List<Car> carList = new ArrayList<>();
-        db.collection("cars").whereEqualTo("ownerID", refID).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    Car car = document.toObject(Car.class);
-                    car.setId(document.getId());
-                    // Set the statusID of the car
-                    String statusID = document.getString("statusID");
-                    car.setStatusID(statusID);
-                    carList.add(car);
-                }
-                callBack.onCallBack(carList);
-                Log.d("Success", "fetchCarsByRef: " + carList.toString());
-            } else {
-                Log.d("Error", "Error getting documents: ", task.getException());
-            }
-        });
-
-    }
+//    public void fetchCarsByOwnerID(String refID, onCallBack<Car> callBack) {
+//        List<Car> carList = new ArrayList<>();
+//        db.collection("cars").whereEqualTo("ownerID", refID).get().addOnCompleteListener(task -> {
+//            if (task.isSuccessful()) {
+//                for (QueryDocumentSnapshot document : task.getResult()) {
+//                    Car car = document.toObject(Car.class);
+//                    car.setId(document.getId());
+//                    // Set the statusID of the car
+//                    String statusID = document.getString("statusID");
+//                    car.setStatusID(statusID);
+//                    carList.add(car);
+//                }
+//                callBack.onCallBack(carList);
+//                Log.d("Success", "fetchCarsByRef: " + carList.toString());
+//            } else {
+//                Log.d("Error", "Error getting documents: ", task.getException());
+//            }
+//        });
+//
+//    }
 
     // Function to add a new car to the Firestore database ***Working properly
-    public void addCar(Car car) {
-        //create a new status for the car with deault status "Unavailable"
-        addStatus(new Status(Status.StatusName.unavailable));
-
-        db.collection("cars").add(car).addOnSuccessListener(documentReference -> {
-
-            //set document id to car id
-            db.collection("cars")
-                    .document(documentReference.getId())
-                    .update("id", documentReference.getId(), "statusID", mRefString);
-
-            //archive car id and status id
-            car.setId(documentReference.getId());
-            car.setStatusID(mRefString);
-
-            System.out.println("Added successfully car with ID: " + documentReference.getId());
-        }).addOnFailureListener(e -> {
-            System.out.println("Added car failure " + e);
-        });
-        mRefString = "";
-
-    }
+//    public void addCar(Car car) {
+//        //create a new status for the car with deault status "Unavailable"
+//        addStatus(new Status(Status.StatusName.unavailable));
+//
+//        db.collection("cars").add(car).addOnSuccessListener(documentReference -> {
+//
+//            //set document id to car id
+//            db.collection("cars")
+//                    .document(documentReference.getId())
+//                    .update("id", documentReference.getId(), "statusID", mRefString);
+//
+//            //archive car id and status id
+//            car.setId(documentReference.getId());
+//            car.setStatusID(mRefString);
+//
+//            System.out.println("Added successfully car with ID: " + documentReference.getId());
+//        }).addOnFailureListener(e -> {
+//            System.out.println("Added car failure " + e);
+//        });
+//        mRefString = "";
+//
+//    }
     // Lay type xe tu lai
     // Function to fetch cars with type = "self" from the Firestore database
     public void fetchCarsBySelf (onCallBack<Car> callBack) {
@@ -733,9 +733,9 @@ public class FirebaseAPI {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            Car car = document.toObject(Car.class);
-                            car.setId(document.getId());
-                            carList.add(car);
+//                            Car car = document.toObject(Car.class);
+//                            car.setId(document.getId());
+//                            carList.add(car);
                         }
                         callBack.onCallBack(carList);
                         Log.d("Success", "fetchCarsByRef: " + carList.toString());

@@ -273,6 +273,33 @@ public class RealTimeAPI {
     }
 /*
     // Method to fetch all cities ** working properly
+<<<<<<< HEAD
+    public void fetchAllCities(FetchListener<City> listener) {
+        DatabaseReference citiesRef = mDatabase.child("cities");
+        citiesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<City> allCities = new ArrayList<>();
+
+                for (DataSnapshot citySnapshot : dataSnapshot.getChildren()) {
+                    String cityName = citySnapshot.child("data").getValue(String.class);
+                    City city = new City(cityName);
+                    if (cityName != null) {
+                        allCities.add(city);
+                    }
+                }
+
+                listener.onFetched(allCities);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                listener.onError(databaseError.toException());
+            }
+        });
+    }
+*/
+=======
 //    public void fetchAllCities(FetchListener<City> listener) {
 //        DatabaseReference citiesRef = mDatabase.child("cities");
 //        citiesRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -295,6 +322,7 @@ public class RealTimeAPI {
 //        });
 //    }
 
+>>>>>>> main
     //Method to add all cites in vietnam to the database ** working properly
     public void addCitesInVietNam() {
         List<String> cityNames = Arrays.asList(
