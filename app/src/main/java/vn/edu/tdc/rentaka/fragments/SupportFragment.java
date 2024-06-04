@@ -20,8 +20,8 @@ public class SupportFragment extends AbstractFragment{
         View fragment = null;
         fragment = binding.getRoot();
 
-        // Thuc hien gi cho fragment
-
         return fragment;
     }
+
+
 }

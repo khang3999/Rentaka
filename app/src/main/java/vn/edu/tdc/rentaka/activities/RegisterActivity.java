@@ -275,19 +275,19 @@ public class RegisterActivity extends AppCompatActivity {
                     //**********************************************************************
                     //Hàm dang ki neu dung dc otp chua qua 10sms
                     //Hien thi boom sheet
-                    logicBottomSheet();
-                    //Gui yeu cau OTP
-                    String phone = binding.editTextPhone.getText().toString();
-                    if (phone.startsWith("0")) {
-                        phone = "+84" + phone.substring(1);
-                    }
-                    Toast.makeText(RegisterActivity.this, phone, Toast.LENGTH_SHORT).show();
-                    //Gui ma otp
-                    sendRequestOTP(phone);
+//                    logicBottomSheet();
+//                    //Gui yeu cau OTP
+//                    String phone = binding.editTextPhone.getText().toString();
+//                    if (phone.startsWith("0")) {
+//                        phone = "+84" + phone.substring(1);
+//                    }
+//                    Toast.makeText(RegisterActivity.this, phone, Toast.LENGTH_SHORT).show();
+//                    //Gui ma otp
+//                    sendRequestOTP(phone);
 //                    //**************************************************************************
 //**************************************************************************
 //                    Hàm dang ki neu otp qua 10sms
-//                    RegisterAPI();
+                    RegisterAPI();
 //**************************************************************************
 
                 } else {
