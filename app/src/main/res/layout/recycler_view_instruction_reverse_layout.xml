@@ -30,17 +30,15 @@
             android:id="@+id/textView2"
             style="@style/TitleTextStyle"
             android:layout_width="0dp"
-            android:padding="15dp"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
+            android:padding="15dp"
             android:text="Hướng dẫn đặt xe"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.145" />
+            app:layout_constraintStart_toEndOf="@+id/imageView" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline1"

@@ -72,8 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
         //Khoi tao binding
         binding = MainLayoutBinding.inflate(getLayoutInflater());
         // Gán view cho binding
@@ -199,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
         smsReceiver = new SMSReceiver();
         intentFilter = new IntentFilter(ACTION);
         registerReceiver(smsReceiver, intentFilter);
-
     }
 
     //Xu ly sau khi nguoi dung cap quyen
