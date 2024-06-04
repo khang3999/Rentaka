@@ -8,6 +8,7 @@
     app:cardCornerRadius="25dp"
     app:cardElevation="@dimen/cardview_default_elevation"
     app:cardUseCompatPadding="true"
+    android:id="@+id/itemList"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout

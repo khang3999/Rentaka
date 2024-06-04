@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemList"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:cardCornerRadius="25dp"
@@ -16,6 +17,7 @@
         android:background="@color/green_background">
 
         <ImageView
+            android:background="@drawable/round_outline"
             android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

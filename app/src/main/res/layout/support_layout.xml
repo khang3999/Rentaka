@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="15dp"
     tools:context=".activities.MainActivity">
     <LinearLayout
         android:layout_width="match_parent"
@@ -176,6 +177,7 @@
 
             />
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/instruction_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </androidx.recyclerview.widget.RecyclerView>
@@ -185,13 +187,13 @@
             android:text="@string/information"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp"
-
             style="@style/SupportScreenTitle"
-
             />
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/information_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp">
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 

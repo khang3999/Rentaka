@@ -14,9 +14,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 import vn.edu.tdc.rentaka.APIs.RealTimeAPI;
+import vn.edu.tdc.rentaka.R;
+import vn.edu.tdc.rentaka.adapters.InformationAdapter;
+import vn.edu.tdc.rentaka.adapters.InstructionAdapter;
 import vn.edu.tdc.rentaka.databinding.SupportLayoutBinding;
+import vn.edu.tdc.rentaka.models.Information;
+import vn.edu.tdc.rentaka.models.Instruction;
 
 public class SupportFragment extends AbstractFragment{
     private SupportLayoutBinding binding;
@@ -31,6 +42,31 @@ public class SupportFragment extends AbstractFragment{
         View fragment = null;
         fragment = binding.getRoot();
 
+        // Add sample data and set adapter for Instruction RecyclerView
+        ArrayList<Instruction> instructions = addSampleInstructionData();
+        LinearLayoutManager layoutManagerInstruction = new LinearLayoutManager(this.getContext());
+        layoutManagerInstruction.setOrientation(RecyclerView.HORIZONTAL);
+        layoutManagerInstruction.setReverseLayout(false);
+        attachSnapHelper(binding.instructionRecyclerView);
+        // Set adapter for instruction RecyclerView
+        InstructionAdapter adapter = new InstructionAdapter(this.getContext(),instructions);
+        binding.instructionRecyclerView.setLayoutManager(layoutManagerInstruction);
+        binding.instructionRecyclerView.setAdapter(adapter);
+
+        //Add sample data and set adapter for information RecyclerView
+        ArrayList<Information> informations = addSampleInfomationData();
+        GridLayoutManager layoutManagerInformation = new GridLayoutManager(this.getContext(),2);
+        layoutManagerInformation.setOrientation(RecyclerView.VERTICAL);
+
+        // Set adapter for information RecyclerView
+        InformationAdapter informationAdapter = new InformationAdapter(this.getContext(),informations);
+        binding.informationRecyclerView.setLayoutManager(layoutManagerInformation);
+        binding.informationRecyclerView.setAdapter(informationAdapter);
+
+
+
+
+        // Set onClickListener for call and chat buttons
         Button callButton = binding.callButton;
         Button chatButton = binding.messageButton;
 
@@ -49,6 +85,28 @@ public class SupportFragment extends AbstractFragment{
         });
         return fragment;
     }
+
+    private ArrayList<Instruction> addSampleInstructionData() {
+        ArrayList<Instruction> instructions = new ArrayList<>();
+        instructions.add(new Instruction("Hướng dẫn đặt xe", R.drawable.instructions_1));
+        instructions.add(new Instruction("Chuẩn bị gì trước chuyến đi", R.drawable.instructions_2));
+        instructions.add(new Instruction("Hướng dẫn cho chủ xe", R.drawable.instructions_3));
+        instructions.add(new Instruction("Đặt xe mọi lúc", R.drawable.instructions_4));
+        return instructions;
+    }
+    private ArrayList<Information> addSampleInfomationData() {
+        ArrayList<Information> Information = new ArrayList<>();
+        Information.add(new Information("Thông tin công ty", R.drawable.company_100));
+        Information.add(new Information("Chính sách và quy định", R.drawable.pass_100));
+        Information.add(new Information("Đánh giá trên Google Play", R.drawable.playstore_100));
+        Information.add(new Information("Fanpage của chúng tôi", R.drawable.facebook_100));
+        Information.add(new Information("Hỏi và trả lời", R.drawable.question_100));
+        Information.add(new Information("Quy chế hoạt động", R.drawable.clipboard_100));
+        Information.add(new Information("Bảo mật thông tin", R.drawable.lock_100));
+        Information.add(new Information("Giải quyết tranh chấp", R.drawable.check_100));
+        return Information;
+    }
+
 
     private void makePhoneCall() {
         String phoneNumber = "tel:1234567890"; // Replace with your desired phone number
@@ -83,5 +141,15 @@ public class SupportFragment extends AbstractFragment{
         smsIntent.putExtra("sms_body", "Hello, I need support regarding...");
         startActivity(smsIntent);
     }
+    public void attachSnapHelper(RecyclerView recyclerView) {
+        // Kiểm tra nếu đã gán rồi thì không làm nữa
+        if (recyclerView.getOnFlingListener() == null) {
+            // Nếu chưa, thì gắn SnapHelper
+            LinearSnapHelper snapHelper = new LinearSnapHelper();
+            snapHelper.attachToRecyclerView(recyclerView);
+        }
+
+    }
+
 
 }
