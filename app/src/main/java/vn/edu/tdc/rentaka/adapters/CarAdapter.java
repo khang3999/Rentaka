@@ -14,13 +14,16 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.CardCarItemBinding;
-import vn.edu.tdc.rentaka.fragments.HomeFragment;
 import vn.edu.tdc.rentaka.models.Car;
 
 public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
@@ -28,6 +31,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
     private Context context;
     private ArrayList<Car> listCar;
     private ItemClickListener itemClickListener;
+    private DatabaseReference db;
 
     public void setOnItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
@@ -36,6 +40,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
     public CarAdapter(Context context, ArrayList<Car> listCar) {
         this.context = context;
         this.listCar = listCar;
+        this.db = FirebaseDatabase.getInstance().getReference();
     }
 
     @NonNull
@@ -50,14 +55,14 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
         CardCarItemBinding binding = (CardCarItemBinding) holder.getBinding();
         Car car = listCar.get(position);
 
-        // Chuyen chuoi thanh file hinh
-        String imageUrl = car.getImageCarUrl(); // lay duong dan den file
+        // Chuyển chuỗi thành file hình
+        String imageUrl = car.getImageCarUrl();
         if (imageUrl != null && !imageUrl.isEmpty()) {
             Glide.with(context)
                     .load(imageUrl)
                     .into(binding.imageCar);
         } else {
-            //Set anh mac dinh
+            // Set ảnh mặc định
             binding.imageCar.setImageResource(R.drawable.car);
         }
 
@@ -65,17 +70,42 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
         binding.textViewFuel.setText(car.getFuel());
         binding.nameCar.setText(car.getModel());
         binding.addressCar.setText(car.getDescription());
-        //updateFavoriteIcon(binding, car);
+        //Update moi lan load
+        updateFavoriteIcon(binding, car);
 
+        // Set tag cho tung item
+        holder.itemView.setTag(binding);
 
-//        // Handle favorite icon click
-//        binding.icHeart.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                boolean isFavorite = toggleFavorite(car, holder.itemView);
-//                updateFavoriteIcon(binding, car);
-//            }
-//        });
+        // Yeu thich
+        binding.icHeart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Nhan heart sp
+                toggleFavorite(car, holder.getBinding().getRoot());
+            }
+        });
+
+        // Set the favorite icon status based on the database
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            db.child("favourites").child(user.getUid())
+                    .child(car.getId())
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                binding.icHeart.setImageResource(R.drawable.ic_heart_24_press);
+                            } else {
+                                binding.icHeart.setImageResource(R.drawable.ic_heart);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            // Handle possible errors.
+                        }
+                    });
+        }
     }
 
     @Override
@@ -90,7 +120,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
             super(itemView.getRoot());
             binding = itemView;
 
-            // Bat su kien chung
+            // Bắt sự kiện chung
             itemView.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -117,29 +147,61 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
         void onItemClick(CarAdapter.MyViewHolder holder);
     }
 
-//    private boolean toggleFavorite(Car car, View view) {
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        if (user != null) {
-//            if (car.getFavourite().equals("like")) {
-//                car.setFavorite("unlike");
-//                db.collection("cars").document(car.getId()).update("favourite", "unlike");
-//                Snackbar.make(view, "Bạn Đã Bỏ Yêu Thích", Snackbar.ANIMATION_MODE_FADE).show();
-//                return false;
-//            } else {
-//                car.setFavorite("like");
-//                db.collection("cars").document(car.getId()).update("favourite", "like");
-//                Snackbar.make(view, "Bạn Đã Thêm Vào Yêu Thích", Snackbar.ANIMATION_MODE_FADE).show();
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//
-//    private void updateFavoriteIcon(CardCarItemBinding binding, Car car) {
-//        if (car.getFavourite().equals("like")) {
-//            binding.icHeart.setImageResource(R.drawable.ic_heart_24_press);
-//        } else {
-//            binding.icHeart.setImageResource(R.drawable.ic_heart);
-//        }
-//    }
+    private void toggleFavorite(Car car, View view) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            DatabaseReference favRef = db.child("favourites").child(user.getUid()).child(car.getId());
+
+            favRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        // Remove from favourites
+                        favRef.removeValue();
+                        updateFavoriteIcon((CardCarItemBinding) view.getTag(), false);
+                        Snackbar.make(view, "Bạn Đã Bỏ Yêu Thích", Snackbar.ANIMATION_MODE_FADE).show();
+                    } else {
+                        // Add to favourites
+                        favRef.setValue(car);
+                        updateFavoriteIcon((CardCarItemBinding) view.getTag(), true);
+                        Snackbar.make(view, "Bạn Đã Thêm Vào Yêu Thích", Snackbar.ANIMATION_MODE_FADE).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+        }
+    }
+
+    private void updateFavoriteIcon(CardCarItemBinding binding, boolean isFavorite) {
+        if (isFavorite) {
+            binding.icHeart.setImageResource(R.drawable.ic_heart_24_press);
+        } else {
+            binding.icHeart.setImageResource(R.drawable.ic_heart);
+        }
+    }
+
+    private void updateFavoriteIcon(CardCarItemBinding binding, Car car) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            db.child("favourites").child(user.getUid()).child(car.getId())
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                binding.icHeart.setImageResource(R.drawable.ic_heart_24_press);
+                            } else {
+                                binding.icHeart.setImageResource(R.drawable.ic_heart);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            // Handle possible errors.
+                        }
+                    });
+        }
+    }
 }
