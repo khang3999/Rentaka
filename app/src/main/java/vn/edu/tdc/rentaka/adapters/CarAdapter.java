@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.CardCarItemBinding;
+import vn.edu.tdc.rentaka.fragments.HomeFragment;
 import vn.edu.tdc.rentaka.models.Car;
 
 public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
@@ -26,7 +28,6 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
     private Context context;
     private ArrayList<Car> listCar;
     private ItemClickListener itemClickListener;
-    private FirebaseFirestore db;
 
     public void setOnItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
@@ -35,7 +36,6 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
     public CarAdapter(Context context, ArrayList<Car> listCar) {
         this.context = context;
         this.listCar = listCar;
-        db = FirebaseFirestore.getInstance();
     }
 
     @NonNull
@@ -49,6 +49,17 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         CardCarItemBinding binding = (CardCarItemBinding) holder.getBinding();
         Car car = listCar.get(position);
+
+        // Chuyen chuoi thanh file hinh
+        String imageUrl = car.getImageCarUrl(); // lay duong dan den file
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Glide.with(context)
+                    .load(imageUrl)
+                    .into(binding.imageCar);
+        } else {
+            //Set anh mac dinh
+            binding.imageCar.setImageResource(R.drawable.car);
+        }
 
         binding.textViewTypeGearBox.setText(car.getTypeGearbox());
         binding.textViewFuel.setText(car.getFuel());
