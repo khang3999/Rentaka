@@ -1,5 +1,10 @@
 package vn.edu.tdc.rentaka.APIs;
 
+import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -8,13 +13,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import vn.edu.tdc.rentaka.activities.CreateCarActivity;
+import vn.edu.tdc.rentaka.models.Car;
 import vn.edu.tdc.rentaka.models.City;
 import vn.edu.tdc.rentaka.models.Date;
 import vn.edu.tdc.rentaka.models.Discount;
@@ -34,6 +44,31 @@ public class RealTimeAPI {
         void onFetched(List<T> data);
 
         void onError(Exception e);
+    }
+
+    // Method to get all City
+    public void fetchCities(FetchListener<City> listener){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("cities");
+        Log.d("databaseRef", "fetchCities: "+databaseReference);
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<City> listCities = new ArrayList<>();
+                for (DataSnapshot s : snapshot.getChildren()) {
+                    City city = s.getValue(City.class);
+                    listCities.add(city);
+                    Log.d("databaseRef", "onDataChange: "+city);
+                }
+
+                listener.onFetched(listCities);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                listener.onError(error.toException());
+            }
+        });
     }
 
     //Method to add rate to the database ** working properly
@@ -238,30 +273,27 @@ public class RealTimeAPI {
     }
 
     // Method to fetch all cities ** working properly
-    public void fetchAllCities(FetchListener<City> listener) {
-        DatabaseReference citiesRef = mDatabase.child("cities");
-        citiesRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<City> allCities = new ArrayList<>();
-
-                for (DataSnapshot citySnapshot : dataSnapshot.getChildren()) {
-                    String cityName = citySnapshot.child("data").getValue(String.class);
-                    City city = new City(cityName);
-                    if (cityName != null) {
-                        allCities.add(city);
-                    }
-                }
-
-                listener.onFetched(allCities);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                listener.onError(databaseError.toException());
-            }
-        });
-    }
+//    public void fetchAllCities(FetchListener<City> listener) {
+//        DatabaseReference citiesRef = mDatabase.child("cities");
+//        citiesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                List<City> allCities = new ArrayList<>();
+//
+//                for (DataSnapshot citySnapshot : dataSnapshot.getChildren()) {
+//                    City city = citySnapshot.getValue(City.class);
+//                    allCities.add(city);
+//                }
+//
+//                listener.onFetched(allCities);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                listener.onError(databaseError.toException());
+//            }
+//        });
+//    }
 
     //Method to add all cites in vietnam to the database ** working properly
     public void addCitesInVietNam() {
@@ -299,111 +331,154 @@ public class RealTimeAPI {
 
     }
 
-    // Method to fetch all existing statuses ** working properly
-    public void fetchAllStatuses(FetchListener<Status> listener) {
-        DatabaseReference statusesRef = mDatabase.child("statuses");
-        statusesRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<Status> allStatuses = new ArrayList<>();
 
-                for (DataSnapshot groupSnapshot : dataSnapshot.getChildren()) {
-                    for (DataSnapshot statusSnapshot : groupSnapshot.getChildren()) {
-                        if (!statusSnapshot.getKey().equals("id") && !statusSnapshot.getKey().equals("data")) {
-                            String id = statusSnapshot.child("id").getValue(String.class);
-                            String name = statusSnapshot.child("data").getValue(String.class);
-                            if (id != null && name != null) {
-                                Status status = new Status(id, Status.StatusName.valueOf(name));
-                                allStatuses.add(status);
-                            }
-                        }
-                    }
-                }
+    public void createNewCar(String userId, Car car, Uri imageUriCar, Uri imageUriInspection, Uri imageUriInsurance, Uri imageUriRegister, Context context){
 
-                listener.onFetched(allStatuses);
-            }
+        // Lay node userIdRef
+        DatabaseReference userIdRef = FirebaseDatabase.getInstance().getReference().child("cars").child(userId);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                listener.onError(databaseError.toException());
-            }
-        });
+        // Tao node carId
+        DatabaseReference carIdRef = userIdRef.push();
+        // Lay id vua tao
+        String carId = carIdRef.getKey();
+        // update id cho car
+        car.setId(carId);
+
+        // Luu 4 anh : car, inspection, insurance, register nhung chi update string image car
+        StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("users/"+userId).child("cars/" + carId);
+        fileRef.putFile(imageUriCar)
+                .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String imageUrl = uri.toString();
+                    car.setImageCarUrl(imageUrl);
+                }))
+                .addOnFailureListener(e -> Toast.makeText(context, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        fileRef.putFile(imageUriInspection)
+                .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String imageUrl = uri.toString();
+                }))
+                .addOnFailureListener(e -> Toast.makeText(context, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        fileRef.putFile(imageUriInsurance)
+                .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String imageUrl = uri.toString();
+                }))
+                .addOnFailureListener(e -> Toast.makeText(context, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        fileRef.putFile(imageUriRegister)
+                .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String imageUrl = uri.toString();
+                }))
+                .addOnFailureListener(e -> Toast.makeText(context, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+
+        // save car into realtime database
+        carIdRef.setValue(car).addOnSuccessListener(aVoid -> Toast.makeText(context, "Car data uploaded successfully", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e -> Toast.makeText(context, "Failed to upload car data", Toast.LENGTH_SHORT).show());
     }
+
+
+    // Method to fetch all existing statuses ** working properly
+//    public void fetchAllStatuses(FetchListener<Status> listener) {
+//        DatabaseReference statusesRef = mDatabase.child("statuses");
+//        statusesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                List<Status> allStatuses = new ArrayList<>();
+//
+//                for (DataSnapshot groupSnapshot : dataSnapshot.getChildren()) {
+//                    for (DataSnapshot statusSnapshot : groupSnapshot.getChildren()) {
+//                        if (!statusSnapshot.getKey().equals("id") && !statusSnapshot.getKey().equals("data")) {
+//                            String id = statusSnapshot.child("id").getValue(String.class);
+//                            String name = statusSnapshot.child("data").getValue(String.class);
+//                            if (id != null && name != null) {
+//                                Status status = new Status(id, Status.StatusName.valueOf(name));
+//                                allStatuses.add(status);
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                listener.onFetched(allStatuses);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                listener.onError(databaseError.toException());
+//            }
+//        });
+//    }
 
     // Method to add a new status to the database** working properly
-    public void addStatus(Status.StatusGroup statusGroup, Status.StatusName statusName) {
-        // Reference to the statuses node
-        DatabaseReference statusesRef = mDatabase.child("statuses");
-        String statusGroupStr = statusGroup.toString();
-
-        // Check if the status group exists
-        statusesRef.orderByChild("data").equalTo(statusGroupStr).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    // Status group exists, get its reference
-                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                        DatabaseReference statusGroupRef = childSnapshot.getRef();
-                        // Add status to existing status group
-                        addStatusToGroup(statusGroupRef, statusName);
-                    }
-                } else {
-                    // Status group does not exist, create new group and add status
-                    DatabaseReference statusGroupRef = statusesRef.push();
-                    String statusGroupId = statusGroupRef.getKey();
-
-                    // Create a Map to hold the status group data, including the group name
-                    Map<String, Object> statusGroupData = new HashMap<>();
-                    statusGroupData.put("data", statusGroupStr);
-                    statusGroupData.put("id", statusGroupId);
-
-                    // Set the value of the new status group, including the key
-                    statusGroupRef.setValue(statusGroupData, new DatabaseReference.CompletionListener() {
-                        @Override
-                        public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
-                            if (databaseError != null) {
-                                System.out.println("Data could not be saved " + databaseError.getMessage());
-                            } else {
-                                System.out.println("Status group saved successfully.");
-
-                                // Add status to the newly created group
-                                addStatusToGroup(statusGroupRef, statusName);
-                            }
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                System.out.println("Error checking for status group: " + databaseError.getMessage());
-            }
-        });
-    }
+//    public void addStatus(Status.StatusGroup statusGroup, Status.StatusName statusName) {
+//        // Reference to the statuses node
+//        DatabaseReference statusesRef = mDatabase.child("statuses");
+//        String statusGroupStr = statusGroup.toString();
+//
+//        // Check if the status group exists
+//        statusesRef.orderByChild("data").equalTo(statusGroupStr).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.exists()) {
+//                    // Status group exists, get its reference
+//                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+//                        DatabaseReference statusGroupRef = childSnapshot.getRef();
+//                        // Add status to existing status group
+//                        addStatusToGroup(statusGroupRef, statusName);
+//                    }
+//                } else {
+//                    // Status group does not exist, create new group and add status
+//                    DatabaseReference statusGroupRef = statusesRef.push();
+//                    String statusGroupId = statusGroupRef.getKey();
+//
+//                    // Create a Map to hold the status group data, including the group name
+//                    Map<String, Object> statusGroupData = new HashMap<>();
+//                    statusGroupData.put("data", statusGroupStr);
+//                    statusGroupData.put("id", statusGroupId);
+//
+//                    // Set the value of the new status group, including the key
+//                    statusGroupRef.setValue(statusGroupData, new DatabaseReference.CompletionListener() {
+//                        @Override
+//                        public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+//                            if (databaseError != null) {
+//                                System.out.println("Data could not be saved " + databaseError.getMessage());
+//                            } else {
+//                                System.out.println("Status group saved successfully.");
+//
+//                                // Add status to the newly created group
+//                                addStatusToGroup(statusGroupRef, statusName);
+//                            }
+//                        }
+//                    });
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                System.out.println("Error checking for status group: " + databaseError.getMessage());
+//            }
+//        });
+//    }
 
     // Method to add a status to a status group** working properly
-    private void addStatusToGroup(DatabaseReference statusGroupRef, Status.StatusName statusName) {
-        // Reference to the status name within the status group
-        DatabaseReference statusNameRef = statusGroupRef.push();
-        String statusNameId = statusNameRef.getKey();
-
-        // Create a Map to hold the status name data, including the generated key
-        Map<String, Object> statusNameData = new HashMap<>();
-        statusNameData.put("id", statusNameId);
-        statusNameData.put("data", statusName.toString());
-
-        // Set the value of the new status name, including the key
-        statusNameRef.setValue(statusNameData, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
-                if (databaseError != null) {
-                    System.out.println("Data could not be saved " + databaseError.getMessage());
-                } else {
-                    System.out.println("Status name saved successfully.");
-                }
-            }
-        });
-    }
+//    private void addStatusToGroup(DatabaseReference statusGroupRef, Status.StatusName statusName) {
+//        // Reference to the status name within the status group
+//        DatabaseReference statusNameRef = statusGroupRef.push();
+//        String statusNameId = statusNameRef.getKey();
+//
+//        // Create a Map to hold the status name data, including the generated key
+//        Map<String, Object> statusNameData = new HashMap<>();
+//        statusNameData.put("id", statusNameId);
+//        statusNameData.put("data", statusName.toString());
+//
+//        // Set the value of the new status name, including the key
+//        statusNameRef.setValue(statusNameData, new DatabaseReference.CompletionListener() {
+//            @Override
+//            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+//                if (databaseError != null) {
+//                    System.out.println("Data could not be saved " + databaseError.getMessage());
+//                } else {
+//                    System.out.println("Status name saved successfully.");
+//                }
+//            }
+//        });
+//    }
 
 
 }

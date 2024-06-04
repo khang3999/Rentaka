@@ -5,63 +5,50 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class Status {
-    private String id;
-    private String name;
-
-    public enum StatusName {
-        pending,
-        approved,
-        rejected,
-        canceled,
-        completed,
-        available,
-        unavailable,
-        created,
-        accepted,
+    private int id;
+    private String description;
+    private String title;
 
 
-    }
-    public enum StatusGroup {
-        reservation,
-        car,
-        user,
-        payment,
-        review,
-    }
 
-    public Status() {
-    }
-
-    public Status(String id, StatusName statusName) {
-        this.id = id;
-        this.name = statusName.toString();
-    }
-
-    public Status(StatusName statusName) {
-        this.name = statusName.toString();
-    }
-
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public  Status(){};
+
+    public Status(int id, String description, String title) {
+        this.id = id;
+        this.description = description;
+        this.title = title;
     }
 
     @Override
     public String toString() {
         return "Status{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", title='" + title + '\'' +
                 '}';
     }
 }

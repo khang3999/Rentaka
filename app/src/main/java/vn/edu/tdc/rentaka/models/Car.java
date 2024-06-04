@@ -3,6 +3,7 @@ package vn.edu.tdc.rentaka.models;
 public class Car {
     private String id;
     private String ownerID;
+    private String imageCarUrl;
     private String brand;
     private String model;
     private int since;
@@ -13,53 +14,19 @@ public class Car {
     private String fuel;
     private String typeGearbox;
     private int seat;
+    // So giay dang kiem
     private String inspection;
+    // So giay bao hiem xe
     private String insurrance;
+    // So cavet xe
     private String registration;
-    private String mortgage;
+    // The chap
+    private double mortgage;
+
     private double priceDaily;
     private double salaryDriver;
-    private String autoMaker;
 
-    private String statusID;
-    private String favourite;
-
-    private String typeDriving;
-    private Integer year;
-    private double priceSelf;
-    private double priceDriver;
-
-    public String getTypeDriving() {
-        return typeDriving;
-    }
-
-    public void setTypeDriving(String typeDriving) {
-        this.typeDriving = typeDriving;
-    }
-
-    public String getFavourite() {
-        return favourite;
-    }
-
-    public void setFavorite(String favourite) {
-        this.favourite = favourite;
-    }
-
-
-
-
-
-    public enum CarProperties{
-        id,
-        model,
-        autoMaker,
-        color,
-        licensePLATE,
-        statusID,
-        description,
-        year,
-        seat
-    }
+    private Status statusId;
 
     public String getId() {
         return id;
@@ -77,6 +44,22 @@ public class Car {
         this.ownerID = ownerID;
     }
 
+    public String getImageCarUrl() {
+        return imageCarUrl;
+    }
+
+    public void setImageCarUrl(String imageCarUrl) {
+        this.imageCarUrl = imageCarUrl;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
     public String getModel() {
         return model;
     }
@@ -85,20 +68,12 @@ public class Car {
         this.model = model;
     }
 
-    public String getAutoMaker() {
-        return autoMaker;
+    public int getSince() {
+        return since;
     }
 
-    public void setAutoMaker(String autoMaker) {
-        this.autoMaker = autoMaker;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
+    public void setSince(int since) {
+        this.since = since;
     }
 
     public String getLicensePlate() {
@@ -107,6 +82,30 @@ public class Car {
 
     public void setLicensePlate(String licensePlate) {
         this.licensePlate = licensePlate;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public String getFuel() {
@@ -133,14 +132,6 @@ public class Car {
         this.seat = seat;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
     public String getInspection() {
         return inspection;
     }
@@ -165,102 +156,87 @@ public class Car {
         this.registration = registration;
     }
 
-    public String getMortgage() {
+    public double getMortgage() {
         return mortgage;
     }
 
-    public void setMortgage(String mortgage) {
+    public void setMortgage(double mortgage) {
         this.mortgage = mortgage;
     }
 
-    public double getPriceSelf() {
-        return priceSelf;
+    public double getPriceDaily() {
+        return priceDaily;
     }
 
-    public void setPriceSelf(double priceSelf) {
-        this.priceSelf = priceSelf;
+    public void setPriceDaily(double priceDaily) {
+        this.priceDaily = priceDaily;
     }
 
-    public double getPriceDriver() {
-        return priceDriver;
+    public double getSalaryDriver() {
+        return salaryDriver;
     }
 
-    public void setPriceDriver(double priceDriver) {
-        this.priceDriver = priceDriver;
+    public void setSalaryDriver(double salaryDriver) {
+        this.salaryDriver = salaryDriver;
     }
 
-    public String getDescription() {
-        return description;
+    public Status getStatusId() {
+        return statusId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setStatusId(Status statusId) {
+        this.statusId = statusId;
     }
 
-    public String getStatusID() {
-        return statusID;
-    }
-
-    public void setStatusID(String statusID) {
-        this.statusID = statusID;
-    }
-    public Car() {
-
-    }
-
-    public Car(String ownerID, String model, String autoMaker,
-               int year, String licensePlate, String fuel, String typeGearbox,
-               int seat, String color, String inspection, String insurrance,
-               String registration, String mortgage, double priceSelf,
-               double priceDriver, String description,String favourite) {
+    public Car(String id, String ownerID, String imageCarUrl, String brand, String model, int since, String licensePlate, String color, String description, City city, String fuel, String typeGearbox, int seat, String inspection, String insurrance, String registration, double mortgage, double priceDaily, double salaryDriver, Status statusId) {
         this.id = id;
         this.ownerID = ownerID;
+        this.imageCarUrl = imageCarUrl;
+        this.brand = brand;
         this.model = model;
-        this.autoMaker = autoMaker;
-        this.year = year;
+        this.since = since;
         this.licensePlate = licensePlate;
+        this.color = color;
+        this.description = description;
+        this.city = city;
         this.fuel = fuel;
         this.typeGearbox = typeGearbox;
         this.seat = seat;
-        this.color = color;
         this.inspection = inspection;
         this.insurrance = insurrance;
         this.registration = registration;
         this.mortgage = mortgage;
-        this.priceSelf = priceSelf;
-        this.priceDriver = priceDriver;
-        this.description = description;
-        if(priceSelf > 0 && priceDriver > 0){
-            this.typeDriving = "both";
-        } else if (priceSelf > 0){
-            this.typeDriving = "self";
-        } else if (priceSelf > 0){
-            this.typeDriving = "driver";
-        }
+        this.priceDaily = priceDaily;
+        this.salaryDriver = salaryDriver;
+        this.statusId = statusId;
     }
 
+    public Car() {
+    }
 
     @Override
     public String toString() {
         return "Car{" +
                 "id='" + id + '\'' +
                 ", ownerID='" + ownerID + '\'' +
+                ", imageCarUrl='" + imageCarUrl + '\'' +
+                ", brand='" + brand + '\'' +
                 ", model='" + model + '\'' +
-                ", autoMaker='" + autoMaker + '\'' +
-                ", year=" + year +
+                ", since=" + since +
                 ", licensePlate='" + licensePlate + '\'' +
-                ", fuel='" + fuel + '\'' +
-                ", type='" + typeGearbox + '\'' +
-                ", seat=" + seat +
                 ", color='" + color + '\'' +
+                ", description='" + description + '\'' +
+                ", city=" + city +
+                ", fuel='" + fuel + '\'' +
+                ", typeGearbox='" + typeGearbox + '\'' +
+                ", seat=" + seat +
                 ", inspection='" + inspection + '\'' +
                 ", insurrance='" + insurrance + '\'' +
                 ", registration='" + registration + '\'' +
-                ", mortgage='" + mortgage + '\'' +
-                ", priceSelf=" + priceSelf +
-                ", priceDriver=" + priceDriver +
-                ", description='" + description + '\'' +
-                ", statusID='" + statusID + '\'' +
+                ", mortgage=" + mortgage +
+                ", priceDaily=" + priceDaily +
+                ", salaryDriver=" + salaryDriver +
+                ", statusId=" + statusId +
                 '}';
     }
 }
