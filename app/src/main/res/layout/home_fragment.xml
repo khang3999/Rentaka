@@ -316,7 +316,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/title_recent"                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_horizontal_16"
                 android:text="Xem gần đây"
@@ -333,6 +333,30 @@
                 android:layout_marginVertical="@dimen/_20dp"/>
         </LinearLayout>
 
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="@dimen/_24dp"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginHorizontal="@dimen/margin_horizontal_16"-->
+<!--                android:text="Xe tự lái dành cho bạn"-->
+<!--                android:textColor="@color/textColor"-->
+<!--                android:textSize="@dimen/_22sp"-->
+<!--                android:textStyle="bold" />-->
+
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/listCarNoDriver"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:clipToPadding="false"-->
+<!--                android:paddingHorizontal="@dimen/_8dp"-->
+<!--                android:layout_marginVertical="@dimen/_20dp"/>-->
+<!--        </LinearLayout>-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -343,37 +367,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_horizontal_16"
-                android:text="Xe tự lái dành cho bạn"
+                android:text="Xe dành cho bạn"
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/_22sp"
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listCarNoDriver"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:paddingHorizontal="@dimen/_8dp"
-                android:layout_marginVertical="@dimen/_20dp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_24dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_horizontal_16"
-                android:text="Xe có tài xế dành cho bạn"
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/_22sp"
-                android:textStyle="bold" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listCarHasDriver"
+                android:id="@+id/listCar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"

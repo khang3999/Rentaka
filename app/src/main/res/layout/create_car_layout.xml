@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Brand"
+                android:text="@string/h_ng_xe"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Model"
+                android:text="Dòng xe"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -158,7 +158,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Since"
+                android:text="Năm sản xuất"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -220,7 +220,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="License plate"
+                android:text="Biển số xe"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -282,7 +282,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Color"
+                android:text="Màu sắc"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -343,7 +343,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Description"
+                android:text="Mô tả"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -402,7 +402,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Location" />
+                android:text="Vị trí xe" />
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/spinner_location"
@@ -417,7 +417,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Fuel" />
+                android:text="Nhiên liệu" />
 
             <RadioGroup
                     android:id="@+id/group_choose_fuel"
@@ -429,17 +429,17 @@
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Diesel"/>
+                        android:text="Máy dầu"/>
                     <RadioButton
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Gasoline"/>
+                        android:text="Máy xăng"/>
                     <RadioButton
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Electricity"/>
+                        android:text="Xe điện"/>
                 </RadioGroup>
             <!--    Type        -->
             <TextView
@@ -449,7 +449,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Type"
+                android:text="Kiểu hộp số"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -463,12 +463,12 @@
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="AT (Auto)"/>
+                    android:text="AT (Số tự động)"/>
                 <RadioButton
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="MT (Manual)"/>
+                    android:text="MT (Số sàn)"/>
             </RadioGroup>
 
             <!--    Seat        -->
@@ -479,7 +479,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Seat"
+                android:text="Số chỗ ngồi"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -512,7 +512,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Image car"
+                android:text="Hình ảnh xe"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <RelativeLayout
@@ -551,7 +551,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Inspection Certificate"
+                android:text="Hình ảnh giấy đăng kiểm"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <RelativeLayout
@@ -590,7 +590,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Insurance"
+                android:text="Hình ảnh bảo hiểm bắt buộc"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <RelativeLayout
@@ -630,7 +630,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Registration certificate"
+                android:text="Hình ảnh giấy"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <RelativeLayout
@@ -766,7 +766,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Price"
+                android:text="Giá"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -777,7 +777,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20dp"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="1. Daily rent price"
+                android:text="1. Giá xe cho thuê 1 ngày"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -844,7 +844,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20dp"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="2. Salary driver"
+                android:text="2. Tiền lương tài xế theo ngày"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -928,6 +928,7 @@
                         android:layout_marginTop="@dimen/margin_element_start"
                         android:text="@string/daily_rent_price"
                         android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/label_final_salary_driver"
                         style="@style/NormalTextStyle"
@@ -935,7 +936,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_element_start"
                         android:layout_marginTop="@dimen/margin_element_start"
-                        android:text="Salary driver one day"
+                        android:text="Lương tài xe 1 ngày"
                         android:textStyle="bold" />
                     <TextView
                         android:id="@+id/commission_title_textview"
@@ -1080,7 +1081,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:text="Your car will be reviewed by an administrator" />
+                    android:text="Xe của bạn sẽ được bộ phân quản lí của chúng tôi xác thực trước khi bắt đầu cho thuê" />
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
