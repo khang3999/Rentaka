@@ -31,6 +31,7 @@ import vn.edu.tdc.rentaka.activities.FavoriteCarActivity;
 import vn.edu.tdc.rentaka.activities.LoginActivity;
 import vn.edu.tdc.rentaka.activities.MyAccountActivity;
 import vn.edu.tdc.rentaka.activities.UserAddressActivity;
+import vn.edu.tdc.rentaka.activities.VerifyAccountActivity;
 import vn.edu.tdc.rentaka.adapters.PersonalProfileAdapter;
 import vn.edu.tdc.rentaka.databinding.PersonalProfileLayoutBinding;
 import vn.edu.tdc.rentaka.models.PersonalProfileModel;
@@ -61,11 +62,12 @@ public class PersonalProfileFragment extends AbstractFragment {
         data1.add(new PersonalProfileModel("ic_heart","Xe yêu thích"));
         data1.add(new PersonalProfileModel("ic_diary","Địa chỉ của tôi"));
         data1.add(new PersonalProfileModel("ic_book","Giấy phép lái xe"));
-        data1.add(new PersonalProfileModel("ic_wallet","Thẻ của tôi"));
+        data1.add(new PersonalProfileModel("ic_verified_user","Xác minh tài khoản"));
+
 
         List<PersonalProfileModel> data2 = new ArrayList<>();
-        data2.add(new PersonalProfileModel("ic_gift","Quà tặng"));
-        data2.add(new PersonalProfileModel("ic_share","Giới thiệu bạn bè"));
+        data2.add(new PersonalProfileModel("ic_wallet","Thẻ của tôi"));
+        data2.add(new PersonalProfileModel("ic_garage","Xe của tôi"));
 
         List<PersonalProfileModel> data3 = new ArrayList<>();
         data3.add(new PersonalProfileModel("ic_padlock","Đổi mật khẩu "));
@@ -108,7 +110,8 @@ public class PersonalProfileFragment extends AbstractFragment {
                         startActivity(intent5);
                         break;
                     default:
-                        Toast.makeText(requireActivity(), "Thẻ của tôi", Toast.LENGTH_SHORT).show();
+                        Intent intent6 = new Intent(requireActivity(), VerifyAccountActivity.class);
+                        startActivity(intent6);
                         break;
                 }
             }
@@ -118,10 +121,10 @@ public class PersonalProfileFragment extends AbstractFragment {
             public void onClickListener(int position) {
                 switch (position) {
                     case 0:
-                        Toast.makeText(requireActivity(), "Quà tặng", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireActivity(), "The cua toi", Toast.LENGTH_SHORT).show();
                         break;
                     default:
-                        Toast.makeText(requireActivity(), "Giới thiệu bạn bè", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(requireActivity(), "Xe cua toi", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -201,7 +204,7 @@ public class PersonalProfileFragment extends AbstractFragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String userId = user.getUid();
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userId);
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -140,6 +140,12 @@ public class PersonalProfileAdapter extends RecyclerView.Adapter<PersonalProfile
                 case "ic_padlock":
                     imageView.setImageResource(R.drawable.ic_padlock);
                     break;
+                case "ic_garage":
+                    imageView.setImageResource(R.drawable.ic_garage);
+                    break;
+                case "ic_verified_user":
+                    imageView.setImageResource(R.drawable.ic_verified_user);
+                    break;
                 default:
                     imageView.setImageResource(R.drawable.ic_bin);
                     break;

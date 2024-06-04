@@ -402,7 +402,7 @@ public class MyAccountActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String userId = user.getUid();
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userId);
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -454,7 +454,7 @@ public class MyAccountActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String userId = user.getUid();
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userId);
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -508,7 +508,7 @@ public class MyAccountActivity extends AppCompatActivity {
     // Phương thức upload anh len Storage
     private void uploadImageAndUpdateInfo(Uri imageUri, String userId, String name, String gender, String birthday) {
         // Tạo tham chiếu đến vị trí lưu trữ của Firebase Storage, sử dụng userId để xác định thư mục lưu trữ
-        StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("users/" + userId + "/profile.jpg");
+        StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("users/" + userId ).child("imageUser").child("profile.jpg");
         // Tải tệp ảnh lên vị trí đã chỉ định
         fileRef.putFile(imageUri)
                 .addOnSuccessListener(taskSnapshot -> {
@@ -530,7 +530,7 @@ public class MyAccountActivity extends AppCompatActivity {
          bottomSheetEditAccountLayoutBinding.btnSave.setText("Đang lưu...");
 
          // Tạo tham chiếu đến vị trí người dùng trong Firebase Database
-         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userId);
 
          // Tạo một map để lưu trữ các cập nhật
          Map<String, Object> updates = new HashMap<>();

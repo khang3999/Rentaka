@@ -107,6 +107,7 @@
     <string name="dang_ki">Đăng kí</string>
     <string name="so_dien_thoai">Số điện thoại phải có đúng 10 chữ số</string>
     <string name="b_n_ph_i_tr_n_6_k_t_cho_t_n_hi_n_th">Bạn phải trên 6 kí tự cho tên hiển thị</string>
+    <string name="b_n_ph_i_tr_n_4_k_t_cho_t_n_hi_n_th">Bạn phải trên 4 kí tự cho tên hiển thị</string>
     <string name="m_t_kh_u_kh_ng_kh_p">Mật khẩu không khớp</string>
     <string name="m_t_kh_u_ph_i_c_t_nh_t_6_k_t">Mật khẩu phải có ít nhất 6 ký tự</string>
     <string name="m_t_kh_u_kh_ng_c_qu_24_k_t">Mật khẩu không được quá 24 ký tự</string>
@@ -179,6 +180,8 @@
     <string name="b_n_ph_i_tr_n_18_tu_i">Bạn phải trên 18 tuổi</string>
     <string name="ng_xu_t">Đăng xuất</string>
     <string name="day_12_chu_so_o_mat_truoc_gplx">Dãy 12 chữ số ở mặt trước GPLX</string>
+    <string name="day_12_chu_so_o_mat_truoc_cccd">Dãy 12 chữ số ở mặt trước CCCD</string>
+    <string name="day_12_chu_so_o_mat_truoc_bank">Dãy 12 chữ số ở mặt trước Bank</string>
     <string name="ban_chua_anh">Bạn chưa nhập ảnh</string>
     <string name="a_ch_c_a_b_n">Địa chỉ của bạn</string>
     <string name="label_choose_time">Chọn giờ</string>
@@ -214,6 +217,14 @@
     <string name="mortgage">Mortgage</string>
     <string name="register">Register</string>
     <string name="support">Support</string>
+    <string name="ng_y_c_p_gplx">Ngày cấp GPLX</string>
+    <string name="m_t_tr_c_cccd">Mặt trước CCCD</string>
+    <string name="m_t_tr_c_bank">Mặt trước TK Bank</string>
+    <string name="ng_y_c_p">Ngày cấp</string>
+    <string name="dinh_danh_ca_nhan">Định danh cá nhân</string>
+    <string name="t_n_ng_i_s_h_u">Tên người sở hữu</string>
+    <string name="ten_ngan_hang">Tên ngân hàng</string>
+    <string name="nh_p_t_n_ng_n_h_ng">Nhập tên ngân hàng</string>
 
 
 </resources>

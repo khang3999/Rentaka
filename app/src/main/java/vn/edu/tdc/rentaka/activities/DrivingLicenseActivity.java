@@ -40,6 +40,7 @@ import java.util.Map;
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.BottomSheetDialogInformationGplxBinding;
 import vn.edu.tdc.rentaka.databinding.DrivingLicenseLayoutBinding;
+import vn.edu.tdc.rentaka.models.DrivingLicense;
 
 public class DrivingLicenseActivity extends AppCompatActivity {
    private DrivingLicenseLayoutBinding binding;
@@ -124,7 +125,7 @@ public class DrivingLicenseActivity extends AppCompatActivity {
         // load du lieu vao man hinh user
         loadData();
         //Nut thoat
-        //Button top back navigation -- Charcasbeos sua button back ve man hinh truoc -- start
+        //Button top back navigation
         setSupportActionBar(binding.topAppBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         binding.topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -133,7 +134,7 @@ public class DrivingLicenseActivity extends AppCompatActivity {
                 finish();
             }
         });
-        //Button top back navigation -- Charcasbeos sua button back ve man hinh truoc -- end
+        //Button top back navigation
 
         //Kiem tra du 12 chu so khong
         binding.editGPLX.addTextChangedListener(new TextWatcher() {
@@ -159,8 +160,8 @@ public class DrivingLicenseActivity extends AppCompatActivity {
             }
         });
 
-        //Kiem tra xem ngay sinh co hop le khong
-        binding.editTextBirthday.addTextChangedListener(new TextWatcher() {
+        //Kiem tra xem ngay cap co hop le khong
+        binding.editTextDateIssued.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -173,35 +174,30 @@ public class DrivingLicenseActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().length() == 10) {
-                    // Lay ngay thang nam sinh tu ng nhap
-                    int birthYear = Integer.parseInt(s.toString().substring(6));
-                    int birthMonth = Integer.parseInt(s.toString().substring(3, 5));
-                    int birthDay = Integer.parseInt(s.toString().substring(0, 2));
-                    //Lay ngay hien tai de so sanh
-                    Calendar today = Calendar.getInstance();
-                    //Tinh tuoi
-                    int age = today.get(Calendar.YEAR) - birthYear;
-                    // Kiểm tra xem ngày hiện tại có trước sinh nhật năm nay không
-                    //17/8/2004  15/5/2024
-                    if (today.get(Calendar.MONTH) < birthMonth ||
-                            (today.get(Calendar.MONTH) == birthMonth && today.get(Calendar.DAY_OF_MONTH) < birthDay)) {
-                        age--;
-                    }
+                if (s.length() == 10) {
+                        int day = Integer.parseInt(s.toString().substring(0, 2));
+                        int month = Integer.parseInt(s.toString().substring(3, 5)) - 1;
+                        int year = Integer.parseInt(s.toString().substring(6));
 
-                    if (age < 18) {
-                        isCalendar = false;
-                        binding.textInputLayoutBirthday.setError("Bạn phải trên 18 tuổi");
-                    } else {
-                        isCalendar = true;
-                        binding.textInputLayoutBirthday.setError(null);
+                        Calendar enteredDate = Calendar.getInstance();
+                        enteredDate.set(year, month, day, 0, 0, 0);
+                        enteredDate.set(Calendar.MILLISECOND, 0);
+
+                        Calendar today = Calendar.getInstance();
+                        today.set(Calendar.HOUR_OF_DAY, 0);
+                        today.set(Calendar.MINUTE, 0);
+                        today.set(Calendar.SECOND, 0);
+                        today.set(Calendar.MILLISECOND, 0);
+
+                        if (enteredDate.after(today)) {
+                            isCalendar = false;
+                            binding.textInputLayoutDateIssued.setError("Ngày cấp phải trước ngày hôm nay");
+                        } else {
+                            isCalendar = true;
+                            binding.textInputLayoutDateIssued.setError(null);
+                        }
                     }
-                } else {
-                    isCalendar = false;
-                    binding.textInputLayoutBirthday.setError("Định dạng ngày không hợp lệ");
                 }
-
-            }
         });
         //       Theo doi nhap text ten hien thi
         binding.editTextName.addTextChangedListener(new TextWatcher() {
@@ -231,7 +227,7 @@ public class DrivingLicenseActivity extends AppCompatActivity {
         //Xu ly xem anh da them chua
 
         // Tao bang chon ngay thang nam (lich)
-        binding.editTextBirthday.setOnClickListener(new View.OnClickListener() {
+        binding.editTextDateIssued.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Tạo một phiên bản DatePickerDialog mới
@@ -247,7 +243,7 @@ public class DrivingLicenseActivity extends AppCompatActivity {
                         calendar.set(selectedYear, selectedMonth, selectedDay);
                         //Gan ngay thang nam vao edit text
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                        binding.editTextBirthday.setText(simpleDateFormat.format(calendar.getTime()));
+                        binding.editTextDateIssued.setText(simpleDateFormat.format(calendar.getTime()));
                     }
                 }, year, month, day);
                 // Show ra dialog
@@ -268,8 +264,8 @@ public class DrivingLicenseActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String userId = user.getUid();
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users")
-                    .child(userId).child("DrivingLicense");
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users")
+                    .child(userId).child("drivingLicense");
 
             // Đọc dữ liệu từ Firebase
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -277,30 +273,31 @@ public class DrivingLicenseActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         // Lấy thông tin giấy phép lái xe từ dataSnapshot
-                        String name = dataSnapshot.child("name").getValue(String.class);
-                        String birthday = dataSnapshot.child("birthday").getValue(String.class);
-                        String gplxNumber = dataSnapshot.child("gplxNumber").getValue(String.class);
-                        String imageGPLX = dataSnapshot.child("imageGPLX").getValue(String.class);
+                        DrivingLicense gplx = dataSnapshot.getValue(DrivingLicense.class);
 
-                        // Hiển thị thông tin lên giao diện người dùng
-                        binding.editTextName.setText(name);
-                        binding.editTextBirthday.setText(birthday);
-                        binding.editGPLX.setText(gplxNumber);
+                        if (gplx != null) {
+                            // Hiển thị thông tin lên giao diện người dùng
+                            binding.editTextName.setText(gplx.getFullName());
+                            binding.editTextDateIssued.setText(gplx.getDateIssued());
+                            binding.editGPLX.setText(gplx.getNumber());
 
-                        // Nếu có ảnh, hiển thị ảnh bằng Glide hoặc một thư viện khác
-                        if (imageGPLX != null && !imageGPLX.isEmpty()) {
-                            Glide.with(DrivingLicenseActivity.this).load(imageGPLX).into(binding.imageGPLX);
-                            isImageGPLXValid = true;
+                            // Nếu có ảnh, hiển thị ảnh bằng Glide
+                            if (gplx.getImage() != null && !gplx.getImage().isEmpty()) {
+                                Glide.with(DrivingLicenseActivity.this).load(gplx.getImage()).into(binding.imageGPLX);
+                                isImageGPLXValid = true;
+                            }
                         }
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Xử lý lỗi nếu cần thiết
                 }
             });
         }
     }
+
 
     // Ham mo bo chon anh
     private void openImageSelector() {
@@ -353,7 +350,7 @@ public class DrivingLicenseActivity extends AppCompatActivity {
                   Toast.makeText(DrivingLicenseActivity.this, "Đăng kí giấy phép lái xe không thành công", Toast.LENGTH_SHORT).show();
               }
               if (!isCalendar){
-                  binding.textInputLayoutBirthday.setError("Chưa nhập ngày sinh");
+                  binding.textInputLayoutDateIssued.setError("Chưa nhập ngày cấp phép");
               }
               if (!isNameValid){
                   binding.textInputLayoutName.setError("Chưa nhập tên");
@@ -372,7 +369,7 @@ public class DrivingLicenseActivity extends AppCompatActivity {
               if (user != null) {
                   String userId = user.getUid();
                   String name = binding.editTextName.getText().toString();
-                  String birthday = binding.editTextBirthday.getText().toString();
+                  String birthday = binding.editTextDateIssued.getText().toString();
                   String gplxNumber = binding.editGPLX.getText().toString();
 
                   // Neu co anh
@@ -387,7 +384,7 @@ public class DrivingLicenseActivity extends AppCompatActivity {
           }
 
           private void uploadImageAndSaveInfo(Uri imageUri, String userId, String name, String birthday, String gplxNumber) {
-              StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("gplx/" + userId + "/license.jpg");
+              StorageReference fileRef = FirebaseStorage.getInstance().getReference().child("users/" + userId ).child("gplx").child("license.jpg");
               fileRef.putFile(imageUri)
                       .addOnSuccessListener(taskSnapshot -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
                           String imageUrl = uri.toString();
@@ -396,14 +393,14 @@ public class DrivingLicenseActivity extends AppCompatActivity {
                       .addOnFailureListener(e -> Toast.makeText(DrivingLicenseActivity.this, "Tải ảnh lên thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show());
           }
 
-          private void saveInfoToDatabase(String userId, String name, String birthday, String gplxNumber, String imageUrl) {
-              DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId).child("DrivingLicense");
+          private void saveInfoToDatabase(String userId, String name, String dateIssued, String gplxNumber, String imageUrl) {
+              DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userId).child("drivingLicense");
               Map<String, Object> updates = new HashMap<>();
-              updates.put("name", name);
-              updates.put("birthday", birthday);
-              updates.put("gplxNumber", gplxNumber);
+              updates.put("fullName", name);
+              updates.put("dateIssued", dateIssued);
+              updates.put("number", gplxNumber);
               if (imageUrl != null) {
-                  updates.put("imageGPLX", imageUrl);
+                  updates.put("image", imageUrl);
               }
                 databaseReference.setValue(updates);
               databaseReference.updateChildren(updates)
