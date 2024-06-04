@@ -544,7 +544,8 @@ public class CreateCarActivity extends AppCompatActivity {
                     car.setPriceDaily(priceDaily);
                     // Set salary driver
                     int salaryDriver = Integer.parseInt(binding.editTextSalaryDriver.getText().toString());
-                    car.setPriceDaily(salaryDriver);
+                    car.setSalaryDriver(salaryDriver);
+                    Log.d("daily price", "onClick: " + priceDaily);
 
                     realTimeAPI.createNewCar(userId, car, imageUriCar, imageUriInspection, imageUriInsurance, imageUriRegister, CreateCarActivity.this);
                     finish();
