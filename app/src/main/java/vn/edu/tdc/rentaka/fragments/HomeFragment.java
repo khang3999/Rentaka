@@ -61,6 +61,7 @@ public class HomeFragment extends AbstractFragment {
     private AdvantageAdapter advantageAdapter;
     private CarAdapter carAdapter;
 
+    private String userId;
     private Activity activity;
 
     // Mac dinh search theo xe tu lai type = 0
@@ -305,39 +306,10 @@ public class HomeFragment extends AbstractFragment {
 //        });
 
 
-        return fragment;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        // Get data Intent from choose location activity
-        if (activity.getIntent() != null && activity.getIntent().hasExtra("city")) {
-            Intent intent = getActivity().getIntent();
-            location = intent.getStringExtra("city");
-        }
-        if (activity.getIntent() != null && activity.getIntent().hasExtra("date")) {
-            Intent intent = getActivity().getIntent();
-            date = intent.getStringExtra("date");
-        }
-
-        if (!location.equals("")) {
-            binding.tvLocationResult.setText(location);
-        }
-        if (!date.equals("")) {
-            binding.tvDateResult.setText(date);
-        }
-        if (!location.equals("") && !date.equals("")) {
-            binding.btnSearch.setActivated(true);
-        }
-
-
-
-
         // Update UI information user at home
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            String userId = user.getUid();
+            userId = user.getUid();
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -367,6 +339,36 @@ public class HomeFragment extends AbstractFragment {
                 }
             });
         }
+
+
+        return fragment;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Get data Intent from choose location activity
+        if (activity.getIntent() != null && activity.getIntent().hasExtra("city")) {
+            Intent intent = getActivity().getIntent();
+            location = intent.getStringExtra("city");
+        }
+        if (activity.getIntent() != null && activity.getIntent().hasExtra("date")) {
+            Intent intent = getActivity().getIntent();
+            date = intent.getStringExtra("date");
+        }
+
+        if (!location.equals("")) {
+            binding.tvLocationResult.setText(location);
+        }
+        if (!date.equals("")) {
+            binding.tvDateResult.setText(date);
+        }
+        if (!location.equals("") && !date.equals("")) {
+            binding.btnSearch.setActivated(true);
+        }
+
+
+
 
     }
 

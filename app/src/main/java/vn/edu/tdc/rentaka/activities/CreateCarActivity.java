@@ -103,12 +103,12 @@ public class CreateCarActivity extends AppCompatActivity {
 
 
 
-        // Lay id user dang dang nhap, dung thu vien FirebaseUser
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            String id = user.getUid();
-            this.userId = id;
-        }
+//        // Lay id user dang dang nhap, dung thu vien FirebaseUser
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        if (user != null) {
+//            String id = user.getUid();
+//            this.userId = id;
+//        }
 
 
         //Button top back navigation
@@ -496,7 +496,7 @@ public class CreateCarActivity extends AppCompatActivity {
                     // Set salary driver
                     car.setPriceDaily(salary);
 
-                    realTimeAPI.createNewCar(userId, car, imageUriCar, imageUriInspection, imageUriInsurance, imageUriRegister, CreateCarActivity.this);
+                    realTimeAPI.createNewCar(userId = "scGmRrT8oHMXwRUErikbmLKmF213", car, imageUriCar, imageUriInspection, imageUriInsurance, imageUriRegister, CreateCarActivity.this);
 
                 } else {
                     Snackbar snackbar = Snackbar.make(v, "Please input all fields! ", Snackbar.LENGTH_LONG);
