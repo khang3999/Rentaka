@@ -10,6 +10,9 @@ import androidx.annotation.Nullable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import vn.edu.tdc.rentaka.activities.PaymentActivity;
+import vn.edu.tdc.rentaka.databinding.PaymentLayoutBinding;
+
 public class SMSHandlingService extends Service {
 
     private static final String TAG = "SMSHandlingService";
@@ -47,7 +50,6 @@ public class SMSHandlingService extends Service {
             // Handle the parsed data (e.g., save to database, update UI, etc.)
 
 
-            // You can implement your logic here
         } else {
             Log.e(TAG, "SMS format not recognized");
         }

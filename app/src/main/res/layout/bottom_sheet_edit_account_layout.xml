@@ -156,8 +156,6 @@
                     android:background="@drawable/custom_button_account"
                     android:hint="@string/ch_n_gi_i_t_nh" />
             </LinearLayout>
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="15dp"
     tools:context=".activities.MainActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,12 +23,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:title="Support center"
-                app:titleCentered="true"/>
+                app:titleCentered="true" />
         </com.google.android.material.appbar.AppBarLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/light_gray"/>
+            android:background="@color/light_gray" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -44,17 +47,17 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="top|center"-->
-<!--                android:paddingTop="20dp"-->
-<!--                android:text="@string/support_center"-->
-<!--                android:textColor="@android:color/black"-->
-<!--                android:textSize="20sp"-->
-<!--                android:textStyle="bold"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent" />-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_gravity="top|center"-->
+            <!--                android:paddingTop="20dp"-->
+            <!--                android:text="@string/support_center"-->
+            <!--                android:textColor="@android:color/black"-->
+            <!--                android:textSize="20sp"-->
+            <!--                android:textStyle="bold"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -62,10 +65,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="139dp"
-            android:layout_marginTop="-120dp"
-            android:background="@drawable/round_outline"
             android:layout_marginLeft="5dp"
+            android:layout_marginTop="-120dp"
             android:layout_marginRight="5dp"
+            android:background="@drawable/round_outline"
             android:padding="15dp">
 
             <TextView
@@ -88,7 +91,7 @@
                 style="@style/CustomOutlinedCallButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/call"
+                android:text="Gọi"
                 app:layout_constraintBottom_toBottomOf="@+id/message_button"
                 app:layout_constraintEnd_toStartOf="@+id/message_button"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -101,8 +104,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/green"
-                android:text="@string/message"
-                android:textColor="@color/black"
+                android:text="Gửi tin nhắn"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/call_button"
@@ -125,15 +128,15 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            style="@style/SupportScreenTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/insurance"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp"
-
-            style="@style/SupportScreenTitle"      
+            android:text="Hotline bảo hiểm"
 
             />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -143,58 +146,59 @@
                 android:layout_width="wrap_content"
                 android:layout_height="58dp"
                 android:layout_weight="1"
-                android:padding="10dp"
                 android:background="@drawable/round_outline"
+                android:padding="10dp"
                 android:src="@drawable/mic_bank">
 
             </ImageView>
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="58dp"
                 android:layout_weight="1"
-                android:padding="10dp"
                 android:background="@drawable/round_outline"
+                android:padding="10dp"
                 android:src="@drawable/pvi_bank">
 
             </ImageView>
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="58dp"
                 android:layout_weight="1"
-                android:padding="10dp"
                 android:background="@drawable/round_outline"
-                android:src="@drawable/vni_bank">
-            </ImageView>
+                android:padding="10dp"
+                android:src="@drawable/vni_bank"></ImageView>
         </LinearLayout>
+
         <TextView
+            style="@style/SupportScreenTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Instruction"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp"
-
-            style="@style/SupportScreenTitle"
+            android:text="Hướng dẫn"
 
             />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/instruction_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+
         <TextView
+            style="@style/SupportScreenTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/information"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp"
-            style="@style/SupportScreenTitle"
-            />
+            android:text="Thông tin" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/information_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="100dp">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_marginBottom="100dp"></androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
 
