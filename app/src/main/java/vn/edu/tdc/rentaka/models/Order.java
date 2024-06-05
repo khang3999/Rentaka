@@ -1,5 +1,7 @@
 package vn.edu.tdc.rentaka.models;
 
+import java.io.Serializable;
+
 public class Order {
     private String id;
     private Car car;

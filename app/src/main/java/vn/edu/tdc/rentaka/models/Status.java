@@ -35,9 +35,11 @@ public class Status {
         this.title = title;
     }
 
-    public  Status(){};
+    public  Status(){
 
-    public Status(int id, String description, String title) {
+    };
+
+    public Status(int id, String title, String description) {
         this.id = id;
         this.description = description;
         this.title = title;

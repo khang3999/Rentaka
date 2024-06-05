@@ -181,8 +181,8 @@ public class ChooseDateActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (v.isEnabled()) {
                     Intent intent = new Intent(ChooseDateActivity.this, MainActivity.class);
-                    String date = timeStart.getHour()+"h00, " + dateStart.toString() + " - "
-                            + timeEnd.getHour()+"h00, " + dateEnd.toString();
+                    String date = timeStart.getHour()+"h00" + dateStart.toString() + " - "
+                            + timeEnd.getHour()+"h00" + dateEnd.toString();
                     intent.putExtra("date", date);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);

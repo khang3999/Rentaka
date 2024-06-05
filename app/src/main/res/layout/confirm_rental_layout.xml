@@ -602,7 +602,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/promotion_title_textview" />
 
                 <TextView
-                    android:id="@+id/rental_total_price_textview"
+                    android:id="@+id/rental_total_date_textview"
                     style="@style/SmallTextGreyStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
