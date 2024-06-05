@@ -560,47 +560,47 @@ Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệ
 
             </LinearLayout>
             <!--    Mortgage end-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_20dp"
-                android:orientation="vertical"
-                android:paddingHorizontal="10dp">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="@dimen/_20dp"-->
+<!--                android:orientation="vertical"-->
+<!--                android:paddingHorizontal="10dp">-->
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gray_line" />
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:background="@color/gray_line" />-->
 
-                <TextView
-                    android:id="@+id/title_require_driver"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingVertical="5dp"
-                    android:text="Yâu cầu tài xế "
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+<!--                <TextView-->
+<!--                    android:id="@+id/title_require_driver"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingVertical="5dp"-->
+<!--                    android:text="Yâu cầu tài xế "-->
+<!--                    android:textSize="18sp"-->
+<!--                    android:textStyle="bold" />-->
 
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RadioButton
-                        android:id="@+id/radNoRequireDriver"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:checked="true"
-                        android:layout_height="wrap_content"
-                        android:text="Không"/>
-                    <RadioButton
-                        android:id="@+id/radRequireDriver"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Có"/>
-                </RadioGroup>
-            </LinearLayout>
+<!--                <RadioGroup-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal">-->
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/radNoRequireDriver"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:checked="true"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Không"/>-->
+<!--                    <RadioButton-->
+<!--                        android:id="@+id/radRequireDriver"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Có"/>-->
+<!--                </RadioGroup>-->
+<!--            </LinearLayout>-->
 
 
             <!--    Cancel policy start-->
@@ -679,32 +679,20 @@ Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệ
             android:textSize="15sp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/_20dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        android:background="@drawable/border_radius_green_button"
-        >
-        <ImageView
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_rental"
             android:layout_width="0dp"
-            android:layout_weight="3"
-            android:scaleType="center"
-            android:layout_height="match_parent"
-            android:src="@drawable/flash_24"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="7"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            app:icon="@drawable/flash_24"
+            app:backgroundTint="@color/green_button"
             android:text="Chọn thuê"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:gravity="center_vertical"/>
-    </LinearLayout>
+            android:textSize="@dimen/_18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toTopOf="@+id/guideline2"
+            android:background="@drawable/border_radius_green_button"/>
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"

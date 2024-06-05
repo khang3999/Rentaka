@@ -3,14 +3,17 @@ package vn.edu.tdc.rentaka.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
 import androidx.core.util.Pair;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.datepicker.CalendarConstraints;
@@ -27,11 +30,13 @@ import java.util.ArrayList;
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.BottomSheetQuestionMarkTimeRentBinding;
 import vn.edu.tdc.rentaka.databinding.ChooseDateLayoutBinding;
+import vn.edu.tdc.rentaka.databinding.ConfirmChooseDateLayoutBinding;
 import vn.edu.tdc.rentaka.models.Date;
 
-public class ChooseDateActivity extends AppCompatActivity {
+public class ConfirmChooseDateActivity extends AppCompatActivity {
     // Properties
-    private ChooseDateLayoutBinding binding;
+    public static final int FROM_CHOOSE_DATE = 1;
+    private ConfirmChooseDateLayoutBinding binding;
     private Date dateStart;
     private Date dateEnd;
     private LocalTime timeStart;
@@ -57,12 +62,12 @@ public class ChooseDateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Gan bingding
-        binding = ChooseDateLayoutBinding.inflate(getLayoutInflater());
+        binding = ConfirmChooseDateLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Khoi tao bottom sheet dialog
         bottomSheetDialogBinding = BottomSheetQuestionMarkTimeRentBinding.inflate(getLayoutInflater(), null, false);
-        bottomSheetDialog = new BottomSheetDialog(ChooseDateActivity.this, R.style.BottomSheetDialogTheme);
+        bottomSheetDialog = new BottomSheetDialog(ConfirmChooseDateActivity.this, R.style.BottomSheetDialogTheme);
         bottomSheetDialog.setContentView(bottomSheetDialogBinding.getRoot());
 
         // Do du lieu cho bottom sheet dialog
@@ -150,7 +155,7 @@ public class ChooseDateActivity extends AppCompatActivity {
                     binding.tvTotalDay.setText(totalDatesCopy+" ngày");
                 }
                 binding.cfTimeEnd.setText(timeEnd.getHour()+"h00, ");
-               // Log.d("TAGEND", "choose time end: " + timeEnd);
+                // Log.d("TAGEND", "choose time end: " + timeEnd);
             }
 
             @Override
@@ -180,10 +185,9 @@ public class ChooseDateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (v.isEnabled()) {
-                    Intent intent = new Intent(ChooseDateActivity.this, MainActivity.class);
-                    String date = timeStart.getHour()+"h00, " + dateStart.toString() + " - "
-                            + timeEnd.getHour()+"h00, " + dateEnd.toString();
-                    intent.putExtra("date", date);
+                    Intent intent = new Intent(ConfirmChooseDateActivity.this, ConfirmRentalActivity.class);
+                    intent.putExtra("startDate", dateStart.toString());
+                    intent.putExtra("endDate", dateEnd.toString());
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
                     // Main vao tu trai, choose date exit ve ben phai
@@ -198,7 +202,7 @@ public class ChooseDateActivity extends AppCompatActivity {
         binding.topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ChooseDateActivity.this, MainActivity.class);
+                Intent intent = new Intent(ConfirmChooseDateActivity.this, ConfirmRentalActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 // Main vao tu trai, choose date exit ve ben phai
@@ -207,7 +211,6 @@ public class ChooseDateActivity extends AppCompatActivity {
         });
     }
 
-    @Override
     protected void onResume() {
         super.onResume();
         // Dua ve default

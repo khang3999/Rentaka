@@ -289,7 +289,7 @@ public class RegisterActivity extends AppCompatActivity {
 //                    Hàm dang ki neu otp qua 10sms
                     RegisterAPI();
 //**************************************************************************
-
+//
                 } else {
                     //Hien thi thong bao khong dang ky thanh cong
                     Snackbar snackbar = Snackbar.make(view, R.string.dang_ki_khhong_thanh_cong, Snackbar.LENGTH_LONG);
