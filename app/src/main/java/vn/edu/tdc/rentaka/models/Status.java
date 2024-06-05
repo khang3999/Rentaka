@@ -37,6 +37,10 @@ public class Status {
 
     public  Status(){
 
+        this.id = -1;
+        this.title = "unknown";
+        this.description = "unknown";
+
     };
 
     public Status(int id, String title, String description) {

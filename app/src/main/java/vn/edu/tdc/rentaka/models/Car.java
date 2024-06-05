@@ -214,6 +214,8 @@ public class Car  {
     }
 
     public Car() {
+        this.statusId = new Status();
+        this.city = new City();
     }
 
     @Override

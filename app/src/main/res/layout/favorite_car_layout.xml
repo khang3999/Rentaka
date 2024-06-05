@@ -22,7 +22,7 @@
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="Yeu thich"
+            app:title="Yêu thích"
             app:titleCentered="true" />
     </com.google.android.material.appbar.AppBarLayout>
 
