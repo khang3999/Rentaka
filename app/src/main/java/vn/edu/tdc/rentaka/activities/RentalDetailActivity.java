@@ -17,6 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.BottomSheetDiaglogLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.RentalDetailLayoutBinding;
@@ -96,6 +99,7 @@ public class RentalDetailActivity extends AppCompatActivity {
         intent = getIntent();
         String carId = intent.getStringExtra("car");
         Log.d("tesssss", "carid: "+carId);
+
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("cars");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -106,11 +110,11 @@ public class RentalDetailActivity extends AppCompatActivity {
                         car = carSnap.getValue(Car.class);
 
                         Log.d("tesssss", "carrental: "+car);
-                        if (car.getId().equals(carId)){
+                        if ((carId).equals(car.getId())){
                             break;
                         }
                     }
-                    if (car.getId().equals(carId)){
+                    if ((carId).equals(car.getId())){
                         break;
                     }
                 }
@@ -130,6 +134,7 @@ public class RentalDetailActivity extends AppCompatActivity {
                 rentalBinding.type.setText(car.getTypeGearbox()+"");
                 rentalBinding.seat.setText(car.getSeat()+"");
                 rentalBinding.fuel.setText(car.getFuel()+"");
+                rentalBinding.salaryDriver.setText("Lương của tài xế: "+car.getSalaryDriver()+" / ngay");
 
                 DatabaseReference ownerReference = FirebaseDatabase.getInstance().getReference("users");
                 ownerReference.addValueEventListener(new ValueEventListener() {
@@ -145,7 +150,10 @@ public class RentalDetailActivity extends AppCompatActivity {
                         }
 
                         Log.d("tesssss", "owner: "+owner);
-                        String imageOwnerUrl = owner.getImageUser();
+                        String imageOwnerUrl = null;
+                        if (owner!=null){
+                             imageOwnerUrl = owner.getImageUser();
+                        }
                         if (imageOwnerUrl != null && !imageOwnerUrl.isEmpty()) {
                             Glide.with(RentalDetailActivity.this)
                                     .load(imageOwnerUrl)
@@ -166,7 +174,7 @@ public class RentalDetailActivity extends AppCompatActivity {
 
 
 
-                rentalBinding.mortageDescription.setText(car.getMortgage()+"");
+                rentalBinding.mortageDescription.setText("Chủ xe yêu cầu thế chấp: "+car.getMortgage()+" VND");
                 rentalBinding.priceSale.setText(car.getPriceDaily()+"");
             }
 

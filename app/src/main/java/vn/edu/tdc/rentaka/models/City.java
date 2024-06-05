@@ -20,7 +20,10 @@ public class City {
         this.name = name;
     }
 
-    public City(){}
+    public City(){
+        this.name = "unknown";
+        this.id = -1;
+    }
 
     public String getName() {
         return name;

@@ -30,6 +30,7 @@ import vn.edu.tdc.rentaka.activities.DrivingLicenseActivity;
 import vn.edu.tdc.rentaka.activities.FavoriteCarActivity;
 import vn.edu.tdc.rentaka.activities.LoginActivity;
 import vn.edu.tdc.rentaka.activities.MyAccountActivity;
+import vn.edu.tdc.rentaka.activities.MyCarActivity;
 import vn.edu.tdc.rentaka.activities.UserAddressActivity;
 import vn.edu.tdc.rentaka.activities.VerifyAccountActivity;
 import vn.edu.tdc.rentaka.adapters.PersonalProfileAdapter;
@@ -124,7 +125,8 @@ public class PersonalProfileFragment extends AbstractFragment {
                         Toast.makeText(requireActivity(), "The cua toi", Toast.LENGTH_SHORT).show();
                         break;
                     default:
-                        Toast.makeText(requireActivity(), "Xe cua toi", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(requireActivity(), MyCarActivity.class);
+                        startActivity(intent);
                         break;
                 }
             }
@@ -202,7 +204,7 @@ public class PersonalProfileFragment extends AbstractFragment {
         //Loading
         //Gan ten va image ten user tu firebase ve
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
+        if (user.getUid() != null) {
             String userId = user.getUid();
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userId);
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {

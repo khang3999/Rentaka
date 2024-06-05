@@ -3,65 +3,67 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_10dp"
     app:cardCornerRadius="@dimen/_20dp"
-    android:layout_margin="@dimen/_20dp">
+    android:layout_margin="@dimen/_10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#effaf2">
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:id="@+id/imageCar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:padding="@dimen/_20dp"
             android:scaleType="fitXY"
             android:src="@drawable/icon_noti"
-            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_1"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:gravity="center_vertical"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="Xe mini cho lai moi"
-            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_2"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/_10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline_vertical_1"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="center_vertical"
-            android:text="Thue som ruoc uu dai, du le 30/04 - 1/5 khong lo nghi"
-            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/guideline_vertical_1"
-            app:layout_constraintTop_toTopOf="@+id/guideline_horizontal_2" />
+            <TextView
+                android:id="@+id/titleNoti"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center_vertical"
+                android:text="Xe mini cho lai moi"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="center_vertical"
-            android:text="2 ngay truoc"
-            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/guideline_vertical_1"
-            app:layout_constraintTop_toTopOf="@+id/guideline_horizontal_3" />
+            <TextView
+                android:id="@+id/descriptionNoti"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center_vertical"
+                android:text="Thue som ruoc uu dai, du le 30/04 - 1/5 khong lo nghi" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_horizontal_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.3" />
+            <TextView
+                android:id="@+id/dateNoti"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:gravity="right"
+                android:text="2 ngay truoc" />
+
+        </LinearLayout>
+
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_vertical_1"
@@ -70,18 +72,6 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.3" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_horizontal_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.1" />
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_horizontal_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.25" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

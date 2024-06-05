@@ -2,19 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
-
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-
 
     <uses-feature
         android:name="android.hardware.telephony"
@@ -31,6 +27,9 @@
         android:theme="@style/Theme.Rentaka"
         tools:targetApi="31">
         <activity
+            android:name=".activities.EditCarActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.VerifyAccountActivity"
             android:exported="false" />
         <activity
@@ -44,10 +43,10 @@
             android:exported="false" />
         <activity
             android:name=".activities.ChooseDateActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".activities.CreateCarActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".activities.ChooseLocationActivity"
             android:exported="false"
@@ -57,7 +56,7 @@
             android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".fragments.HaveADriverFragment"
             android:exported="false" />
@@ -77,11 +76,21 @@
             android:name=".activities.MyAccountActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.MyCarActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.test2"
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"
-            android:exported="true">
+            android:exported="false">
+
+        </activity>
+        <activity
+            android:name=".activities.CheckLoginActivity"
+            android:exported="true"
+            android:label="Rentaka"
+            android:theme="@style/Theme.Rentaka">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -89,19 +98,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.CheckLoginActivity"
-            android:exported="true"
-            android:label="Rentaka"
-            android:theme="@style/Theme.Rentaka">
-
-        </activity>
-
-        <activity
             android:name=".activities.RentalDetailActivity"
             android:exported="false" />
 
         <service android:name=".services.SMSHandlingService" />
-        <receiver android:name=".receivers.SMSReceiver"
+
+        <receiver
+            android:name=".receivers.SMSReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
