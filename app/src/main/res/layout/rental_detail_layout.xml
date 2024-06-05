@@ -684,6 +684,7 @@ Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệ
         android:layout_height="0dp"
         android:layout_margin="@dimen/_20dp"
         android:orientation="horizontal"
+        android:id="@+id/btn_rent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
