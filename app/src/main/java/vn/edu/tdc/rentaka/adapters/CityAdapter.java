@@ -74,7 +74,6 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.MyViewHolder> 
                 public void onClick(View view) {
                     if (itemClickListener != null){
                         itemClickListener.onItemClick(MyViewHolder.this);
-
                     }
                     else {
                         Log.d("adapter","You must create an ItemClickListener before!");

@@ -90,7 +90,6 @@ public class CreateCarActivity extends AppCompatActivity {
                     listCitiesName.add(c.getName());
                     Log.d("citi", "onCreate: " + c.getName());
                 }
-
                 adapterCity = new ArrayAdapter<String>(CreateCarActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, listCitiesName);
                 binding.spinnerLocation.setAdapter(adapterCity);
 

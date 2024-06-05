@@ -38,6 +38,7 @@ public class RentalDetailActivity extends AppCompatActivity {
 
     private UserModel owner;
     private Intent intent;
+    public static final int FROM_CAR_DETAIL = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,17 @@ public class RentalDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 bottomSheetDialog.dismiss();
+            }
+        });
+
+        // Chon thue
+        rentalBinding.btnRental.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RentalDetailActivity.this, ConfirmRentalActivity.class);
+                intent.putExtra("carId", car.getId());
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
             }
         });
     }
