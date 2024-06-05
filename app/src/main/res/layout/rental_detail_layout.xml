@@ -711,52 +711,10 @@ Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệ
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_rental"
             android:layout_width="0dp"
-<<<<<<< HEAD
-            android:layout_height="match_parent"
-            android:layout_weight="7"
-            android:gravity="center"
-            android:text="888K"
-            android:textColor="#5FCE85"
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/unit"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:text="/ ngày"
-            android:textSize="15sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/_20dp"
-        android:orientation="horizontal"
-        android:id="@+id/btn_rent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        android:background="@drawable/border_radius_green_button"
-        >
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:scaleType="center"
-            android:layout_height="match_parent"
-            android:src="@drawable/flash_24"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="7"
-            android:layout_height="match_parent"
-=======
             android:layout_height="0dp"
             android:layout_margin="20dp"
             app:icon="@drawable/flash_24"
             app:backgroundTint="@color/green_button"
->>>>>>> main
             android:text="Chọn thuê"
             android:textSize="@dimen/_18sp"
             app:layout_constraintBottom_toBottomOf="parent"
