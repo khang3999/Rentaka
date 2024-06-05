@@ -23,5 +23,7 @@ public class PaymentActivity extends AppCompatActivity {
         paymentBinding = PaymentLayoutBinding.inflate(getLayoutInflater());
         setContentView(paymentBinding.getRoot());
 
+
     }
+
 }
