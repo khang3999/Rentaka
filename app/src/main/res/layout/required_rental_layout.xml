@@ -796,12 +796,11 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/send_rental_request_button"
-                style="@style/CustomConfirmButtonStyle"
+                android:backgroundTint="@color/orange"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/padding_screen"
-
-                android:text="@string/send_rental_request"
+                android:text="Required"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="30dp"
                 />

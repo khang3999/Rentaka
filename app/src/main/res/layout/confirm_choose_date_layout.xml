@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.ChooseDateActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:elevation="@dimen/_8dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/title_time"
+            app:titleCentered="true"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/datePicker"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="8"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:elevation="@dimen/_4dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_16dp"
+                android:gravity="center"
+                android:text="@string/label_choose_date"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/_20sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_calendar_24" />
+        </LinearLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/labelDateStart"
+                android:layout_width="@dimen/_120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_32dp"
+                android:text="@string/label_date_start"
+                android:textSize="@dimen/_18sp"
+                app:layout_constraintBottom_toTopOf="@+id/labelDateEnd"
+                app:layout_constraintEnd_toStartOf="@+id/tvDateStart"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <TextView
+                android:id="@+id/tvDateStart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="@string/hint_default_choose_date"
+                android:textSize="@dimen/_18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/labelDateStart"
+                app:layout_constraintEnd_toStartOf="@+id/guiline_choose_date_vertical"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/labelDateStart"
+                app:layout_constraintTop_toTopOf="@+id/labelDateStart" />
+
+            <TextView
+                android:id="@+id/labelDateEnd"
+                android:layout_width="@dimen/_120dp"
+                android:layout_height="wrap_content"
+                android:text="@string/label_date_end"
+                android:textSize="@dimen/_18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/labelDateStart"
+                app:layout_constraintStart_toStartOf="@+id/labelDateStart"
+                app:layout_constraintTop_toBottomOf="@+id/labelDateStart"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <TextView
+                android:id="@+id/tvDateEnd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="@string/hint_default_choose_date"
+                android:textSize="@dimen/_18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/labelDateEnd"
+                app:layout_constraintEnd_toEndOf="@+id/tvDateStart"
+                app:layout_constraintStart_toStartOf="@+id/tvDateStart"
+                app:layout_constraintTop_toTopOf="@+id/labelDateEnd" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btnChooseDate"
+                android:layout_width="@dimen/_50dp"
+                android:layout_height="@dimen/_50dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_calendar_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guiline_choose_date_vertical"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guiline_choose_date_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.7" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="@dimen/_32dp"
+            android:background="@color/light_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:elevation="@dimen/_4dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_16dp"
+                android:gravity="center"
+                android:text="@string/label_choose_time"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/_20sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_alarm_clock_24" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_32dp"
+            android:paddingTop="@dimen/_32dp">
+
+            <LinearLayout
+                android:id="@+id/groupTimeStart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_16dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_transparent_border_radius_all_20"
+                android:orientation="vertical"
+                android:padding="@dimen/_8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/label_time_start"
+                    android:textColor="@color/text_label_gray"
+                    android:textSize="@dimen/_18sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinnerTimeStart"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="@dimen/_18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/groupTimeEnd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_transparent_border_radius_all_20"
+                android:orientation="vertical"
+                android:padding="@dimen/_8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/label_time_end"
+                    android:textColor="@color/text_label_gray"
+                    android:textSize="@dimen/_18sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinnerTimeEnd"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_weight="1"
+                        android:textSize="@dimen/_18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:layout_weight="1"
+        android:background="@drawable/custom_sheet_bottom"
+        android:paddingHorizontal="@dimen/_32dp">
+
+        <LinearLayout
+            android:id="@+id/tvConfirmDateAndTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+            app:layout_constraintEnd_toStartOf="@+id/bottom_guiline_vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5">
+
+            <TextView
+                android:id="@+id/cf_timeStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5h00, "
+                android:textStyle="bold"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/cf_dateStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10/5 - "
+                android:textStyle="bold"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/cf_timeEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6h00 , "
+                android:textStyle="bold"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/cf_dateEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11/5"
+                android:textStyle="bold"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/bottom_guiline_vertical"
+            app:layout_constraintStart_toStartOf="@+id/tvConfirmDateAndTime"
+            app:layout_constraintTop_toBottomOf="@+id/tvConfirmDateAndTime"
+            app:layout_constraintVertical_bias="0.5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số ngày thuê: "
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvTotalDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4dp"
+                android:layout_marginEnd="@dimen/_8dp"
+                android:text="0 ngày"
+                android:textStyle="bold"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:id="@+id/img_question_mark"
+                android:layout_width="@dimen/_18sp"
+                android:layout_height="@dimen/_18sp"
+                android:src="@drawable/ic_question_mark_cicle_24"
+                tools:layout_editor_absoluteX="204dp"
+                tools:layout_editor_absoluteY="43dp" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnContinue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_32dp"
+            android:gravity="center"
+            android:background="@drawable/selector_drawable_enable_button"
+            android:text="Tiếp theo"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/bottom_guiline_vertical"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/bottom_guiline_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.6" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

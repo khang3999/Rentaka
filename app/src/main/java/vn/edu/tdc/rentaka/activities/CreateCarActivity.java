@@ -41,6 +41,7 @@ import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.CreateCarLayoutBinding;
 import vn.edu.tdc.rentaka.models.Car;
 import vn.edu.tdc.rentaka.models.City;
+import vn.edu.tdc.rentaka.models.Status;
 
 public class CreateCarActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> imagePickerLauncher;
@@ -90,7 +91,6 @@ public class CreateCarActivity extends AppCompatActivity {
                     listCitiesName.add(c.getName());
                     Log.d("citi", "onCreate: " + c.getName());
                 }
-
                 adapterCity = new ArrayAdapter<String>(CreateCarActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, listCitiesName);
                 binding.spinnerLocation.setAdapter(adapterCity);
 
@@ -546,6 +546,9 @@ public class CreateCarActivity extends AppCompatActivity {
                     int salaryDriver = Integer.parseInt(binding.editTextSalaryDriver.getText().toString());
                     car.setSalaryDriver(salaryDriver);
                     Log.d("daily price", "onClick: " + priceDaily);
+                    Status status = new Status(0,"Sẵn sàng","Xe đã sẵn sàng nhận chuyến mới!");
+                    car.setStatusId(status);
+                    Log.d("create", "onClick: "+car.getStatusId());
 
                     realTimeAPI.createNewCar(userId, car, imageUriCar, imageUriInspection, imageUriInsurance, imageUriRegister, CreateCarActivity.this);
                     finish();

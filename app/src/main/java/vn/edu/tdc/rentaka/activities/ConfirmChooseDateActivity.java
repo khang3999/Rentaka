@@ -3,14 +3,17 @@ package vn.edu.tdc.rentaka.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
 import androidx.core.util.Pair;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.datepicker.CalendarConstraints;
@@ -27,17 +30,19 @@ import java.util.ArrayList;
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.BottomSheetQuestionMarkTimeRentBinding;
 import vn.edu.tdc.rentaka.databinding.ChooseDateLayoutBinding;
+import vn.edu.tdc.rentaka.databinding.ConfirmChooseDateLayoutBinding;
 import vn.edu.tdc.rentaka.models.Date;
 
-public class ChooseDateActivity extends AppCompatActivity {
+public class ConfirmChooseDateActivity extends AppCompatActivity {
     // Properties
-    private ChooseDateLayoutBinding binding;
+    public static final int FROM_CHOOSE_DATE = 1;
+    private ConfirmChooseDateLayoutBinding binding;
     private Date dateStart;
     private Date dateEnd;
     private LocalTime timeStart;
     private LocalTime timeEnd;
     private int totalDays = 0;
-
+    private int totalDatesCopy;
     // Khi thay doi
     private LocalTime timePickUp = LocalTime.of(5, 0, 0);
     private LocalTime timeReturn = LocalTime.of(23, 0, 0);
@@ -53,16 +58,19 @@ public class ChooseDateActivity extends AppCompatActivity {
     private ArrayAdapter<LocalTime> adapterTimeSpinnerEnd;
     private BottomSheetDialog bottomSheetDialog;
     private BottomSheetQuestionMarkTimeRentBinding bottomSheetDialogBinding;
+    private ArrayList<LocalDate> listDateBlocked;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Gan bingding
-        binding = ChooseDateLayoutBinding.inflate(getLayoutInflater());
+        binding = ConfirmChooseDateLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Khoi tao list block
+        listDateBlocked = new ArrayList<>();
         // Khoi tao bottom sheet dialog
         bottomSheetDialogBinding = BottomSheetQuestionMarkTimeRentBinding.inflate(getLayoutInflater(), null, false);
-        bottomSheetDialog = new BottomSheetDialog(ChooseDateActivity.this, R.style.BottomSheetDialogTheme);
+        bottomSheetDialog = new BottomSheetDialog(ConfirmChooseDateActivity.this, R.style.BottomSheetDialogTheme);
         bottomSheetDialog.setContentView(bottomSheetDialogBinding.getRoot());
 
         // Do du lieu cho bottom sheet dialog
@@ -138,7 +146,7 @@ public class ChooseDateActivity extends AppCompatActivity {
 //                Long startDateLong =  dateStart.toLocalDate().toEpochDay();
 //                totalDays = (int)((endDateLong - startDateLong) / (1000*60*60*24));
 //                totalDays = dateEnd.getDay() - dateStart.getDay();
-                int totalDatesCopy = totalDays;
+                totalDatesCopy = totalDays;
                 // Ngay nhan = ngay tra
                 if (dateStart.getDay() == dateEnd.getDay() && dateStart.getMonth() == dateEnd.getMonth()){
                     timeEnd = listTimeEnd.get(position);
@@ -150,7 +158,7 @@ public class ChooseDateActivity extends AppCompatActivity {
                     binding.tvTotalDay.setText(totalDatesCopy+" ngày");
                 }
                 binding.cfTimeEnd.setText(timeEnd.getHour()+"h00, ");
-               // Log.d("TAGEND", "choose time end: " + timeEnd);
+                // Log.d("TAGEND", "choose time end: " + timeEnd);
             }
 
             @Override
@@ -180,10 +188,12 @@ public class ChooseDateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (v.isEnabled()) {
-                    Intent intent = new Intent(ChooseDateActivity.this, MainActivity.class);
-                    String date = timeStart.getHour()+"h00" + dateStart.toString() + " - "
-                            + timeEnd.getHour()+"h00" + dateEnd.toString();
-                    intent.putExtra("date", date);
+                    Intent intent = new Intent(ConfirmChooseDateActivity.this, ConfirmRentalActivity.class);
+                    intent.putExtra("startDate", dateStart.toStringLocalDate());
+                    intent.putExtra("endDate", dateEnd.toStringLocalDate());
+                    intent.putExtra("timeStart", timeStart.getHour()+"h00, ");
+                    intent.putExtra("timeEnd", timeEnd.getHour()+"h00, ");
+                    intent.putExtra("totalDate", totalDatesCopy);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
                     // Main vao tu trai, choose date exit ve ben phai
@@ -198,9 +208,7 @@ public class ChooseDateActivity extends AppCompatActivity {
         binding.topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ChooseDateActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
+                finish();
                 // Main vao tu trai, choose date exit ve ben phai
                 overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
             }
@@ -208,8 +216,24 @@ public class ChooseDateActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onNewIntent(@NonNull Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+
     protected void onResume() {
         super.onResume();
+
+        // Get new intent
+        Intent intent = getIntent();
+        ArrayList<String> listDateBlockString = new ArrayList<>();
+        listDateBlockString = intent.getStringArrayListExtra("listBlocked");
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+        listDateBlocked.clear();
+        for (String strDate :  listDateBlockString) {
+            listDateBlocked.add(LocalDate.parse(strDate,formatter));
+        }
+
         // Dua ve default
 //        binding.tvDateStart.setText("Chưa chọn");
 //        binding.tvDateEnd.setText("Chưa chọn");
@@ -263,17 +287,19 @@ public class ChooseDateActivity extends AppCompatActivity {
             @Override
             public boolean isValid(long dateOfCalendar) {
                 // Thuat toan dung khi chon ngay thue
-//                LocalDate localDate = convertToLocalDate(dateOfCalendar);
-//                if (localDate.compareTo(defaultDatePicked) >= 0) {
-//                    for (LocalDate date : disabledDates) {
-//                        if (localDate.isEqual(date)) {
-//                            return false;
-//                        }
-//                    }
-//                    return true;
-//                }
-//                return false;
-                return dateOfCalendar >= defaultDatePicked.toEpochDay() * MILISOFDAY;
+                Instant instantEachDate = Instant.ofEpochMilli(dateOfCalendar);
+                LocalDate eachDateOfCalendar = instantEachDate.atZone(ZoneId.of("UTC")).toLocalDate();
+//                if (eachDateOfCalendar.isAfter())
+                if (eachDateOfCalendar.compareTo(defaultDatePicked) >= 0) {
+                    for (LocalDate date : listDateBlocked) {
+                        if (eachDateOfCalendar.isEqual(date)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                return false;
+//                return dateOfCalendar >= defaultDatePicked.toEpochDay() * MILISOFDAY;
             }
 
             @Override
@@ -391,7 +417,7 @@ public class ChooseDateActivity extends AppCompatActivity {
                         totalDays = (int)((endDateLong - startDateLong) / (1000*60*60*24));
                     }
                     binding.tvTotalDay.setText(totalDays + " ngày");
-
+                    totalDatesCopy = totalDays;
                     // Chuyen trang thai de hien thi button continue
                     binding.btnContinue.setEnabled(true);
 //                    Log.d("TAGSAVE", "onPositiveButtonClick: " + timeStart);

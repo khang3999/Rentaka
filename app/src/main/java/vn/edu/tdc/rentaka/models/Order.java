@@ -1,5 +1,7 @@
 package vn.edu.tdc.rentaka.models;
 
+import java.io.Serializable;
+
 public class Order {
     private String id;
     private Car car;
@@ -11,6 +13,25 @@ public class Order {
     private String timePickup;
     private String timeReturn;
     private Status status;
+    private int totalPay;
+    private int totalDate;
+
+    public int getTotalDate() {
+        return totalDate;
+    }
+
+    public void setTotalDate(int totalDate) {
+        this.totalDate = totalDate;
+    }
+
+    public int getTotalPay() {
+        return totalPay;
+    }
+
+
+    public void setTotalPay(int totalPay) {
+        this.totalPay = totalPay;
+    }
 
     public String getId() {
         return id;
@@ -92,7 +113,7 @@ public class Order {
         this.status = status;
     }
 
-    public Order(String id, Car car, UserModel customer, UserModel owner, Date dateFrom, Date dateTo, Date dateCreated, String timePickup, String timeReturn, Status status) {
+    public Order(String id, Car car, UserModel customer, UserModel owner, Date dateFrom, Date dateTo, Date dateCreated, String timePickup, String timeReturn, Status status, int totalPay, int totalDate) {
         this.id = id;
         this.car = car;
         this.customer = customer;
@@ -103,6 +124,8 @@ public class Order {
         this.timePickup = timePickup;
         this.timeReturn = timeReturn;
         this.status = status;
+        this.totalPay = totalPay;
+        this.totalDate = totalDate;
     }
 
     public Order() {
@@ -122,6 +145,8 @@ public class Order {
                 ", timePickup='" + timePickup + '\'' +
                 ", timeReturn='" + timeReturn + '\'' +
                 ", status=" + status +
+                ", totalPay=" + totalPay +
+                ", totalDate=" + totalDate +
                 '}';
     }
 }

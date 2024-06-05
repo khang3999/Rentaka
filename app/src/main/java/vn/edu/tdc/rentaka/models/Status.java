@@ -36,12 +36,14 @@ public class Status {
     }
 
     public  Status(){
+
         this.id = -1;
         this.title = "unknown";
         this.description = "unknown";
+
     };
 
-    public Status(int id, String description, String title) {
+    public Status(int id, String title, String description) {
         this.id = id;
         this.description = description;
         this.title = title;

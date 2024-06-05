@@ -1,6 +1,7 @@
 package vn.edu.tdc.rentaka.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import vn.edu.tdc.rentaka.R;
+import vn.edu.tdc.rentaka.activities.RequiredRentalActivity;
 import vn.edu.tdc.rentaka.adapters.MyCarAdapter;
 import vn.edu.tdc.rentaka.adapters.NotificationAdapter;
 import vn.edu.tdc.rentaka.databinding.NotificationFragmentBinding;
@@ -60,6 +62,20 @@ public class NotificationFragment extends AbstractFragment {
                         listNotification.add(notification);
                     }
                     notificationAdapter.notifyDataSetChanged();
+                    notificationAdapter.setOnItemClickListener(new NotificationAdapter.ItemClickListener() {
+                        @Override
+                        public void onItemClick(NotificationAdapter.MyViewHolder holder) {
+                            Notification notification = new Notification();
+                            notification = listNotification.get(holder.getAdapterPosition());
+                            //Vua gui yeu cau
+                            if (notification.getStatus().getId() == 0){
+                                Intent intent = new Intent(activity, RequiredRentalActivity.class);
+                                intent.putExtra("notiId",notification.getId());
+                                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                activity.startActivity(intent);
+                            }
+                        }
+                    });
                 }
 
                 @Override
