@@ -273,8 +273,8 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (isPhoneValid && isNameValid && isPasswordValid && isPasswordConfirmValid && isEmailValid && isPhoneUnique) {
                     //**********************************************************************
-                    //Hàm dang ki neu dung dc otp chua qua 10sms
-                    //Hien thi boom sheet
+//                    Hàm dang ki neu dung dc otp chua qua 10sms
+//                    Hien thi boom sheet
 //                    logicBottomSheet();
 //                    //Gui yeu cau OTP
 //                    String phone = binding.editTextPhone.getText().toString();

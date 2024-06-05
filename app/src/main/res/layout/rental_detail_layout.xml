@@ -578,28 +578,15 @@ Trân trọng cảm ơn, chúc quý khách hàng có những chuyến đi tuyệ
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:paddingVertical="5dp"
-                    android:text="Yâu cầu tài xế "
+                    android:text="Yêu cầu tài xế "
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RadioButton
-                        android:id="@+id/radNoRequireDriver"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:checked="true"
-                        android:layout_height="wrap_content"
-                        android:text="Không"/>
-                    <RadioButton
-                        android:id="@+id/radRequireDriver"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Có"/>
-                </RadioGroup>
+                    <TextView
+                        android:id="@+id/salary_driver"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Lương tài xế : 200.000 / ngay"/>
             </LinearLayout>
 
 

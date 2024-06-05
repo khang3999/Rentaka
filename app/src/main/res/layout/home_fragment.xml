@@ -349,15 +349,23 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_24dp"
             android:orientation="vertical">
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_horizontal_16"
-                android:text="Xe dành cho bạn"
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/_22sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_horizontal_16"
+                    android:text="Danh sách xe"
+                    android:textColor="@color/textColor"
+                    android:textSize="@dimen/_22sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listCar"

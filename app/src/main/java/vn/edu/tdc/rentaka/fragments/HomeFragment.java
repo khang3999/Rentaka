@@ -2,6 +2,7 @@ package vn.edu.tdc.rentaka.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,30 +26,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
-import vn.edu.tdc.rentaka.APIs.FirebaseAPI;
-import vn.edu.tdc.rentaka.APIs.RealTimeAPI;
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.activities.ChooseDateActivity;
 import vn.edu.tdc.rentaka.activities.ChooseLocationActivity;
 import vn.edu.tdc.rentaka.activities.ListCarSearchActivity;
-import vn.edu.tdc.rentaka.activities.MainActivity;
 import vn.edu.tdc.rentaka.activities.RentalDetailActivity;
 
 import vn.edu.tdc.rentaka.adapters.AdvantageAdapter;
 import vn.edu.tdc.rentaka.adapters.CarAdapter;
-import vn.edu.tdc.rentaka.adapters.CityAdapter;
 import vn.edu.tdc.rentaka.adapters.LocationAdapter;
 import vn.edu.tdc.rentaka.adapters.PromotionAdapter;
 import vn.edu.tdc.rentaka.databinding.BottomSheetDiaglogLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.CardCarItemBinding;
-import vn.edu.tdc.rentaka.databinding.CardItemCityLayoutBinding;
-import vn.edu.tdc.rentaka.databinding.ConfirmRentalLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.HomeFragmentBinding;
 import vn.edu.tdc.rentaka.databinding.LocationItemLayoutBinding;
-import vn.edu.tdc.rentaka.databinding.RentalDetailLayoutBinding;
 import vn.edu.tdc.rentaka.models.Advantage;
 import vn.edu.tdc.rentaka.models.Car;
 import vn.edu.tdc.rentaka.models.Location;
@@ -94,6 +88,8 @@ public class HomeFragment extends AbstractFragment {
 
         // Khoi tao firebase
 //        realTimeAPI = new RealTimeAPI();
+
+
 
         // Set adapter for Promotion
         listPromotions = new ArrayList<Promotion>();
@@ -257,6 +253,8 @@ public class HomeFragment extends AbstractFragment {
                 startActivity(intent);
             }
         });
+
+        //Bat su kien khi nhan vao xem them chuyen sang man hinh search
 
         binding.tvDateResult.setOnClickListener(new View.OnClickListener() {
             @Override
