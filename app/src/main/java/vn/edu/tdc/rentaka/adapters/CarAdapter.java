@@ -165,9 +165,10 @@ import vn.edu.tdc.rentaka.models.Car;
 public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
 
     private Context context;
-    private ArrayList<Car> listCar;
+    private ArrayList<Car> listCar = new ArrayList<>();
     private ItemClickListener itemClickListener;
     private DatabaseReference db;
+
 
     public void setOnItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
@@ -189,59 +190,69 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         CardCarItemBinding binding = (CardCarItemBinding) holder.getBinding();
-        Car car = listCar.get(position);
 
-        // Chuyển chuỗi thành file hình
-        String imageUrl = car.getImageCarUrl();
-        if (imageUrl != null && !imageUrl.isEmpty()) {
-            Glide.with(context)
-                    .load(imageUrl)
-                    .into(binding.imageCar);
-        } else {
-            // Set ảnh mặc định
-            binding.imageCar.setImageResource(R.drawable.car);
-        }
-        NumberFormat numberFormat = NumberFormat.getNumberInstance(new Locale("vi", "VN"));
-        binding.textViewTypeGearBox.setText(car.getTypeGearbox());
-        binding.textViewFuel.setText(car.getFuel());
-        binding.nameCar.setText(car.getModel());
-        binding.addressCar.setText(car.getCity().getName());
-        binding.textViewPriceDaily.setText(numberFormat.format(car.getPriceDaily()));
-        //Update moi lan load
-        updateFavoriteIcon(binding, car);
+        if (listCar.size() != 0) {
 
-        // Set tag cho tung item
-        holder.itemView.setTag(binding);
+            Car car = listCar.get(position);
+            Log.d("tessss", "onBindViewHolder: "+car);
 
-        // Yeu thich
-        binding.icHeart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Nhan heart sp
-                toggleFavorite(car, holder.getBinding().getRoot());
+            // Chuyển chuỗi thành file hình
+            String imageUrl = car.getImageCarUrl();
+            if (imageUrl != null && !imageUrl.isEmpty()) {
+                Glide.with(context)
+                        .load(imageUrl)
+                        .into(binding.imageCar);
+            } else {
+                // Set ảnh mặc định
+                binding.imageCar.setImageResource(R.drawable.car);
             }
-        });
+            NumberFormat numberFormat = NumberFormat.getNumberInstance(new Locale("vi", "VN"));
+            binding.textViewTypeGearBox.setText(car.getTypeGearbox());
+            binding.textViewFuel.setText(car.getFuel());
+            binding.nameCar.setText(car.getModel());
+            binding.addressCar.setText(car.getCity().getName());
+            binding.textViewPriceDaily.setText(numberFormat.format(car.getPriceDaily()));
 
-        // Set the favorite icon status based on the database
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            db.child("favourites").child(user.getUid())
-                    .child(car.getId())
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.exists()) {
-                                binding.icHeart.setImageResource(R.drawable.ic_heart_24_press);
-                            } else {
-                                binding.icHeart.setImageResource(R.drawable.ic_heart);
+            //Update moi lan load
+            updateFavoriteIcon(binding, car);
+            Log.d("tessss", "tren: carid " + car.getId());
+
+            // Set tag cho tung item
+            holder.itemView.setTag(binding);
+
+            // Yeu thich
+            binding.icHeart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Nhan heart sp
+                    toggleFavorite(car, holder.getBinding().getRoot());
+                    Log.d("tessss", "tren: carid " + car.getId());
+
+                }
+            });
+
+            // Set the favorite icon status based on the database
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user.getUid() != null && car.getId() != null) {
+                db.child("favourites").child(user.getUid())
+                        .child(car.getId())
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+                                    binding.icHeart.setImageResource(R.drawable.ic_heart_24_press);
+                                } else {
+                                    binding.icHeart.setImageResource(R.drawable.ic_heart);
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            // Handle possible errors.
-                        }
-                    });
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                // Handle possible errors.
+                            }
+                        });
+            }
+
         }
 
     }
@@ -282,14 +293,16 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
 
     // Interface
     public interface ItemClickListener {
-        void onItemClick(CarAdapter.MyViewHolder holder);
+        void onItemClick(MyViewHolder holder);
     }
 
     private void toggleFavorite(Car car, View view) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
+        Log.d("tessss", "toggleFavorite: userid " + user.getUid());
+        Log.d("tessss", "toggleFavorite: carid " + car.getId());
+        if (user.getUid() != null) {
             DatabaseReference favRef = db.child("favourites").child(user.getUid()).child(car.getId());
-
+            Log.d("tessss", "toggleFavorite: favRef " + favRef);
             favRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -297,9 +310,12 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
                         // Remove from favourites
                         favRef.removeValue();
                         updateFavoriteIcon((CardCarItemBinding) view.getTag(), false);
+                        Log.d("tessss", "toggleFavorite: unlike ");
                         Snackbar.make(view, "Bạn Đã Bỏ Yêu Thích", Snackbar.ANIMATION_MODE_FADE).show();
                     } else {
                         // Add to favourites
+                        Log.d("tessss", "toggleFavorite: like ");
+
                         favRef.setValue(car);
                         updateFavoriteIcon((CardCarItemBinding) view.getTag(), true);
                         Snackbar.make(view, "Bạn Đã Thêm Vào Yêu Thích", Snackbar.ANIMATION_MODE_FADE).show();
@@ -321,9 +337,10 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
         }
     }
 
+
     private void updateFavoriteIcon(CardCarItemBinding binding, Car car) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
+        if (user.getUid() != null) {
             db.child("favourites").child(user.getUid()).child(car.getId())
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override

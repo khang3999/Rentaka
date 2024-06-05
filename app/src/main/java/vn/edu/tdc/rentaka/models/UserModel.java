@@ -169,4 +169,23 @@ public class UserModel {
     public void setBalance(Double balance) {
         this.balance = balance;
     }
+
+    @Override
+    public String toString() {
+        return "UserModel{" +
+                "phone='" + phone + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", gender='" + gender + '\'' +
+                ", registrationDate='" + registrationDate + '\'' +
+                ", imageUser='" + imageUser + '\'' +
+                ", address='" + address + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", id='" + id + '\'' +
+                ", balance=" + balance +
+                ", drivingLicense=" + drivingLicense +
+                ", bankCard=" + bankCard +
+                ", citizenIdCard=" + citizenIdCard +
+                '}';
+    }
 }

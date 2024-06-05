@@ -273,8 +273,8 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (isPhoneValid && isNameValid && isPasswordValid && isPasswordConfirmValid && isEmailValid && isPhoneUnique) {
                     //**********************************************************************
-                    //Hàm dang ki neu dung dc otp chua qua 10sms
-                    //Hien thi boom sheet
+//                    Hàm dang ki neu dung dc otp chua qua 10sms
+//                    Hien thi boom sheet
 //                    logicBottomSheet();
 //                    //Gui yeu cau OTP
 //                    String phone = binding.editTextPhone.getText().toString();
@@ -289,7 +289,7 @@ public class RegisterActivity extends AppCompatActivity {
 //                    Hàm dang ki neu otp qua 10sms
                     RegisterAPI();
 //**************************************************************************
-
+//
                 } else {
                     //Hien thi thong bao khong dang ky thanh cong
                     Snackbar snackbar = Snackbar.make(view, R.string.dang_ki_khhong_thanh_cong, Snackbar.LENGTH_LONG);

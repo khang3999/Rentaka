@@ -38,9 +38,6 @@
             android:name=".activities.EditCarActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.PaymentActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.VerifyAccountActivity"
             android:exported="false" />
         <activity

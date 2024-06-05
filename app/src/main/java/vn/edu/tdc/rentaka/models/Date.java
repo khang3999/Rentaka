@@ -55,7 +55,7 @@ public class Date {
         return String.format("%02d/%02d/%d", day, month, year);
     }
 
-
+    public String toStringLocalDate(){return LocalDate.of(year, month, day).toString();}
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,6 +63,7 @@ public class Date {
         Date date = (Date) o;
         return day == date.day && month == date.month && year == date.year;
     }
+
 
     @Override
     public int hashCode() {
@@ -91,4 +92,5 @@ public class Date {
             }
         }
     }
+
 }

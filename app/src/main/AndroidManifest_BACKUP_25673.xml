@@ -27,6 +27,9 @@
         android:theme="@style/Theme.Rentaka"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
+            android:name=".activities.PaymentActivity"
+=======
             android:name=".activities.ConfirmChooseDateActivity"
             android:exported="false" />
         <activity
@@ -36,9 +39,7 @@
         </activity>
         <activity
             android:name=".activities.EditCarActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.PaymentActivity"
+>>>>>>> main
             android:exported="false" />
         <activity
             android:name=".activities.VerifyAccountActivity"
@@ -87,7 +88,11 @@
             android:name=".activities.MyAccountActivity"
             android:exported="false" />
         <activity
+<<<<<<< HEAD
+            android:name=".activities.ConfirmRentalActivity"
+=======
             android:name=".activities.MyCarActivity"
+>>>>>>> main
             android:exported="false" />
         <activity
             android:name=".activities.test2"
@@ -103,11 +108,20 @@
             android:theme="@style/Theme.Rentaka">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
+<<<<<<< HEAD
+            android:name=".activities.CheckLoginActivity"
+            android:exported="true"
+            android:label="Rentaka"
+            android:theme="@style/Theme.Rentaka"></activity>
+        <activity
+            android:name=".activities.RentalDetailActivity"
+            android:exported="false" />
+        <service android:name=".services.SMSHandlingService" />
+=======
             android:name=".activities.RentalDetailActivity"
             android:exported="true">
 
@@ -115,6 +129,7 @@
 
         <service android:name=".services.SMSHandlingService" />
 
+>>>>>>> main
         <receiver
             android:name=".receivers.SMSReceiver"
             android:exported="true">
