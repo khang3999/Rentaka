@@ -14,6 +14,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,57 +65,10 @@ public class ListCarSearchActivity extends AppCompatActivity {
         listCars = new ArrayList<>();
         carAdapter = new CarAdapter(ListCarSearchActivity.this, listCars);
         LinearLayoutManager layoutManagerCities = new LinearLayoutManager(ListCarSearchActivity.this);
-        layoutManagerCities.setOrientation(RecyclerView.HORIZONTAL);
+        layoutManagerCities.setOrientation(RecyclerView.VERTICAL);
         layoutManagerCities.setReverseLayout(false);
         binding.listCar.setLayoutManager(layoutManagerCities);
         binding.listCar.setAdapter(carAdapter);
-        //Lay ra list xe co dia diem minh chon
-        DatabaseReference carsRef = FirebaseDatabase.getInstance().getReference("cars");
-        carsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listCars.clear();
-                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
-//                    if (userSnapshot.getKey().equals(userId)) {
-//                        continue;
-//                    }
-                    for (DataSnapshot carSnapshot : userSnapshot.getChildren()) {
-                        Car car = carSnapshot.getValue(Car.class);
-                        City city = new City();
-                        city = car.getCity();
-                        String nameCity = city.getName();
-                        if (location.equals(nameCity)){
-                            listCars.add(car);
-                        }
-
-                    }
-                }
-                Log.d("tesss", "listCar at "+location+": "+listCars);
-                carAdapter.notifyDataSetChanged();
-                //Bat su kien khi click vao item caradapter
-                carAdapter.setOnItemClickListener(new CarAdapter.ItemClickListener() {
-                    @Override
-                    public void onItemClick(CarAdapter.MyViewHolder holder) {
-                        CardCarItemBinding binding1 = (CardCarItemBinding) holder.getBinding();
-                        Intent intent = new Intent(ListCarSearchActivity.this, RentalDetailActivity.class);
-                        intent.putExtra("car", listCars.get(holder.getAdapterPosition()).getId());
-                        Log.d("tesss", "position: "+holder.getAdapterPosition());
-                        Log.d("tesssss", "carid: "+listCars.get(holder.getAdapterPosition()).getId());
-                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                        startActivity(intent);
-//                // Main vao tu trai, choose date exit ve ben phai
-//                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
-                    }
-                });
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
     }
 
@@ -126,6 +81,7 @@ public class ListCarSearchActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Intent intent = getIntent();
+        Log.d("tesssss", "onResume: lc +  "+intent.getStringExtra("location"));
         if (intent.hasExtra("location")){
             location = intent.getStringExtra("location");
             binding.location.setText(intent.getStringExtra("location"));
@@ -153,5 +109,62 @@ public class ListCarSearchActivity extends AppCompatActivity {
 
             binding.date.setText(formattedTimePlusOneHour+"h00, "+formattedDatePlusOneHour+" - "+formattedTimePlusTwoHours+"h00, "+formattedDatePlusTwoHours);
         }
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user.getUid()!= null){
+            //Lay ra list xe co dia diem minh chon
+            DatabaseReference carsRef = FirebaseDatabase.getInstance().getReference("cars");
+            carsRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    listCars.clear();
+                    for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                        if (userSnapshot.getKey().equals(user.getUid())) {
+                            continue;
+                        }
+                        for (DataSnapshot carSnapshot : userSnapshot.getChildren()) {
+                            Car car = carSnapshot.getValue(Car.class);
+                            //Xe nao chua san sang thi khong hien thi
+                            if (car.getStatusId().getId()==1){
+                                continue;
+                            }
+                            City city = new City();
+                            city = car.getCity();
+                            String nameCity = city.getName();
+                            if (location.equals(nameCity)){
+                                listCars.add(car);
+                            }
+
+                        }
+                    }
+                    Log.d("tesss", "listCar at "+location+": "+listCars);
+                    carAdapter.notifyDataSetChanged();
+                    //Bat su kien khi click vao item caradapter
+                    carAdapter.setOnItemClickListener(new CarAdapter.ItemClickListener() {
+                        @Override
+                        public void onItemClick(CarAdapter.MyViewHolder holder) {
+                            CardCarItemBinding binding1 = (CardCarItemBinding) holder.getBinding();
+                            Intent intent = new Intent(ListCarSearchActivity.this, RentalDetailActivity.class);
+                            intent.putExtra("car", listCars.get(holder.getAdapterPosition()).getId());
+                            Log.d("tesss", "position: "+holder.getAdapterPosition());
+                            Log.d("tesssss", "carid: "+listCars.get(holder.getAdapterPosition()).getId());
+                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                            startActivity(intent);
+//                // Main vao tu trai, choose date exit ve ben phai
+//                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+                        }
+                    });
+
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+
+
     }
 }

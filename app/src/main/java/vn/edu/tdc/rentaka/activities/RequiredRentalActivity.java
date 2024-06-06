@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,12 +19,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.RentalDetailLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.RequiredRentalLayoutBinding;
 import vn.edu.tdc.rentaka.models.Car;
 import vn.edu.tdc.rentaka.models.Notification;
 import vn.edu.tdc.rentaka.models.Order;
+import vn.edu.tdc.rentaka.models.Status;
 import vn.edu.tdc.rentaka.models.UserModel;
 
 public class RequiredRentalActivity extends AppCompatActivity {
@@ -34,6 +40,8 @@ public class RequiredRentalActivity extends AppCompatActivity {
     private UserModel owner;
     private String imageOwnerUrl;
     private String imageCarUrl;
+    private Status billStatusOnFirebase;
+    private Order billOnFirebase;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,6 +113,29 @@ public class RequiredRentalActivity extends AppCompatActivity {
                     binding.rentalPriceTextview.setText((int)(order.getTotalPay()/order.getTotalDate())+"");
                     binding.depositThroughAppTextview.setText((int) (order.getTotalPay()*0.2)+"");
                     binding.payUponRetrievingCarTextview.setText((int) (order.getTotalPay()*0.8)+"");
+
+                    //Kiem tra lai bill tren firebase co bi huy hay khong neu huy thi set lai title cho navigation
+                    DatabaseReference billRef = FirebaseDatabase.getInstance().getReference("bills").child(car.getId()).child(order.getId());
+                    billRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            billOnFirebase = new Order();
+                            billOnFirebase = snapshot.getValue(Order.class);
+                            billStatusOnFirebase = new Status();
+                            billStatusOnFirebase = billOnFirebase.getStatus();
+                            Log.d("status", "status:" +billStatusOnFirebase.getId());
+
+                                if (billStatusOnFirebase.getId()==4){
+                                    binding.topAppBar.setTitle("Chuyến xe đã huỷ");
+                                }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
 
                 @Override

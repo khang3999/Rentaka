@@ -78,7 +78,7 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Giá thuê 1 ngày"/>
+                android:text="Trạng thái"/>
             <Spinner
                 android:id="@+id/status"
                 android:layout_weight="1"

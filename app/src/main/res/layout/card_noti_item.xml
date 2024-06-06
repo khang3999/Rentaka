@@ -41,6 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:gravity="end|center"
+                android:textSize="@dimen/_12sp"
                 android:text="Xe mini cho lai moi"/>
             <TextView
                 android:id="@+id/titleNoti"

@@ -143,7 +143,6 @@ public class HomeFragment extends AbstractFragment {
         attachSnapHelper(binding.listPromotion);
 
         // Load data Cars from firebase
-        String userId = "1111";
         listCars = new ArrayList<>();
         carAdapter = new CarAdapter(activity, listCars);
         LinearLayoutManager layoutManagerListCar = new LinearLayoutManager(activity);
@@ -153,47 +152,59 @@ public class HomeFragment extends AbstractFragment {
         binding.listCar.setAdapter(carAdapter);
         attachSnapHelper(binding.listCar); // Auto stop at center item
 
-        DatabaseReference carsRef = FirebaseDatabase.getInstance().getReference("cars");
-        carsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listCars.clear();
-                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
-//                    if (userSnapshot.getKey().equals(userId)) {
-//                        continue;
-//                    }
-                    for (DataSnapshot carSnapshot : userSnapshot.getChildren()) {
-                        Car car = carSnapshot.getValue(Car.class);
-                        listCars.add(car);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user.getUid()!=null){
+            DatabaseReference carsRef = FirebaseDatabase.getInstance().getReference("cars");
+            carsRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    listCars.clear();
+                    for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                            //Khong hien xe cua chinh minh
+                        if (userSnapshot.getKey().equals(user.getUid())) {
+                            continue;
+                        }
+                        for (DataSnapshot carSnapshot : userSnapshot.getChildren()) {
+                            Car car = carSnapshot.getValue(Car.class);
+                            //Xe nao chua san sang thi khong hien thi
+                            if (car.getStatusId().getId()==1){
+                                continue;
+                            }
+                            listCars.add(car);
+                        }
                     }
-                }
-                Log.d("tesss", "onDataChange: "+listCars);
-                carAdapter.notifyDataSetChanged();
-                //Bat su kien khi click vao item caradapter
-                carAdapter.setOnItemClickListener(new CarAdapter.ItemClickListener() {
-                    @Override
-                    public void onItemClick(CarAdapter.MyViewHolder holder) {
-                        CardCarItemBinding binding1 = (CardCarItemBinding) holder.getBinding();
-                        Intent intent = new Intent(activity, RentalDetailActivity.class);
-                        intent.putExtra("car", listCars.get(holder.getAdapterPosition()).getId());
-                        Log.d("tesss", "position: "+holder.getAdapterPosition());
-                        Log.d("tesssss", "carid: "+listCars.get(holder.getAdapterPosition()).getId());
-                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                        startActivity(intent);
+                    Log.d("tesss", "onDataChange: "+listCars);
+                    Log.d("tesss", "onDataChange: "+listCars.size());
+
+                    carAdapter.notifyDataSetChanged();
+                    //Bat su kien khi click vao item caradapter
+                    carAdapter.setOnItemClickListener(new CarAdapter.ItemClickListener() {
+                        @Override
+                        public void onItemClick(CarAdapter.MyViewHolder holder) {
+                            CardCarItemBinding binding1 = (CardCarItemBinding) holder.getBinding();
+                            Intent intent = new Intent(activity, RentalDetailActivity.class);
+                            intent.putExtra("car", listCars.get(holder.getAdapterPosition()).getId());
+                            Log.d("tesss", "position: "+holder.getAdapterPosition());
+                            Log.d("tesssss", "carid: "+listCars.get(holder.getAdapterPosition()).getId());
+                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                            startActivity(intent);
 //                // Main vao tu trai, choose date exit ve ben phai
 //                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
-                    }
-                });
+                        }
+                    });
 
 
-            }
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
-        Log.d("tesss", "onDataChange: ngoai "+listCars);
+                }
+            });
+            Log.d("tesss", "onDataChange: ngoai "+listCars);
+        }
+
 
 
 
@@ -202,7 +213,7 @@ public class HomeFragment extends AbstractFragment {
 
         // Set adapter for Location
         listLocations = new ArrayList<Location>();
-        listLocations.add(new Location("Tp. Hồ Chí Minh", "", Location.LocationType.pickUpLocation));
+        listLocations.add(new Location("TP Hồ Chí Minh", "", Location.LocationType.pickUpLocation));
         listLocations.add(new Location("Hà Nội", "", Location.LocationType.pickUpLocation));
         listLocations.add(new Location("Đà Nẵng", "", Location.LocationType.pickUpLocation));
         listLocations.add(new Location("Bình Dương", "", Location.LocationType.pickUpLocation));
@@ -312,44 +323,10 @@ public class HomeFragment extends AbstractFragment {
                 }
             }
         });
-        //Goi ham lay list cas
-        listCars = new ArrayList<>();
-        carAdapter = new CarAdapter(activity, listCars);
-        LinearLayoutManager layoutManagerCities = new LinearLayoutManager(activity);
-        layoutManagerCities.setOrientation(RecyclerView.HORIZONTAL);
-        layoutManagerCities.setReverseLayout(false);
-        binding.listCar.setLayoutManager(layoutManagerCities);
-        binding.listCar.setAdapter(carAdapter);
-
-        DatabaseReference carsReference = FirebaseDatabase.getInstance().getReference("cars");
-        Log.d("databaseRef", "fetchCities: "+carsReference);
-
-        carsReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listCars.clear();
-                for (DataSnapshot data : snapshot.getChildren()) {
-                    for (DataSnapshot user : data.getChildren()) {
-                        Car car = user.getValue(Car.class);
-                        listCars.add(car);
-                    }
-
-                }
-                carAdapter.notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
 
 
         // Update UI information user at home
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
+        if (user.getUid() != null) {
             userId = user.getUid();
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userId);
             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
