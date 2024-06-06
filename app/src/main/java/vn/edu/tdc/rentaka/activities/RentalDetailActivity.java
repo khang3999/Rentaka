@@ -17,8 +17,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Locale;
 
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.BottomSheetDiaglogLayoutBinding;
@@ -38,6 +40,7 @@ public class RentalDetailActivity extends AppCompatActivity {
 
     private UserModel owner;
     private Intent intent;
+    private NumberFormat numberFormat = NumberFormat.getNumberInstance(new Locale("vi", "VN"));
     public static final int FROM_CAR_DETAIL = 0;
 
     @Override
@@ -145,7 +148,7 @@ public class RentalDetailActivity extends AppCompatActivity {
                 rentalBinding.type.setText(car.getTypeGearbox()+"");
                 rentalBinding.seat.setText(car.getSeat()+"");
                 rentalBinding.fuel.setText(car.getFuel()+"");
-                rentalBinding.salaryDriver.setText("Lương của tài xế: "+car.getSalaryDriver()+" / ngay");
+                rentalBinding.salaryDriver.setText("Lương của tài xế: "+numberFormat.format(car.getSalaryDriver())+" / ngày");
 
                 DatabaseReference ownerReference = FirebaseDatabase.getInstance().getReference("users");
                 ownerReference.addValueEventListener(new ValueEventListener() {
@@ -183,10 +186,10 @@ public class RentalDetailActivity extends AppCompatActivity {
                     }
                 });
 
-
-
-                rentalBinding.mortageDescription.setText("Chủ xe yêu cầu thế chấp: "+car.getMortgage()+" VND");
-                rentalBinding.priceSale.setText(car.getPriceDaily()+"");
+                rentalBinding.description.setText(car.getDescription()+"");
+                rentalBinding.trip.setText(car.getCity().getName()+"");
+                rentalBinding.mortageDescription.setText("Chủ xe yêu cầu thế chấp: "+numberFormat.format(car.getMortgage())+" VND");
+                rentalBinding.priceSale.setText(numberFormat.format(car.getPriceDaily())+"");
             }
 
             @Override

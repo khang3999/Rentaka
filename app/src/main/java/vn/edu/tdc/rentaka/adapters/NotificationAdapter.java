@@ -54,6 +54,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         CardNotiItemBinding binding = (CardNotiItemBinding) holder.getBinding();
         Notification notification = listNotifications.get(position);
 
+        binding.billId.setText(notification.getOrder().getId());
         binding.titleNoti.setText(notification.getStatus().getTitle());
         binding.descriptionNoti.setText(notification.getStatus().getDescription());
         binding.dateNoti.setText(notification.getDateCreated().toString());

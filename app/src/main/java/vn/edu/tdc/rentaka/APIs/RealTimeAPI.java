@@ -64,7 +64,7 @@ public class RealTimeAPI {
                 if (dataSnapshot.exists()) {
                     // Bill exists, proceed to update the status
                     DatabaseReference statusRef = billRef.child("status");
-                    Status status = new Status(2, "Hoàn thành", "Đã được đặt cọc bởi khách thuê xe.");
+                    Status status = new Status(2, "Đã đặt cọc", "Đã được đặt cọc bởi khách thuê xe.");
                     Map<String, Object> statusMap = new HashMap<>();
                     statusMap.put("id", status.getId());
                     statusMap.put("title", status.getTitle());

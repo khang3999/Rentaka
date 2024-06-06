@@ -296,29 +296,29 @@
                 android:layout_marginVertical="@dimen/_20dp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_24dp"
-            android:orientation="vertical">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="@dimen/_24dp"-->
+<!--            android:orientation="vertical">-->
 
-            <TextView
-                android:id="@+id/title_recent"                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_horizontal_16"
-                android:text="Xem gần đây"
-                android:textColor="@color/textColor"
-                android:textSize="@dimen/_22sp"
-                android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:id="@+id/title_recent"                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginHorizontal="@dimen/margin_horizontal_16"-->
+<!--                android:text="Xem gần đây"-->
+<!--                android:textColor="@color/textColor"-->
+<!--                android:textSize="@dimen/_22sp"-->
+<!--                android:textStyle="bold" />-->
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listCarRecent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:paddingHorizontal="@dimen/_8dp"
-                android:layout_marginVertical="@dimen/_20dp"/>
-        </LinearLayout>
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/listCarRecent"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:clipToPadding="false"-->
+<!--                android:paddingHorizontal="@dimen/_8dp"-->
+<!--                android:layout_marginVertical="@dimen/_20dp"/>-->
+<!--        </LinearLayout>-->
 
 <!--        <LinearLayout-->
 <!--            android:layout_width="match_parent"-->
@@ -441,13 +441,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/_8dp"
-                        android:text="Giới thiệu Rentaka đến bạn bè"
+                        android:text="@string/title_recommend_friend"
                         android:textSize="@dimen/_20sp"
                         android:textStyle="bold" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Giới thiệu cho mọi người để cùng nhận nhiều ưu đãi hấp dẫn từ Rentaka" />
+                        android:text="@string/recommend_friends" />
                 </LinearLayout>
 
                 <ImageView
@@ -479,7 +479,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingVertical="@dimen/_16dp"
-                    android:text="Hơn 5.000 chủ xe đang cho thuê hiệu quả trên Rentaka. Đăng ký trở thành đối tác của chúng tôi ngay hôm nay để gia tăng thu nhập hằng tháng." />
+                    android:text="@string/description_become_partner" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="wrap_content"

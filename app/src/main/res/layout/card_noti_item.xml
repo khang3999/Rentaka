@@ -35,7 +35,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline_vertical_1"
             app:layout_constraintTop_toTopOf="parent">
-
+            <TextView
+                android:id="@+id/billId"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="end|center"
+                android:text="Xe mini cho lai moi"/>
             <TextView
                 android:id="@+id/titleNoti"
                 android:layout_weight="1.5"

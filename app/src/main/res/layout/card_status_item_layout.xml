@@ -52,7 +52,7 @@
             android:id="@+id/btnEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Trang thai: "
+            android:text="Trạng thái: "
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_2"
             app:layout_constraintStart_toStartOf="@+id/guideline_vertical_1"

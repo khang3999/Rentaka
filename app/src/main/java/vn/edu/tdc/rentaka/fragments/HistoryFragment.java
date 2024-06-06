@@ -21,6 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.adapters.HistoryAdapter;
@@ -79,6 +81,7 @@ public class HistoryFragment extends AbstractFragment {
                                     }
                                 }
                             }
+                            Collections.reverse(listOrders);
                             historyAdapter.notifyDataSetChanged();
                         }
 
