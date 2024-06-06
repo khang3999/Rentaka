@@ -129,6 +129,13 @@ public class Order {
     }
 
     public Order() {
+        this.car = new Car();
+        this.owner = new UserModel();
+        this.customer = new UserModel();
+        this.status = new Status();
+        this.dateCreated = new Date();
+        this.dateFrom = new Date();
+        this.dateTo = new Date();
 
     }
 

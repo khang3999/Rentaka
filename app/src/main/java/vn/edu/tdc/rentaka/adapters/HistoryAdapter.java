@@ -58,7 +58,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         Date dateTo = new Date();
         dateTo = order.getDateTo();
         Log.d("date", "onBindViewHolder: "+dateFrom);
-        binding.timeRent.setText(order.getTimePickup()+", "+dateFrom.toString()+" - "+order.getTimeReturn()+", "+dateTo.toString());
+        binding.timeRent.setText(order.getTimePickup()+" "+dateFrom.toString()+" - "+order.getTimeReturn()+" "+dateTo.toString());
         binding.status.setText(order.getStatus().getTitle());
         // Chuyển chuỗi thành file hình
         String imageUrl = order.getCar().getImageCarUrl();

@@ -38,7 +38,6 @@ public class Date {
     }
 
     public Date() {
-        // No argument constructor needed for Firestore deserialization
     }
 
     public Date(LocalDate localDate) {

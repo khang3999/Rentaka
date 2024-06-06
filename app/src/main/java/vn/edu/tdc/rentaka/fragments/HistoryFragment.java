@@ -39,6 +39,7 @@ public class HistoryFragment extends AbstractFragment {
     private HistoryAdapter historyAdapter;
     private UserModel userModel;
     private  UserModel customer;
+    private  Order order;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,7 +52,6 @@ public class HistoryFragment extends AbstractFragment {
         binding.listHistory.setLayoutManager(new LinearLayoutManager(activity));
         binding.listHistory.setAdapter(historyAdapter);
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("bills");
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user.getUid()!=null){
@@ -61,19 +61,18 @@ public class HistoryFragment extends AbstractFragment {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                    userModel = new UserModel();
                    userModel  = snapshot.getValue(UserModel.class);
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("bills");
                     databaseReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for (DataSnapshot carIdSnap: snapshot.getChildren()) {
                                 for (DataSnapshot billIdSnap: carIdSnap.getChildren()) {
-                                    Order order = new Order();
+                                    order = new Order();
                                     order = billIdSnap.getValue(Order.class);
                                     Log.d("userrrrr", "onDataChange: order "+ order);
 
-                                     customer = new UserModel();
+                                    customer = new UserModel();
                                     customer = order.getCustomer();
-                                    Log.d("userrrrr", "onDataChange: customer "+ customer.getId());
-                                    Log.d("userrrrr", "onDataChange: user "+ userModel.getId());
 
                                     if (customer.getId().equals(userModel.getId())){
                                         listOrders.add(order);

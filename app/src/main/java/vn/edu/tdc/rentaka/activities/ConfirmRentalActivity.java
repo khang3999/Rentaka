@@ -398,8 +398,9 @@ public class ConfirmRentalActivity extends AppCompatActivity {
                                         Status s = snap.getValue(Status.class);
                                         if (s.getId()==0) {
                                             customerStatus = s;
+                                            break;
                                         }
-                                        break;
+
                                     }
                                     String ownerId = owner.getId();
                                     String customerId = author.getId();

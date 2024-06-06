@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -16,16 +17,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:elevation="@dimen/_8dp">
 
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/topAppBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:title="Xác nhận cho xe"
+                    app:titleCentered="true"/>
+            </com.google.android.material.appbar.AppBarLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_outline">
 
                 <ImageView
-                    android:id="@+id/recipient_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/image_car"
+                    android:layout_width="@dimen/_100dp"
+                    android:layout_height="@dimen/_100dp"
+                    android:scaleType="fitXY"
                     android:layout_marginStart="@dimen/margin_element_start"
                     android:background="@drawable/round_outline"
                     android:src="@drawable/ic_launcher_background"
@@ -36,73 +50,74 @@
                 <TextView
                     android:id="@+id/car_model_textview"
                     style="@style/TitleTextStyle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_car_model"
                     android:text="@string/car_model"
-                    app:layout_constraintBottom_toTopOf="@+id/car_id_textview"
-                    app:layout_constraintStart_toEndOf="@+id/recipient_img"
+                    app:layout_constraintBottom_toTopOf="@+id/car_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_car"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.5" />
 
                 <TextView
-                    android:id="@+id/car_id_textview"
+                    android:id="@+id/car_color"
                     style="@style/SmallTextGreyStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/car_id"
-                    app:layout_constraintBottom_toTopOf="@+id/rating_trip"
+                    android:text="Mau sac"
+                    app:layout_constraintBottom_toTopOf="@+id/rate_number_textview"
                     app:layout_constraintStart_toStartOf="@+id/car_model_textview"
                     app:layout_constraintTop_toBottomOf="@+id/car_model_textview"
                     app:layout_constraintVertical_bias="0.5" />
 
-                <LinearLayout
-                    android:id="@+id/rating_trip"
-                    android:layout_width="0dp"
+                <ImageView
+                    android:id="@+id/rate_img"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="@dimen/_20dp"
-                    android:layout_marginBottom="@dimen/_20dp"
+                    android:layout_marginStart="@dimen/margin_star"
+                    android:backgroundTint="@color/green"
+                    android:src="@mipmap/ic_star"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/recipient_img">
+                    app:layout_constraintStart_toEndOf="@+id/image_car"
+                    app:layout_constraintTop_toBottomOf="@+id/car_color"
+                    app:layout_constraintVertical_bias="0.5" />
 
-                    <ImageView
-                        android:id="@+id/icon_star"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:src="@drawable/star_24" />
+                <ImageView
+                    android:id="@+id/trip_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_element_start"
+                    android:backgroundTint="@color/green"
+                    android:src="@drawable/seat_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/rate_number_textview"
+                    app:layout_constraintTop_toBottomOf="@+id/car_color"
+                    app:layout_constraintVertical_bias="0.5" />
 
-                    <TextView
-                        android:id="@+id/rating"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="@dimen/_20dp"
-                        android:layout_weight="2"
-                        android:gravity="center"
-                        android:text="5.0"
-                        android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/rate_number_textview"
+                    style="@style/SmallTextGreyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_star_end"
+                    android:text="@string/rating_number"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/rate_img"
+                    app:layout_constraintTop_toBottomOf="@+id/car_color"
+                    app:layout_constraintVertical_bias="0.5" />
 
-                    <ImageView
-                        android:id="@+id/icon_trip"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:gravity="center"
-                        android:src="@drawable/luggage_24" />
-
-                    <TextView
-                        android:id="@+id/trip"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="5"
-                        android:gravity="center_vertical"
-                        android:text="7 chuyen"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/seat_number"
+                    style="@style/SmallTextGreyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_star_end"
+                    android:text="@string/trip_total"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/trip_img"
+                    app:layout_constraintTop_toBottomOf="@+id/car_color"
+                    app:layout_constraintVertical_bias="0.5" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -116,55 +131,45 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_element_start"
-                    android:layout_marginTop="@dimen/margin_element_start"
-                    android:text="@string/rental_information_title"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="Thông tin chi tiết"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/calendar_left_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_calendar_img"
-                    android:src="@mipmap/ic_calendar"
-                    app:layout_constraintEnd_toStartOf="@+id/date_received_title_textview"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rental_information_title_textview" />
 
                 <ImageView
-                    android:id="@+id/calendar_right_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_calendar_img_2"
-                    android:src="@mipmap/ic_calendar"
+                    android:id="@+id/button_choose_date"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginHorizontal="@dimen/_20dp"
+                    android:src="@drawable/ic_calendar_24"
+                    app:layout_constraintBottom_toBottomOf="@+id/date_returned_title_textview"
                     app:layout_constraintEnd_toStartOf="@+id/date_returned_title_textview"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/guideline5"
-                    app:layout_constraintTop_toTopOf="parent" />
-
+                    app:layout_constraintStart_toEndOf="@+id/date_received_title_textview"
+                    app:layout_constraintTop_toTopOf="@+id/date_returned_title_textview"
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <ImageView
                     android:id="@+id/location_img"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_element_start"
-                    android:layout_marginTop="@dimen/margin_location_img"
-                    android:src="@mipmap/ic_location"
+                    android:layout_marginStart="@dimen/_20dp"
+                    android:src="@drawable/location_24"
+                    app:layout_constraintBottom_toBottomOf="@+id/location_title_textview"
                     app:layout_constraintEnd_toStartOf="@+id/location_title_textview"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/date_received_textview" />
+                    app:layout_constraintTop_toTopOf="@+id/location_title_textview" />
 
                 <TextView
                     android:id="@+id/date_received_title_textview"
                     style="@style/SmallTextGreyStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_data_title"
+                    android:layout_marginTop="10dp"
                     android:text="@string/date_received_title"
                     app:layout_constraintEnd_toStartOf="@+id/guideline5"
-                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rental_information_title_textview" />
 
@@ -173,8 +178,8 @@
                     style="@style/SmallTextGreyStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_star_end"
-                    android:layout_marginTop="@dimen/margin_location_title"
+                    android:layout_marginEnd="@dimen/_20dp"
+                    android:layout_marginTop="@dimen/_10dp"
                     android:text="@string/location_title"
                     app:layout_constraintEnd_toStartOf="@+id/guideline5"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -186,29 +191,33 @@
                     style="@style/SmallTextGreyStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_date_returned_title"
                     android:text="@string/date_returned_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/date_received_title_textview"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="@+id/guideline5"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@+id/date_received_title_textview"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
                     android:id="@+id/date_returned_textview"
                     style="@style/NormalTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/date_returned"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="@string/hint_default_choose_date"
+                    app:layout_constraintBottom_toBottomOf="@+id/date_received_textview"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/guideline5"
-                    app:layout_constraintTop_toBottomOf="@+id/calendar_right_img" />
+                    app:layout_constraintTop_toTopOf="@+id/date_received_textview" />
 
                 <TextView
                     android:id="@+id/date_received_textview"
                     style="@style/NormalTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/date_received"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="@string/hint_default_choose_date"
                     app:layout_constraintEnd_toStartOf="@+id/guideline5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/date_received_title_textview" />
@@ -218,10 +227,61 @@
                     style="@style/NormalTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="@dimen/_10dp"
                     android:text="@string/location"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/location_title_textview" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="10dp"
+                    android:layout_marginVertical="@dimen/_10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline5"
+                    app:layout_constraintTop_toBottomOf="@+id/date_returned_textview">
+                    <!--                    <View-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="1dp"-->
+                    <!--                        android:background="@color/gray_line" />-->
+
+                    <TextView
+                        android:id="@+id/title_require_driver"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center_horizontal"
+                        android:paddingVertical="5dp"
+                        android:text="Yêu cầu tài xế "
+                        android:textStyle="bold" />
+
+                    <RadioGroup
+                        android:id="@+id/radGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radNoRequireDriver"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="Không" />
+
+                        <RadioButton
+                            android:id="@+id/radRequireDriver"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Có" />
+                    </RadioGroup>
+                </LinearLayout>
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline5"
@@ -236,7 +296,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Customer" />
+                android:text="Khách hàng" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -247,8 +307,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_100dp"
+                    android:layout_height="@dimen/_100dp"
                     android:layout_marginStart="@dimen/margin_element_start"
                     android:layout_marginTop="@dimen/margin_element_start"
                     android:src="@drawable/ic_launcher_background"
@@ -259,7 +319,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/owner_name_textview"
+                    android:id="@+id/customer_name"
                     style="@style/TitleTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -351,7 +411,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_element_start"
                 android:layout_marginTop="@dimen/margin_element_start"
-                android:text="Revenue" />
+                android:text="Doanh thu" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -375,7 +435,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_element_start"
                         android:layout_marginTop="@dimen/margin_element_start"
-                        android:text="Gia tri don hang"
+                        android:text="Tổng tiền thanh toán"
                         android:textStyle="bold" />
 
                     <TextView
@@ -395,17 +455,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="Tong tien nhan duoc 80%"
+                        android:text="Tong tien nhan duoc"
                         android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/method_received1_title_textview"
-                        style="@style/NormalTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginTop="10dp"
-                        android:text=" - Nhan qua app"
-                        />
+
                     <TextView
                         android:id="@+id/method_received2_title_textview"
                         style="@style/NormalTextStyle"
@@ -413,7 +465,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
                         android:layout_marginTop="10dp"
-                        android:text=" - Nhan khi giao xe"
+                        android:text=" - Nhan khi giao xe 80%"
                         />
 
                 </LinearLayout>
@@ -462,15 +514,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/green"
                         android:layout_gravity="right"/>
-                    <TextView
-                        android:id="@+id/method_received1_number"
-                        style="@style/NormalTextStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:text="10,000"
-                        android:layout_gravity="right"/>
+
                     <TextView
                         android:id="@+id/method_received2_number"
                         style="@style/NormalTextStyle"
@@ -478,7 +522,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:text="70,000"
+                        android:text="80,000"
                         android:layout_gravity="right"/>
 
 
@@ -559,7 +603,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_element_start"
                     android:layout_marginTop="@dimen/margin_element_start"
-                    android:text="@string/mortgaged_property_title"
+                    android:text="@string/mortgage_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/passport_CCCD_title_textview" />
 
@@ -576,31 +620,40 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
             <LinearLayout
+                android:id="@+id/group_action"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:layout_marginVertical="@dimen/_20dp">
+                android:layout_marginTop="@dimen/_20dp">
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/accept_button"
-                    style="@style/CustomConfirmButtonStyle"
+                    android:backgroundTint="@color/green"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Accept"
+                    android:layout_height="wrap_content"
+                    android:text="Chấp nhận"
                     android:layout_marginEnd="@dimen/_20dp"
                     android:layout_gravity="bottom|center_horizontal"
-                    android:layout_marginBottom="30dp"
+                    android:layout_marginBottom="5dp"
                     />
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/deny_button"
-                    style="@style/CustomConfirmButtonStyle"
+                    android:backgroundTint="@color/quantum_googred"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Deny"
+                    android:layout_height="wrap_content"
+                    android:text="Từ chối"
                     android:layout_gravity="bottom|center_horizontal"
-                    android:layout_marginBottom="30dp"
+                    android:layout_marginBottom="5dp"
                     />
             </LinearLayout>
+            <Button
+                android:id="@+id/actionDone"
+                android:visibility="invisible"
+                android:backgroundTint="@color/quantum_googred"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Đã chuyển trạng thái"
+                android:layout_marginBottom="@dimen/_50dp"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
