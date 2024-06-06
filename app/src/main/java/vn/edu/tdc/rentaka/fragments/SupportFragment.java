@@ -1,10 +1,12 @@
 package vn.edu.tdc.rentaka.fragments;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,71 +21,95 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+
 import java.util.ArrayList;
 
 import vn.edu.tdc.rentaka.APIs.RealTimeAPI;
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.adapters.InformationAdapter;
 import vn.edu.tdc.rentaka.adapters.InstructionAdapter;
+import vn.edu.tdc.rentaka.databinding.BottomSheetDiaglogLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.SupportLayoutBinding;
 import vn.edu.tdc.rentaka.models.Information;
 import vn.edu.tdc.rentaka.models.Instruction;
 
-public class SupportFragment extends AbstractFragment{
+public class SupportFragment extends AbstractFragment {
     private SupportLayoutBinding binding;
     private static final int REQUEST_CALL_PERMISSION = 1;
-
+    private BottomSheetDialog bottomSheetDialog;
+    private BottomSheetDiaglogLayoutBinding bottomSheetDiaglogLayoutBinding;
     private RealTimeAPI realTimeAPI = new RealTimeAPI();
+    private Activity activity;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = SupportLayoutBinding.inflate(getLayoutInflater());
-        View fragment = null;
-        fragment = binding.getRoot();
+        View fragment = binding.getRoot();
 
-        // Add sample data and set adapter for Instruction RecyclerView
+        // Get Activity of this fragment
+        activity = getActivity();
+
+        // Initialize BottomSheetDialog layout binding
+        bottomSheetDiaglogLayoutBinding = BottomSheetDiaglogLayoutBinding.inflate(inflater);
+
+        setupInstructionRecyclerView();
+        setupInformationRecyclerView();
+        setupButtons();
+
+        return fragment;
+    }
+
+    private void setupInstructionRecyclerView() {
         ArrayList<Instruction> instructions = addSampleInstructionData();
-        LinearLayoutManager layoutManagerInstruction = new LinearLayoutManager(this.getContext());
-        layoutManagerInstruction.setOrientation(RecyclerView.HORIZONTAL);
-        layoutManagerInstruction.setReverseLayout(false);
+        LinearLayoutManager layoutManagerInstruction = new LinearLayoutManager(this.getContext(), RecyclerView.HORIZONTAL, false);
         attachSnapHelper(binding.instructionRecyclerView);
+
         // Set adapter for instruction RecyclerView
-        InstructionAdapter adapter = new InstructionAdapter(this.getContext(),instructions);
+        InstructionAdapter adapter = new InstructionAdapter(this.getContext(), instructions);
+
+        // Set click listener for instruction RecyclerView
+        adapter.setOnItemClickListener(holder -> {
+            Log.d("SupportFragment", "onItemClick: Item clicked");
+            showBottomSheetDialog(holder.getAdapterPosition());
+        });
+
         binding.instructionRecyclerView.setLayoutManager(layoutManagerInstruction);
         binding.instructionRecyclerView.setAdapter(adapter);
+    }
 
-        //Add sample data and set adapter for information RecyclerView
-        ArrayList<Information> informations = addSampleInfomationData();
-        GridLayoutManager layoutManagerInformation = new GridLayoutManager(this.getContext(),2);
-        layoutManagerInformation.setOrientation(RecyclerView.VERTICAL);
+    private void showBottomSheetDialog(int position) {
+        if (bottomSheetDialog == null) {
+            bottomSheetDialog = new BottomSheetDialog(activity, R.style.BottomSheetDialogTheme);
+        }
+
+        // Remove parent if already attached
+        ViewGroup parentView = (ViewGroup) bottomSheetDiaglogLayoutBinding.getRoot().getParent();
+        if (parentView != null) {
+            parentView.removeView(bottomSheetDiaglogLayoutBinding.getRoot());
+        }
+
+        Instruction instruction = addSampleInstructionData().get(position); // Retrieve instruction data
+        bottomSheetDiaglogLayoutBinding.title.setText(instruction.getTitle());
+        bottomSheetDiaglogLayoutBinding.image.setImageResource(instruction.getContent());
+        bottomSheetDialog.setContentView(bottomSheetDiaglogLayoutBinding.getRoot());
+        bottomSheetDialog.show();
+    }
+
+    private void setupInformationRecyclerView() {
+        ArrayList<Information> informations = addSampleInformationData();
+        GridLayoutManager layoutManagerInformation = new GridLayoutManager(this.getContext(), 2);
 
         // Set adapter for information RecyclerView
-        InformationAdapter informationAdapter = new InformationAdapter(this.getContext(),informations);
+        InformationAdapter informationAdapter = new InformationAdapter(this.getContext(), informations);
         binding.informationRecyclerView.setLayoutManager(layoutManagerInformation);
         binding.informationRecyclerView.setAdapter(informationAdapter);
+    }
 
-
-
-
-        // Set onClickListener for call and chat buttons
-        Button callButton = binding.callButton;
-        Button chatButton = binding.messageButton;
-
-        callButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    makePhoneCall();
-            }
-        });
-
-        chatButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openChatBox();
-            }
-        });
-        return fragment;
+    private void setupButtons() {
+        binding.callButton.setOnClickListener(view -> makePhoneCall());
+        binding.messageButton.setOnClickListener(view -> openChatBox());
     }
 
     private ArrayList<Instruction> addSampleInstructionData() {
@@ -94,19 +120,19 @@ public class SupportFragment extends AbstractFragment{
         instructions.add(new Instruction("Đặt xe mọi lúc", R.drawable.instructions_4));
         return instructions;
     }
-    private ArrayList<Information> addSampleInfomationData() {
-        ArrayList<Information> Information = new ArrayList<>();
-        Information.add(new Information("Thông tin công ty", R.drawable.company_100));
-        Information.add(new Information("Chính sách và quy định", R.drawable.pass_100));
-        Information.add(new Information("Đánh giá trên Google Play", R.drawable.playstore_100));
-        Information.add(new Information("Fanpage của chúng tôi", R.drawable.facebook_100));
-        Information.add(new Information("Hỏi và trả lời", R.drawable.question_100));
-        Information.add(new Information("Quy chế hoạt động", R.drawable.clipboard_100));
-        Information.add(new Information("Bảo mật thông tin", R.drawable.lock_100));
-        Information.add(new Information("Giải quyết tranh chấp", R.drawable.check_100));
-        return Information;
-    }
 
+    private ArrayList<Information> addSampleInformationData() {
+        ArrayList<Information> informations = new ArrayList<>();
+        informations.add(new Information("Thông tin công ty", R.drawable.company_100));
+        informations.add(new Information("Chính sách và quy định", R.drawable.pass_100));
+        informations.add(new Information("Đánh giá trên Google Play", R.drawable.playstore_100));
+        informations.add(new Information("Fanpage của chúng tôi", R.drawable.facebook_100));
+        informations.add(new Information("Hỏi và trả lời", R.drawable.question_100));
+        informations.add(new Information("Quy chế hoạt động", R.drawable.clipboard_100));
+        informations.add(new Information("Bảo mật thông tin", R.drawable.lock_100));
+        informations.add(new Information("Giải quyết tranh chấp", R.drawable.check_100));
+        return informations;
+    }
 
     private void makePhoneCall() {
         String phoneNumber = "tel:1234567890"; // Replace with your desired phone number
@@ -133,6 +159,7 @@ public class SupportFragment extends AbstractFragment{
             }
         }
     }
+
     private void openChatBox() {
         String phoneNumber = "1234567890"; // Replace with your desired phone number
         Uri smsUri = Uri.parse("smsto:" + phoneNumber);
@@ -141,15 +168,12 @@ public class SupportFragment extends AbstractFragment{
         smsIntent.putExtra("sms_body", "Hello, I need support regarding...");
         startActivity(smsIntent);
     }
+
     public void attachSnapHelper(RecyclerView recyclerView) {
-        // Kiểm tra nếu đã gán rồi thì không làm nữa
+        // Attach SnapHelper if not already attached
         if (recyclerView.getOnFlingListener() == null) {
-            // Nếu chưa, thì gắn SnapHelper
             LinearSnapHelper snapHelper = new LinearSnapHelper();
             snapHelper.attachToRecyclerView(recyclerView);
         }
-
     }
-
-
 }

@@ -3,6 +3,7 @@ package vn.edu.tdc.rentaka.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -439,4 +440,6 @@ public class ConfirmChooseDateActivity extends AppCompatActivity {
             list.add(t);
         }
     }
+
+
 }
