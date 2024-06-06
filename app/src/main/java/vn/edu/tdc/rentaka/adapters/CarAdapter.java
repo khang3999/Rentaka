@@ -208,7 +208,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
             NumberFormat numberFormat = NumberFormat.getNumberInstance(new Locale("vi", "VN"));
             binding.textViewTypeGearBox.setText(car.getTypeGearbox());
             binding.textViewFuel.setText(car.getFuel());
-            binding.nameCar.setText(car.getModel());
+            binding.nameCar.setText(car.getBrand()+" "+car.getModel());
             binding.addressCar.setText(car.getCity().getName());
             binding.textViewPriceDaily.setText(numberFormat.format(car.getPriceDaily()));
 
