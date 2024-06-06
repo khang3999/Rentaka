@@ -155,82 +155,81 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == storageAPI.PICK_IMAGE_REQUEST
-                && resultCode == RESULT_OK
-                && data != null
-                && data.getData() != null) {
-
-            // Get the Uri of data
-            storageAPI.filePath = data.getData();
-            try {
-
-                // Setting image on image view using Bitmap
-                Bitmap bitmap = MediaStore
-                        .Images
-                        .Media
-                        .getBitmap(
-                                getContentResolver(),
-                                storageAPI.filePath);
-                ImageView imageView = (ImageView) findViewById(R.id.recipient_img);
-                imageView.setImageBitmap(bitmap);
-            }
-
-            catch (IOException e) {
-                // Log the exception
-                e.printStackTrace();
-            }
-        }
-
-    }
-
-    private boolean checkPermission(String permission) {
-        int check = checkSelfPermission(permission);
-        return check == PackageManager.PERMISSION_DENIED ? false : true;
-    }
-
-    //Dang ky receiver
-    private void implementPermission() {
-        smsService = new Intent(this, SMSHandlingService.class);
-        smsReceiver = new SMSReceiver();
-        intentFilter = new IntentFilter(ACTION);
-        registerReceiver(smsReceiver, intentFilter);
-    }
-
-    //Xu ly sau khi nguoi dung cap quyen
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE && permissions.length == grantResults.length) {
-            for (int check : grantResults) {
-                if (check != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-            }
-            implementPermission();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // check required permission
-        if (checkPermission(Manifest.permission.RECEIVE_SMS)) {
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == storageAPI.PICK_IMAGE_REQUEST
+//                && resultCode == RESULT_OK
+//                && data != null
+//                && data.getData() != null) {
+//
+//            // Get the Uri of data
+//            storageAPI.filePath = data.getData();
+//            try {
+//
+//                // Setting image on image view using Bitmap
+//                Bitmap bitmap = MediaStore
+//                        .Images
+//                        .Media
+//                        .getBitmap(
+//                                getContentResolver(),
+//                                storageAPI.filePath);
+//                ImageView imageView = (ImageView) findViewById(R.id.recipient_img);
+//                imageView.setImageBitmap(bitmap);
+//            }
+//
+//            catch (IOException e) {
+//                // Log the exception
+//                e.printStackTrace();
+//            }
+//        }
+//
+//    }
+//
+//    private boolean checkPermission(String permission) {
+//        int check = checkSelfPermission(permission);
+//        return check == PackageManager.PERMISSION_DENIED ? false : true;
+//    }
+//
+//    //Dang ky receiver
+//    private void implementPermission() {
+//        smsService = new Intent(this, SMSHandlingService.class);
+//        smsReceiver = new SMSReceiver();
+//        intentFilter = new IntentFilter(ACTION);
+//        registerReceiver(smsReceiver, intentFilter);
+//    }
+//
+//    //Xu ly sau khi nguoi dung cap quyen
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if (requestCode == REQUEST_CODE && permissions.length == grantResults.length) {
+//            for (int check : grantResults) {
+//                if (check != PackageManager.PERMISSION_GRANTED) {
+//                    return;
+//                }
+//            }
 //            implementPermission();
-        } else {
-            requestPermissions(new String[]{Manifest.permission.RECEIVE_SMS}, REQUEST_CODE);
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-//        startForegroundService(smsService);
-    }
-
-
-
+//        }
+//    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        // check required permission
+//        if (checkPermission(Manifest.permission.RECEIVE_SMS)) {
+////            implementPermission();
+//        } else {
+//            requestPermissions(new String[]{Manifest.permission.RECEIVE_SMS}, REQUEST_CODE);
+//        }
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        if (smsReceiver != null) {
+//            unregisterReceiver(smsReceiver);
+//        }
+//    }
 }
 

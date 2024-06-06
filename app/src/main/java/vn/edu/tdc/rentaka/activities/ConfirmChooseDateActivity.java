@@ -3,6 +3,7 @@ package vn.edu.tdc.rentaka.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -208,9 +209,7 @@ public class ConfirmChooseDateActivity extends AppCompatActivity {
         binding.topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ConfirmChooseDateActivity.this, ConfirmRentalActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
+                finish();
                 // Main vao tu trai, choose date exit ve ben phai
                 overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
             }
@@ -439,4 +438,6 @@ public class ConfirmChooseDateActivity extends AppCompatActivity {
             list.add(t);
         }
     }
+
+
 }

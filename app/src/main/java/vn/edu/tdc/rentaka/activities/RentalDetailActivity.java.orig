@@ -5,6 +5,8 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,10 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.Date;
-import java.util.Locale;
 
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.BottomSheetDiaglogLayoutBinding;
@@ -36,18 +36,17 @@ public class RentalDetailActivity extends AppCompatActivity {
 
     private BottomSheetDiaglogLayoutBinding bottomSheetBinding;
     private Car car;
-    private  String imageUrl;
+    private String imageUrl;
 
     private UserModel owner;
     private Intent intent;
-    private NumberFormat numberFormat = NumberFormat.getNumberInstance(new Locale("vi", "VN"));
     public static final int FROM_CAR_DETAIL = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         rentalBinding = RentalDetailLayoutBinding.inflate(getLayoutInflater());
-        bottomSheetBinding = BottomSheetDiaglogLayoutBinding.inflate(getLayoutInflater(),null,false);
+        bottomSheetBinding = BottomSheetDiaglogLayoutBinding.inflate(getLayoutInflater(), null, false);
 
         setContentView(rentalBinding.getRoot());
 
@@ -89,6 +88,17 @@ public class RentalDetailActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
+        //Catch on click event for the button "Choose rental"
+        rentalBinding.btnRent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RentalDetailActivity.this, ConfirmRentalActivity.class);
+                intent.putExtra("car", car.getId());
+                startActivity(intent);
+                // Main vao tu trai, choose date exit ve ben phai
+                overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+=======
         // Chon thue
         rentalBinding.btnRental.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +107,7 @@ public class RentalDetailActivity extends AppCompatActivity {
                 intent.putExtra("carId", car.getId());
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
+>>>>>>> main
             }
         });
     }
@@ -112,8 +123,12 @@ public class RentalDetailActivity extends AppCompatActivity {
         super.onResume();
         intent = getIntent();
         String carId = intent.getStringExtra("car");
+<<<<<<< HEAD
+        Log.d("tesssss", "carid: " + carId);
+=======
         Log.d("tesssss", "carid: "+carId);
 
+>>>>>>> main
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("cars");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -123,12 +138,21 @@ public class RentalDetailActivity extends AppCompatActivity {
                         car = new Car();
                         car = carSnap.getValue(Car.class);
 
+<<<<<<< HEAD
+                        Log.d("tesssss", "carrental: " + car);
+                        if (car.getId().equals(carId)) {
+                            break;
+                        }
+                    }
+                    if (car.getId().equals(carId)) {
+=======
                         Log.d("tesssss", "carrental: "+car);
                         if ((carId).equals(car.getId())){
                             break;
                         }
                     }
                     if ((carId).equals(car.getId())){
+>>>>>>> main
                         break;
                     }
                 }
@@ -144,11 +168,18 @@ public class RentalDetailActivity extends AppCompatActivity {
                     //Set anh mac dinh
                     rentalBinding.imageCar.setImageResource(R.drawable.car);
                 }
+<<<<<<< HEAD
+                rentalBinding.nameCar.setText(car.getBrand() + " " + car.getModel());
+                rentalBinding.type.setText(car.getTypeGearbox() + "");
+                rentalBinding.seat.setText(car.getSeat() + "");
+                rentalBinding.fuel.setText(car.getFuel() + "");
+=======
                 rentalBinding.nameCar.setText(car.getBrand()+" "+car.getModel());
                 rentalBinding.type.setText(car.getTypeGearbox()+"");
                 rentalBinding.seat.setText(car.getSeat()+"");
                 rentalBinding.fuel.setText(car.getFuel()+"");
-                rentalBinding.salaryDriver.setText("Lương của tài xế: "+numberFormat.format(car.getSalaryDriver())+" / ngày");
+                rentalBinding.salaryDriver.setText("Lương của tài xế: "+car.getSalaryDriver()+" / ngay");
+>>>>>>> main
 
                 DatabaseReference ownerReference = FirebaseDatabase.getInstance().getReference("users");
                 ownerReference.addValueEventListener(new ValueEventListener() {
@@ -163,11 +194,16 @@ public class RentalDetailActivity extends AppCompatActivity {
 
                         }
 
+<<<<<<< HEAD
+                        Log.d("tesssss", "owner: " + owner);
+                        String imageOwnerUrl = owner.getImageUser();
+=======
                         Log.d("tesssss", "owner: "+owner);
                         String imageOwnerUrl = null;
                         if (owner!=null){
                              imageOwnerUrl = owner.getImageUser();
                         }
+>>>>>>> main
                         if (imageOwnerUrl != null && !imageOwnerUrl.isEmpty()) {
                             Glide.with(RentalDetailActivity.this)
                                     .load(imageOwnerUrl)
@@ -186,10 +222,15 @@ public class RentalDetailActivity extends AppCompatActivity {
                     }
                 });
 
-                rentalBinding.description.setText(car.getDescription()+"");
-                rentalBinding.trip.setText(car.getCity().getName()+"");
-                rentalBinding.mortageDescription.setText("Chủ xe yêu cầu thế chấp: "+numberFormat.format(car.getMortgage())+" VND");
-                rentalBinding.priceSale.setText(numberFormat.format(car.getPriceDaily())+"");
+
+<<<<<<< HEAD
+                rentalBinding.mortageDescription.setText(car.getMortgage() + "");
+                rentalBinding.priceSale.setText(car.getPriceDaily() + "");
+=======
+
+                rentalBinding.mortageDescription.setText("Chủ xe yêu cầu thế chấp: "+car.getMortgage()+" VND");
+                rentalBinding.priceSale.setText(car.getPriceDaily()+"");
+>>>>>>> main
             }
 
             @Override

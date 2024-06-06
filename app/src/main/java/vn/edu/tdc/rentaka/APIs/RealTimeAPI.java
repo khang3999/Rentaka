@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,6 +51,51 @@ public class RealTimeAPI {
 
         void onError(Exception e);
     }
+
+    //Method to update status of the bill when the user has paid the bill
+    public void updateBillStatusWhenCustomerPaid(String billId, String carId, String amount) throws Exception {
+        // Assuming mDatabase is your DatabaseReference and carId and billId are the specific IDs for the bill you want to update
+        DatabaseReference billRef = mDatabase.child("bills").child(carId).child(billId);
+
+        // Check if the bill reference exists
+        billRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // Bill exists, proceed to update the status
+                    DatabaseReference statusRef = billRef.child("status");
+                    Status status = new Status(2, "Đã đặt cọc", "Đã được đặt cọc bởi khách thuê xe.");
+                    Map<String, Object> statusMap = new HashMap<>();
+                    statusMap.put("id", status.getId());
+                    statusMap.put("title", status.getTitle());
+                    statusMap.put("description", status.getDescription());
+
+                    statusRef.updateChildren(statusMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("updateBillStatusWhenCustomerPaid", "Status updated successfully.");
+                            } else {
+                                Log.d("updateBillStatusWhenCustomerPaid", "Failed to update status.", task.getException());
+                            }
+                        }
+                    });
+                } else {
+                    try {
+                        throw new Exception("Bill not found.");
+                    } catch (Exception e) {
+                        Log.e("updateBillStatusWhenCustomerPaid", "Exception thrown: ", e);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("updateBillStatusWhenCustomerPaid", "Database error: ", databaseError.toException());
+            }
+        });
+    }
+
 
     // Method to get all City
     public void fetchCities(FetchListener<City> listener) {

@@ -17,8 +17,8 @@
     <string name="location_title">Location</string>
     <string name="location">Hanoi, Vietnam</string>
     <string name="owner_title">Owner</string>
-    <string name="ensure_customer_info">To ensure the security of personal information, Miotto will send the contact details of the car owner after the customer completes the payment on the app</string>
-    <string name="ensure_transact_through_miotto">Transact through Miotto to ensure we provide the best protection in case of unexpected trip cancellations and insurance-related incidents.</string>
+    <string name="ensure_customer_info">To ensure the security of personal information, Rentaka will send the contact details of the car owner after the customer completes the payment on the app</string>
+    <string name="ensure_transact_through_miotto">Transact through Rentaka to ensure we provide the best protection in case of unexpected trip cancellations and insurance-related incidents.</string>
     <string name="trip_total">7 trip</string>
     <string name="rating_number">5.0</string>
     <string name="rental_price_title">Giá thuê 1 ngày</string>
@@ -232,6 +232,7 @@
     <string name="description_become_partner">Hơn 5.000 chủ xe đang cho thuê hiệu quả trên Rentaka. Đăng ký trở thành đối tác của chúng tôi ngay hôm nay để gia tăng thu nhập hằng tháng.</string>
     <string name="recommend_friends">Giới thiệu cho mọi người để cùng nhận nhiều ưu đãi hấp dẫn từ Rentaka</string>
     <string name="title_recommend_friend">Giới thiệu Rentaka đến bạn bè</string>
+    <string name="mortgage_title">Thế chấp</string>
 
 
 </resources>
