@@ -22,7 +22,7 @@
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="Địa điểm "
+            app:title="@string/a_i_m"
             app:titleCentered="true"/>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -43,7 +43,7 @@
         android:layout_height="0dp"
         android:layout_marginVertical="@dimen/_10dp"
         android:gravity="center_vertical"
-        android:text="Vi tri hien tai cua toi"
+        android:text="@string/v_tr_hi_n_t_i_c_a_t_i"
         android:textSize="@dimen/_20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline17"
@@ -77,7 +77,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@android:color/transparent"
-            android:hint="Nhap ten thanh pho"
+            android:hint="@string/nh_p_t_n_th_nh_ph"
             android:textSize="@dimen/_18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline14"

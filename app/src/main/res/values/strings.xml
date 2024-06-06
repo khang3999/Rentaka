@@ -226,6 +226,12 @@
     <string name="ten_ngan_hang">Tên ngân hàng</string>
     <string name="nh_p_t_n_ng_n_h_ng">Nhập tên ngân hàng</string>
     <string name="h_ng_xe">Hãng xe</string>
+    <string name="v_tr_hi_n_t_i_c_a_t_i">Vị trí hiện tại của tôi</string>
+    <string name="nh_p_t_n_th_nh_ph">Nhập tên thành phố</string>
+    <string name="a_i_m">Địa điểm</string>
+    <string name="description_become_partner">Hơn 5.000 chủ xe đang cho thuê hiệu quả trên Rentaka. Đăng ký trở thành đối tác của chúng tôi ngay hôm nay để gia tăng thu nhập hằng tháng.</string>
+    <string name="recommend_friends">Giới thiệu cho mọi người để cùng nhận nhiều ưu đãi hấp dẫn từ Rentaka</string>
+    <string name="title_recommend_friend">Giới thiệu Rentaka đến bạn bè</string>
 
 
 </resources>
