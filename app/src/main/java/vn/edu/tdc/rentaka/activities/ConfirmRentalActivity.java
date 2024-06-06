@@ -242,6 +242,9 @@ public class ConfirmRentalActivity extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 for (DataSnapshot billSnap : snapshot.getChildren()) {
                                     Order bill = billSnap.getValue(Order.class);
+                                    if (bill.getStatus().getId()==4){
+                                        continue;
+                                    }
                                     LocalDate startDate = bill.getDateFrom().toLocalDate();
                                     LocalDate endDate = bill.getDateTo().toLocalDate();
                                     LocalDate currentDate = startDate;
@@ -302,8 +305,8 @@ public class ConfirmRentalActivity extends AppCompatActivity {
 
             // Danh sách ArrayList<LocalDate> danh sach block da co listDateBlock<LocalDate>
 
-            binding.dateReceivedTextview.setText(timeStart + ", " +startDate);
-            binding.dateReturnedTextview.setText(timeEnd +", "+endDate);
+            binding.dateReceivedTextview.setText(timeStart + "" +startDate);
+            binding.dateReturnedTextview.setText(timeEnd +""+endDate);
             binding.rentalTotalDateTextview.setText(totalDate+"");
 
             binding.mortgagedPropertyTextview.setText("Chủ xe yêu cầu thế chấp: "+numberFormat.format(car.getMortgage())+" VND");

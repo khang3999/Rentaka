@@ -176,6 +176,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
 
     public CarAdapter(Context context, ArrayList<Car> listCar) {
         this.context = context;
+
         this.listCar = listCar;
         this.db = FirebaseDatabase.getInstance().getReference();
     }
@@ -192,13 +193,10 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
         CardCarItemBinding binding = (CardCarItemBinding) holder.getBinding();
 
         if (listCar.size() != 0) {
-
+            Log.d("tessss", "onBindViewHolder: "+listCar.size());
             Car car = listCar.get(position);
-            Log.d("tessss", "onBindViewHolder: "+car);
-
             // Chuyển chuỗi thành file hình
             String imageUrl = car.getImageCarUrl();
-            Log.d("image", "onBindViewHolder: image"+imageUrl);
             if (imageUrl != null && !imageUrl.isEmpty()) {
                 Glide.with(context)
                         .load(imageUrl)
@@ -216,7 +214,6 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
 
             //Update moi lan load
             updateFavoriteIcon(binding, car);
-            Log.d("tessss", "tren: carid " + car.getId());
 
             // Set tag cho tung item
             holder.itemView.setTag(binding);
@@ -227,7 +224,6 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
                 public void onClick(View v) {
                     //Nhan heart sp
                     toggleFavorite(car, holder.getBinding().getRoot());
-                    Log.d("tessss", "tren: carid " + car.getId());
 
                 }
             });

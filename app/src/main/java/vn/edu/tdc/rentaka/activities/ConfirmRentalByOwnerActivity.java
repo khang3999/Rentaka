@@ -196,21 +196,21 @@ public class ConfirmRentalByOwnerActivity extends AppCompatActivity {
                                                         }
                                                         Log.d("status", "onDataChange: carStatus" + carStatus);
 
-                                                        //Doi trang thai cho xe
-                                                        DatabaseReference carRef = FirebaseDatabase.getInstance().getReference("cars").child(order.getOwner().getId()).child(order.getCar().getId());
-                                                        Map<String, Object> updates = new HashMap<>();
-                                                        updates.put("statusId", carStatus);
-                                                        carRef.updateChildren(updates)
-                                                                .addOnSuccessListener(aVoid -> {
-                                                                    // Khi cập nhật thành công, hiển thị thông báo thành công và đóng bottom sheet
-                                                                    Toast.makeText(ConfirmRentalByOwnerActivity.this, "Cap nhat thông tin status car thành công", Toast.LENGTH_SHORT).show();
-
-
-                                                                })
-                                                                .addOnFailureListener(e -> {
-                                                                    // Nếu cập nhật thất bại, hiển thị thông báo lỗi
-                                                                    Toast.makeText(ConfirmRentalByOwnerActivity.this, "Cap nhat thông tin status car thất bại", Toast.LENGTH_SHORT).show();
-                                                                });
+//                                                        //Doi trang thai cho xe
+//                                                        DatabaseReference carRef = FirebaseDatabase.getInstance().getReference("cars").child(order.getOwner().getId()).child(order.getCar().getId());
+//                                                        Map<String, Object> updates = new HashMap<>();
+//                                                        updates.put("statusId", carStatus);
+//                                                        carRef.updateChildren(updates)
+//                                                                .addOnSuccessListener(aVoid -> {
+//                                                                    // Khi cập nhật thành công, hiển thị thông báo thành công và đóng bottom sheet
+//                                                                    Toast.makeText(ConfirmRentalByOwnerActivity.this, "Cap nhat thông tin status car thành công", Toast.LENGTH_SHORT).show();
+//
+//
+//                                                                })
+//                                                                .addOnFailureListener(e -> {
+//                                                                    // Nếu cập nhật thất bại, hiển thị thông báo lỗi
+//                                                                    Toast.makeText(ConfirmRentalByOwnerActivity.this, "Cap nhat thông tin status car thất bại", Toast.LENGTH_SHORT).show();
+//                                                                });
 
                                                         //3. Thong bao den nguoi thue va chu xe
                                                         //Lay ra trang thai
@@ -244,7 +244,7 @@ public class ConfirmRentalByOwnerActivity extends AppCompatActivity {
                                                                         }
                                                                         Log.d("status", "onDataChange: cusStatus" + customerStatus);
 
-                                                                        String ownerId = owner.getId();
+                                                                        String ownerId = order.getOwner().getId();
                                                                         String customerId = order.getCustomer().getId();
                                                                         Log.d("useerrr", "onDataChange: " + ownerId.toString());
                                                                         Log.d("useerrr", "onDataChange: " + customerId);
@@ -268,7 +268,9 @@ public class ConfirmRentalByOwnerActivity extends AppCompatActivity {
                                                                         notiCustomer.setDateCreated(LocalDate.now().toString());
                                                                         notiCusId.setValue(notiCustomer);
 
-                                                                        finish();
+                                                                        Intent intent1 = new Intent(ConfirmRentalByOwnerActivity.this,MainActivity.class);
+                                                                        intent1.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                                                        startActivity(intent1);
                                                                     }
 
                                                                     @Override
