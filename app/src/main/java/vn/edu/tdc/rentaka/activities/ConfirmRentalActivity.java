@@ -425,6 +425,9 @@ public class ConfirmRentalActivity extends AppCompatActivity {
                                     notiCustomer.setStatus(customerStatus);
                                     notiCustomer.setDateCreated(LocalDate.now().toString());
                                     notiCusId.setValue(notiCustomer);
+                                    Intent intent1 = new Intent(ConfirmRentalActivity.this,MainActivity.class);
+                                    intent1.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                    startActivity(intent1);
                                 }
 
                                 @Override

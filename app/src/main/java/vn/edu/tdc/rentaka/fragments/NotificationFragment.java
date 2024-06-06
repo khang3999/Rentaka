@@ -26,6 +26,7 @@ import java.util.Collections;
 
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.activities.ConfirmRentalByOwnerActivity;
+import vn.edu.tdc.rentaka.activities.PaymentActivity;
 import vn.edu.tdc.rentaka.activities.RequiredRentalActivity;
 import vn.edu.tdc.rentaka.adapters.MyCarAdapter;
 import vn.edu.tdc.rentaka.adapters.NotificationAdapter;
@@ -72,20 +73,30 @@ public class NotificationFragment extends AbstractFragment {
                             Notification notification = new Notification();
                             notification = listNotification.get(holder.getAdapterPosition());
                             //Vua gui yeu cau
-                            if (notification.getStatus().getId() == 0){
-                                if (user.getUid().equals(notification.getOrder().getCustomer().getId())){
-                                    Intent intent = new Intent(activity, RequiredRentalActivity.class);
-                                    intent.putExtra("notiId",notification.getId());
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                                    activity.startActivity(intent);
-                                } else if (user.getUid().equals(notification.getOrder().getOwner().getId())) {
-                                    Intent intent = new Intent(activity, ConfirmRentalByOwnerActivity.class);
-                                    intent.putExtra("notiId",notification.getId());
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                                    activity.startActivity(intent);
-                                }
-
+                            switch (notification.getStatus().getId()){
+                                case 0:
+                                    if (user.getUid().equals(notification.getOrder().getCustomer().getId())){
+                                        Intent intent = new Intent(activity, RequiredRentalActivity.class);
+                                        intent.putExtra("notiId",notification.getId());
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                        activity.startActivity(intent);
+                                    } else if (user.getUid().equals(notification.getOrder().getOwner().getId())) {
+                                        Intent intent = new Intent(activity, ConfirmRentalByOwnerActivity.class);
+                                        intent.putExtra("notiId",notification.getId());
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                        activity.startActivity(intent);
+                                    }
+                                    break;
+                                case 1:
+                                    if (user.getUid().equals(notification.getOrder().getCustomer().getId())){
+                                        Intent intent = new Intent(activity, PaymentActivity.class);
+                                        intent.putExtra("notiId",notification.getId());
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                        activity.startActivity(intent);
+                                    }
+                                    break;
                             }
+
                         }
                     });
                 }

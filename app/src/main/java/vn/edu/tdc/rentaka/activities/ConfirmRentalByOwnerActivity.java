@@ -135,6 +135,8 @@ public class ConfirmRentalByOwnerActivity extends AppCompatActivity {
                                 billStatusOnFirebase = billOnFirebase.getStatus();
 
                             if (notification.getStatus().getId() == billStatusOnFirebase.getId()) {
+
+//                                ********* Chap nhan *********
                                 //Bat su kien khi nhan vao 2 button
                                 //Accept
                                 binding.acceptButton.setOnClickListener(new View.OnClickListener() {
@@ -300,6 +302,8 @@ public class ConfirmRentalByOwnerActivity extends AppCompatActivity {
 
                                     }
                                 });
+
+//                                ********* HUY *****
                                 binding.denyButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
@@ -362,7 +366,7 @@ public class ConfirmRentalByOwnerActivity extends AppCompatActivity {
                                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                                 for (DataSnapshot snap : snapshot.getChildren()) {
                                                                     Status s = snap.getValue(Status.class);
-                                                                    if (s.getId() == 1) {
+                                                                    if (s.getId() == 4) {
                                                                         customerStatus = s;
                                                                         break;
                                                                     }
@@ -425,6 +429,9 @@ public class ConfirmRentalByOwnerActivity extends AppCompatActivity {
                             else {
                                 binding.groupAction.setVisibility(View.INVISIBLE);
                                 binding.actionDone.setVisibility(View.VISIBLE);
+                                if (billStatusOnFirebase.getId()==4){
+                                    binding.topAppBar.setTitle("Chuyến xe đã huỷ");
+                                }
                             }
                         }
 
