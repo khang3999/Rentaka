@@ -184,11 +184,11 @@ public class ConfirmRentalActivity extends AppCompatActivity {
 
                             int finalAmount = totalDate * priceDaily;
 
-                            binding.finalAmountTextview.setText(finalAmount+"");
+                            binding.finalAmountTextview.setText(numberFormat.format(finalAmount)+"");
                             int commission = (int) (finalAmount * 0.2);
 
-                            binding.depositThroughAppTextview.setText(commission+"");
-                            binding.payUponRetrievingCarTextview.setText(finalAmount-commission+"");
+                            binding.depositThroughAppTextview.setText(numberFormat.format(commission)+"");
+                            binding.payUponRetrievingCarTextview.setText(numberFormat.format(finalAmount-commission)+"");
                             binding.rentalPriceTextview.setText(numberFormat.format(priceDaily)+" / Ngày");
                         }
                     });
@@ -302,21 +302,20 @@ public class ConfirmRentalActivity extends AppCompatActivity {
 
             // Danh sách ArrayList<LocalDate> danh sach block da co listDateBlock<LocalDate>
 
-            binding.dateReceivedTextview.setText(timeStart + ", " +startDate);
-            binding.dateReturnedTextview.setText(timeEnd +", "+endDate);
+            binding.dateReceivedTextview.setText(timeStart + startDate+"");
+            binding.dateReturnedTextview.setText(timeEnd +endDate+"");
             binding.rentalTotalDateTextview.setText(totalDate+"");
 
-            binding.mortgagedPropertyTextview.setText("Chủ xe yêu cầu thế chấp: "+car.getMortgage()+" VND");
+            binding.mortgagedPropertyTextview.setText("Chủ xe yêu cầu thế chấp: "+numberFormat.format(car.getMortgage())+" VND");
             int finalAmount = totalDate * priceDaily;
             Log.d("cal", "onResume: "+priceDaily);
             Log.d("cal", "final: "+finalAmount);
 
-            binding.finalAmountTextview.setText(finalAmount+"");
+            binding.finalAmountTextview.setText(numberFormat.format(finalAmount)+"");
             int commission = (int) (finalAmount * 0.2);
             Log.d("cal", "commis: "+commission);
-
-            binding.depositThroughAppTextview.setText(commission+"");
-            binding.payUponRetrievingCarTextview.setText(finalAmount-commission+"");
+            binding.depositThroughAppTextview.setText(numberFormat.format(commission)+"");
+            binding.payUponRetrievingCarTextview.setText(numberFormat.format(finalAmount-commission)+"");
         }
 
         // Set create bill
