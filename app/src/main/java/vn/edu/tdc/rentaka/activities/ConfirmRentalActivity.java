@@ -358,6 +358,7 @@ public class ConfirmRentalActivity extends AppCompatActivity {
                     bill.setTimeReturn(timeEnd);
                     bill.setStatus(new Status(0,"Chờ xác nhận", "Đợi chút xíu"));
                     billIdRef.setValue(bill);
+                    
                 }
 
                 //                            Intent intent = new Intent(ConfirmRentalActivity.this,  )

@@ -19,11 +19,11 @@ import androidx.core.view.WindowInsetsCompat;
 import vn.edu.tdc.rentaka.R;
 import vn.edu.tdc.rentaka.databinding.PaymentLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.RentalDetailLayoutBinding;
+import vn.edu.tdc.rentaka.models.Order;
 
 public class PaymentActivity extends AppCompatActivity {
 
     private PaymentLayoutBinding paymentBinding;
-    public boolean isButtonEnabled = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,22 +35,7 @@ public class PaymentActivity extends AppCompatActivity {
         paymentBinding.btnConfirmRental.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isButtonEnabled) {
-                    new AlertDialog.Builder(PaymentActivity.this)
-                            .setTitle("Button Disabled")
-                            .setMessage("This button is currently disabled.")
-                            .setPositiveButton(android.R.string.ok, null)
-                            .show();
-                    return;
 
-                } else {
-                    new AlertDialog.Builder(PaymentActivity.this)
-                            .setTitle("Button Enable")
-                            .setMessage("This button is currently disabled.")
-                            .setPositiveButton(android.R.string.ok, null)
-                            .show();
-                    return;
-                }
             }
         });
 
