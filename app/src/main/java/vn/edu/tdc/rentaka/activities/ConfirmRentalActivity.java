@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
 import vn.edu.tdc.rentaka.R;
@@ -32,6 +33,7 @@ import vn.edu.tdc.rentaka.databinding.ConfirmRentalOwnerLayoutBinding;
 import vn.edu.tdc.rentaka.databinding.RentalDetailLayoutBinding;
 import vn.edu.tdc.rentaka.models.Car;
 import vn.edu.tdc.rentaka.models.Date;
+import vn.edu.tdc.rentaka.models.Notification;
 import vn.edu.tdc.rentaka.models.Order;
 import vn.edu.tdc.rentaka.models.Status;
 import vn.edu.tdc.rentaka.models.UserModel;
@@ -54,6 +56,8 @@ public class ConfirmRentalActivity extends AppCompatActivity {
     private ArrayList<LocalDate> listDateChoose;
     private ArrayList<LocalDate> listDateBlocked;
 
+    private  Status ownerStatus;
+    private  Status customerStatus;
 
     private int totalDate = 0;
     private String ownerId;
@@ -300,6 +304,7 @@ public class ConfirmRentalActivity extends AppCompatActivity {
             binding.dateReturnedTextview.setText(timeEnd +", "+endDate);
             binding.rentalTotalDateTextview.setText(totalDate+"");
 
+            binding.mortgagedPropertyTextview.setText("Chủ xe yêu cầu thế chấp: "+car.getMortgage()+" VND");
             int finalAmount = totalDate * priceDaily;
             Log.d("cal", "onResume: "+priceDaily);
             Log.d("cal", "final: "+finalAmount);
@@ -317,7 +322,12 @@ public class ConfirmRentalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Boolean checked = false;
+                Log.d("aaaaa", "onClick: size " + listDateChoose.size());
                 if (listDateChoose.size() > 0){
+
+                    if (listDateBlocked.size() == 0){
+                        checked = true;
+                    }
                     // Check co chon ngay hop le khong
                     for (LocalDate dateBlock : listDateBlocked) {
                         if (listDateChoose.contains(dateBlock)) {
@@ -340,6 +350,7 @@ public class ConfirmRentalActivity extends AppCompatActivity {
                 }
                 // Khi nao true thi lam
                 if (checked){
+                    //Tao hoa don
                     Order bill = new Order();
                     DatabaseReference billCarRef = FirebaseDatabase.getInstance().getReference("bills").child(carId);
                     DatabaseReference billIdRef = billCarRef.push();
@@ -356,12 +367,85 @@ public class ConfirmRentalActivity extends AppCompatActivity {
                     bill.setDateCreated(new Date(cr));
                     bill.setTimePickup(timeStart);
                     bill.setTimeReturn(timeEnd);
+                    bill.setTotalDate(totalDate);
+                    bill.setTotalPay(Integer.parseInt(binding.finalAmountTextview.getText().toString()));
+                    Log.d("aaaaaa", "onClick: bill " + bill.getTotalPay());
+                    Log.d("aaaaaa", "onClick: " + binding.finalAmountTextview.getText().toString());
                     bill.setStatus(new Status(0,"Chờ xác nhận", "Đợi chút xíu"));
                     billIdRef.setValue(bill);
-                    
+
+
+                    //Tao thong bao
+                    //Lay ra
+                     ownerStatus = new Status();
+                     customerStatus = new Status();
+                    DatabaseReference ownerStatusRef = FirebaseDatabase.getInstance().getReference("statuses").child("owner");
+                    ownerStatusRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot snap: snapshot.getChildren()) {
+                                Status s = snap.getValue(Status.class);
+                                if (s.getId()==0) {
+                                    ownerStatus = s;
+                                }
+                                break;
+                            }
+                            DatabaseReference customerStatusRef = FirebaseDatabase.getInstance().getReference("statuses").child("customer");
+                            customerStatusRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    for (DataSnapshot snap: snapshot.getChildren()) {
+                                        Status s = snap.getValue(Status.class);
+                                        if (s.getId()==0) {
+                                            customerStatus = s;
+                                            break;
+                                        }
+
+                                    }
+                                    String ownerId = owner.getId();
+                                    String customerId = author.getId();
+                                    Log.d("useerrr", "onDataChange: "+ ownerId.toString());
+                                    Log.d("useerrr", "onDataChange: "+ customerId);
+
+                                    Notification notiOwner = new Notification();
+                                    Notification notiCustomer = new Notification();
+
+                                    DatabaseReference notiOwnerRef = FirebaseDatabase.getInstance().getReference("notifications").child(ownerId);
+                                    DatabaseReference notiOwnerId = notiOwnerRef.push();
+                                    notiOwner.setId(notiOwnerId.getKey());
+                                    notiOwner.setOrder(bill);
+                                    notiOwner.setStatus(ownerStatus);
+                                    notiOwner.setDateCreated(LocalDate.now().toString());
+                                    notiOwnerId.setValue(notiOwner);
+
+                                    DatabaseReference notiCusRef = FirebaseDatabase.getInstance().getReference("notifications").child(customerId);
+                                    DatabaseReference notiCusId = notiCusRef.push();
+                                    notiCustomer.setId(notiCusId.getKey());
+                                    notiCustomer.setOrder(bill);
+                                    notiCustomer.setStatus(customerStatus);
+                                    notiCustomer.setDateCreated(LocalDate.now().toString());
+                                    notiCusId.setValue(notiCustomer);
+                                    Intent intent1 = new Intent(ConfirmRentalActivity.this,MainActivity.class);
+                                    intent1.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                    startActivity(intent1);
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                 }
 
-                //                            Intent intent = new Intent(ConfirmRentalActivity.this,  )
             }
         });
 

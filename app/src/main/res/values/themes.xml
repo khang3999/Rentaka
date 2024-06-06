@@ -35,7 +35,7 @@
     </style>
 
     <style name="CustomConfirmButtonStyle" parent="Widget.MaterialComponents.Button">
-        <item name="backgroundTint">@null</item>
+        <item name="backgroundTint">@color/green</item>
         <item name="cornerRadius">8dp</item>
         <item name="iconPadding">8dp</item>
         <item name="iconTint">@color/green</item>

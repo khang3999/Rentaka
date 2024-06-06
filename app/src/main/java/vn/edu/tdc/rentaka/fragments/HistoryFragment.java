@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,13 +28,18 @@ import vn.edu.tdc.rentaka.adapters.NotificationAdapter;
 import vn.edu.tdc.rentaka.databinding.HistoryFragmentBinding;
 import vn.edu.tdc.rentaka.databinding.NotificationFragmentBinding;
 import vn.edu.tdc.rentaka.models.Notification;
+import vn.edu.tdc.rentaka.models.Order;
+import vn.edu.tdc.rentaka.models.UserModel;
 
 
 public class HistoryFragment extends AbstractFragment {
     private HistoryFragmentBinding binding;
     private Activity activity;
-    private ArrayList<Notification> listNotification;
+    private ArrayList<Order> listOrders;
     private HistoryAdapter historyAdapter;
+    private UserModel userModel;
+    private  UserModel customer;
+    private  Order order;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,26 +47,46 @@ public class HistoryFragment extends AbstractFragment {
         View fragment = null;
         fragment = binding.getRoot();
         activity = getActivity();
-        listNotification = new ArrayList<>();
-        historyAdapter = new HistoryAdapter(activity, listNotification);
+        listOrders = new ArrayList<>();
+        historyAdapter = new HistoryAdapter(activity, listOrders);
         binding.listHistory.setLayoutManager(new LinearLayoutManager(activity));
         binding.listHistory.setAdapter(historyAdapter);
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("notifications");
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user.getUid() != null) {
 
-            DatabaseReference notificationRef = databaseReference.child(user.getUid());
-            notificationRef.addValueEventListener(new ValueEventListener() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user.getUid()!=null){
+            DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
+            userReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    listNotification.clear();
-                    for (DataSnapshot datasnapshot : snapshot.getChildren()) {
-                        Notification notification = new Notification();
-                        notification = datasnapshot.getValue(Notification.class);
-                        listNotification.add(notification);
-                    }
-                    historyAdapter.notifyDataSetChanged();
+                   userModel = new UserModel();
+                   userModel  = snapshot.getValue(UserModel.class);
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("bills");
+                    databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot carIdSnap: snapshot.getChildren()) {
+                                for (DataSnapshot billIdSnap: carIdSnap.getChildren()) {
+                                    order = new Order();
+                                    order = billIdSnap.getValue(Order.class);
+                                    Log.d("userrrrr", "onDataChange: order "+ order);
+
+                                    customer = new UserModel();
+                                    customer = order.getCustomer();
+
+                                    if (customer.getId().equals(userModel.getId())){
+                                        listOrders.add(order);
+                                    }
+                                }
+                            }
+                            historyAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
 
                 @Override
@@ -68,7 +94,9 @@ public class HistoryFragment extends AbstractFragment {
 
                 }
             });
+
         }
+
     return fragment;
     }
 }

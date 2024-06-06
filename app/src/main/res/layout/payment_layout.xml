@@ -8,6 +8,15 @@
     android:padding="25dp"
     tools:context=".activities.PaymentActivity">
 
+    <ImageView
+        android:id="@+id/home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5dp"
+        android:src="@drawable/ic_home_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <View
         android:id="@+id/stroke_5"
         android:layout_width="match_parent"
@@ -27,28 +36,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/billID"
         style="@style/TitleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="Hình thức xe: "
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        app:layout_constraintEnd_toStartOf="@+id/tv_type_of_rental"
+        android:layout_marginStart="@dimen/_10dp"
+        android:textIsSelectable="true"
+        android:text="-NzfrzXvQrB0n9ODf-St1234"
+        app:layout_constraintBottom_toTopOf="@+id/tv_rental_price_per_day"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
         app:layout_constraintTop_toTopOf="@+id/imageView5" />
-
-    <TextView
-        android:id="@+id/tv_type_of_rental"
-        style="@style/TitleTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:text="Xe có tài"
-        app:layout_constraintBottom_toBottomOf="@+id/textView22"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView5"
-        app:layout_constraintTop_toTopOf="@+id/textView22" />
 
     <TextView
         android:id="@+id/tv_rental_price_per_day"
@@ -222,15 +219,30 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="15dp">
-
-            <TextView
-                style="@style/SmallTextGreyStyle"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Địa điểm giao xe" />
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_weight="4"
+                    style="@style/SmallTextGreyStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Địa điểm giao xe" />
+                <TextView
+                    android:id="@+id/idCar"
+                    android:textIsSelectable="true"
+                    android:layout_weight="6"
+                    style="@style/SmallTextGreyStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Địa điểm giao xe" />
+
+            </LinearLayout>
+
 
             <TextView
-                android:id="@+id/tv_location"
+                android:id="@+id/car_location"
                 style="@style/SmallTextBoldStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -254,37 +266,37 @@
         style="@style/SmallTextGreyStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Đơn giá thuê"
+        android:text="Tổng đơn hàng"
         app:layout_constraintBottom_toTopOf="@+id/textView26"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stroke_4" />
 
     <TextView
-        android:id="@+id/tv_rental_amount"
+        android:id="@+id/totalPayment"
         style="@style/SmallTextBoldStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="370.000d / ngày"
+        android:text="370.000 VND"
         app:layout_constraintBottom_toBottomOf="@+id/textView25"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView25" />
 
     <TextView
-        android:id="@+id/tv_service_amount"
+        android:id="@+id/deposit"
         style="@style/SmallTextBoldStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="370.000d / ngày"
+        android:text="74000 VND"
         app:layout_constraintBottom_toBottomOf="@+id/textView26"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView26" />
 
     <TextView
-        android:id="@+id/tx_insurance_amount"
+        android:id="@+id/totalDeposit"
         style="@style/SmallTextBoldStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="370.000d / ngày"
+        android:text="74000 VND"
         app:layout_constraintBottom_toBottomOf="@+id/textView27"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView27" />
@@ -316,7 +328,7 @@
         style="@style/SmallTextGreyStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Đơn giá phí dịch vụ"
+        android:text="Đặt cọc 20%"
         app:layout_constraintBottom_toTopOf="@+id/stroke_6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stroke_4" />
@@ -326,7 +338,7 @@
         style="@style/SmallTextGreyStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Phí bảo hiểm"
+        android:text="Tổng tiền cọc"
         app:layout_constraintBottom_toTopOf="@+id/stroke_6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView26" />
@@ -343,11 +355,11 @@
         app:layout_constraintTop_toBottomOf="@+id/stroke_5" />
 
     <TextView
-        android:id="@+id/tv_total_price"
+        android:id="@+id/totalDepositFinal"
         style="@style/TitleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="370.000d / ngày"
+        android:text="370.000 VND"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView31"
         app:layout_constraintEnd_toEndOf="parent"
@@ -355,15 +367,21 @@
 
     <Button
         android:id="@+id/btn_confirm_rental"
-        style="@style/CustomConfirmButtonStyle"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_selector"
-        android:text="Đặt xe"
+        android:backgroundTint="@color/green"
+        android:text="Đặt cọc xe"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/quantum_googred"
+        android:text="Huỷ"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline22"

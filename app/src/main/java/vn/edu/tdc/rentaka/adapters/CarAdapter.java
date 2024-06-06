@@ -198,6 +198,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
 
             // Chuyển chuỗi thành file hình
             String imageUrl = car.getImageCarUrl();
+            Log.d("image", "onBindViewHolder: image"+imageUrl);
             if (imageUrl != null && !imageUrl.isEmpty()) {
                 Glide.with(context)
                         .load(imageUrl)

@@ -21,11 +21,12 @@ import vn.edu.tdc.rentaka.databinding.CardNotiItemBinding;
 import vn.edu.tdc.rentaka.databinding.CardStatusItemLayoutBinding;
 import vn.edu.tdc.rentaka.models.Date;
 import vn.edu.tdc.rentaka.models.Notification;
+import vn.edu.tdc.rentaka.models.Order;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHolder> {
 
     private Context context;
-    private ArrayList<Notification> listNotifications;
+    private ArrayList<Order> listOrders;
     private HistoryAdapter.ItemClickListener itemClickListener;
     private DatabaseReference db;
 
@@ -33,9 +34,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         this.itemClickListener = itemClickListener;
     }
 
-    public HistoryAdapter(Context context, ArrayList<Notification> listNotifications) {
+    public HistoryAdapter(Context context, ArrayList<Order> listOrders) {
         this.context = context;
-        this.listNotifications = listNotifications;
+        this.listOrders = listOrders;
         this.db = FirebaseDatabase.getInstance().getReference();
     }
 
@@ -49,18 +50,18 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull HistoryAdapter.MyViewHolder holder, int position) {
         CardStatusItemLayoutBinding binding = (CardStatusItemLayoutBinding) holder.getBinding();
-        Notification notification = listNotifications.get(position);
+        Order order = listOrders.get(position);
 
-        binding.nameCar.setText(notification.getOrder().getCar().getBrand()+" "+notification.getOrder().getCar().getModel());
+        binding.nameCar.setText(order.getCar().getBrand()+" "+order.getCar().getModel());
         Date dateFrom = new Date();
-        dateFrom = notification.getOrder().getDateFrom();
+        dateFrom = order.getDateFrom();
         Date dateTo = new Date();
-        dateTo = notification.getOrder().getDateTo();
+        dateTo = order.getDateTo();
         Log.d("date", "onBindViewHolder: "+dateFrom);
-        binding.timeRent.setText(notification.getOrder().getTimePickup()+", "+dateFrom.toString()+" - "+notification.getOrder().getTimeReturn()+", "+dateTo.toString());
-        binding.status.setText(notification.getStatus().getTitle());
+        binding.timeRent.setText(order.getTimePickup()+" "+dateFrom.toString()+" - "+order.getTimeReturn()+" "+dateTo.toString());
+        binding.status.setText(order.getStatus().getTitle());
         // Chuyển chuỗi thành file hình
-        String imageUrl = notification.getOrder().getCar().getImageCarUrl();
+        String imageUrl = order.getCar().getImageCarUrl();
         if (imageUrl != null && !imageUrl.isEmpty()) {
             Glide.with(context)
                     .load(imageUrl)
@@ -74,7 +75,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
 
     @Override
     public int getItemCount() {
-        return listNotifications.size();
+        return listOrders.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

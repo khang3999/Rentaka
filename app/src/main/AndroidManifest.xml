@@ -112,6 +112,14 @@
             android:exported="true">
 
         </activity>
+        <activity
+            android:name=".activities.RequiredRentalActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".activities.ConfirmRentalByOwnerActivity"
+            android:exported="true">
+        </activity>
 
         <service android:name=".services.SMSHandlingService" />
 
