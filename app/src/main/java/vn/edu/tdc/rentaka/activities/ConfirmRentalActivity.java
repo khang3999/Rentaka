@@ -58,7 +58,7 @@ public class ConfirmRentalActivity extends AppCompatActivity {
 
     private  Status ownerStatus;
     private  Status customerStatus;
-
+    private int finalAmount;
     private int totalDate = 0;
     private String ownerId;
     private NumberFormat numberFormat = NumberFormat.getNumberInstance(new Locale("vi", "VN"));
@@ -182,13 +182,13 @@ public class ConfirmRentalActivity extends AppCompatActivity {
                                 priceDaily = car.getPriceDaily() + car.getSalaryDriver();
                             }
 
-                            int finalAmount = totalDate * priceDaily;
+                            finalAmount = totalDate * priceDaily;
 
-                            binding.finalAmountTextview.setText(finalAmount+"");
+                            binding.finalAmountTextview.setText(numberFormat.format(finalAmount));
                             int commission = (int) (finalAmount * 0.2);
 
-                            binding.depositThroughAppTextview.setText(commission+"");
-                            binding.payUponRetrievingCarTextview.setText(finalAmount-commission+"");
+                            binding.depositThroughAppTextview.setText(numberFormat.format(commission));
+                            binding.payUponRetrievingCarTextview.setText(numberFormat.format(finalAmount-commission));
                             binding.rentalPriceTextview.setText(numberFormat.format(priceDaily)+" / Ngày");
                         }
                     });
@@ -306,17 +306,17 @@ public class ConfirmRentalActivity extends AppCompatActivity {
             binding.dateReturnedTextview.setText(timeEnd +", "+endDate);
             binding.rentalTotalDateTextview.setText(totalDate+"");
 
-            binding.mortgagedPropertyTextview.setText("Chủ xe yêu cầu thế chấp: "+car.getMortgage()+" VND");
-            int finalAmount = totalDate * priceDaily;
+            binding.mortgagedPropertyTextview.setText("Chủ xe yêu cầu thế chấp: "+numberFormat.format(car.getMortgage())+" VND");
+            finalAmount = totalDate * priceDaily;
             Log.d("cal", "onResume: "+priceDaily);
             Log.d("cal", "final: "+finalAmount);
 
-            binding.finalAmountTextview.setText(finalAmount+"");
+            binding.finalAmountTextview.setText(numberFormat.format(finalAmount));
             int commission = (int) (finalAmount * 0.2);
             Log.d("cal", "commis: "+commission);
 
-            binding.depositThroughAppTextview.setText(commission+"");
-            binding.payUponRetrievingCarTextview.setText(finalAmount-commission+"");
+            binding.depositThroughAppTextview.setText(numberFormat.format(commission));
+            binding.payUponRetrievingCarTextview.setText(numberFormat.format(finalAmount-commission));
         }
 
         // Set create bill
@@ -370,7 +370,7 @@ public class ConfirmRentalActivity extends AppCompatActivity {
                     bill.setTimePickup(timeStart);
                     bill.setTimeReturn(timeEnd);
                     bill.setTotalDate(totalDate);
-                    bill.setTotalPay(Integer.parseInt(binding.finalAmountTextview.getText().toString()));
+                    bill.setTotalPay(finalAmount);
                     Log.d("aaaaaa", "onClick: bill " + bill.getTotalPay());
                     Log.d("aaaaaa", "onClick: " + binding.finalAmountTextview.getText().toString());
                     bill.setStatus(new Status(0,"Chờ xác nhận", "Đợi chút xíu"));
