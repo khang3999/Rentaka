@@ -34,6 +34,7 @@ import vn.edu.tdc.rentaka.models.Car;
 import vn.edu.tdc.rentaka.models.City;
 import vn.edu.tdc.rentaka.models.Date;
 import vn.edu.tdc.rentaka.models.Discount;
+import vn.edu.tdc.rentaka.models.Order;
 import vn.edu.tdc.rentaka.models.Rate;
 import vn.edu.tdc.rentaka.models.Service;
 import vn.edu.tdc.rentaka.models.Status;
@@ -58,10 +59,11 @@ public class RealTimeAPI {
         DatabaseReference billRef = mDatabase.child("bills").child(carId).child(billId);
 
         // Check if the bill reference exists
-        billRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        billRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
+                if (dataSnapshot.exists()&&dataSnapshot.getValue(Order.class).getStatus().getId()==1) {
+                    Log.d("aaaaaaa", "realtimeAPI: "+dataSnapshot.getValue(Order.class).getStatus().getId());
                     // Bill exists, proceed to update the status
                     DatabaseReference statusRef = billRef.child("status");
                     Status status = new Status(2, "Đã đặt cọc", "Đã được đặt cọc bởi khách thuê xe.");

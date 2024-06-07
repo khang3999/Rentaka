@@ -93,18 +93,19 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
         Log.d("status", "date local : " + LocalDate.now());
         if (order.getStatus().getId()==2 && order.getDateTo().toLocalDate().isEqual(LocalDate.now())){
             binding.btnDone.setVisibility(View.VISIBLE);
+            binding.btnDone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    updateBillAndCreateNotification(order, binding);
+
+
+
+                }
+            });
         }
 
-        binding.btnDone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                updateBillAndCreateNotification(order, binding);
-
-
-
-            }
-        });
 
     }
 
@@ -150,24 +151,25 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
     public void updateBillAndCreateNotification(Order order, ViewBinding viewBinding){
         //Cap nhat trang thai cho bill
         DatabaseReference billStatusRef = FirebaseDatabase.getInstance().getReference("statuses").child("bills");
-        billStatusRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        billStatusRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     Status s = snap.getValue(Status.class);
-
+                    billStatus = new Status();
                     if (s.getId() == 3) {
                         billStatus = s;
                         break;
                     }
-                    Log.d("status", "onDataChange: billStatus" + s);
+//                    Log.d("status", "onDataChange: billStatus" + s);
 
                 }
-                Log.d("status", "onDataChange: billStatus" + billStatus);
+                Log.d("status", "chua cap nhat: billStatus" + billStatus);
                 //Lay xong thi doi trang thai cho bill
                 DatabaseReference billRef = FirebaseDatabase.getInstance().getReference("bills").child(order.getCar().getId()).child(order.getId());
                 Map<String, Object> updates = new HashMap<>();
+                Log.d("status", "cap nhat: billStatus" + billStatus);
+
                 updates.put("status", billStatus);
                 billRef.updateChildren(updates)
                         .addOnSuccessListener(aVoid -> {

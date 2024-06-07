@@ -122,6 +122,7 @@ public class ConfirmRentalByOwnerActivity extends AppCompatActivity {
                     binding.commissionNumber.setText((int) (order.getTotalPay()*0.2)+"");
                     binding.moneyReceivedNumber.setText((int) (order.getTotalPay()*0.8)+"");
                     binding.methodReceived2Number.setText((int) (order.getTotalPay()*0.8)+"");
+                    binding.finalAmountNumber.setText(order.getTotalPay()+"");
 
                     //Vao lay status cuar bill treen firebase, kieems tra voi status cua notification
                     DatabaseReference billRef = FirebaseDatabase.getInstance().getReference("bills").child(car.getId()).child(order.getId());
