@@ -90,72 +90,74 @@ public class SMSHandlingService extends Service {
 
                         ownerStatus = new Status();
                         customerStatus = new Status();
-                        DatabaseReference ownerStatusRef = FirebaseDatabase.getInstance().getReference("statuses").child("owner");
-                        ownerStatusRef.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                for (DataSnapshot snap : snapshot.getChildren()) {
-                                    Status s = snap.getValue(Status.class);
-                                    if (s.getId() == 2) {
-                                        ownerStatus = s;
-                                        break;
+                        if (billOnFirebase.getStatus().getId()==2) {
+                            DatabaseReference ownerStatusRef = FirebaseDatabase.getInstance().getReference("statuses").child("owner");
+                            ownerStatusRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    for (DataSnapshot snap : snapshot.getChildren()) {
+                                        Status s = snap.getValue(Status.class);
+                                        if (s.getId() == 2) {
+                                            ownerStatus = s;
+                                            break;
+                                        }
+
                                     }
+                                    Log.d("status", "onDataChange: ownerStatus" + ownerStatus);
 
-                                }
-                                Log.d("status", "onDataChange: ownerStatus" + ownerStatus);
+                                    DatabaseReference customerStatusRef = FirebaseDatabase.getInstance().getReference("statuses").child("customer");
+                                    customerStatusRef.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            for (DataSnapshot snap : snapshot.getChildren()) {
+                                                Status s = snap.getValue(Status.class);
+                                                if (s.getId() == 2) {
+                                                    customerStatus = s;
+                                                    break;
+                                                }
 
-                                DatabaseReference customerStatusRef = FirebaseDatabase.getInstance().getReference("statuses").child("customer");
-                                customerStatusRef.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        for (DataSnapshot snap : snapshot.getChildren()) {
-                                            Status s = snap.getValue(Status.class);
-                                            if (s.getId() == 2) {
-                                                customerStatus = s;
-                                                break;
                                             }
+                                            Log.d("status", "onDataChange: cusStatus" + customerStatus);
+
+                                            String ownerId = billOnFirebase.getOwner().getId();
+                                            String customerId = billOnFirebase.getCustomer().getId();
+                                            Log.d("useerrr", "onDataChange: " + ownerId.toString());
+                                            Log.d("useerrr", "onDataChange: " + customerId);
+
+                                            Notification notiOwner = new Notification();
+                                            Notification notiCustomer = new Notification();
+
+                                            DatabaseReference notiOwnerRef = FirebaseDatabase.getInstance().getReference("notifications").child(ownerId);
+                                            DatabaseReference notiOwnerId = notiOwnerRef.push();
+                                            notiOwner.setId(notiOwnerId.getKey());
+                                            notiOwner.setOrder(billOnFirebase);
+                                            notiOwner.setStatus(ownerStatus);
+                                            notiOwner.setDateCreated(LocalDate.now().toString());
+                                            notiOwnerId.setValue(notiOwner);
+
+                                            DatabaseReference notiCusRef = FirebaseDatabase.getInstance().getReference("notifications").child(customerId);
+                                            DatabaseReference notiCusId = notiCusRef.push();
+                                            notiCustomer.setId(notiCusId.getKey());
+                                            notiCustomer.setOrder(billOnFirebase);
+                                            notiCustomer.setStatus(customerStatus);
+                                            notiCustomer.setDateCreated(LocalDate.now().toString());
+                                            notiCusId.setValue(notiCustomer);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
 
                                         }
-                                        Log.d("status", "onDataChange: cusStatus" + customerStatus);
+                                    });
 
-                                        String ownerId = billOnFirebase.getOwner().getId();
-                                        String customerId = billOnFirebase.getCustomer().getId();
-                                        Log.d("useerrr", "onDataChange: " + ownerId.toString());
-                                        Log.d("useerrr", "onDataChange: " + customerId);
+                                }
 
-                                        Notification notiOwner = new Notification();
-                                        Notification notiCustomer = new Notification();
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
 
-                                        DatabaseReference notiOwnerRef = FirebaseDatabase.getInstance().getReference("notifications").child(ownerId);
-                                        DatabaseReference notiOwnerId = notiOwnerRef.push();
-                                        notiOwner.setId(notiOwnerId.getKey());
-                                        notiOwner.setOrder(billOnFirebase);
-                                        notiOwner.setStatus(ownerStatus);
-                                        notiOwner.setDateCreated(LocalDate.now().toString());
-                                        notiOwnerId.setValue(notiOwner);
-
-                                        DatabaseReference notiCusRef = FirebaseDatabase.getInstance().getReference("notifications").child(customerId);
-                                        DatabaseReference notiCusId = notiCusRef.push();
-                                        notiCustomer.setId(notiCusId.getKey());
-                                        notiCustomer.setOrder(billOnFirebase);
-                                        notiCustomer.setStatus(customerStatus);
-                                        notiCustomer.setDateCreated(LocalDate.now().toString());
-                                        notiCusId.setValue(notiCustomer);
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
+                                }
+                            });
+                        }
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {

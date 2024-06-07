@@ -67,6 +67,7 @@ public class HistoryFragment extends AbstractFragment {
                     databaseReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            listOrders.clear();
                             for (DataSnapshot carIdSnap: snapshot.getChildren()) {
                                 for (DataSnapshot billIdSnap: carIdSnap.getChildren()) {
                                     order = new Order();
